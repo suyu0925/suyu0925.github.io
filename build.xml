@@ -142,7 +142,8 @@
                 <file name="src/resource.js"/>
                 <file name="src/gamescene.js"/>
                 <file name="src/gamelayer.js"/>
-                <file name="WeixinApi.js"/>
+                <file name="src/weixin/WeixinApi.js"/>
+                <file name="src/weixin/weixindata.js"/>
                 <file name="main.js"/>
 
             </sources>
