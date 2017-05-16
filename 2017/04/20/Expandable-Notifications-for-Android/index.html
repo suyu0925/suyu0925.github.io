@@ -1,0 +1,894 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,computer science," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="搬运自codeversed 可扩展通知Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。 NotificationManager安卓的通知是通过Notification类来创建的。在使用它之前需要先使用正确的Context来获得NotificationManager">
+<meta name="keywords" content="android,computer science">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android的可展开式通知">
+<meta property="og:url" content="http://tasty.pub/2017/04/20/Expandable-Notifications-for-Android/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="搬运自codeversed 可扩展通知Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。 NotificationManager安卓的通知是通过Notification类来创建的。在使用它之前需要先使用正确的Context来获得NotificationManager">
+<meta property="og:image" content="http://tasty.pub/2017/04/20/Expandable-Notifications-for-Android/normal_notification.png">
+<meta property="og:image" content="http://tasty.pub/2017/04/20/Expandable-Notifications-for-Android/expanded_notification.png">
+<meta property="og:image" content="http://tasty.pub/2017/04/20/Expandable-Notifications-for-Android/customer_notification.png">
+<meta property="og:updated_time" content="2017-04-21T07:32:19.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android的可展开式通知">
+<meta name="twitter:description" content="搬运自codeversed 可扩展通知Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。 NotificationManager安卓的通知是通过Notification类来创建的。在使用它之前需要先使用正确的Context来获得NotificationManager">
+<meta name="twitter:image" content="http://tasty.pub/2017/04/20/Expandable-Notifications-for-Android/normal_notification.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://tasty.pub/2017/04/20/Expandable-Notifications-for-Android/"/>
+
+
+
+
+
+  <title> Android的可展开式通知 | Tasty Pub </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tasty Pub</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://tasty.pub/2017/04/20/Expandable-Notifications-for-Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android的可展开式通知
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T19:49:48+08:00">
+                2017-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/computer-science/" itemprop="url" rel="index">
+                    <span itemprop="name">computer science</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/04/20/Expandable-Notifications-for-Android/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/04/20/Expandable-Notifications-for-Android/" class="leancloud_visitors" data-flag-title="Android的可展开式通知">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://codeversed.com/expandable-notifications-android/" target="_blank" rel="external">搬运自codeversed</a></p>
+<h2 id="可扩展通知"><a href="#可扩展通知" class="headerlink" title="可扩展通知"></a>可扩展通知</h2><p>Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。</p>
+<h3 id="NotificationManager"><a href="#NotificationManager" class="headerlink" title="NotificationManager"></a>NotificationManager</h3><p>安卓的通知是通过Notification类来创建的。在使用它之前需要先使用正确的Context来获得NotificationManager，Context由使用场景决定，可以是activity，也可以是service。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</div></pre></td></tr></table></figure>
+<h3 id="Builder相关类"><a href="#Builder相关类" class="headerlink" title="Builder相关类"></a>Builder相关类</h3><p><strong>Notification.Builder</strong> – 这个类在Android 3.0 Honeycomb [API 11]被添加。所以如果想支持更老的安卓版本，得换成老掉牙的NotificationCompact。</p>
+<p><strong>NotificationCompat.Builder</strong> – 这个类在<a href="http://developer.android.com/tools/support-library/index.html" target="_blank" rel="external">Support Library</a> v4中被定义(适配Android 1.6+)。</p>
+<p>NotificationCompact.Builder像其它builder类一样，提供了创建Notification对象的接口。可以使用PendingIntent来指定点击后的intent行为。PendingIntent就像一个token，用SetCotentIntent方法来传给builder。如果需要一些额外的行为，比如收到邮件通知后想直接回复，可以通过builder的addAction方法来添加三个额外的行为。一旦你完成了Notification的构建，下一步你会看到它是如何被调用的。</p>
+<p>为了正确的处理交叉进程，我们可以考虑使用Android Support Library v4中的<a href="http://developer.android.com/reference/android/support/v4/app/TaskStackBuilder.html" target="_blank" rel="external">TaskStackBuilder</a>类。</p>
+<h3 id="Notification-views"><a href="#Notification-views" class="headerlink" title="Notification views"></a>Notification views</h3><p>Normal View – A notification in normal view appears in an area that’s up to 64 dp tall. Even if you create a notification with a big view style, it will appear in normal view until it’s expanded.</p>
+<pre><code>1. Content title
+2. Large icon
+3. Content text
+4. Content info
+5. Small icon
+6. Notification time
+</code></pre><p>Big View – A notification’s big view appears only when the notification is expanded, which happens when the notification is at the top of the notification drawer, or when the user expands the notification with a gesture.  Expanded notifications were first introduced in Android 4.1 JellyBean [API 16].  Expandable notifications were designed to support rich notification style objects called Notification.Style.</p>
+<pre><code>7. Details area
+</code></pre><h3 id="Creating-Notifications"><a href="#Creating-Notifications" class="headerlink" title="Creating Notifications"></a>Creating Notifications</h3><h4 id="Normal-View"><a href="#Normal-View" class="headerlink" title="Normal View"></a>Normal View</h4><p>One point to remember is that all notification objects, including a Normal View, are required to have a small icon, a title, and detail text.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></div><div class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</div><div class="line"> </div><div class="line"><span class="comment">// This ensures that the back button follows the recommended</span></div><div class="line"><span class="comment">// convention for the back key.</span></div><div class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</div><div class="line"> </div><div class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></div><div class="line">stackBuilder.addParentStack(ResultActivity.class);</div><div class="line"> </div><div class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack</span></div><div class="line">stackBuilder.addNextIntent(resultIntent);</div><div class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</div><div class="line">         <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</div><div class="line"> </div><div class="line"><span class="comment">// Create the final Notification object.</span></div><div class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</div><div class="line">        .setSmallIcon(R.drawable.ic_launcher)</div><div class="line">        .setAutoCancel(<span class="keyword">true</span>)</div><div class="line">        .setLargeIcon(remote_picture)</div><div class="line">        .setContentIntent(resultPendingIntent)</div><div class="line">        .setContentTitle(<span class="string">"Normal Notification"</span>)</div><div class="line">        .setContentText(<span class="string">"This is an example of a Normal Style."</span>).build();</div></pre></td></tr></table></figure>
+<img src="/2017/04/20/Expandable-Notifications-for-Android/normal_notification.png" alt="Normal Notification" title="Normal Notification">
+<h4 id="Big-View"><a href="#Big-View" class="headerlink" title="Big View"></a>Big View</h4><p>You will use this style the most when setting up expandable notifications.  This Notification.Style class contains three direct subclasses which are:</p>
+<p>Big Text Style – Displays a large text block to show the user more details on the item at hand.<br>Big Picture Style – Displays a bitmap up to 256 dp tall similar to a screenshot notification.<br>Inbox Style – Displays rows of text like a listView similar to the Gmail notification for multiple emails.<br>To apply a rich notification style to the notification, you first need to create the style object itself.  For this example I am showing you the BigPictureStyle subclass.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">Bitmap remote_picture = <span class="keyword">null</span>;</div><div class="line"> </div><div class="line"><span class="comment">// Create the style object with BigPictureStyle subclass.</span></div><div class="line">NotificationCompat.BigPictureStyle notiStyle = <span class="keyword">new</span> </div><div class="line">        NotificationCompat.BigPictureStyle();</div><div class="line">notiStyle.setBigContentTitle(<span class="string">"Big Picture Expanded"</span>);</div><div class="line">notiStyle.setSummaryText(<span class="string">"Nice big picture."</span>);</div><div class="line"> </div><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">        remote_picture = BitmapFactory.decodeStream(</div><div class="line">                (InputStream) <span class="keyword">new</span> URL(sample_url).getContent());</div><div class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">        e.printStackTrace();</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="comment">// Add the big picture to the style.</span></div><div class="line">notiStyle.bigPicture(remote_picture);</div><div class="line"> </div><div class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></div><div class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</div><div class="line"> </div><div class="line"><span class="comment">// This ensures that the back button follows the recommended </span></div><div class="line"><span class="comment">// convention for the back key.</span></div><div class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</div><div class="line"> </div><div class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself).</span></div><div class="line">stackBuilder.addParentStack(ResultActivity.class);</div><div class="line"> </div><div class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></div><div class="line">stackBuilder.addNextIntent(resultIntent);</div><div class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</div><div class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</div><div class="line"> </div><div class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</div><div class="line">        .setSmallIcon(R.drawable.ic_launcher)</div><div class="line">        .setAutoCancel(<span class="keyword">true</span>)</div><div class="line">        .setLargeIcon(remote_picture)</div><div class="line">        .setContentIntent(resultPendingIntent)</div><div class="line">        .setContentTitle(<span class="string">"Big Picture Normal"</span>)</div><div class="line">        .setContentText(<span class="string">"This is an example of a Big Picture Style."</span>)</div><div class="line">        .setStyle(notiStyle).build();</div></pre></td></tr></table></figure>
+<img src="/2017/04/20/Expandable-Notifications-for-Android/expanded_notification.png" alt="Expanded Notification" title="Expanded Notification">
+<h4 id="Custom-View"><a href="#Custom-View" class="headerlink" title="Custom View"></a>Custom View</h4><p>So what if the rich notification styles don’t provide you with the layout you need?  Easy, just create your own layout and pass it to the builder.  One little fact to retain is that notifications use remote views, which means you need to create a layout using a RemoteView.  Below is exactly how you would need to create this custom RemoteView.  When using a custom view, it will still function like the other expandable notifications we talked about.</p>
+<p>First you need to create your layout file, here is one for an example.</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">                <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></div><div class="line">                <span class="attr">android:background</span>=<span class="string">"#545454"</span> </div><div class="line">                <span class="attr">android:gravity</span>=<span class="string">"center_horizontal"</span>&gt;</div><div class="line"> </div><div class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:background</span>=<span class="string">"@drawable/codeversed_logo"</span></div><div class="line">            <span class="attr">android:contentDescription</span>=<span class="string">"@string/codeversed_logo"</span>/&gt;</div><div class="line"> </div><div class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>/&gt;</div><div class="line"> </div><div class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>Next create the RemoteView that uses your custom layout and apply it RemoteView using bigContentView.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></div><div class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</div><div class="line"> </div><div class="line"><span class="comment">// This ensures that the back button follows the recommended</span></div><div class="line"><span class="comment">// convention for the back key.</span></div><div class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</div><div class="line"> </div><div class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></div><div class="line">stackBuilder.addParentStack(ResultActivity.class);</div><div class="line"> </div><div class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></div><div class="line">stackBuilder.addNextIntent(resultIntent);</div><div class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</div><div class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</div><div class="line"> </div><div class="line"><span class="comment">// Create remote view and set bigContentView.</span></div><div class="line">RemoteViews expandedView = <span class="keyword">new</span> RemoteViews(<span class="keyword">this</span>.getPackageName(), </div><div class="line">        R.layout.notification_custom_remote);</div><div class="line">expandedView.setTextViewText(R.id.text_view, <span class="string">"Neat logo!"</span>);</div><div class="line"> </div><div class="line">Notification notification = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</div><div class="line">        .setSmallIcon(R.drawable.ic_launcher)</div><div class="line">        .setAutoCancel(<span class="keyword">true</span>)</div><div class="line">        .setContentIntent(resultPendingIntent)</div><div class="line">        .setContentTitle(<span class="string">"Custom View"</span>).build();</div><div class="line"> </div><div class="line">notification.bigContentView = expandedView;</div></pre></td></tr></table></figure>
+<img src="/2017/04/20/Expandable-Notifications-for-Android/customer_notification.png" alt="Customer Notification" title="Customer Notification">
+<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><p><a href="https://github.com/srafx/Notifications" target="_blank" rel="external">示例代码</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/computer-science/" rel="tag"># computer science</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/21/why-relu/" rel="next" title="为什么使用 ReLU">
+                <i class="fa fa-chevron-left"></i> 为什么使用 ReLU
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/19/install-latest-git-on-linux/" rel="prev" title="在linux上安装最新版本的Git">
+                在linux上安装最新版本的Git <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126"
+               alt="lckof" />
+          <p class="site-author-name" itemprop="name">lckof</p>
+           
+              <p class="site-description motion-element" itemprop="description">啊咧</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#可扩展通知"><span class="nav-number">1.</span> <span class="nav-text">可扩展通知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NotificationManager"><span class="nav-number">1.1.</span> <span class="nav-text">NotificationManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Builder相关类"><span class="nav-number">1.2.</span> <span class="nav-text">Builder相关类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Notification-views"><span class="nav-number">1.3.</span> <span class="nav-text">Notification views</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-Notifications"><span class="nav-number">1.4.</span> <span class="nav-text">Creating Notifications</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normal-View"><span class="nav-number">1.4.1.</span> <span class="nav-text">Normal View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Big-View"><span class="nav-number">1.4.2.</span> <span class="nav-text">Big View</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Custom-View"><span class="nav-number">1.4.3.</span> <span class="nav-text">Custom View</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Source-Code"><span class="nav-number">2.</span> <span class="nav-text">Source Code</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "159ebac2036342c18b480618d384a6a0",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("0kuxCd2QbBgrns4KJoXSfJXK-gzGzoHsz", "MebeiURxYqtQ9QIy78BmoNUC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
