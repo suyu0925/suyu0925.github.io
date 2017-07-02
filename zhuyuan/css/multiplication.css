@@ -1,0 +1,25 @@
+html {
+    width: 297mm;
+    /*height: 210mm;*/
+    /* to centre page on screen*/
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    font-family: 微软雅黑;
+}
+
+.table th {
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+}
+
+@media print {
+    @page {
+        size: landscape;
+    }
+}
