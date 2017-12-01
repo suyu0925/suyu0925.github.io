@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>voice game</title>
+		<link href = "voice.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="app">
+			<div class="app-container">
+				<div class="container">
+					<div id="jgame" class="game-container" style="display:none;">
+						<div id= "player" class = "player" style = "bottom: 250px;">
+							<img id = "jplayerimg" src="1.png">
+						</div>
+						<div class="game-main-window">
+							<div id="jblockwrapper" class = "game-wrapper" style ="">
+								<div id="block0" class="block" style = "height:50%;width:500px;margin-left:0px;"></div>
+							</div>
+						</div>
+						<div class="notice">
+							<div id="jtime" class = "time">TIMES:0.0</div>
+						</div>
+						<div class="stop">
+							<div id="jback" class="btn">BACK</div>
+						</div>
+						<div id="jovermask" class="over-mask" style="opacity:0;">
+						</div>
+						
+					</div>
+					<div id = "jmenu" class="game-container" style="">
+						<h1 class="desc">八分音符 HTML5 版本</h1>
+						<div id = "jstartbtn" class="btn">开始游戏</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/javascript" src = "jquery-1.9.1.js"></script>
+		
+		
+		<script>
+
+			
+//voice media device -------------------------------------------------------------------------------------
+			var navigator = window.navigator;
+				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia ||navigator.mediaDevices.getUserMedia;
+			var AudioContext = window.AudioContext || window.webkitAudioContext;
+			var isSupport = !!(navigator.getUserMedia && AudioContext);
+			var context = isSupport && new AudioContext();
+			var analyser;
+			startMedia:function startMedia()
+			{
+				return new Promise(function(resolve,reject)
+				{
+					navigator.getUserMedia(
+					{ audio: true }, 
+					function (stream) 
+					{
+						var source = context.createMediaStreamSource(stream);
+						var analyser = context.createAnalyser();
+						source.connect(analyser);
+						analyser.fftSize = 2048;
+						resolve(analyser);						
+					},	
+					function(){reject()}				
+					);	
+				});				
+			}
+			
+			getVoiceSize: function getVoiceSize(analyser) 
+			{
+				if(analyser)
+				{
+					var dataArray = new Uint8Array(analyser.frequencyBinCount);
+					analyser.getByteFrequencyData(dataArray);
+					var data = dataArray.slice(100, 1000);
+
+//					console.log("data[100]  = " +data[0]);
+					var sum = data.reduce(function (x, y) 
+					{
+						return x + y;
+					}); 
+					return sum;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+		  
+			voice: function voice() 
+			{
+				return parseInt(voiceSize / sensitivity);
+			}
+			
+			startGetVoiceSize:function startGetVoiceSize()
+		    {
+//				console.log("start get voice size");
+				this.timer = setTimeout(function()
+				{
+					voiceSize = getVoiceSize(analyser);					
+					voiceChanged();
+					update();
+					startGetVoiceSize();
+					
+				},5);
+		    }		  
+			stopGetVoiceSize: function stopGetVoiceSize() 
+			{
+				clearTimeout(this.timer);
+			}
+// global vars	-----------------------------------------------------	  
+			isStart =false;
+			startTime = 0;
+			blockPosition = 0;
+			currentNodeIndex = 0;
+			playerBottom = 300;
+			autoDown = false;
+			jumpTimes = 0;
+			imgType = 1;
+			gameOverOpacity = 0;
+			voiceSize = 0;
+			sensitivity = 1000;
+			currentTime = 0;
+			blocks = new Array(51);
+			
+//game logic-------------------------------------------------------
+			function start()
+			{			  
+				sensitivity = 1000;
+				voiceSize = 0;
+				isStart = true;
+				startTime = Date.now();
+				document.getElementById("player").style.bottom = playerBottom +'px';
+				//$("#player").show();
+				flushGameTime =setInterval(function () 
+				{
+					currentTime = Date.now();
+				}, 20);
+				if(!analyser)
+				{
+                    startMedia().then(function(a)
+                    {
+                        analyser =a;
+                        console.log("then,analyser   " +analyser);;
+                        gameStart();
+                    });
+				}
+				else
+				{
+				    gameStart();
+				}
+
+				
+				
+			}
+			function update()
+			{
+				if(isStart)
+				{
+					$("#jtime").html("Times:" + (currentTime - startTime)/1000);
+					document.getElementById("player").style.bottom = playerBottom +'px';
+/*
+					if(voice() > 3)
+					{
+						blockPosition ++;
+						var xoffset = -blockPosition;
+						$('#jblockwrapper').css("transform","translate("+xoffset+"px,0px)");
+					}*/
+					if(playerBottom <=-90)
+					{
+						gameOver();
+					}
+					
+				}
+			}	
+			
+			function createBlocks()
+			{
+
+				blocks[0]="block0";
+				console.log("blocks[0].offsetleft  ="+blocks[0]);
+				
+				for (var i = 1; i < 51; i++) 
+				{
+					var random = parseInt(Math.random() * 1000);
+					var height = (random % 3 + 3) * 10;
+					var width = (random % 5 + 2) * 40;
+					var marginLeft = (random % 2 + 1.5) * 40;
+					
+					
+					var createDiv=document.createElement("div");
+					createDiv.class="block";
+					createDiv.id = "block" +i;
+					createDiv.style.background="black"; 					
+					createDiv.style.width=width +'px';
+					createDiv.style.height=height+'%'; 
+					createDiv.style.marginLeft  = marginLeft +'px';
+					document.getElementById("jblockwrapper").appendChild(createDiv);
+					blocks[i] = createDiv.id;
+					
+					console.log("blocks[i].offsetleft  ="+blocks[i]);
+					
+				}
+			}
+//computed-----------------------
+			function currentNode()
+			{
+				return document.getElementById(blocks[currentNodeIndex]);
+			}
+			function nodeStartPosition()
+			{
+			    var val = currentNode().offsetLeft
+				return val;
+			}
+			function nodeEndPosition()
+			{
+				return nodeStartPosition() + currentNode().offsetWidth;
+			}
+			function playerEL()
+			{
+				return document.getElementById("player");
+			}
+			function playerStartPosition()
+			{
+				return playerEL().offsetLeft + blockPosition;
+			}
+			function playerEndPosition()
+			{
+				return playerStartPosition() + playerEL().clientWidth;
+			}
+			function currentNodeHeight()
+			{
+				return currentNode().clientHeight;
+			}
+			function onBlock()
+			{
+				if(playerStartPosition() < nodeEndPosition() && playerEndPosition() > nodeStartPosition())
+				{
+					return true;
+				}
+				return false;
+			}
+			function inBlock()
+			{
+				return onBlock() && playerBottom == currentNodeHeight();
+			}
+//methods -----------------------------------
+			function stopAutoDown()
+			{
+				clearInterval(autoDown);
+				autoDown = '';
+			}
+			function playerAutoDown()
+			{
+				if(!autoDown)
+				{
+					autoDown = setInterval(function()
+					{
+						if(onBlock() && playerBottom<=currentNodeHeight())
+						{
+							playerBottom = currentNodeHeight();
+						}
+						else
+						{
+							playerBottom -= 1;
+						}
+					},10);
+				}
+			}
+			function jumpPlayer(height)
+			{
+				stopAutoDown();
+				playerBottom += height;
+				if(jumpTimes > 10)
+				{
+					jumpTimes = 0;
+					playerAutoDown();
+				}
+				else
+				{
+					jumpTimes++;
+				}
+			}
+			function currentNodeChanged()
+			{
+				if(playerStartPosition() > nodeEndPosition())
+				{
+					currentNodeIndex++;
+				}
+				if(!onBlock() && playerBottom < currentNodeHeight() && playerEndPosition() >=nodeStartPosition())
+				{
+					blockPosition--;
+                    var xoffset = -blockPosition;
+                    $('#jblockwrapper').css("transform","translate("+xoffset+"px,0px)");
+				}
+			}
+			function voiceChanged()
+			{
+//				console.log("voice =" + voice());
+				if(voice() >3)
+				{
+					blockPosition++;
+                    var xoffset = -blockPosition;
+                    $('#jblockwrapper').css("transform","translate("+xoffset+"px,0px)");
+					if(inBlock())
+					{
+						if(blockPosition%2 ==1)
+						{
+							document.getElementById("jplayerimg").src="1.png";
+						}
+						else
+						{
+							document.getElementById("jplayerimg").src="2.png";
+						}
+
+					}
+					currentNodeChanged();
+					if(inBlock() && voice() > 8 || jumpTimes)
+					{
+						jumpPlayer(parseInt(voice()/5));
+					}
+				}
+			}
+// game loop---------------
+			function gameStart()
+			{
+				startGetVoiceSize();
+				playerAutoDown();
+			}
+			function gameOver()
+			{
+                isStart = false;
+//				gameOverOpacity = 1;
+				document.getElementById("jovermask").style.opacity = 1;
+				setTimeout(function()
+				{
+					document.getElementById("jovermask").style.opacity = 0;
+					back();
+				},1200);
+			}
+			function back()
+			{
+				stopGetVoiceSize();
+				stopAutoDown();
+
+				blockPosition = 0;
+                var xoffset = -blockPosition;
+                $('#jblockwrapper').css("transform","translate("+xoffset+"px,0px)");
+				currentNodeIndex = 0;
+				playerBottom = 250;
+				$("#jgame").hide();
+				$("#jmenu").show();
+			}
+//  run game ------------------------------
+			
+				createBlocks();
+				$("#jstartbtn").click(function()
+				{
+					$("#jgame").show();
+					$("#jmenu").hide();
+					console.log("click");
+				
+					start();
+				});
+				$("#jback").click(function()
+				{
+					document.getElementById("jovermask").style.opacity = 1;
+					setTimeout(function()
+					{
+						document.getElementById("jovermask").style.opacity = 0;
+						back();
+					},1200);
+				});
+		  
+		  
+		</script>
+	</body>
+</html>
