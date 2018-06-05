@@ -74,7 +74,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,java," />
+  <meta name="keywords" content="computer science,weixin,hack," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="安装默认JRE/JDK最简单的安装方式就是安装默认的OpenJDK8。 123sudo apt-get updatesudo apt-get install default-jresudo apt-get install default-jdk 安装Oracle JDK如果要安装oracle java，那么官方默认源里是没有的，我们使用第三方源。 12sudo add-apt-repository">
-<meta name="keywords" content="linux,java">
+<meta name="description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。 原理解析利用微信开放给一些VIP厂商的跳转接口来实现。 比如京东就是一个大VIP。 获取ticket首先调用京东的请求接口来获取openlink。 http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;amp;rurl=ht">
+<meta name="keywords" content="computer science,weixin,hack">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何使用包管理在ubuntu16.04上安装java">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2018/01/21/install-java8-on-ubuntu-16-04/index.html">
+<meta property="og:title" content="从常规浏览器跳转至微信内部浏览器">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="安装默认JRE/JDK最简单的安装方式就是安装默认的OpenJDK8。 123sudo apt-get updatesudo apt-get install default-jresudo apt-get install default-jdk 安装Oracle JDK如果要安装oracle java，那么官方默认源里是没有的，我们使用第三方源。 12sudo add-apt-repository">
+<meta property="og:description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。 原理解析利用微信开放给一些VIP厂商的跳转接口来实现。 比如京东就是一个大VIP。 获取ticket首先调用京东的请求接口来获取openlink。 http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;amp;rurl=ht">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-21T04:19:59.897Z">
+<meta property="og:updated_time" content="2018-06-05T07:04:39.787Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何使用包管理在ubuntu16.04上安装java">
-<meta name="twitter:description" content="安装默认JRE/JDK最简单的安装方式就是安装默认的OpenJDK8。 123sudo apt-get updatesudo apt-get install default-jresudo apt-get install default-jdk 安装Oracle JDK如果要安装oracle java，那么官方默认源里是没有的，我们使用第三方源。 12sudo add-apt-repository">
+<meta name="twitter:title" content="从常规浏览器跳转至微信内部浏览器">
+<meta name="twitter:description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。 原理解析利用微信开放给一些VIP厂商的跳转接口来实现。 比如京东就是一个大VIP。 获取ticket首先调用京东的请求接口来获取openlink。 http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;amp;rurl=ht">
 
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://suyu0925.github.io/blog/2018/01/21/install-java8-on-ubuntu-16-04/"/>
+  <link rel="canonical" href="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/"/>
 
 
 
 
 
-  <title> 如何使用包管理在ubuntu16.04上安装java | Tasty Pub </title>
+  <title> 从常规浏览器跳转至微信内部浏览器 | Tasty Pub </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2018/01/21/install-java8-on-ubuntu-16-04/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2018/06/05/weixin-deeplink/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lckof">
@@ -285,7 +285,7 @@
             
             
               
-                如何使用包管理在ubuntu16.04上安装java
+                从常规浏览器跳转至微信内部浏览器
               
             
           </h1>
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T11:57:30+08:00">
-                2018-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T11:47:24+08:00">
+                2018-06-05
               </time>
             
 
@@ -330,6 +330,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/computer-science/weixin/" itemprop="url" rel="index">
+                    <span itemprop="name">weixin</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -341,7 +352,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/blog/2018/01/21/install-java8-on-ubuntu-16-04/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/blog/2018/06/05/weixin-deeplink/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -350,7 +361,7 @@
 
           
           
-             <span id="/blog/2018/01/21/install-java8-on-ubuntu-16-04/" class="leancloud_visitors" data-flag-title="如何使用包管理在ubuntu16.04上安装java">
+             <span id="/blog/2018/06/05/weixin-deeplink/" class="leancloud_visitors" data-flag-title="从常规浏览器跳转至微信内部浏览器">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -379,29 +390,27 @@
       
 
       
-        <h2 id="安装默认JRE-JDK"><a href="#安装默认JRE-JDK" class="headerlink" title="安装默认JRE/JDK"></a>安装默认JRE/JDK</h2><p>最简单的安装方式就是安装默认的OpenJDK8。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install default-jre</span><br><span class="line">sudo apt-get install default-jdk</span><br></pre></td></tr></table></figure>
-<h2 id="安装Oracle-JDK"><a href="#安装Oracle-JDK" class="headerlink" title="安装Oracle JDK"></a>安装Oracle JDK</h2><p>如果要安装oracle java，那么官方默认源里是没有的，我们使用第三方源。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/java</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<p>接下来就可以安装oracle jdk8或者jdk9<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java9-installer</span><br></pre></td></tr></table></figure>
-<h2 id="修改ppa"><a href="#修改ppa" class="headerlink" title="修改ppa"></a>修改ppa</h2><p>webupd8team的更新经常不及时，比如截止到目前2018-01-19，webupd8team/java上的java8仍然是144版本，但是oracle已经更改了链接，所以直接使用会提示404错误，找不到安装包，我们需要手动修改ppa。</p>
-<p>先将144升级到152<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line">sudo sed -i <span class="string">'s|JAVA_VERSION=8u144|JAVA_VERSION=8u152|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|SHA256SUM_TGZ="e8a341ce566f32c3d06f6d0f0eeea9a0f434f538d22af949ae58bc86f2eeaae4"|SHA256SUM_TGZ="218b3b340c3f6d05d940b817d0270dfe0cfd657a636bad074dcabe0c111961bf"|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|J_DIR=jdk1.8.0_144|J_DIR=jdk1.8.0_152|'</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure></p>
-<p>再将152升级到161<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line"></span><br><span class="line">sudo sed -i <span class="string">'s|JAVA_VERSION=8u151|JAVA_VERSION=8u161|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|SHA256SUM_TGZ="c78200ce409367b296ec39be4427f020e2c585470c4eed01021feada576f027f"|SHA256SUM_TGZ="6dbc56a0e3310b69e91bb64db63a485bd7b6a8083f08e48047276380a0e2021e"|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|J_DIR=jdk1.8.0_151|J_DIR=jdk1.8.0_161|'</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure></p>
-<p>接下来再次安装oracle-java8-installer就行了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure></p>
-<h2 id="管理java版本"><a href="#管理java版本" class="headerlink" title="管理java版本"></a>管理java版本</h2><p>如果希望多个java版本并存，就需要进行切换。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
-<p>以下是一个示例输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">There are 5 choices for the alternative java (providing /usr/bin/java).</span><br><span class="line"></span><br><span class="line">  Selection    Path                                            Priority   Status</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">* 0            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      auto mode</span><br><span class="line">  1            /usr/lib/jvm/java-6-oracle/jre/bin/java          1         manual mode</span><br><span class="line">  2            /usr/lib/jvm/java-7-oracle/jre/bin/java          2         manual mode</span><br><span class="line">  3            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode</span><br><span class="line">  4            /usr/lib/jvm/java-8-oracle/jre/bin/java          3         manual mode</span><br><span class="line">  5            /usr/lib/jvm/java-9-oracle/bin/java              4         manual mode</span><br><span class="line"></span><br><span class="line">Press &lt;enter&gt; to keep the current choice[*], or type selection number:</span><br></pre></td></tr></table></figure></p>
-<p>如果只有一个java版本，就会是这样的输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">There is only one alternative in link group java (providing /usr/bin/java): /usr/lib/jvm/java-8-oracle/jre/bin/java</span><br><span class="line">Nothing to configure.</span><br></pre></td></tr></table></figure></p>
-<p>接下来可以针对不同的<em>命令</em>来切换版本，典型的<em>命令</em>有javac, javadoc, jarsigner。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config <span class="variable">$command</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="设置环境变量JAVA-HOME"><a href="#设置环境变量JAVA-HOME" class="headerlink" title="设置环境变量JAVA_HOME"></a>设置环境变量JAVA_HOME</h2><p>很多应用都会使用$JAVA_HOME来调用java可执行文件，所以我们需要在安装完后设置$JAVA_HOME。</p>
-<p>首先找到当前使用的java环境目录。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure></p>
-<p>然后将找到的目录添加进环境变量。</p>
-<p>打开/etc/environment。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/environment</span><br></pre></td></tr></table></figure></p>
-<p>加入JAVA_HOME的设置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=&quot;/usr/lib/jvm/java-8-oracle&quot;</span><br></pre></td></tr></table></figure></p>
-<p>保存文件，并且加载它。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/environment</span><br></pre></td></tr></table></figure></p>
-<p>验证修改是否成功<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br></pre></td></tr></table></figure></p>
-<p>到此java8的安装就完成啦。</p>
+        <p>相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。</p>
+<h2 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h2><p>利用微信开放给一些VIP厂商的跳转接口来实现。</p>
+<p>比如京东就是一个大VIP。</p>
+<h3 id="获取ticket"><a href="#获取ticket" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先调用京东的请求接口来获取openlink。</p>
+<p><a href="http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123" target="_blank" rel="noopener">http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123</a></p>
+<p>请求之后的结果类似：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  getOpenLink(&#123;</span><br><span class="line">    <span class="string">"errcode"</span>: <span class="number">0</span>, </span><br><span class="line">    <span class="string">"openlink"</span>: <span class="string">"weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9"</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面的<code>weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9</code>就是微信跳转的deeplink了。</p>
+<h3 id="跳转至微信内部浏览器打开商户域名"><a href="#跳转至微信内部浏览器打开商户域名" class="headerlink" title="跳转至微信内部浏览器打开商户域名"></a>跳转至微信内部浏览器打开商户域名</h3><p>可以在js中运行重定向来进行跳转：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loaciton.href = <span class="string">"weixin://dl/business/?ticket=t7ac579f071faadbce4c31fca854b3e59"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>注意：这里的urlencode只支持类似wq.jd.com的域名。wq.jd.com是京东的微信/手Q微店。相信在微信的判断有域名和商户的绑定。</p>
+<h4 id="跳转至目标域名，完成目标"><a href="#跳转至目标域名，完成目标" class="headerlink" title="跳转至目标域名，完成目标"></a>跳转至目标域名，完成目标</h4><p>借助jd.com的域名来做跳转。</p>
+<p>比如京东微店的产品详情。</p>
+<p><a href="https://jos.jd.com/api/detail.htm?id=1744" target="_blank" rel="noopener">京东云宙斯的api</a></p>
+<p><a href="http://mjbbs.jd.com/thread-61877-1-1.html" target="_blank" rel="noopener">移动端链接转换详细说明</a></p>
+<p><a href="http://wqs.jd.com/weidian/index.shtml" target="_blank" rel="noopener">京东微店入口</a></p>
+<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p><a href="http://www.seoniao.com/" target="_blank" rel="noopener">微信跳转技术</a>这个网站在提供这项服务。</p>
+<p>我们来拆解下它的演示样例。</p>
+<h3 id="获取ticket-1"><a href="#获取ticket-1" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先它提供了一个<a href="http://hadaku.cn/jumpfinal/to2.php?token=wtPZxdAM2Z" target="_blank" rel="noopener">演示入口</a>，它会在服务器端获取一个ticket，然后在前端进行跳转。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="regexp">/(iPhone|iPad|iPod|iOS)/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/ baiduboxapp/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">'bdbox://utils?action=sendIntent&amp;minver=7.4&amp;params=%7B%22intent%22%3A%22weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610%23Intent%3Bend%22%7D'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">'weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">window</span>.location.replace(<span class="string">'weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"loading"</span>).style.display=<span class="string">"none"</span>;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"buttons"</span>).style.display=<span class="string">"table-cell"</span>;</span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="跳转至微信内部浏览器并打开合作商户网址"><a href="#跳转至微信内部浏览器并打开合作商户网址" class="headerlink" title="跳转至微信内部浏览器并打开合作商户网址"></a>跳转至微信内部浏览器并打开合作商户网址</h3><p>截此到本文录入(2018-06-05 15:02)时，<a href="http://www.seoniao.com/" target="_blank" rel="noopener">微信跳转技术</a>这个网站的功能已经被关闭了。</p>
+<p>前天还是可用的呢。暂地告一段落。</p>
 
       
     </div>
@@ -431,9 +440,11 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/linux/" rel="tag"># linux</a>
+            <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
           
-            <a href="/blog/tags/java/" rel="tag"># java</a>
+            <a href="/blog/tags/weixin/" rel="tag"># weixin</a>
+          
+            <a href="/blog/tags/hack/" rel="tag"># hack</a>
           
         </div>
       
@@ -446,8 +457,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/04/21/reset-the-trial-period-of-beyond-compare/" rel="next" title="重置beyond compare的试用期">
-                <i class="fa fa-chevron-left"></i> 重置beyond compare的试用期
+              <a href="/blog/2018/03/08/install-redis-on-ubuntu-16-04/" rel="next" title="在ubuntu16.04系统上安装redis">
+                <i class="fa fa-chevron-left"></i> 在ubuntu16.04系统上安装redis
               </a>
             
           </div>
@@ -455,10 +466,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/01/21/nginx-optimization/" rel="prev" title="nginx优化">
-                nginx优化 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -589,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装默认JRE-JDK"><span class="nav-number">1.</span> <span class="nav-text">安装默认JRE/JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Oracle-JDK"><span class="nav-number">2.</span> <span class="nav-text">安装Oracle JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改ppa"><span class="nav-number">3.</span> <span class="nav-text">修改ppa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理java版本"><span class="nav-number">4.</span> <span class="nav-text">管理java版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置环境变量JAVA-HOME"><span class="nav-number">5.</span> <span class="nav-text">设置环境变量JAVA_HOME</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理解析"><span class="nav-number">1.</span> <span class="nav-text">原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ticket"><span class="nav-number">1.1.</span> <span class="nav-text">获取ticket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转至微信内部浏览器打开商户域名"><span class="nav-number">1.2.</span> <span class="nav-text">跳转至微信内部浏览器打开商户域名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跳转至目标域名，完成目标"><span class="nav-number">1.2.1.</span> <span class="nav-text">跳转至目标域名，完成目标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个例子"><span class="nav-number">2.</span> <span class="nav-text">一个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ticket-1"><span class="nav-number">2.1.</span> <span class="nav-text">获取ticket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转至微信内部浏览器并打开合作商户网址"><span class="nav-number">2.2.</span> <span class="nav-text">跳转至微信内部浏览器并打开合作商户网址</span></a></li></ol></li></ol></div>
             
 
           </div>

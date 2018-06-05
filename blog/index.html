@@ -264,6 +264,459 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2018/06/05/weixin-deeplink/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/06/05/weixin-deeplink/" itemprop="url">
+                  从常规浏览器跳转至微信内部浏览器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T11:47:24+08:00">
+                2018-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
+                    <span itemprop="name">computer science</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/computer-science/weixin/" itemprop="url" rel="index">
+                    <span itemprop="name">weixin</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2018/06/05/weixin-deeplink/" class="leancloud_visitors" data-flag-title="从常规浏览器跳转至微信内部浏览器">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。</p>
+<h2 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h2><p>利用微信开放给一些VIP厂商的跳转接口来实现。</p>
+<p>比如京东就是一个大VIP。</p>
+<h3 id="获取ticket"><a href="#获取ticket" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先调用京东的请求接口来获取openlink。</p>
+<p><a href="http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123" target="_blank" rel="noopener">http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123</a></p>
+<p>请求之后的结果类似：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  getOpenLink(&#123;</span><br><span class="line">    <span class="string">"errcode"</span>: <span class="number">0</span>, </span><br><span class="line">    <span class="string">"openlink"</span>: <span class="string">"weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9"</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面的<code>weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9</code>就是微信跳转的deeplink了。</p>
+<h3 id="跳转至微信内部浏览器打开商户域名"><a href="#跳转至微信内部浏览器打开商户域名" class="headerlink" title="跳转至微信内部浏览器打开商户域名"></a>跳转至微信内部浏览器打开商户域名</h3><p>可以在js中运行重定向来进行跳转：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loaciton.href = <span class="string">"weixin://dl/business/?ticket=t7ac579f071faadbce4c31fca854b3e59"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>注意：这里的urlencode只支持类似wq.jd.com的域名。wq.jd.com是京东的微信/手Q微店。相信在微信的判断有域名和商户的绑定。</p>
+<h4 id="跳转至目标域名，完成目标"><a href="#跳转至目标域名，完成目标" class="headerlink" title="跳转至目标域名，完成目标"></a>跳转至目标域名，完成目标</h4><p>借助jd.com的域名来做跳转。</p>
+<p>比如京东微店的产品详情。</p>
+<p><a href="https://jos.jd.com/api/detail.htm?id=1744" target="_blank" rel="noopener">京东云宙斯的api</a></p>
+<p><a href="http://mjbbs.jd.com/thread-61877-1-1.html" target="_blank" rel="noopener">移动端链接转换详细说明</a></p>
+<p><a href="http://wqs.jd.com/weidian/index.shtml" target="_blank" rel="noopener">京东微店入口</a></p>
+<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p><a href="http://www.seoniao.com/" target="_blank" rel="noopener">微信跳转技术</a>这个网站在提供这项服务。</p>
+<p>我们来拆解下它的演示样例。</p>
+<h3 id="获取ticket-1"><a href="#获取ticket-1" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先它提供了一个<a href="http://hadaku.cn/jumpfinal/to2.php?token=wtPZxdAM2Z" target="_blank" rel="noopener">演示入口</a>，它会在服务器端获取一个ticket，然后在前端进行跳转。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="regexp">/(iPhone|iPad|iPod|iOS)/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/ baiduboxapp/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">'bdbox://utils?action=sendIntent&amp;minver=7.4&amp;params=%7B%22intent%22%3A%22weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610%23Intent%3Bend%22%7D'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">'weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">window</span>.location.replace(<span class="string">'weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"loading"</span>).style.display=<span class="string">"none"</span>;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"buttons"</span>).style.display=<span class="string">"table-cell"</span>;</span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="跳转至微信内部浏览器并打开合作商户网址"><a href="#跳转至微信内部浏览器并打开合作商户网址" class="headerlink" title="跳转至微信内部浏览器并打开合作商户网址"></a>跳转至微信内部浏览器并打开合作商户网址</h3><p>截此到本文录入(2018-06-05 15:02)时，<a href="http://www.seoniao.com/" target="_blank" rel="noopener">微信跳转技术</a>这个网站的功能已经被关闭了。</p>
+<p>前天还是可用的呢。暂地告一段落。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2018/03/08/install-redis-on-ubuntu-16-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/03/08/install-redis-on-ubuntu-16-04/" itemprop="url">
+                  在ubuntu16.04系统上安装redis
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T20:51:19+08:00">
+                2018-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2018/03/08/install-redis-on-ubuntu-16-04/" class="leancloud_visitors" data-flag-title="在ubuntu16.04系统上安装redis">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04" target="_blank" rel="noopener">请看这里</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2018/01/21/nginx-optimization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2018/01/21/nginx-optimization/" itemprop="url">
+                  nginx优化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T17:03:35+08:00">
+                2018-01-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2018/01/21/nginx-optimization/" class="leancloud_visitors" data-flag-title="nginx优化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><p><strong>worker_processes</strong></p>
+<p>进程数设置，通常和worker_cpu_affinity搭配使用。</p>
+<p>比如一个4核机器，设置为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker_processes    4;</span><br><span class="line">worker_cpu_affinity 0001 0010 0100 1000;</span><br></pre></td></tr></table></figure></p>
+<p>代表开4个进程，分别绑定CPU0-CPU3。</p>
+<p>worker_processes取值可以为auto，会自动设置为cpu个数。<br>worker_cpu_affinity取值也可以为auto，会自动分别绑定可用的cpu。也可以auto 01010101，表示分别绑定CPU1、CPU3、CPU5、CPU7。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2018/01/21/install-java8-on-ubuntu-16-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -552,8 +1005,9 @@
           
             <p>首先声明一点，拒绝使用盗版或破解版，并且也不要过于依赖重置试用期的trick。像这种好用经典又不贵的软件还是入个正版吧。<del>又不是Adobe，BC的标准版才30刀</del></p>
 <h3 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h3><p>删除Library/Application Support/Beyond Compare/registry.dat</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm ~/Library/Application\ Support/Beyond\ Compare/registry.dat</span><br></pre></td></tr></table></figure>
 <h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>在注册表中删除HKEY_USERS/xx/SOFTWARE/Scooter Software/Beyond Compare 4/CacheID</p>
-<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p>rm -rf ~/.beyondcompare</p>
+<h3 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.beyondcompare</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1333,7 +1787,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1344,7 +1798,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/blog/categories/index.html">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1355,7 +1809,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
