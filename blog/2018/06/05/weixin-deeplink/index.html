@@ -98,10 +98,17 @@
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。 原理解析利用微信开放给一些VIP厂商的跳转接口来实现。 比如京东就是一个大VIP。 获取ticket首先调用京东的请求接口来获取openlink。 http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;amp;rurl=ht">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-05T07:04:39.787Z">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/jd00.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/jd11.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/jd22.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/jd33.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/jd44.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/jd55.png">
+<meta property="og:updated_time" content="2019-02-24T13:22:15.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从常规浏览器跳转至微信内部浏览器">
 <meta name="twitter:description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。 原理解析利用微信开放给一些VIP厂商的跳转接口来实现。 比如京东就是一个大VIP。 获取ticket首先调用京东的请求接口来获取openlink。 http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;amp;rurl=ht">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/jd00.png">
 
 
 
@@ -400,17 +407,65 @@
 <p>这里面的<code>weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9</code>就是微信跳转的deeplink了。</p>
 <h3 id="跳转至微信内部浏览器打开商户域名"><a href="#跳转至微信内部浏览器打开商户域名" class="headerlink" title="跳转至微信内部浏览器打开商户域名"></a>跳转至微信内部浏览器打开商户域名</h3><p>可以在js中运行重定向来进行跳转：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loaciton.href = <span class="string">"weixin://dl/business/?ticket=t7ac579f071faadbce4c31fca854b3e59"</span>;</span><br></pre></td></tr></table></figure></p>
 <p>注意：这里的urlencode只支持类似wq.jd.com的域名。wq.jd.com是京东的微信/手Q微店。相信在微信的判断有域名和商户的绑定。</p>
-<h4 id="跳转至目标域名，完成目标"><a href="#跳转至目标域名，完成目标" class="headerlink" title="跳转至目标域名，完成目标"></a>跳转至目标域名，完成目标</h4><p>借助jd.com的域名来做跳转。</p>
+<h3 id="跳转至目标域名，完成目标"><a href="#跳转至目标域名，完成目标" class="headerlink" title="跳转至目标域名，完成目标"></a>跳转至目标域名，完成目标</h3><p>借助jd.com的域名来做跳转。</p>
 <p>比如京东微店的产品详情。</p>
 <p><a href="https://jos.jd.com/api/detail.htm?id=1744" target="_blank" rel="noopener">京东云宙斯的api</a></p>
 <p><a href="http://mjbbs.jd.com/thread-61877-1-1.html" target="_blank" rel="noopener">移动端链接转换详细说明</a></p>
 <p><a href="http://wqs.jd.com/weidian/index.shtml" target="_blank" rel="noopener">京东微店入口</a></p>
+<h2 id="可借助的域名"><a href="#可借助的域名" class="headerlink" title="可借助的域名"></a>可借助的域名</h2><a id="more"></a>
+<h3 id="京东商铺资讯模式"><a href="#京东商铺资讯模式" class="headerlink" title="京东商铺资讯模式"></a>京东商铺资讯模式</h3><p>未完成，待补充</p>
+<h3 id="京东达人平台模式"><a href="#京东达人平台模式" class="headerlink" title="京东达人平台模式"></a>京东达人平台模式</h3><ul>
+<li><p>首先<a href="http://dr.jd.com/" target="_blank" rel="noopener">申请一个账号</a>，可以是个人地址</p>
+</li>
+<li><p>然后登陆选择“文章”栏目发布</p>
+</li>
+<li><p>获取文章地址教程 </p>
+<img src="/blog/2018/06/05/weixin-deeplink/jd00.png" title="获取文章地址教程">
+</li>
+</ul>
+<h3 id="微信游戏圈话题模式"><a href="#微信游戏圈话题模式" class="headerlink" title="微信游戏圈话题模式"></a>微信游戏圈话题模式</h3><ul>
+<li><p><a href="https://game.weixin.qq.com/cgi-bin/h5/static/club/html/toggle.html?jsapi=1&amp;appid=wx687f4629ba7c3086&amp;uin=&amp;key=&amp;_a=1#wechat_redirect" target="_blank" rel="noopener">微信打开游戏圈</a></p>
+</li>
+<li><p>选择一个话题打开</p>
+</li>
+<li><p>发表话题，上传二维码</p>
+</li>
+<li><p>右上角的三个圆点，分享好友</p>
+</li>
+<li><p>然后去PC微信客户短打开链接复制即可</p>
+</li>
+</ul>
+<h3 id="京东任意图片模式（支持动图）"><a href="#京东任意图片模式（支持动图）" class="headerlink" title="京东任意图片模式（支持动图）"></a>京东任意图片模式（支持动图）</h3><p><strong>在京东图片制作自己的落地页</strong></p>
+<ol>
+<li><p>打开这个地址<code>http://mjbbs.jd.com/forum.php?mod=forumdisplay&amp;fid=137</code></p>
+</li>
+<li><p>随便点开一个帖子</p>
+<img src="/blog/2018/06/05/weixin-deeplink/jd11.png" title="京东帖子">
+</li>
+<li><p>点击左上方回复按钮</p>
+<img src="/blog/2018/06/05/weixin-deeplink/jd22.png" title="京东帖子">
+</li>
+<li><p>点击高级模式按钮</p>
+<img src="/blog/2018/06/05/weixin-deeplink/jd33.png" title="京东帖子">
+</li>
+<li><p>按步骤上传图片，并且插入进去，点击回复主题</p>
+<img src="/blog/2018/06/05/weixin-deeplink/jd44.png" title="京东帖子">
+</li>
+<li><p>找到你回复的内容，右键提取图片链接</p>
+<img src="/blog/2018/06/05/weixin-deeplink/jd55.png" title="京东帖子">
+</li>
+<li><p>你已经得到一个京东达人的图片链接了</p>
+<p><a href="http://mjbbs.jd.com/data/attachment/forum/201806/11/170212ym070jwqphzawbrd.jpg" target="_blank" rel="noopener">例子</a></p>
+</li>
+</ol>
 <h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p><a href="http://www.seoniao.com/" target="_blank" rel="noopener">微信跳转技术</a>这个网站在提供这项服务。</p>
+<p><a href="weixin://dl/business/?ticket=t259174b0bd1abfc5e0c16a6515f7a9af#wechat_redirect" target="_blank" rel="noopener">跳转链接示例</a></p>
 <p>我们来拆解下它的演示样例。</p>
 <h3 id="获取ticket-1"><a href="#获取ticket-1" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先它提供了一个<a href="http://hadaku.cn/jumpfinal/to2.php?token=wtPZxdAM2Z" target="_blank" rel="noopener">演示入口</a>，它会在服务器端获取一个ticket，然后在前端进行跳转。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="regexp">/(iPhone|iPad|iPod|iOS)/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/ baiduboxapp/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">'bdbox://utils?action=sendIntent&amp;minver=7.4&amp;params=%7B%22intent%22%3A%22weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610%23Intent%3Bend%22%7D'</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">'weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">window</span>.location.replace(<span class="string">'weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"loading"</span>).style.display=<span class="string">"none"</span>;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">"buttons"</span>).style.display=<span class="string">"table-cell"</span>;</span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="跳转至微信内部浏览器并打开合作商户网址"><a href="#跳转至微信内部浏览器并打开合作商户网址" class="headerlink" title="跳转至微信内部浏览器并打开合作商户网址"></a>跳转至微信内部浏览器并打开合作商户网址</h3><p>截此到本文录入(2018-06-05 15:02)时，<a href="http://www.seoniao.com/" target="_blank" rel="noopener">微信跳转技术</a>这个网站的功能已经被关闭了。</p>
 <p>前天还是可用的呢。暂地告一段落。</p>
+<p>找到了<a href="http://weixin.ioptis.cn/" target="_blank" rel="noopener">另一个可用的站点</a></p>
 
       
     </div>
@@ -466,6 +521,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/03/18/tencentcloudxuexi/" rel="prev" title="腾讯云认证培训的学习资料">
+                腾讯云认证培训的学习资料 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -539,7 +598,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -596,7 +655,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理解析"><span class="nav-number">1.</span> <span class="nav-text">原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ticket"><span class="nav-number">1.1.</span> <span class="nav-text">获取ticket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转至微信内部浏览器打开商户域名"><span class="nav-number">1.2.</span> <span class="nav-text">跳转至微信内部浏览器打开商户域名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#跳转至目标域名，完成目标"><span class="nav-number">1.2.1.</span> <span class="nav-text">跳转至目标域名，完成目标</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个例子"><span class="nav-number">2.</span> <span class="nav-text">一个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ticket-1"><span class="nav-number">2.1.</span> <span class="nav-text">获取ticket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转至微信内部浏览器并打开合作商户网址"><span class="nav-number">2.2.</span> <span class="nav-text">跳转至微信内部浏览器并打开合作商户网址</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理解析"><span class="nav-number">1.</span> <span class="nav-text">原理解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ticket"><span class="nav-number">1.1.</span> <span class="nav-text">获取ticket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转至微信内部浏览器打开商户域名"><span class="nav-number">1.2.</span> <span class="nav-text">跳转至微信内部浏览器打开商户域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转至目标域名，完成目标"><span class="nav-number">1.3.</span> <span class="nav-text">跳转至目标域名，完成目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可借助的域名"><span class="nav-number">2.</span> <span class="nav-text">可借助的域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#京东商铺资讯模式"><span class="nav-number">2.1.</span> <span class="nav-text">京东商铺资讯模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#京东达人平台模式"><span class="nav-number">2.2.</span> <span class="nav-text">京东达人平台模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微信游戏圈话题模式"><span class="nav-number">2.3.</span> <span class="nav-text">微信游戏圈话题模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#京东任意图片模式（支持动图）"><span class="nav-number">2.4.</span> <span class="nav-text">京东任意图片模式（支持动图）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个例子"><span class="nav-number">3.</span> <span class="nav-text">一个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ticket-1"><span class="nav-number">3.1.</span> <span class="nav-text">获取ticket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转至微信内部浏览器并打开合作商户网址"><span class="nav-number">3.2.</span> <span class="nav-text">跳转至微信内部浏览器并打开合作商户网址</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -619,7 +678,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
