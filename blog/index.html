@@ -264,6 +264,213 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/03/31/remove-duplicates/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2019/03/31/remove-duplicates/" itemprop="url">
+                  记一次简单的数据去重
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T04:28:10+08:00">
+                2019-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
+                    <span itemprop="name">computer science</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2019/03/31/remove-duplicates/" class="leancloud_visitors" data-flag-title="记一次简单的数据去重">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="探索数据"><a href="#探索数据" class="headerlink" title="探索数据"></a>探索数据</h2><p>拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。</p>
+<p>这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。</p>
+<h2 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h2><p><strong>换行符</strong></p>
+<p>先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。</p>
+<p>其实原因很简单，只不过因为缺乏经验而没有第一时间注意到这个问题。</p>
+<p>原因是txt的换行符既不是linux下的<code>\n</code>，也不是windows下的<code>\r\n</code>，而是使用了老mac os的<code>\r</code>。这个在notepad中就有显示的信息，居然花了近半个小时才注意到。不得不说灯下黑。</p>
+<p>最常使用的<a href="https://en.wikipedia.org/wiki/Newline#Representation" target="_blank" rel="noopener">换行符</a>其实就只有两种，LF(Line Feed, ASCII 10, \n)或者CR-LF（Carriage Return，ASCII 13, \r）。</p>
+<p>在node的linebyline模块中，它是这样判断的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (data[i] == <span class="number">10</span> || data[i] == <span class="number">13</span>) &#123; <span class="comment">// Newline char was found.</span></span><br><span class="line">      <span class="keyword">if</span> (data[i] == <span class="number">10</span>) &#123;</span><br><span class="line">        lineCount++;</span><br><span class="line">        emit(lineCount, byteCount);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lineBuffer[lineLength] = data[i]; <span class="comment">// Buffer new line data.</span></span><br><span class="line">      lineLength++;</span><br><span class="line">    &#125;</span><br><span class="line">    byteCount++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>emit的条件是碰到\n，不管是linux还是windows，这段代码都能正常工作。但如果文件中只有\r，那么很显然会失效。</p>
+<p>解决办法是修改linebyline模块，或者使用兼容性更好的readline。</p>
+<p><strong>\x00</strong></p>
+<p>csv格式的文件读取，更习惯用python。</p>
+<p>一开始很顺利的读出数据，但却在某一行抛出<code>_csv.Error: line contains NULL byte</code>异常。</p>
+<p>好在问题很常见，搜索一下就能发现有相当多人遇到同样的问题。</p>
+<p>解决方法也很简单，在将数据交给csv reader之前，先过滤掉<code>NULL byte</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(CSV_FILENAME, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(l.replace(<span class="string">'\0'</span>, <span class="string">''</span>) <span class="keyword">for</span> l <span class="keyword">in</span> f)</span><br></pre></td></tr></table></figure></p>
+<p>在检查过程中，还发现存在”\x01”这样的数据，都属于不正常数据，需要修正或剔除。</p>
+<p><strong>数据一致性和完整性</strong></p>
+<p>txt和csv都能正常读取，但数据清洗并没完。还需要检查数据完整性和一致性。</p>
+<p>对比发现，csv读取到的条数与文件行数不符。</p>
+<p>检查发现原因是存在<strong>不正常换行</strong>，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;101&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;102&quot;,&quot;a&quot;,&quot;0</span><br><span class="line">&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;103&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;104&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br></pre></td></tr></table></figure></p>
+<p>对于这样的数据，可以另外写段脚本进行修正。</p>
+<h2 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h2><p>数据读取完成后，开始进行数据去重。</p>
+<p>去重的简单思路是先写入数据库，然后通过数据库命令进行去重。</p>
+<p>数据去除逻辑上无除两部分，第一部分判断出某条数据是否重复，第二部分剔除它。</p>
+<p><strong>mongodb</strong><br>如使用mongodb，有两种方法：</p>
+<ol>
+<li><p>使用aggregate聚合</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">var duplicates = [];</span><br><span class="line"></span><br><span class="line">db.collectionName.aggregate([</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      name: &#123; &quot;$ne&quot;: &apos;&apos; &#125;  // discard selection criteria</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $group: &#123;</span><br><span class="line">      _id: &#123; name: &quot;$name&quot; &#125;, // can be grouped on multiple properties </span><br><span class="line">      dups: &#123; &quot;$addToSet&quot;: &quot;$_id&quot; &#125;,</span><br><span class="line">      count: &#123; &quot;$sum&quot;: 1 &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      count: &#123; &quot;$gt&quot;: 1 &#125;    // Duplicates considered as count greater than one</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">],</span><br><span class="line">  &#123; allowDiskUse: true &#125;       // For faster processing if set is larger</span><br><span class="line">)               // You can display result until this and check duplicates </span><br><span class="line">  .forEach(function (doc) &#123;</span><br><span class="line">    doc.dups.shift();      // First element skipped for deleting</span><br><span class="line">    doc.dups.forEach(function (dupId) &#123;</span><br><span class="line">      duplicates.push(dupId);   // Getting all duplicate ids</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">// If you want to Check all &quot;_id&quot; which you are deleting else print statement not needed</span><br><span class="line">printjson(duplicates);</span><br><span class="line"></span><br><span class="line">// Remove all duplicates in one go</span><br><span class="line">db.collectionName.remove(&#123; _id: &#123; $in: duplicates &#125; &#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用mapreduce</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123;&#125;</span><br><span class="line">o.map = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  emit(<span class="keyword">this</span>.phone, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line">o.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">k, vals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.sum(vals)</span><br><span class="line">&#125;</span><br><span class="line">o.out = &#123;</span><br><span class="line">  replace: <span class="string">'mapreduce_demo'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> Item.mapReduce(o)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>mapreduce完成后，在生成的新的collection是搜索出现次数超过1次的，再保留第一个，删除其它。</p>
+<p><strong>mysql</strong><br>如使用mysql，也有两种方式，具体请参考<a href="http://www.mysqltutorial.org/mysql-delete-duplicate-rows/" target="_blank" rel="noopener">这篇文章</a></p>
+<ol>
+<li><p>使用<code>DELETE JOIN</code></p>
+</li>
+<li><p>使用中间数据库</p>
+</li>
+</ol>
+<h2 id="超大数据"><a href="#超大数据" class="headerlink" title="超大数据"></a>超大数据</h2><p>使用数据来进行去重操作似乎是个常规选项，但当遇上超大数据时，就显得有点为了吃匹萨自己做个烤箱了。</p>
+<ol>
+<li>首先是内存问题</li>
+</ol>
+<p>如果是node，可以使用这样的命令来启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --max-old-space-size=8192 app.js</span><br></pre></td></tr></table></figure></p>
+<p>如果是mongodb，可以加上使用硬盘缓冲的选项：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> model.aggregate([&#123;</span><br><span class="line">  $group: &#123;</span><br><span class="line">    _id: &#123; <span class="attr">id</span>: <span class="string">'$_id'</span> &#125;,</span><br><span class="line">    count: &#123; <span class="string">'$sum'</span>: <span class="number">1</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]).allowDiskUse(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>其次是速度</li>
+</ol>
+<p>如果数据量过千万，即使是一个简单的分组查询动作，也要几十分钟才能完成。</p>
+<h2 id="结局"><a href="#结局" class="headerlink" title="结局"></a>结局</h2><p>最终，写了个简单的脚本，一边从源文件读取并加工数据，另一边输出到目标文件，放弃使用数据库。</p>
+<p>简单的一个去重数据操作，最终花耗了超过4个小时的时间。</p>
+<p>虽然曾经上过Udacity的数据分析纳米课程，但一旦真正上手，还是问题不断，感叹学海无涯。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/03/18/tencentcloudxuexi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -373,7 +580,7 @@
 <h3 id="云-社区"><a href="#云-社区" class="headerlink" title="云+社区"></a>云+社区</h3><p>当遇上问题时，可以先去云+社区的<a href="https://cloud.tencent.com/developer/ask" target="_blank" rel="noopener"><strong>问答版块</strong></a>寻找有没有人曾经提过相同的问题。上面的回复者很多是官方人员。</p>
 <p>要养成使用官方资源的习惯，在遇到专业问题时不要百度，百度在专业问题面前就是个坑货，不要再出现魏则西了。</p>
 <h3 id="使用学习工具"><a href="#使用学习工具" class="headerlink" title="使用学习工具"></a>使用学习工具</h3><p>我正在开发一个学习工具，<em>敬请期待咯</em>。</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -689,7 +896,7 @@
         
           
             <p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04" target="_blank" rel="noopener">请看这里</a></p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -825,7 +1032,7 @@
 <p>比如一个4核机器，设置为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker_processes    4;</span><br><span class="line">worker_cpu_affinity 0001 0010 0100 1000;</span><br></pre></td></tr></table></figure></p>
 <p>代表开4个进程，分别绑定CPU0-CPU3。</p>
 <p>worker_processes取值可以为auto，会自动设置为cpu个数。<br>worker_cpu_affinity取值也可以为auto，会自动分别绑定可用的cpu。也可以auto 01010101，表示分别绑定CPU1、CPU3、CPU5、CPU7。</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -1001,7 +1208,7 @@
 <p>保存文件，并且加载它。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/environment</span><br></pre></td></tr></table></figure></p>
 <p>验证修改是否成功<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br></pre></td></tr></table></figure></p>
 <p>到此java8的安装就完成啦。</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -1159,7 +1366,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm ~/Library/Application\ Support/Beyond\ Compare/registry.dat</span><br></pre></td></tr></table></figure>
 <h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>在注册表中删除HKEY_USERS/xx/SOFTWARE/Scooter Software/Beyond Compare 4/CacheID</p>
 <h3 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.beyondcompare</span><br></pre></td></tr></table></figure>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -1321,7 +1528,7 @@
 <p>类似上图, 每一次 ReLU 操作都相当于一次折纸操作, 经过学习之后, 网络仅仅通过这种折纸操作就可以学习”对称”这个概念. 最终, 使用一个比较简单的分类器就可以把 ×× 和 ∘∘ 分开<br>在下图中, 说明了神经网络中是怎么随着网络层数加深, 最终, 可以通过一个比较简单的函数实现分类.</p>
 <img src="/blog/2017/04/21/why-relu/fold.png" title="Fold">
 <p>只要进行足够多次数的折叠, 或者说, 在神经网络中有足够多的层数, 那么, 使用 ReLU 函数, 也可以近似任意的函数, 而且, 如果我们在最后一层使用一个 smooth 的函数, 那么, 整个神经网络就是一个真正的 smooth function approximator. 然而, 在实际中, 并不需要一个太 smooth 的 function approximator, 因为这容易导致 overfitting. 我们需要的是是在 test 数据集上表现好的模型, 即要找的是 generalization 能力比较好的 approximator. 而 ReLU 这种仅仅 separate 样本空间的的函数, 其本身自带 regularization 能力, 所以, 其泛化能力更强一些. 因此, ReLU 是一个 reasonable 而且上佳的选择.<br>从这个角度讲, 即使在全链接进行分类的最后几层, 使用 ReLU 激活函数也是非常 reasonable 的.</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -1505,7 +1712,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create remote view and set bigContentView.</span></span><br><span class="line">RemoteViews expandedView = <span class="keyword">new</span> RemoteViews(<span class="keyword">this</span>.getPackageName(), </span><br><span class="line">        R.layout.notification_custom_remote);</span><br><span class="line">expandedView.setTextViewText(R.id.text_view, <span class="string">"Neat logo!"</span>);</span><br><span class="line"> </span><br><span class="line">Notification notification = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">"Custom View"</span>).build();</span><br><span class="line"> </span><br><span class="line">notification.bigContentView = expandedView;</span><br></pre></td></tr></table></figure>
 <img src="/blog/2017/04/20/Expandable-Notifications-for-Android/customer_notification.png" title="Customer Notification">
 <h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><p><a href="https://github.com/srafx/Notifications" target="_blank" rel="noopener">示例代码</a></p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -1669,197 +1876,7 @@
 <p>首先添加PPA (Personal Package Archive)中的git-core源。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:git-core/ppa</span><br></pre></td></tr></table></figure></p>
 <p>然后就可以顺利更新到最新版本的git。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
 <p>如果你使用的ubuntu很干净，有可能会提示add-apt-repository命令找不到。它是在software-properties-common包里的。对于一些版本的ubuntu，还需配合python-software-properties食用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install software-properties-common python-software-properties</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2017/04/19/android-lock-screen/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tasty Pub">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2017/04/19/android-lock-screen/" itemprop="url">
-                  Android6.0锁屏源码分析之界面布局分析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T20:06:09+08:00">
-                2017-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
-                    <span itemprop="name">computer science</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/blog/2017/04/19/android-lock-screen/" class="leancloud_visitors" data-flag-title="Android6.0锁屏源码分析之界面布局分析">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>先大致介绍一下锁屏界面，Android的锁屏界面可以分为两级：</p>
-<ol>
-<li><p>一级锁屏界面暂且称之为锁屏界面<em>LockScreen</em></p>
-<p> 即平常用到的无需任何输入和验证，只需滑动解锁，没有任何的安全性可言，只是为了防止因为非故意触发手机造成的一定的困扰。</p>
-</li>
-<li><p>二级锁屏界面是在解锁一级界面后进入的一个界面<em>UnlockScreen</em></p>
-<p> 算是用于一定的加密，相当于给手机多了一层保护，所以二级界面通常称之为安全界面—–KeyguardSecurityView。要想解锁该界面就需要输入一定的验证信息，图案，密码，pin码等等各种加密方式。但也不要以为有了这个界面你的手机就有很好的加密性了，这种很好消除和破解。</p>
-</li>
-</ol>
-<p><strong>锁屏界面LockScreen</strong></p>
-<img src="/blog/2017/04/19/android-lock-screen/lockscreen.png" title="锁屏界面">
-<p>Android6.0的原生的锁屏界面如上，上滑解锁。<br>刚开始看到这个，确实不知道该如何去分析，不知道该界面到底隶属于谁。这时候就要借助sdk的工具了。<br>当然，如果你对framework层源码很熟悉的话也可以从代码角度来分析，该界面是在按下power电源键KEYCODE_POWER灭屏之后加载出来的，而不是说每次在灭屏状态下按键亮屏时再加载。根据这个逻辑，就要去看按键按下灭屏之后的处理，可以从PhoneWindowManager看起，在该类中有对Power按键的处理。</p>
-<p>如果从代码角度这么追的话可能需要花费的时间或多一些，建议还是直接使用sdk查看view视图的工具，直接就可以定位到该锁屏界面。<br><img src="/blog/2017/04/19/android-lock-screen/hierarchyviewer.png" title="hierarchyviewer"></p>
-<p>该工具可以显示出来当前显示的是哪一个界面，以及该界面的view视图，可以帮助很好的分析锁屏。借助该工具可以看到，锁屏界面对应的是StatusBar。<br><img src="/blog/2017/04/19/android-lock-screen/hierarchyviewer2.png" title="hierarchyviewer"></p>
-<p>可以看出，锁屏界面属于状态栏，属于SystemUi的一部分，类似于状态栏下拉之后的界面，而Android4.4.2是属于keyguard锁屏界面。<br>说的直白一点儿就是，6.0的锁屏界面就是状态栏下拉后的一个界面，准确来说是状态栏加载出来的一个View(也可以说是组)，解锁只需要上滑。Android4.4.2的锁屏界面隶属于keyguard，与statusBar没有关系，就是一个界面。<br>借助sdk工具，可以分析锁屏界面上你想分析的所有小部件，先看工具中显示的view视图的一小部分。<br><img src="/blog/2017/04/19/android-lock-screen/viewer.png" title="view"></p>
-<p>介绍一下代码所在位置，有需要改布局的或者锁屏相关的可以参考根据界面view的id/notification_panel。<br>可以找到锁屏界面整体的xml文件为status_bar_expanded.xml文件，文件所在目录为\android\frameworks\base\packages\SystemUI\res\layout\status_bar_expanded.xml，研究源码要借助源码搜索工具–openGrok可以很快的找到所搜索的内容在整个源码中使用的地方。</p>
-<p>用一张图可以很清晰的看出各个部件的id：<br><img src="/blog/2017/04/19/android-lock-screen/layout.png" title="layout"></p>
-<p>如果想要针对锁屏的布局或者某个小控件做修改的话可以按照这张图标注的id进行查找对应的view或者layout文件。<br>有了布局分析图后你现在可以进行基本的布局相关的调整工作了，比如隐藏某个view，更改某个view的样式，添加view，等等</p>
-<p>举个例子，我现在对底部的那三个按钮感兴趣，那么我就直接去找keyguard_bottom_area.xml文件（<br>文件目录在\android\frameworks\base\packages\SystemUI\res\layout\status_bar_expanded.xml），各个按钮的id我需要知道<br><img src="/blog/2017/04/19/android-lock-screen/layout2.png" title="layout2"></p>
-<p>要求一，滑动相机view时不进行任何操作<br>目前6.0源码中是在滑动照相机这个view一段距离后，会自动调起来相机应用。我现在不让他调起相机应用，而是开启别的应用，怎<br>么做？</p>
-<p>首先是分析既然是针对相机view的操作，那我们首先研究一下相机view滑动一段距离后怎么调起的相机应用。相应的可以直接把相机<br>应用替换成我们自己的应用，这样每当view滑动一段距离后就会调起自己想要调起的应用。所以首先是找到调起相机应用的地方</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (v == mCameraImageView) &#123;  </span><br><span class="line">        launchCamera(CAMERA_LAUNCH_SOURCE_AFFORDANCE);  </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>在KeyguardBottomAreaView.java中有关于按钮点击后打开相机的操作，代码目录为<br>\android\frameworks\base\packages\SystemUI\src\com\android\systemui\statusbar\phone\KeyguardBottomAreaView.Java<br>也就是说，你想让点击相机view之后做什么操作，只需要修改这里即可，至于相机应用如何起来的，可以根据代码流程就行分析，在<br>这里不多介绍。<br>电话view与相机view属于同一类型的view，同属于com.android.systemui.statusbar.KeyguardAffordanceView。点击事件也在该<br>onClick方法中。</p>
-<p>要求二，目前是上滑解锁，如何不让其上滑解锁<br>这个首先需要分析一下上滑这个动作在哪儿监听的，然后何时会调用解锁？按照这个思路分析了一下午，也没理出个头绪，幸而得到<br>一些指点，既然整个界面是个自定义的view，那么可以考虑对view屏蔽掉触摸事件，即在view的onTouchEvent中规定，当满足某种<br>条件时向上滑动不解锁，这样看来，省去了很多事。<br>可能有时候解决问题就是这样，没有必要去死钻牛角尖非要数到小数点才肯罢休。但如果是想学习研究的话确实可以看一看。</p>
-<p>要求三，定制某个按键，长按解锁<br>Android6.0锁屏有一个特点，那就是在一级锁屏界面状态下长按menu键可以解锁。所以针对第三个要求，可以在锁屏页进行按键分<br>发时进行一个判断，满足条件后调用menu菜单解锁的处理<br>做法如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchKeyEvent</span><span class="params">(KeyEvent event)</span> </span>&#123;  </span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 如果按键抬起，且为长按事件  </span></span><br><span class="line">    <span class="keyword">if</span> (event.getAction() == KeyEvent.ACTION_UP &amp;&amp;(event.getFlags() &amp; KeyEvent.FLAG_LONG_PRESS) == <span class="number">0</span>) &#123;  </span><br><span class="line">        <span class="keyword">int</span> keyCode = event.getKeyCode();  </span><br><span class="line">        <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; event.getRepeatCount() == <span class="number">0</span>)&#123;  </span><br><span class="line">            <span class="comment">// 判断按键，并进行解锁操作，mLongPress线程里调用的是按下menu键解锁的方法  </span></span><br><span class="line">            <span class="comment">// mKeyguardView.handleMenuKey()；  </span></span><br><span class="line">  </span><br><span class="line">            mHandler.removeCallbacks(mLongPress); </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.dispatchKeyEvent(event); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二级界面—–keyguardSecurity安全界面<br><img src="/blog/2017/04/19/android-lock-screen/unlockscreen.png" title="unlockscreen"></p>
-<p>这就是所谓的安全界面，需要输入密码，在解锁了一级界面后如果设置了密码就会进入到二级界面，仿照一级界面的分析方法来分析二级界面。</p>
-<p>从现在开始，才开始是锁屏相关的界面，锁屏模块代码目录如下<br><img src="/blog/2017/04/19/android-lock-screen/foldertree.png" title="foldertree"></p>
-<p>对于二级界面有6中情况</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*根据不同的模式获取到不同的布局 </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getLayoutIdFor</span><span class="params">(SecurityMode securityMode)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">switch</span> (securityMode) &#123;  </span><br><span class="line">        <span class="keyword">case</span> Pattern: <span class="keyword">return</span> R.layout.keyguard_pattern_view;  </span><br><span class="line">        <span class="keyword">case</span> PIN: <span class="keyword">return</span> R.layout.keyguard_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> Password: <span class="keyword">return</span> R.layout.keyguard_password_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPin: <span class="keyword">return</span> R.layout.keyguard_sim_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPuk: <span class="keyword">return</span> R.layout.keyguard_sim_puk_view;  </span><br><span class="line">        <span class="keyword">default</span>:  </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>各种模式的定义在KeyguardSecurityMode.java中文件路径为android/frameworks/base/packages/Keyguard/src/com/android/keyguard/KeyguardSecurityMode.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> SecurityMode &#123;  </span><br><span class="line">    Invalid, <span class="comment">// NULL state  所设置的状态无效  </span></span><br><span class="line">    None, <span class="comment">// No security enabled  没有设置二级界面，即一级界面解锁后直接进入主屏幕  </span></span><br><span class="line">    Pattern, <span class="comment">// Unlock by drawing a pattern. 通过绘制图案解锁  </span></span><br><span class="line">    Password, <span class="comment">// Unlock by entering an alphanumeric password 输入密码解锁，该密码包括字母和数字  </span></span><br><span class="line">    PIN, <span class="comment">// Strictly numeric password 输入纯数字密码解锁  </span></span><br><span class="line">    SimPin, <span class="comment">// Unlock by entering a sim pin. 输入sim卡pin码解锁  </span></span><br><span class="line">    SimPuk <span class="comment">// Unlock by entering a sim puk，输入sim卡puk码解锁，该码是唯一的，当sim卡密码输入pin码错误次数  </span></span><br><span class="line">        <span class="comment">//过多时会需要输入puk码，每个手机卡有自己的puk码即ID由运营商提供  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不同的模式与布局文件一一对应，</p>
-<p>对于布局上想要修改的，就去找对应的那几个布局文件即可，在这里不再举例说明。。</p>
-<p>对于锁屏界面的布局就分析到这里了，有什么宝贵意见的大神们可以甩出来，是一个学习的过程。</p>
-<p>在完结了锁屏界面布局分析之后，接下来的博客就要对锁屏的加载即显示锁屏、解锁一级界面，解锁二级界面进行一个详细分析了。<br>感觉工程量好大。慢慢来吧~~</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
           
         
       
@@ -1896,6 +1913,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1938,7 +1959,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

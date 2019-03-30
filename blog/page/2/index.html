@@ -74,7 +74,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="computer science,android," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,27 +90,16 @@
 
 
 
-<meta name="description" content="先大致介绍一下锁屏界面，Android的锁屏界面可以分为两级：  一级锁屏界面暂且称之为锁屏界面LockScreen  即平常用到的无需任何输入和验证，只需滑动解锁，没有任何的安全性可言，只是为了防止因为非故意触发手机造成的一定的困扰。  二级锁屏界面是在解锁一级界面后进入的一个界面UnlockScreen  算是用于一定的加密，相当于给手机多了一层保护，所以二级界面通常称之为安全界面—–Keyg">
-<meta name="keywords" content="computer science,android">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Android6.0锁屏源码分析之界面布局分析">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/index.html">
+<meta name="description" content="啊咧">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tasty Pub">
+<meta property="og:url" content="http://suyu0925.github.io/blog/page/2/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="先大致介绍一下锁屏界面，Android的锁屏界面可以分为两级：  一级锁屏界面暂且称之为锁屏界面LockScreen  即平常用到的无需任何输入和验证，只需滑动解锁，没有任何的安全性可言，只是为了防止因为非故意触发手机造成的一定的困扰。  二级锁屏界面是在解锁一级界面后进入的一个界面UnlockScreen  算是用于一定的加密，相当于给手机多了一层保护，所以二级界面通常称之为安全界面—–Keyg">
+<meta property="og:description" content="啊咧">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/lockscreen.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/hierarchyviewer.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/hierarchyviewer2.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/viewer.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/layout.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/layout2.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/unlockscreen.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/foldertree.png">
-<meta property="og:updated_time" content="2019-02-24T13:22:15.795Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android6.0锁屏源码分析之界面布局分析">
-<meta name="twitter:description" content="先大致介绍一下锁屏界面，Android的锁屏界面可以分为两级：  一级锁屏界面暂且称之为锁屏界面LockScreen  即平常用到的无需任何输入和验证，只需滑动解锁，没有任何的安全性可言，只是为了防止因为非故意触发手机造成的一定的困扰。  二级锁屏界面是在解锁一级界面后进入的一个界面UnlockScreen  算是用于一定的加密，相当于给手机多了一层保护，所以二级界面通常称之为安全界面—–Keyg">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/lockscreen.png">
+<meta name="twitter:title" content="Tasty Pub">
+<meta name="twitter:description" content="啊咧">
 
 
 
@@ -138,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/"/>
+  <link rel="canonical" href="http://suyu0925.github.io/blog/page/2/"/>
 
 
 
 
 
-  <title> Android6.0锁屏源码分析之界面布局分析 | Tasty Pub </title>
+  <title> Tasty Pub </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -169,7 +158,9 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -262,9 +253,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -294,7 +285,10 @@
             
             
               
-                Android6.0锁屏源码分析之界面布局分析
+                
+                <a class="post-title-link" href="/blog/2017/04/19/android-lock-screen/" itemprop="url">
+                  Android6.0锁屏源码分析之界面布局分析
+                </a>
               
             
           </h1>
@@ -345,16 +339,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a class="cloud-tie-join-count" href="/blog/2017/04/19/android-lock-screen/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -388,7 +372,9 @@
       
 
       
-        <p>先大致介绍一下锁屏界面，Android的锁屏界面可以分为两级：</p>
+        
+          
+            <p>先大致介绍一下锁屏界面，Android的锁屏界面可以分为两级：</p>
 <ol>
 <li><p>一级锁屏界面暂且称之为锁屏界面<em>LockScreen</em></p>
 <p> 即平常用到的无需任何输入和验证，只需滑动解锁，没有任何的安全性可言，只是为了防止因为非故意触发手机造成的一定的困扰。</p>
@@ -426,74 +412,46 @@
 <p>对于锁屏界面的布局就分析到这里了，有什么宝贵意见的大神们可以甩出来，是一个学习的过程。</p>
 <p>在完结了锁屏界面布局分析之后，接下来的博客就要对锁屏的加载即显示锁屏、解锁一级界面，解锁二级界面进行一个详细分析了。<br>感觉工程量好大。慢慢来吧~~</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
-          
-            <a href="/blog/tags/android/" rel="tag"># android</a>
-          
-        </div>
+
       
 
       
-        
-      
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2017/04/19/install-latest-git-on-linux/" rel="prev" title="在linux上安装最新版本的Git">
-                在linux上安装最新版本的Git <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -501,12 +459,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-    
-  </div>
-
 
         </div>
         
@@ -702,10 +654,6 @@
   
 
   
-  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
-
-
 
   
 

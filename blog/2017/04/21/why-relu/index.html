@@ -391,7 +391,7 @@
 <p>类似上图, 每一次 ReLU 操作都相当于一次折纸操作, 经过学习之后, 网络仅仅通过这种折纸操作就可以学习”对称”这个概念. 最终, 使用一个比较简单的分类器就可以把 ×× 和 ∘∘ 分开<br>在下图中, 说明了神经网络中是怎么随着网络层数加深, 最终, 可以通过一个比较简单的函数实现分类.</p>
 <img src="/blog/2017/04/21/why-relu/fold.png" title="Fold">
 <p>只要进行足够多次数的折叠, 或者说, 在神经网络中有足够多的层数, 那么, 使用 ReLU 函数, 也可以近似任意的函数, 而且, 如果我们在最后一层使用一个 smooth 的函数, 那么, 整个神经网络就是一个真正的 smooth function approximator. 然而, 在实际中, 并不需要一个太 smooth 的 function approximator, 因为这容易导致 overfitting. 我们需要的是是在 test 数据集上表现好的模型, 即要找的是 generalization 能力比较好的 approximator. 而 ReLU 这种仅仅 separate 样本空间的的函数, 其本身自带 regularization 能力, 所以, 其泛化能力更强一些. 因此, ReLU 是一个 reasonable 而且上佳的选择.<br>从这个角度讲, 即使在全链接进行分类的最后几层, 使用 ReLU 激活函数也是非常 reasonable 的.</p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
 
@@ -516,7 +516,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
