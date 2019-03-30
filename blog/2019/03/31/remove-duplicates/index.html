@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="探索数据拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。 这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。 数据清洗换行符 先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。 其实原因很简单，只不过因为缺乏经验而没有第一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-30T21:31:51.504Z">
+<meta property="og:updated_time" content="2019-03-30T21:51:25.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次简单的数据去重">
 <meta name="twitter:description" content="探索数据拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。 这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。 数据清洗换行符 先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。 其实原因很简单，只不过因为缺乏经验而没有第一">
@@ -402,7 +402,7 @@
 <p>对于这样的数据，可以另外写段脚本进行修正。</p>
 <h2 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h2><p>数据读取完成后，开始进行数据去重。</p>
 <p>去重的简单思路是先写入数据库，然后通过数据库命令进行去重。</p>
-<p>数据去除逻辑上无除两部分，第一部分判断出某条数据是否重复，第二部分剔除它。</p>
+<p>数据去重在逻辑上无非两部分，一是判断是否重复，二是去除。</p>
 <p><strong>mongodb</strong><br>如使用mongodb，有两种方法：</p>
 <ol>
 <li><p>使用aggregate聚合</p>
@@ -433,6 +433,8 @@
 <h2 id="结局"><a href="#结局" class="headerlink" title="结局"></a>结局</h2><p>最终，写了个简单的脚本，一边从源文件读取并加工数据，另一边输出到目标文件，放弃使用数据库。</p>
 <p>简单的一个去重数据操作，最终花耗了超过4个小时的时间。</p>
 <p>虽然曾经上过Udacity的数据分析纳米课程，但一旦真正上手，还是问题不断，感叹学海无涯。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>数据去重这步操作最好还是在入库前做，是将一个耗时巨长的操作分散在每一时刻，还是忙时尽量快，闲时再做长时间操作。</p>
+<p>或者再多思考下到底是出于什么目的进行数据去重。有索引的帮助，查询其实很快。</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
@@ -614,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#探索数据"><span class="nav-number">1.</span> <span class="nav-text">探索数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据清洗"><span class="nav-number">2.</span> <span class="nav-text">数据清洗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据去重"><span class="nav-number">3.</span> <span class="nav-text">数据去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超大数据"><span class="nav-number">4.</span> <span class="nav-text">超大数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结局"><span class="nav-number">5.</span> <span class="nav-text">结局</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#探索数据"><span class="nav-number">1.</span> <span class="nav-text">探索数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据清洗"><span class="nav-number">2.</span> <span class="nav-text">数据清洗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据去重"><span class="nav-number">3.</span> <span class="nav-text">数据去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超大数据"><span class="nav-number">4.</span> <span class="nav-text">超大数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结局"><span class="nav-number">5.</span> <span class="nav-text">结局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
