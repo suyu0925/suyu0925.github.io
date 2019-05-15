@@ -74,7 +74,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="linux,computer science,git," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -90,18 +90,17 @@
 
 
 
-<meta name="description" content="CentOS在CentOS上使用yum安装的git默认是1.7.1，使用git 1.7.1去clone一些repo时会出现下面的错误：1234Initialized empty Git repository in /root/blog/.git/error: The requested URL returned error: 400 Bad Request while accessing http">
-<meta name="keywords" content="linux,computer science,git">
+<meta name="description" content="当收到服务器返回413时，可检查这几处： nginx1client_max_body_size 50M; 默认值只有1M。 koa-bodyparserformLimit: limit of the urlencoded body. If the body ends up being larger than this limit, a 413 error code is returned. Def">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在linux上安装最新版本的Git">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2017/04/19/install-latest-git-on-linux/index.html">
+<meta property="og:title" content="http请求的413错误">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2019/05/15/http-413-error/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="CentOS在CentOS上使用yum安装的git默认是1.7.1，使用git 1.7.1去clone一些repo时会出现下面的错误：1234Initialized empty Git repository in /root/blog/.git/error: The requested URL returned error: 400 Bad Request while accessing http">
+<meta property="og:description" content="当收到服务器返回413时，可检查这几处： nginx1client_max_body_size 50M; 默认值只有1M。 koa-bodyparserformLimit: limit of the urlencoded body. If the body ends up being larger than this limit, a 413 error code is returned. Def">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-24T13:22:15.809Z">
+<meta property="og:updated_time" content="2019-05-15T10:30:24.663Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在linux上安装最新版本的Git">
-<meta name="twitter:description" content="CentOS在CentOS上使用yum安装的git默认是1.7.1，使用git 1.7.1去clone一些repo时会出现下面的错误：1234Initialized empty Git repository in /root/blog/.git/error: The requested URL returned error: 400 Bad Request while accessing http">
+<meta name="twitter:title" content="http请求的413错误">
+<meta name="twitter:description" content="当收到服务器返回413时，可检查这几处： nginx1client_max_body_size 50M; 默认值只有1M。 koa-bodyparserformLimit: limit of the urlencoded body. If the body ends up being larger than this limit, a 413 error code is returned. Def">
 
 
 
@@ -129,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://suyu0925.github.io/blog/2017/04/19/install-latest-git-on-linux/"/>
+  <link rel="canonical" href="http://suyu0925.github.io/blog/2019/05/15/http-413-error/"/>
 
 
 
 
 
-  <title> 在linux上安装最新版本的Git | Tasty Pub </title>
+  <title> http请求的413错误 | Tasty Pub </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -264,7 +263,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2017/04/19/install-latest-git-on-linux/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/05/15/http-413-error/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lckof">
@@ -285,7 +284,7 @@
             
             
               
-                在linux上安装最新版本的Git
+                http请求的413错误
               
             
           </h1>
@@ -300,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T20:45:00+08:00">
-                2017-04-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T18:01:03+08:00">
+                2019-05-15
               </time>
             
 
@@ -311,28 +310,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
-                    <span itemprop="name">computer science</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -341,7 +318,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/blog/2017/04/19/install-latest-git-on-linux/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/blog/2019/05/15/http-413-error/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -350,7 +327,7 @@
 
           
           
-             <span id="/blog/2017/04/19/install-latest-git-on-linux/" class="leancloud_visitors" data-flag-title="在linux上安装最新版本的Git">
+             <span id="/blog/2019/05/15/http-413-error/" class="leancloud_visitors" data-flag-title="http请求的413错误">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -379,17 +356,63 @@
       
 
       
-        <h2 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h2><p>在CentOS上使用yum安装的git默认是1.7.1，使用git 1.7.1去clone一些repo时会出现下面的错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository <span class="keyword">in</span> /root/blog/.git/</span><br><span class="line">error: The requested URL returned error: 400 Bad Request <span class="keyword">while</span> accessing https://git.coding.net/xxx/xxx.git/info/refs</span><br><span class="line"></span><br><span class="line">fatal: HTTP request failed</span><br></pre></td></tr></table></figure></p>
-<p>这是因为版本过低的缘故，git.coding.net要求使用1.8+版本的git。</p>
-<p>升级git有两种方式，一种是下载源码编译，一种是使用第三方源。<br>本着懒人原则，我们使用第二种方法。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install http://opensource.wandisco.com/centos/6/git/x86_64/wandisco-git-release-6-1.noarch.rpm</span><br><span class="line">$ sudo yum update git</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.11.1</span><br></pre></td></tr></table></figure>
-<p>搞定收工。</p>
-<h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><p>在ubuntu14.04上使用apt-get默认安装的版本是1.9.1，但很显然1.9不是最新版本，最新版本已经是2.+了。</p>
-<p>和CentOS一样，使用第三方源来搞定。</p>
-<p>首先添加PPA (Personal Package Archive)中的git-core源。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:git-core/ppa</span><br></pre></td></tr></table></figure></p>
-<p>然后就可以顺利更新到最新版本的git。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
-<p>如果你使用的ubuntu很干净，有可能会提示add-apt-repository命令找不到。它是在software-properties-common包里的。对于一些版本的ubuntu，还需配合python-software-properties食用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install software-properties-common python-software-properties</span><br></pre></td></tr></table></figure></p>
+        <p>当收到服务器返回413时，可检查这几处：</p>
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client_max_body_size 50M;</span><br></pre></td></tr></table></figure>
+<p>默认值只有1M。</p>
+<h2 id="koa-bodyparser"><a href="#koa-bodyparser" class="headerlink" title="koa-bodyparser"></a>koa-bodyparser</h2><p>formLimit: limit of the urlencoded body. If the body ends up being larger than this limit, a 413 error code is returned. Default is 56kb.</p>
+<p>jsonLimit: limit of the json body. Default is 1mb.</p>
+<p>textLimit: limit of the text body. Default is 1mb.</p>
+<h2 id="body-parser"><a href="#body-parser" class="headerlink" title="body-parser"></a>body-parser</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.use(bodyParser.json(&#123;<span class="attr">limit</span>: <span class="string">'50mb'</span>&#125;))</span><br><span class="line">app.use(bodyParser.urlencoded(&#123;<span class="attr">limit</span>: <span class="string">'50mb'</span>, <span class="attr">extended</span>: <span class="literal">false</span>&#125;))</span><br></pre></td></tr></table></figure>
+<h2 id="multer"><a href="#multer" class="headerlink" title="multer"></a>multer</h2><p><strong>limits</strong></p>
+<p>An object specifying the size limits of the following optional properties. Multer passes this object into busboy directly, and the details of the properties can be found on busboy’s page.</p>
+<p>The following integer values are available:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fieldNameSize</td>
+<td>Max field name size</td>
+<td>100 bytes</td>
+</tr>
+<tr>
+<td>fieldSize</td>
+<td>Max field value size</td>
+<td>1MB</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>Max number of non-file fields</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>fileSize</td>
+<td>For multipart forms, the max file size (in bytes)</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>files</td>
+<td>For multipart forms, the max number of file fields</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>parts</td>
+<td>For multipart forms, the max number of parts (fields + files)</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>headerPairs</td>
+<td>For multipart forms, the max number of header key=&gt;value pairs to parse</td>
+<td>2000</td>
+</tr>
+</tbody>
+</table>
+<p>Specifying the limits can help protect your site against denial of service (DoS) attacks.</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
@@ -417,16 +440,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/blog/tags/linux/" rel="tag"># linux</a>
-          
-            <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
-          
-            <a href="/blog/tags/git/" rel="tag"># git</a>
-          
-        </div>
-      
 
       
         
@@ -436,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/04/19/android-lock-screen/" rel="next" title="Android6.0锁屏源码分析之界面布局分析">
-                <i class="fa fa-chevron-left"></i> Android6.0锁屏源码分析之界面布局分析
+              <a href="/blog/2019/05/15/check-if-port-is-in-use/" rel="next" title="检查端口使用情况">
+                <i class="fa fa-chevron-left"></i> 检查端口使用情况
               </a>
             
           </div>
@@ -445,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2017/04/20/Expandable-Notifications-for-Android/" rel="prev" title="Android的可展开式通知">
-                Android的可展开式通知 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -579,7 +588,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS"><span class="nav-number">1.</span> <span class="nav-text">CentOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu"><span class="nav-number">2.</span> <span class="nav-text">Ubuntu</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nginx"><span class="nav-number">1.</span> <span class="nav-text">nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#koa-bodyparser"><span class="nav-number">2.</span> <span class="nav-text">koa-bodyparser</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#body-parser"><span class="nav-number">3.</span> <span class="nav-text">body-parser</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#multer"><span class="nav-number">4.</span> <span class="nav-text">multer</span></a></li></ol></div>
             
 
           </div>

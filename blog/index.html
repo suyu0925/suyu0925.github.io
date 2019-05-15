@@ -264,6 +264,194 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/05/15/http-413-error/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/blog/2019/05/15/http-413-error/" itemprop="url">
+                  http请求的413错误
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T18:01:03+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/blog/2019/05/15/http-413-error/" class="leancloud_visitors" data-flag-title="http请求的413错误">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当收到服务器返回413时，可检查这几处：</p>
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client_max_body_size 50M;</span><br></pre></td></tr></table></figure>
+<p>默认值只有1M。</p>
+<h2 id="koa-bodyparser"><a href="#koa-bodyparser" class="headerlink" title="koa-bodyparser"></a>koa-bodyparser</h2><p>formLimit: limit of the urlencoded body. If the body ends up being larger than this limit, a 413 error code is returned. Default is 56kb.</p>
+<p>jsonLimit: limit of the json body. Default is 1mb.</p>
+<p>textLimit: limit of the text body. Default is 1mb.</p>
+<h2 id="body-parser"><a href="#body-parser" class="headerlink" title="body-parser"></a>body-parser</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.use(bodyParser.json(&#123;<span class="attr">limit</span>: <span class="string">'50mb'</span>&#125;))</span><br><span class="line">app.use(bodyParser.urlencoded(&#123;<span class="attr">limit</span>: <span class="string">'50mb'</span>, <span class="attr">extended</span>: <span class="literal">false</span>&#125;))</span><br></pre></td></tr></table></figure>
+<h2 id="multer"><a href="#multer" class="headerlink" title="multer"></a>multer</h2><p><strong>limits</strong></p>
+<p>An object specifying the size limits of the following optional properties. Multer passes this object into busboy directly, and the details of the properties can be found on busboy’s page.</p>
+<p>The following integer values are available:</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fieldNameSize</td>
+<td>Max field name size</td>
+<td>100 bytes</td>
+</tr>
+<tr>
+<td>fieldSize</td>
+<td>Max field value size</td>
+<td>1MB</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>Max number of non-file fields</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>fileSize</td>
+<td>For multipart forms, the max file size (in bytes)</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>files</td>
+<td>For multipart forms, the max number of file fields</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>parts</td>
+<td>For multipart forms, the max number of parts (fields + files)</td>
+<td>Infinity</td>
+</tr>
+<tr>
+<td>headerPairs</td>
+<td>For multipart forms, the max number of header key=&gt;value pairs to parse</td>
+<td>2000</td>
+</tr>
+</tbody>
+</table>
+<p>Specifying the limits can help protect your site against denial of service (DoS) attacks.</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/05/15/check-if-port-is-in-use/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -287,7 +475,7 @@
               
                 
                 <a class="post-title-link" href="/blog/2019/05/15/check-if-port-is-in-use/" itemprop="url">
-                  check_if_port_is_in_use
+                  检查端口使用情况
                 </a>
               
             
@@ -343,7 +531,7 @@
 
           
           
-             <span id="/blog/2019/05/15/check-if-port-is-in-use/" class="leancloud_visitors" data-flag-title="check_if_port_is_in_use">
+             <span id="/blog/2019/05/15/check-if-port-is-in-use/" class="leancloud_visitors" data-flag-title="检查端口使用情况">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1725,190 +1913,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2017/04/20/Expandable-Notifications-for-Android/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Tasty Pub">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/2017/04/20/Expandable-Notifications-for-Android/" itemprop="url">
-                  Android的可展开式通知
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T19:49:48+08:00">
-                2017-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
-                    <span itemprop="name">computer science</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/blog/2017/04/20/Expandable-Notifications-for-Android/" class="leancloud_visitors" data-flag-title="Android的可展开式通知">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://codeversed.com/expandable-notifications-android/" target="_blank" rel="noopener">搬运自codeversed</a></p>
-<h2 id="可扩展通知"><a href="#可扩展通知" class="headerlink" title="可扩展通知"></a>可扩展通知</h2><p>Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。</p>
-<h3 id="NotificationManager"><a href="#NotificationManager" class="headerlink" title="NotificationManager"></a>NotificationManager</h3><p>安卓的通知是通过Notification类来创建的。在使用它之前需要先使用正确的Context来获得NotificationManager，Context由使用场景决定，可以是activity，也可以是service。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br></pre></td></tr></table></figure>
-<h3 id="Builder相关类"><a href="#Builder相关类" class="headerlink" title="Builder相关类"></a>Builder相关类</h3><p><strong>Notification.Builder</strong> – 这个类在Android 3.0 Honeycomb [API 11]被添加。所以如果想支持更老的安卓版本，得换成老掉牙的NotificationCompact。</p>
-<p><strong>NotificationCompat.Builder</strong> – 这个类在<a href="http://developer.android.com/tools/support-library/index.html" target="_blank" rel="noopener">Support Library</a> v4中被定义(适配Android 1.6+)。</p>
-<p>NotificationCompact.Builder像其它builder类一样，提供了创建Notification对象的接口。可以使用PendingIntent来指定点击后的intent行为。PendingIntent就像一个token，用SetCotentIntent方法来传给builder。如果需要一些额外的行为，比如收到邮件通知后想直接回复，可以通过builder的addAction方法来添加三个额外的行为。一旦你完成了Notification的构建，下一步你会看到它是如何被调用的。</p>
-<p>为了正确的处理交叉进程，我们可以考虑使用Android Support Library v4中的<a href="http://developer.android.com/reference/android/support/v4/app/TaskStackBuilder.html" target="_blank" rel="noopener">TaskStackBuilder</a>类。</p>
-<h3 id="Notification-views"><a href="#Notification-views" class="headerlink" title="Notification views"></a>Notification views</h3><p>Normal View – A notification in normal view appears in an area that’s up to 64 dp tall. Even if you create a notification with a big view style, it will appear in normal view until it’s expanded.</p>
-<pre><code>1. Content title
-2. Large icon
-3. Content text
-4. Content info
-5. Small icon
-6. Notification time
-</code></pre><p>Big View – A notification’s big view appears only when the notification is expanded, which happens when the notification is at the top of the notification drawer, or when the user expands the notification with a gesture.  Expanded notifications were first introduced in Android 4.1 JellyBean [API 16].  Expandable notifications were designed to support rich notification style objects called Notification.Style.</p>
-<pre><code>7. Details area
-</code></pre><h3 id="Creating-Notifications"><a href="#Creating-Notifications" class="headerlink" title="Creating Notifications"></a>Creating Notifications</h3><h4 id="Normal-View"><a href="#Normal-View" class="headerlink" title="Normal View"></a>Normal View</h4><p>One point to remember is that all notification objects, including a Normal View, are required to have a small icon, a title, and detail text.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">         <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the final Notification object.</span></span><br><span class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">"Normal Notification"</span>)</span><br><span class="line">        .setContentText(<span class="string">"This is an example of a Normal Style."</span>).build();</span><br></pre></td></tr></table></figure>
-<img src="/blog/2017/04/20/Expandable-Notifications-for-Android/normal_notification.png" title="Normal Notification">
-<h4 id="Big-View"><a href="#Big-View" class="headerlink" title="Big View"></a>Big View</h4><p>You will use this style the most when setting up expandable notifications.  This Notification.Style class contains three direct subclasses which are:</p>
-<p>Big Text Style – Displays a large text block to show the user more details on the item at hand.<br>Big Picture Style – Displays a bitmap up to 256 dp tall similar to a screenshot notification.<br>Inbox Style – Displays rows of text like a listView similar to the Gmail notification for multiple emails.<br>To apply a rich notification style to the notification, you first need to create the style object itself.  For this example I am showing you the BigPictureStyle subclass.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Bitmap remote_picture = <span class="keyword">null</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the style object with BigPictureStyle subclass.</span></span><br><span class="line">NotificationCompat.BigPictureStyle notiStyle = <span class="keyword">new</span> </span><br><span class="line">        NotificationCompat.BigPictureStyle();</span><br><span class="line">notiStyle.setBigContentTitle(<span class="string">"Big Picture Expanded"</span>);</span><br><span class="line">notiStyle.setSummaryText(<span class="string">"Nice big picture."</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">        remote_picture = BitmapFactory.decodeStream(</span><br><span class="line">                (InputStream) <span class="keyword">new</span> URL(sample_url).getContent());</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Add the big picture to the style.</span></span><br><span class="line">notiStyle.bigPicture(remote_picture);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended </span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself).</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">"Big Picture Normal"</span>)</span><br><span class="line">        .setContentText(<span class="string">"This is an example of a Big Picture Style."</span>)</span><br><span class="line">        .setStyle(notiStyle).build();</span><br></pre></td></tr></table></figure>
-<img src="/blog/2017/04/20/Expandable-Notifications-for-Android/expanded_notification.png" title="Expanded Notification">
-<h4 id="Custom-View"><a href="#Custom-View" class="headerlink" title="Custom View"></a>Custom View</h4><p>So what if the rich notification styles don’t provide you with the layout you need?  Easy, just create your own layout and pass it to the builder.  One little fact to retain is that notifications use remote views, which means you need to create a layout using a RemoteView.  Below is exactly how you would need to create this custom RemoteView.  When using a custom view, it will still function like the other expandable notifications we talked about.</p>
-<p>First you need to create your layout file, here is one for an example.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:background</span>=<span class="string">"#545454"</span> </span></span><br><span class="line"><span class="tag">                <span class="attr">android:gravity</span>=<span class="string">"center_horizontal"</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"@drawable/codeversed_logo"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:contentDescription</span>=<span class="string">"@string/codeversed_logo"</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Next create the RemoteView that uses your custom layout and apply it RemoteView using bigContentView.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create remote view and set bigContentView.</span></span><br><span class="line">RemoteViews expandedView = <span class="keyword">new</span> RemoteViews(<span class="keyword">this</span>.getPackageName(), </span><br><span class="line">        R.layout.notification_custom_remote);</span><br><span class="line">expandedView.setTextViewText(R.id.text_view, <span class="string">"Neat logo!"</span>);</span><br><span class="line"> </span><br><span class="line">Notification notification = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">"Custom View"</span>).build();</span><br><span class="line"> </span><br><span class="line">notification.bigContentView = expandedView;</span><br></pre></td></tr></table></figure>
-<img src="/blog/2017/04/20/Expandable-Notifications-for-Android/customer_notification.png" title="Customer Notification">
-<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><p><a href="https://github.com/srafx/Notifications" target="_blank" rel="noopener">示例代码</a></p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1958,7 +1962,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
