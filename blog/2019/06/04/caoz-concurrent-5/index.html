@@ -74,7 +74,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="computer science," />
 
 
 
@@ -90,17 +90,18 @@
 
 
 
-<meta name="description" content="腾讯云认证培训的学习有下面几个途径。 腾讯云产品文档视频的更新周期较长，网上外站查到的资料或过期或有误，还有什么比官方文档更权威的呢？ 腾讯云学院培训云学院上有所有人都可以看的公开视频，如果觉得文档属于工具类，需要时才查看，或者觉得啃的无聊了，可以看看这个。 腾讯云合作伙伴学院如果有腾讯云合作伙伴主账号或员工账号，可以看这个有针对性的合作伙伴视频。需要使用合作伙伴账号登录后才可观看。 最好搭配视频">
+<meta name="description" content="本文引自caoz的梦呓的同名文章 如何应对并发(5) - 关键的关键，是认识负载很多人会问我说，他们有个系统，流量有多大，用户有多多，然后问我用什么方案，实话说，这样的问题基本上都没办法回答，你必须首先清楚，你的负载构成是怎样的，以及负载增加的趋势是怎样的，才能有针对性的给出方案。 1、负载的构成 你要提出优化方案，首先你要知道你系统的负载是怎么构成的， CPU开销是多少，是哪些进程和服务占用的。">
+<meta name="keywords" content="computer science">
 <meta property="og:type" content="article">
-<meta property="og:title" content="腾讯云认证培训的学习资料">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2019/03/18/tencentcloudxuexi/index.html">
+<meta property="og:title" content="如何应对并发(5) - 关键的关键，是认识负载">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-5/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="腾讯云认证培训的学习有下面几个途径。 腾讯云产品文档视频的更新周期较长，网上外站查到的资料或过期或有误，还有什么比官方文档更权威的呢？ 腾讯云学院培训云学院上有所有人都可以看的公开视频，如果觉得文档属于工具类，需要时才查看，或者觉得啃的无聊了，可以看看这个。 腾讯云合作伙伴学院如果有腾讯云合作伙伴主账号或员工账号，可以看这个有针对性的合作伙伴视频。需要使用合作伙伴账号登录后才可观看。 最好搭配视频">
+<meta property="og:description" content="本文引自caoz的梦呓的同名文章 如何应对并发(5) - 关键的关键，是认识负载很多人会问我说，他们有个系统，流量有多大，用户有多多，然后问我用什么方案，实话说，这样的问题基本上都没办法回答，你必须首先清楚，你的负载构成是怎样的，以及负载增加的趋势是怎样的，才能有针对性的给出方案。 1、负载的构成 你要提出优化方案，首先你要知道你系统的负载是怎么构成的， CPU开销是多少，是哪些进程和服务占用的。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-17T18:09:04.875Z">
+<meta property="og:updated_time" content="2019-06-04T08:19:20.587Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="腾讯云认证培训的学习资料">
-<meta name="twitter:description" content="腾讯云认证培训的学习有下面几个途径。 腾讯云产品文档视频的更新周期较长，网上外站查到的资料或过期或有误，还有什么比官方文档更权威的呢？ 腾讯云学院培训云学院上有所有人都可以看的公开视频，如果觉得文档属于工具类，需要时才查看，或者觉得啃的无聊了，可以看看这个。 腾讯云合作伙伴学院如果有腾讯云合作伙伴主账号或员工账号，可以看这个有针对性的合作伙伴视频。需要使用合作伙伴账号登录后才可观看。 最好搭配视频">
+<meta name="twitter:title" content="如何应对并发(5) - 关键的关键，是认识负载">
+<meta name="twitter:description" content="本文引自caoz的梦呓的同名文章 如何应对并发(5) - 关键的关键，是认识负载很多人会问我说，他们有个系统，流量有多大，用户有多多，然后问我用什么方案，实话说，这样的问题基本上都没办法回答，你必须首先清楚，你的负载构成是怎样的，以及负载增加的趋势是怎样的，才能有针对性的给出方案。 1、负载的构成 你要提出优化方案，首先你要知道你系统的负载是怎么构成的， CPU开销是多少，是哪些进程和服务占用的。">
 
 
 
@@ -128,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://suyu0925.github.io/blog/2019/03/18/tencentcloudxuexi/"/>
+  <link rel="canonical" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-5/"/>
 
 
 
 
 
-  <title> 腾讯云认证培训的学习资料 | Tasty Pub </title>
+  <title> 如何应对并发(5) - 关键的关键，是认识负载 | Tasty Pub </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/03/18/tencentcloudxuexi/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/06/04/caoz-concurrent-5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="lckof">
@@ -284,7 +285,7 @@
             
             
               
-                腾讯云认证培训的学习资料
+                如何应对并发(5) - 关键的关键，是认识负载
               
             
           </h1>
@@ -299,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-18T01:33:57+08:00">
-                2019-03-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:13+08:00">
+                2019-06-04
               </time>
             
 
@@ -310,6 +311,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
+                    <span itemprop="name">computer science</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -318,7 +341,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/blog/2019/03/18/tencentcloudxuexi/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/blog/2019/06/04/caoz-concurrent-5/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -327,7 +350,7 @@
 
           
           
-             <span id="/blog/2019/03/18/tencentcloudxuexi/" class="leancloud_visitors" data-flag-title="腾讯云认证培训的学习资料">
+             <span id="/blog/2019/06/04/caoz-concurrent-5/" class="leancloud_visitors" data-flag-title="如何应对并发(5) - 关键的关键，是认识负载">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -356,27 +379,38 @@
       
 
       
-        <p>腾讯云认证培训的学习有下面几个途径。</p>
-<h3 id="腾讯云产品文档"><a href="#腾讯云产品文档" class="headerlink" title="腾讯云产品文档"></a>腾讯云产品文档</h3><p>视频的更新周期较长，网上外站查到的资料或过期或有误，还有什么比<a href="https://cloud.tencent.com/document/product" target="_blank" rel="noopener"><strong>官方文档</strong></a>更权威的呢？</p>
-<h3 id="腾讯云学院"><a href="#腾讯云学院" class="headerlink" title="腾讯云学院"></a>腾讯云学院</h3><p>培训云学院上有所有人都可以看的<a href="https://cloud.tencent.com/developer/edu/courses?cid=10014" target="_blank" rel="noopener"><strong>公开视频</strong></a>，如果觉得文档属于工具类，需要时才查看，或者觉得啃的无聊了，可以看看这个。</p>
-<h3 id="腾讯云合作伙伴学院"><a href="#腾讯云合作伙伴学院" class="headerlink" title="腾讯云合作伙伴学院"></a>腾讯云合作伙伴学院</h3><p>如果有腾讯云合作伙伴主账号或员工账号，可以看这个有针对性的<a href="https://cloud.tencent.com/developer/partner/courses?cid=102&amp;p=1" target="_blank" rel="noopener"><strong>合作伙伴视频</strong></a>。需要使用合作伙伴账号登录后才可观看。</p>
-<p>最好搭配视频PPT材料食用。注意：PPT材料同样需要登录合作伙伴账号后才可查看。</p>
-<ol>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1167" target="_blank" rel="noopener">云计算基础介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1170" target="_blank" rel="noopener">云服务器产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1173" target="_blank" rel="noopener">网络产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1176" target="_blank" rel="noopener">CDN产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1179" target="_blank" rel="noopener">云存储产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1182" target="_blank" rel="noopener">云数据库产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1185" target="_blank" rel="noopener">安全产品介绍</a></li>
-</ol>
-<h3 id="腾讯云合作伙伴大学"><a href="#腾讯云合作伙伴大学" class="headerlink" title="腾讯云合作伙伴大学"></a>腾讯云合作伙伴大学</h3><p>已经有了腾讯云合作伙伴学院，为什么还要上腾讯云合作伙伴大学呢？</p>
-<p>原因很简单，因为这里有帮助最大的<a href="http://tencentcloudxuexi.com/exam.php?a=myExam" target="_blank" rel="noopener"><strong>模拟考试</strong></a>。</p>
-<p>注册合作伙伴大学账号需要填入合作伙伴账号的APPID（不是账号ID哦），可在<a href="https://console.cloud.tencent.com/developer" target="_blank" rel="noopener"><strong>账号信息</strong></a>中查看。</p>
-<h3 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h3><p>最后，在学习中，最好创建自己的思维导图来帮助记忆。不要去看别人的，别人写的是别人的思路，对你没有帮助。要自己写，写的过程是一种提炼，看的过程是一种记忆，强烈推荐。</p>
-<h3 id="云-社区"><a href="#云-社区" class="headerlink" title="云+社区"></a>云+社区</h3><p>当遇上问题时，可以先去云+社区的<a href="https://cloud.tencent.com/developer/ask" target="_blank" rel="noopener"><strong>问答版块</strong></a>寻找有没有人曾经提过相同的问题。上面的回复者很多是官方人员。</p>
-<p>要养成使用官方资源的习惯，在遇到专业问题时不要百度，百度在专业问题面前就是个坑货，不要再出现魏则西了。</p>
-<h3 id="使用学习工具"><a href="#使用学习工具" class="headerlink" title="使用学习工具"></a>使用学习工具</h3><p>我正在开发一个学习工具，<em>敬请期待咯</em>。</p>
+        <p>本文引自<a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=401014185&amp;idx=1&amp;sn=66850ac473e63c639448103066682dc7&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
+<h2 id="如何应对并发-5-关键的关键，是认识负载"><a href="#如何应对并发-5-关键的关键，是认识负载" class="headerlink" title="如何应对并发(5) - 关键的关键，是认识负载"></a>如何应对并发(5) - 关键的关键，是认识负载</h2><p>很多人会问我说，他们有个系统，流量有多大，用户有多多，然后问我用什么方案，实话说，这样的问题基本上都没办法回答，你必须首先清楚，你的负载构成是怎样的，以及负载增加的趋势是怎样的，才能有针对性的给出方案。</p>
+<p>1、负载的构成</p>
+<p>你要提出优化方案，首先你要知道你系统的负载是怎么构成的，</p>
+<p>CPU开销是多少，是哪些进程和服务占用的。</p>
+<p>内存开销是多少，是哪些进程和服务占用的，如果内存占用了swap分区，大量的硬盘虚拟内存操作，效率自然会直线下降。</p>
+<p>I/O开销 是多少，读请求的频率，写请求的频率，什么服务和什么操作占用了大量的i/o。</p>
+<p>连接数是多少，是怎么分布的，比如http链接多少，数据库链接多少，memcache链接多少，当然更细致的三次握手的链接是多少。</p>
+<p>了解这些，是优化的基础，这些都不清楚，谈个毛优化方案。</p>
+<p>2、负载增长趋势</p>
+<p>随着应用请求的增加，你的系统的负载是怎么增加的。</p>
+<p>第一种，是线性增加，就是请求两倍，负载变成两倍</p>
+<p>第二种，是指数增加，请求两倍，负载变成四倍甚至更多，</p>
+<p>有人会奇怪，为什么这样呢？因为请求增加和数据量增加很可能是一致的，比如一个毫无索引的遍历查询，数据量增加了一倍，查询效率就降低50%，请求量又增加1倍，所以负载就增加了4倍。 这种就是非常不合理的技术架构。</p>
+<p>第三种，收敛增加，随着你的请求增加规模，负载的增加低于线性增加并逐步收敛，比如说，大量使用缓存和异步更新，请求越多，缓存命中率越高，异步更新的请求合并率越高，这样负载的增加就呈现为收敛性，这样系统的支撑性就会很强大。</p>
+<p>3、系统阈值</p>
+<p>很多时候，我们系统出现瓶颈，并不是因为负载很高，而是因为某个请求规模超越了系统阈值，导致无法应答请求。</p>
+<p>典型范例如</p>
+<p>syn flood攻击时，最大的syn连接池被占满，导致无法应答新的请求，而此时服务器负载非常之低，这就是典型服务器很闲但不响应的情况。</p>
+<p>http链接数越界，http链接超时设置较长，大量链接没有释放，导致链接数超过默认最大值，http服务器无法响应新请求。</p>
+<p>mysql链接数越界，大量使用常链接或不释放链接，导致大量sleep链接占满系统默认连接数，数据库无法响应新请求。</p>
+<p>最大文件打开数越界，大量使用临时文件和缓存文件，大量的文件打开操作，而系统默认值没有调优。</p>
+<p>类似这样的还有很多，以上只是最常见的一些。</p>
+<p>这就是很多人觉得奇怪的一个现象，我看了一下系统负载不高为啥我服务器不响应了？要充分理解各种系统阈值，并针对自己的应用特性进行调优，才可以充分发挥系统硬件特性，实话说，很多系统或服务的默认阈值都偏低。</p>
+<p>4、峰谷的规律和预测</p>
+<p>通常，负载和请求并非一条平顺的曲线，每天都有波峰和波谷，如果有大的活动或市场推广计划，很可能也会有一条非常陡峭的增加曲线。</p>
+<p>这时候需要运营者有一个预测和判断，知道波峰在什么时候会发生，而且要知道相关的规律是什么。</p>
+<p>5、异常的监控和跟踪</p>
+<p>之前我的系列文章有提过一点，要对各种异常敏感，很多严重的性能问题其实是有先兆的，比如偶尔的501错误，偶尔的访问卡顿，偶尔的链接出错，很多时候，用户刷新一下，这个问题就没有了，但是很可能此事系统已经进入了一个不稳定的状态。</p>
+<p>有经验和有意识的架构师或运维专家，应该会做日志的跟踪和审计，随时查看这种错误信息的出现频率，并对此进行持续的跟踪监控，在高并发的真实环境中，在一定比例内，这样的偶发异常是非常难免的，你要问我如何彻底杜绝，对不起，我也不会，但是首先，这个比例应该是非常低的，比如说在万分之几甚至更低，当异常响应超过千分之几的时候你就应该足够敏感和足够紧张的去研究这个问题了。其次，当异常频现的时候应该在程序里埋点做跟踪了，并尽可能记录异常频次较高时候的系统负载值和各种连接数与阈值的比例。然后基于异常的一些提示信息在网上进行搜索，当然，不同的异常存在不同的可能，我没办法给出一揽子解决的方案，但是我希望提醒，当异常开始快速增加的时候，你至少要知道，系统已经呈现出可能崩溃的前兆了。</p>
+<p>认识负载，是优化系统的关键，今天先讲这些，这个系列并未结束。</p>
+<p>最近在多个城市穿梭，因此更新不够稳定，谢谢您继续关注和支持！</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
@@ -404,6 +438,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
+          
+        </div>
+      
 
       
         
@@ -413,8 +453,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/06/05/weixin-deeplink/" rel="next" title="从常规浏览器跳转至微信内部浏览器">
-                <i class="fa fa-chevron-left"></i> 从常规浏览器跳转至微信内部浏览器
+              <a href="/blog/2019/06/04/caoz-concurrent-4/" rel="next" title="如何应对并发(4) - 分布式数据库及反范式设计">
+                <i class="fa fa-chevron-left"></i> 如何应对并发(4) - 分布式数据库及反范式设计
               </a>
             
           </div>
@@ -423,8 +463,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2019/03/31/remove-duplicates/" rel="prev" title="记一次简单的数据去重">
-                记一次简单的数据去重 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2019/06/04/caoz-concurrent-6/" rel="prev" title="如何应对并发(6) - 琐碎的日常">
+                如何应对并发(6) - 琐碎的日常 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -556,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯云产品文档"><span class="nav-number">1.</span> <span class="nav-text">腾讯云产品文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯云学院"><span class="nav-number">2.</span> <span class="nav-text">腾讯云学院</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯云合作伙伴学院"><span class="nav-number">3.</span> <span class="nav-text">腾讯云合作伙伴学院</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#腾讯云合作伙伴大学"><span class="nav-number">4.</span> <span class="nav-text">腾讯云合作伙伴大学</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#思维导图"><span class="nav-number">5.</span> <span class="nav-text">思维导图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#云-社区"><span class="nav-number">6.</span> <span class="nav-text">云+社区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用学习工具"><span class="nav-number">7.</span> <span class="nav-text">使用学习工具</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何应对并发-5-关键的关键，是认识负载"><span class="nav-number">1.</span> <span class="nav-text">如何应对并发(5) - 关键的关键，是认识负载</span></a></li></ol></div>
             
 
           </div>

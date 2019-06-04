@@ -1,0 +1,1066 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="computer science," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文引自caoz的梦呓的同名文章 如何应对并发(4) - 分布式数据库及反范式设计分布式数据库及反范式设计 当数据容量非常大，请求频次非常高，索引优化，异步更新，合并操作，需求裁剪这些都做到位了，你发现系统依然存在严重的瓶颈，需要扩展，这时候，我们再来谈分布式方案。 这个课题我四年前在Qcon架构师大会分享过，当场我看记录，好评数还可以，但事后有高手吐槽说我讲的玩意根本不算什么分布式数据库，可能他">
+<meta name="keywords" content="computer science">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何应对并发(4) - 分布式数据库及反范式设计">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-4/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="本文引自caoz的梦呓的同名文章 如何应对并发(4) - 分布式数据库及反范式设计分布式数据库及反范式设计 当数据容量非常大，请求频次非常高，索引优化，异步更新，合并操作，需求裁剪这些都做到位了，你发现系统依然存在严重的瓶颈，需要扩展，这时候，我们再来谈分布式方案。 这个课题我四年前在Qcon架构师大会分享过，当场我看记录，好评数还可以，但事后有高手吐槽说我讲的玩意根本不算什么分布式数据库，可能他">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-06-04T08:17:40.099Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何应对并发(4) - 分布式数据库及反范式设计">
+<meta name="twitter:description" content="本文引自caoz的梦呓的同名文章 如何应对并发(4) - 分布式数据库及反范式设计分布式数据库及反范式设计 当数据容量非常大，请求频次非常高，索引优化，异步更新，合并操作，需求裁剪这些都做到位了，你发现系统依然存在严重的瓶颈，需要扩展，这时候，我们再来谈分布式方案。 这个课题我四年前在Qcon架构师大会分享过，当场我看记录，好评数还可以，但事后有高手吐槽说我讲的玩意根本不算什么分布式数据库，可能他">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-4/"/>
+
+
+
+
+
+  <title> 如何应对并发(4) - 分布式数据库及反范式设计 | Tasty Pub </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tasty Pub</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/06/04/caoz-concurrent-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何应对并发(4) - 分布式数据库及反范式设计
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:06+08:00">
+                2019-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
+                    <span itemprop="name">computer science</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/blog/2019/06/04/caoz-concurrent-4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/blog/2019/06/04/caoz-concurrent-4/" class="leancloud_visitors" data-flag-title="如何应对并发(4) - 分布式数据库及反范式设计">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文引自<a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=400516974&amp;idx=1&amp;sn=66a65b0900a8a410b7268d4b9c7bbddb&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
+<h2 id="如何应对并发-4-分布式数据库及反范式设计"><a href="#如何应对并发-4-分布式数据库及反范式设计" class="headerlink" title="如何应对并发(4) - 分布式数据库及反范式设计"></a>如何应对并发(4) - 分布式数据库及反范式设计</h2><p>分布式数据库及反范式设计</p>
+<p>当数据容量非常大，请求频次非常高，索引优化，异步更新，合并操作，需求裁剪这些都做到位了，你发现系统依然存在严重的瓶颈，需要扩展，这时候，我们再来谈分布式方案。</p>
+<p>这个课题我四年前在Qcon架构师大会分享过，当场我看记录，好评数还可以，但事后有高手吐槽说我讲的玩意根本不算什么分布式数据库，可能他们看中硬核的东西，不过我这种野路子，关心的是实战中，中小型互联网公司遇到的数据库压力问题如何高效解决，简单有效是第一宗旨，您要是问一线的，比如淘宝怎么解决数据库压力，别问我，我不会。</p>
+<p>今天偷懒了，我把以前文档的内容贴出来。 不过这也是原创哦，四年前的原创。</p>
+<h2 id="分库-amp-拆表方案"><a href="#分库-amp-拆表方案" class="headerlink" title="分库&amp;拆表方案"></a>分库&amp;拆表方案</h2><ul>
+<li><p>基本认识</p>
+<ul>
+<li><p>用分库&amp;拆表是解决数据库容量问题的唯一途径。</p>
+</li>
+<li><p>分库&amp;拆表也是解决性能压力的最优选择。</p>
+</li>
+<li><p>分库 – 不同的数据表放到不同的数据库服务器中（也可能是虚拟服务器）</p>
+</li>
+<li><p>拆表 – 一张数据表拆成多张数据表，可能位于同一台服务器，也可能位于多台服务器（含虚拟服务器）。</p>
+</li>
+</ul>
+</li>
+<li><p>去关联化原则</p>
+<ul>
+<li><p>摘除数据表之间的关联，是分库的基础工作。</p>
+</li>
+<li><p>摘除关联的目的是，当数据表分布到不同服务器时，查询请求容易分发和处理。</p>
+</li>
+<li><p>学会理解反范式数据结构设计，所谓反范式，第一要点是不用外键，不允许Join操作，不允许任何需要跨越两个表的查询请求。第二要点是适度冗余减少查询请求，比如说，信息表，fromuid, touid, message字段外，还需要一个fromuname字段记录用户名，这样查询者通过touid查询后，能够立即得到发信人的用户名，而无需进行另一个数据表的查询。</p>
+</li>
+<li><p>去关联化处理会带来额外的考虑，比如说，某一个数据表内容的修改，对另一个数据表的影响。这一点需要在程序或其他途径去考虑。</p>
+</li>
+</ul>
+</li>
+<li><p>分库方案</p>
+<ul>
+<li><p>安全性拆分</p>
+<ul>
+<li>将高安全性数据与低安全性数据分库，这样的好处第一是便于维护，第二是高安全性数据的数据库参数配置可以以安全优先，而低安全性数据的参数配置以性能优先。参见运维优化相关部分。</li>
+</ul>
+</li>
+<li><p>基于业务逻辑拆分</p>
+<ul>
+<li><p>根据数据表的内容构成，业务逻辑拆分，便于日常维护和前端调用。</p>
+</li>
+<li><p>基于业务逻辑拆分，可以减少前端应用请求发送到不同数据库服务器的频次，从而减少链接开销。</p>
+</li>
+<li><p>基于业务逻辑拆分，可保留部分数据关联，前端web工程师可在限度范围内执行关联查询。</p>
+</li>
+</ul>
+</li>
+<li><p>基于负载压力拆分</p>
+<ul>
+<li><p>基于负载压力对数据结构拆分，便于直接将负载分担给不同的服务器。</p>
+</li>
+<li><p>基于负载压力拆分，可能拆分后的数据库包含不同业务类型的数据表，日常维护会有一定的烦恼。</p>
+</li>
+</ul>
+</li>
+<li><p>混合拆分组合</p>
+<ul>
+<li><p>基于安全与业务拆分为数据库实例，但是可以使用不同端口放在同一个服务器上。</p>
+</li>
+<li><p>基于负载可以拆分为更多数据库实例分布在不同数据库上</p>
+<p>例如，</p>
+<ul>
+<li><p>基于安全拆分出A数据库实例，</p>
+</li>
+<li><p>基于业务拆分出B,C数据库实例，</p>
+</li>
+<li><p>C数据库存在较高负载，基于负载拆分为C1,C2,C3,C4等 实例。</p>
+</li>
+<li><p>数据库服务器完全可以做到 A+B+C1 为一台，C2,C3,C4各单独一台。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>分表方案</p>
+<p>数据量过大或者访问压力过大的数据表需要切分</p>
+<ul>
+<li><p>纵向分表（常见为忙闲分表）</p>
+<ul>
+<li><p>单数据表字段过多，可将频繁更新的整数数据与非频繁更新的字符串数据切分</p>
+<p>范例 user表 ，个人简介，地址，QQ号，联系方式，头像 这些字段为字符串类型，更新请求少； 最后登录时间，在线时常，访问次数，信件数这些字段为整数型字段，更新频繁，可以将后面这些更新频繁的字段独立拆出一张数据表，表内容变少，索引结构变少，读写请求变快。</p>
+</li>
+</ul>
+</li>
+<li><p>横向切表</p>
+<ul>
+<li><p>等分切表，如哈希切表或其他基于对某数字取余的切表。等分切表的优点是负载很方便的分布到不同服务器；缺点是当容量继续增加时无法方便的扩容，需要重新进行数据的切分或转表。而且一些关键主键不易处理。</p>
+</li>
+<li><p>递增切表，比如每1kw用户开一个新表，优点是可以适应数据的自增趋势；缺点是往往新数据负载高，压力分配不平均。</p>
+</li>
+<li><p>日期切表，适用于日志记录式数据，优缺点等同于递增切表。</p>
+</li>
+</ul>
+<p>个人倾向于递增切表，具体根据应用场景决定。</p>
+</li>
+<li><p>热点数据分表</p>
+<ul>
+<li><p>将数据量较大的数据表中将读写频繁的数据抽取出来，形成热点数据表。通常一个庞大数据表经常被读写的内容往往具有一定的集中性，如果这些集中数据单独处理，就会极大减少整体系统的负载。</p>
+</li>
+<li><p>热点数据表与旧有数据关系</p>
+<ul>
+<li><p>可以是一张冗余表，即该表数据丢失不会妨碍使用，因源数据仍存在于旧有结构中。优点是安全性高，维护方便，缺点是写压力不能分担，仍需要同步写回原系统。</p>
+</li>
+<li><p>可以是非冗余表，即热点数据的内容原有结构不再保存，优点是读写效率全部优化；缺点是当热点数据发生变化时，维护量较大。</p>
+</li>
+<li><p>具体方案选择需要根据读写比例决定，在读频率远高于写频率情况下，优先考虑冗余表方案。</p>
+</li>
+</ul>
+</li>
+<li><p>热点数据表可以用单独的优化的硬件存储，比如昂贵的闪存卡或大内存系统。</p>
+</li>
+</ul>
+</li>
+<li><p>热点数据表的重要指标</p>
+<ul>
+<li><p>热点数据的定义需要根据业务模式自行制定策略，常见策略为，按照最新的操作时间；按照内容丰富度等等。</p>
+</li>
+<li><p>数据规模，比如从1000万条数据，抽取出100万条热点数据。</p>
+</li>
+<li><p>热点命中率，比如查询10次，多少次命中在热点数据内。</p>
+</li>
+<li><p>理论上，数据规模越小，热点命中率越高，说明效果越好。需要根据业务自行评估。</p>
+</li>
+</ul>
+</li>
+<li><p>热点数据表的动态维护</p>
+<ul>
+<li><p>加载热点数据方案选择</p>
+<ul>
+<li><p>定时从旧有数据结构中按照新的策略获取</p>
+</li>
+<li><p>在从旧有数据结构读取时动态加载到热点数据</p>
+</li>
+</ul>
+</li>
+<li><p>剔除热点数据方案选择</p>
+<ul>
+<li><p>基于特定策略，定时将热点数据中访问频次较少的数据剔除</p>
+</li>
+<li><p>如热点数据是冗余表，则直接删除即可，如不是冗余表，需要回写给旧有数据结构。</p>
+</li>
+<li><p>通常，热点数据往往是基于缓存或者key-value 方案冗余存储，所以这里提到的热点数据表，其实更多是理解思路，用到的场合可能并不多….</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>反范式设计（冗余结构设计）<br>l 反范式设计的概念</p>
+<p>n 无外键，无连表查询。</p>
+<p>n 便于分布式设计，允许适度冗余，为了容量扩展允许适度开销。</p>
+<p>n 基于业务自由优化，基于i/o 或查询设计，无须遵循范式结构设计。</p>
+<p>l 冗余结构设计所面临的典型场景</p>
+<p>n 原有展现程序涉及多个表的查询，希望精简查询程序</p>
+<p>n 数据表拆分往往基于主键，而原有数据表往往存在非基于主键的关键查询，无法在分表结构中完成。</p>
+<p>n 存在较多数据统计需求（count, sum等），效率低下。</p>
+<p>l 冗余设计方案</p>
+<p>n 基于展现的冗余设计</p>
+<p>u 为了简化展现程序，在一些数据表中往往存在冗余字段</p>
+<p>u 举例，信息表 message，存在字段 fromuid,touid,msg,sendtime 四个字段，其中 touid+sendtime是复合索引。存在查询为 select * from message where touid=$uid order by sendtime desc limit 0,30;</p>
+<p>u 展示程序需要显示发送者姓名，此时通常会在message表中增加字段fromusername，甚至有的会增加fromusersex，从而无需连表查询直接输出信息的发送者姓名和性别。这就是一种简单的，为了避免连表查询而使用的冗余字段设计。</p>
+<p>n 基于查询的冗余设计</p>
+<p>u 涉及分表操作后，一些常见的索引查询可能需要跨表，带来不必要的麻烦。确认查询请求远大于写入请求时，应设置便于查询项的冗余表。</p>
+<p>u 冗余表要点</p>
+<p>l 数据一致性，简单说，同增，同删，同更新。</p>
+<p>l 可以做全冗余，或者只做主键关联的冗余，比如通过用户名查询uid，再基于uid查询源表。</p>
+<p>u 实战范例1</p>
+<p>l 用户分表，将用户库分成若干数据表</p>
+<p>l 基于用户名的查询和基于uid的查询都是高并发请求。</p>
+<p>l 用户分表基于uid分成数据表，同时基于用户名做对应冗余表。</p>
+<p>l 如果允许多方式登陆，可以有如下设计方法</p>
+<p>n uid,passwd,用户信息等等，主数据表，基于uid 分表</p>
+<p>n ukey,ukeytype,uid 基于ukey分表，便于用户登陆的查询。分解成如下两个SQL。</p>
+<p>u select uid from ulist_key_13 where ukey=’$username’ and ukeytype=‘login’;</p>
+<p>u select * from ulist_uid_23 where uid=$uid and passwd=’$passwd’;</p>
+<p>n ukeytype定义用户的登陆依据，比如用户名，手机号，邮件地址，网站昵称等。 Ukey+ukeytype 必须唯一。</p>
+<p>n 此种方式需要登陆密码统一，对于第三方connect接入模式，可以通过引申额外字段完成。</p>
+<p>u 实战范例2：用户游戏积分排名</p>
+<p>l 表结构 uid,gameid,score 参见前文实时积分排行。表内容巨大，需要拆表。</p>
+<p>l 需求1：基于游戏id查询积分排行</p>
+<p>l 需求2：基于用户id查询游戏积分记录</p>
+<p>l 解决方案：建立完全相同的两套表结构，其一以uid为拆表主键，其二以gameid为拆表主键，用户提交积分时，向两个数据结构同时提交。</p>
+<p>u 实战范例3：全冗余查询结构</p>
+<p>l 主信息表仅包括 主键及备注memo 字段（text类型），只支持主键查询，可以基于主键拆表。所以需要展现和存储的内容均在memo字段重体现。</p>
+<p>l 对每一个查询条件，建立查询冗余表，以查询条件字段为主键，以主信息表主键id 为内容。</p>
+<p>l 日常查询只基于查询冗余表，然后通过in的方式从主信息表获得内容。</p>
+<p>l 优点是结构扩展非常方便，只需要扩展新的查询信息表即可，核心思路是，只有查询才需要独立的索引结构，展现无需独立字段。</p>
+<p>l 缺点是只适合于相对固定的查询架构，对于更加灵活的组合查询束手无策。</p>
+<p>n 基于统计的冗余结构</p>
+<p>u 为了减少会涉及大规模影响结果集的表数据操作，比如count，sum操作。应将一些统计类数据通过冗余数据结构保存。</p>
+<p>u 冗余数据结构可能以字段方式存在，也可能以独立数据表结构存在，但是都应能通过源数据表恢复。</p>
+<p>u 实战范例：</p>
+<p>l 论坛板块的发帖量，回帖量，每日新增数据等。</p>
+<p>l 网站每日新增用户数等。</p>
+<p>l 参见Discuz论坛系统数据结构，有较多相关结构。</p>
+<p>l 参见前文分段积分结构，是典型用于统计的冗余结构。</p>
+<p>l 后台可以通过源数据表更新该数字。</p>
+<p>l Redis的Zset类型可以理解为存在一种冗余统计结构。</p>
+<p>n 历史数据表</p>
+<p>u 历史数据表对应于热点数据表，将需求较少又不能丢弃的数据存入，仅在少数情况下被访问。</p>
+<p>以上为节选，缺失部分请点击 “查看原文”</p>
+<p>分几次分享的意思其实很简单，这个文档很早就发布过，给很多人也分享过，但我总觉得效果不够好，不够好的原因是，很多人马马虎虎的看一遍下去，并不真的理解吸收，我还是希望有兴趣的读者多花一点时间思考这些技术问题，能透彻的理解其思路和逻辑，并真正用到工作中，提升代码和数据库操作的效率。</p>
+<p>我们平时看技术文档，看技术专家分享的时候，多半存在这个问题，贪多嚼不烂，看着觉得对方方案很牛，但很多都只是听到了一点概念，最后真正吸收和落实的不多，我希望一些做技术的朋友能稍微慢下来，多吸收和领悟一下，然后在实践中用起来，这样，这个分享才是有意义的。</p>
+<p>明天我会写一篇对一些技术人员吐槽的文章，谢谢。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2019/06/04/caoz-concurrent-3/" rel="next" title="如何应对并发(3) - 需求裁剪">
+                <i class="fa fa-chevron-left"></i> 如何应对并发(3) - 需求裁剪
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/06/04/caoz-concurrent-5/" rel="prev" title="如何应对并发(5) - 关键的关键，是认识负载">
+                如何应对并发(5) - 关键的关键，是认识负载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126"
+               alt="lckof" />
+          <p class="site-author-name" itemprop="name">lckof</p>
+           
+              <p class="site-description motion-element" itemprop="description">啊咧</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何应对并发-4-分布式数据库及反范式设计"><span class="nav-number">1.</span> <span class="nav-text">如何应对并发(4) - 分布式数据库及反范式设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分库-amp-拆表方案"><span class="nav-number">2.</span> <span class="nav-text">分库&amp;拆表方案</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "159ebac2036342c18b480618d384a6a0",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("0kuxCd2QbBgrns4KJoXSfJXK-gzGzoHsz", "MebeiURxYqtQ9QIy78BmoNUC");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
