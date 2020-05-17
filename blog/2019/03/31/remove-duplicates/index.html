@@ -1,382 +1,207 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
 
 
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="computer science," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="探索数据拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。 这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。 数据清洗换行符 先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。 其实原因很简单，只不过因为缺乏经验而没有第一">
-<meta name="keywords" content="computer science">
+  <meta name="description" content="探索数据拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。 这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。 数据清洗换行符 先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。 其实原因很简单，只不过因为缺乏经验而没有第一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次简单的数据去重">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="探索数据拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。 这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。 数据清洗换行符 先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。 其实原因很简单，只不过因为缺乏经验而没有第一">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-26T10:53:16.733Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-30T20:28:10.000Z">
+<meta property="article:modified_time" content="2020-05-17T14:41:18.604Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="computer science">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记一次简单的数据去重">
-<meta name="twitter:description" content="探索数据拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。 这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。 数据清洗换行符 先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。 其实原因很简单，只不过因为缺乏经验而没有第一">
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/">
 
 
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/blog/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
 
-
-
-  <link rel="canonical" href="http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/"/>
-
-
+  <title>记一次简单的数据去重 | Tasty Pub</title>
+  
 
 
 
-  <title> 记一次简单的数据去重 | Tasty Pub </title>
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/blog/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Tasty Pub</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Tasty Pub</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
-          <a href="/blog/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/blog/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/blog/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/blog/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/blog/2019/03/31/remove-duplicates/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126">
+      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                记一次简单的数据去重
-              
-            
-          </h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          记一次简单的数据去重
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-31T04:28:10+08:00">
-                2019-03-31
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
+              <time title="创建时间：2019-03-31 04:28:10" itemprop="dateCreated datePublished" datetime="2019-03-31T04:28:10+08:00">2019-03-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-17 22:41:18" itemprop="dateModified" datetime="2020-05-17T22:41:18+08:00">2020-05-17</time>
+              </span>
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
+              <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index">
-                    <span itemprop="name">computer science</span>
-                  </a>
+                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
                 </span>
-
-                
-                
-              
             </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a class="cloud-tie-join-count" href="/blog/2019/03/31/remove-duplicates/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/blog/2019/03/31/remove-duplicates/" class="leancloud_visitors" data-flag-title="记一次简单的数据去重">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
 
           
 
         </div>
       </header>
+
     
-
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
         <h2 id="探索数据"><a href="#探索数据" class="headerlink" title="探索数据"></a>探索数据</h2><p>拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。</p>
@@ -386,19 +211,24 @@
 <p>其实原因很简单，只不过因为缺乏经验而没有第一时间注意到这个问题。</p>
 <p>原因是txt的换行符既不是linux下的<code>\n</code>，也不是windows下的<code>\r\n</code>，而是使用了老mac os的<code>\r</code>。这个在notepad中就有显示的信息，居然花了近半个小时才注意到。不得不说灯下黑。</p>
 <p>最常使用的<a href="https://en.wikipedia.org/wiki/Newline#Representation" target="_blank" rel="noopener">换行符</a>其实就只有两种，LF(Line Feed, ASCII 10, \n)或者CR-LF（Carriage Return，ASCII 13, \r）。</p>
-<p>在node的linebyline模块中，它是这样判断的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (data[i] == <span class="number">10</span> || data[i] == <span class="number">13</span>) &#123; <span class="comment">// Newline char was found.</span></span><br><span class="line">      <span class="keyword">if</span> (data[i] == <span class="number">10</span>) &#123;</span><br><span class="line">        lineCount++;</span><br><span class="line">        emit(lineCount, byteCount);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lineBuffer[lineLength] = data[i]; <span class="comment">// Buffer new line data.</span></span><br><span class="line">      lineLength++;</span><br><span class="line">    &#125;</span><br><span class="line">    byteCount++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在node的linebyline模块中，它是这样判断的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (data[i] == <span class="number">10</span> || data[i] == <span class="number">13</span>) &#123; <span class="comment">// Newline char was found.</span></span><br><span class="line">      <span class="keyword">if</span> (data[i] == <span class="number">10</span>) &#123;</span><br><span class="line">        lineCount++;</span><br><span class="line">        emit(lineCount, byteCount);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lineBuffer[lineLength] = data[i]; <span class="comment">// Buffer new line data.</span></span><br><span class="line">      lineLength++;</span><br><span class="line">    &#125;</span><br><span class="line">    byteCount++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>emit的条件是碰到\n，不管是linux还是windows，这段代码都能正常工作。但如果文件中只有\r，那么很显然会失效。</p>
 <p>解决办法是修改linebyline模块，或者使用兼容性更好的readline。</p>
 <p><strong>\x00</strong></p>
 <p>csv格式的文件读取，更习惯用python。</p>
 <p>一开始很顺利的读出数据，但却在某一行抛出<code>_csv.Error: line contains NULL byte</code>异常。</p>
 <p>好在问题很常见，搜索一下就能发现有相当多人遇到同样的问题。</p>
-<p>解决方法也很简单，在将数据交给csv reader之前，先过滤掉<code>NULL byte</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(CSV_FILENAME, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(l.replace(<span class="string">'\0'</span>, <span class="string">''</span>) <span class="keyword">for</span> l <span class="keyword">in</span> f)</span><br></pre></td></tr></table></figure></p>
+<p>解决方法也很简单，在将数据交给csv reader之前，先过滤掉<code>NULL byte</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(CSV_FILENAME, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(l.replace(<span class="string">'\0'</span>, <span class="string">''</span>) <span class="keyword">for</span> l <span class="keyword">in</span> f)</span><br></pre></td></tr></table></figure>
+
 <p>在检查过程中，还发现存在”\x01”这样的数据，都属于不正常数据，需要修正或剔除。</p>
 <p><strong>数据一致性和完整性</strong></p>
 <p>txt和csv都能正常读取，但数据清洗并没完。还需要检查数据完整性和一致性。</p>
 <p>对比发现，csv读取到的条数与文件行数不符。</p>
-<p>检查发现原因是存在<strong>不正常换行</strong>，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;101&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;102&quot;,&quot;a&quot;,&quot;0</span><br><span class="line">&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;103&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;104&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br></pre></td></tr></table></figure></p>
+<p>检查发现原因是存在<strong>不正常换行</strong>，如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;101&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;102&quot;,&quot;a&quot;,&quot;0</span><br><span class="line">&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;103&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;104&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br></pre></td></tr></table></figure>
+
 <p>对于这样的数据，可以另外写段脚本进行修正。</p>
 <h2 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h2><p>数据读取完成后，开始进行数据去重。</p>
 <p>去重的简单思路是先写入数据库，然后通过数据库命令进行去重。</p>
@@ -406,13 +236,13 @@
 <p><strong>mongodb</strong><br>如使用mongodb，有两种方法：</p>
 <ol>
 <li><p>使用aggregate聚合</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">var duplicates = [];</span><br><span class="line"></span><br><span class="line">db.collectionName.aggregate([</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      name: &#123; &quot;$ne&quot;: &apos;&apos; &#125;  // discard selection criteria</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $group: &#123;</span><br><span class="line">      _id: &#123; name: &quot;$name&quot; &#125;, // can be grouped on multiple properties </span><br><span class="line">      dups: &#123; &quot;$addToSet&quot;: &quot;$_id&quot; &#125;,</span><br><span class="line">      count: &#123; &quot;$sum&quot;: 1 &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      count: &#123; &quot;$gt&quot;: 1 &#125;    // Duplicates considered as count greater than one</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">],</span><br><span class="line">  &#123; allowDiskUse: true &#125;       // For faster processing if set is larger</span><br><span class="line">)               // You can display result until this and check duplicates </span><br><span class="line">  .forEach(function (doc) &#123;</span><br><span class="line">    doc.dups.shift();      // First element skipped for deleting</span><br><span class="line">    doc.dups.forEach(function (dupId) &#123;</span><br><span class="line">      duplicates.push(dupId);   // Getting all duplicate ids</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">// If you want to Check all &quot;_id&quot; which you are deleting else print statement not needed</span><br><span class="line">printjson(duplicates);</span><br><span class="line"></span><br><span class="line">// Remove all duplicates in one go</span><br><span class="line">db.collectionName.remove(&#123; _id: &#123; $in: duplicates &#125; &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">var duplicates &#x3D; [];</span><br><span class="line"></span><br><span class="line">db.collectionName.aggregate([</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      name: &#123; &quot;$ne&quot;: &#39;&#39; &#125;  &#x2F;&#x2F; discard selection criteria</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $group: &#123;</span><br><span class="line">      _id: &#123; name: &quot;$name&quot; &#125;, &#x2F;&#x2F; can be grouped on multiple properties </span><br><span class="line">      dups: &#123; &quot;$addToSet&quot;: &quot;$_id&quot; &#125;,</span><br><span class="line">      count: &#123; &quot;$sum&quot;: 1 &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      count: &#123; &quot;$gt&quot;: 1 &#125;    &#x2F;&#x2F; Duplicates considered as count greater than one</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">],</span><br><span class="line">  &#123; allowDiskUse: true &#125;       &#x2F;&#x2F; For faster processing if set is larger</span><br><span class="line">)               &#x2F;&#x2F; You can display result until this and check duplicates </span><br><span class="line">  .forEach(function (doc) &#123;</span><br><span class="line">    doc.dups.shift();      &#x2F;&#x2F; First element skipped for deleting</span><br><span class="line">    doc.dups.forEach(function (dupId) &#123;</span><br><span class="line">      duplicates.push(dupId);   &#x2F;&#x2F; Getting all duplicate ids</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; If you want to Check all &quot;_id&quot; which you are deleting else print statement not needed</span><br><span class="line">printjson(duplicates);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Remove all duplicates in one go</span><br><span class="line">db.collectionName.remove(&#123; _id: &#123; $in: duplicates &#125; &#125;)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用mapreduce</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123;&#125;</span><br><span class="line">o.map = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  emit(<span class="keyword">this</span>.phone, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line">o.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">k, vals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.sum(vals)</span><br><span class="line">&#125;</span><br><span class="line">o.out = &#123;</span><br><span class="line">  replace: <span class="string">'mapreduce_demo'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> Item.mapReduce(o)</span><br></pre></td></tr></table></figure>
+<p>mapreduce完成后，在生成的新的collection是搜索出现次数超过1次的，再保留第一个，删除其它。</p>
 </li>
 </ol>
-<p>mapreduce完成后，在生成的新的collection是搜索出现次数超过1次的，再保留第一个，删除其它。</p>
 <p><strong>mysql</strong><br>如使用mysql，也有两种方式，具体请参考<a href="http://www.mysqltutorial.org/mysql-delete-duplicate-rows/" target="_blank" rel="noopener">这篇文章</a></p>
 <ol>
 <li><p>使用<code>DELETE JOIN</code></p>
@@ -424,8 +254,12 @@
 <ol>
 <li>首先是内存问题</li>
 </ol>
-<p>如果是node，可以使用这样的命令来启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --max-old-space-size=8192 app.js</span><br></pre></td></tr></table></figure></p>
-<p>如果是mongodb，可以加上使用硬盘缓冲的选项：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> model.aggregate([&#123;</span><br><span class="line">  $group: &#123;</span><br><span class="line">    _id: &#123; <span class="attr">id</span>: <span class="string">'$_id'</span> &#125;,</span><br><span class="line">    count: &#123; <span class="string">'$sum'</span>: <span class="number">1</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]).allowDiskUse(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure></p>
+<p>如果是node，可以使用这样的命令来启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --max-old-space-size=8192 app.js</span><br></pre></td></tr></table></figure>
+
+<p>如果是mongodb，可以加上使用硬盘缓冲的选项：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> model.aggregate([&#123;</span><br><span class="line">  $group: &#123;</span><br><span class="line">    _id: &#123; <span class="attr">id</span>: <span class="string">'$_id'</span> &#125;,</span><br><span class="line">    count: &#123; <span class="string">'$sum'</span>: <span class="number">1</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]).allowDiskUse(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>其次是速度</li>
 </ol>
@@ -435,261 +269,177 @@
 <p>虽然曾经上过Udacity的数据分析纳米课程，但一旦真正上手，还是问题不断，感叹学海无涯。</p>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>数据去重这步操作最好还是在入库前做，是将一个耗时巨长的操作分散在每一时刻，还是忙时尽量快，闲时再做长时间操作。</p>
 <p>或者再多思考下到底是出于什么目的进行数据去重。有索引的帮助，查询其实很快。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
-      
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
-    <div>
-      
-        
+    
+    
+    
 
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2019/03/18/tencentcloudxuexi/" rel="next" title="腾讯云认证培训的学习资料">
-                <i class="fa fa-chevron-left"></i> 腾讯云认证培训的学习资料
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2019/05/15/check-if-port-is-in-use/" rel="prev" title="检查端口使用情况">
-                检查端口使用情况 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2019/03/18/tencentcloudxuexi/" rel="prev" title="腾讯云认证培训的学习资料">
+      <i class="fa fa-chevron-left"></i> 腾讯云认证培训的学习资料
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2019/05/15/check-if-port-is-in-use/" rel="next" title="检查端口使用情况">
+      检查端口使用情况 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
 
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="https://www.gravatar.com/avatar/5691390c1e5c8b4bda5f50c5235f4672.jpg?s=126"
-               alt="lckof" />
-          <p class="site-author-name" itemprop="name">lckof</p>
-           
-              <p class="site-description motion-element" itemprop="description">啊咧</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/blog/archives">
-                <span class="site-state-item-count">20</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-categories">
-              <a href="/blog/categories/index.html">
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">12</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#探索数据"><span class="nav-number">1.</span> <span class="nav-text">探索数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据清洗"><span class="nav-number">2.</span> <span class="nav-text">数据清洗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据去重"><span class="nav-number">3.</span> <span class="nav-text">数据去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超大数据"><span class="nav-number">4.</span> <span class="nav-text">超大数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结局"><span class="nav-number">5.</span> <span class="nav-text">结局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
-
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#探索数据"><span class="nav-number">1.</span> <span class="nav-text">探索数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据清洗"><span class="nav-number">2.</span> <span class="nav-text">数据清洗</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据去重"><span class="nav-number">3.</span> <span class="nav-text">数据去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超大数据"><span class="nav-number">4.</span> <span class="nav-text">超大数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结局"><span class="nav-number">5.</span> <span class="nav-text">结局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
 
 
 
 
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
 
 
 
@@ -707,204 +457,8 @@
 
 
 
-  
-  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
-
-
-  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-    
-    <script>
-      var cloudTieConfig = {
-        url: document.location.href, 
-        sourceId: "",
-        productKey: "159ebac2036342c18b480618d384a6a0",
-        target: "cloud-tie-wrapper"
-      };
-    </script>
-    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
-  
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("0kuxCd2QbBgrns4KJoXSfJXK-gzGzoHsz", "MebeiURxYqtQ9QIy78BmoNUC");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
-
-  
-
-  
 
   
 
