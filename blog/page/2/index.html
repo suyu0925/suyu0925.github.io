@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/blog/css/main.css">
 
 
-<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta name="description" content="啊咧">
@@ -30,10 +32,11 @@
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://suyu0925.github.io/blog/page/2/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -53,49 +56,58 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/blog/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Tasty Pub</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -108,25 +120,69 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
 
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -135,14 +191,15 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
+      
+
+      
       
   
   
@@ -158,39 +215,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/05/15/check-if-port-is-in-use/" class="post-title-link" itemprop="url">检查端口使用情况</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-05-15 11:41:50" itemprop="dateCreated datePublished" datetime="2019-05-15T11:41:50+08:00">2019-05-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-05-15 11:41:50" itemprop="dateCreated datePublished" datetime="2019-05-15T11:41:50+08:00">2019-05-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:30:09" itemprop="dateModified" datetime="2020-09-23T15:30:09+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -199,26 +261,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="检查端口使用情况"><a href="#检查端口使用情况" class="headerlink" title="检查端口使用情况"></a>检查端口使用情况</h1><h2 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h2><p>首推的就是lsof命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lsof -i</span><br><span class="line">$ lsof -i:8000</span><br></pre></td></tr></table></figure>
-<p>注意当前用户，如果想显示其它用户的使用情况，可使用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lsof -i</span><br></pre></td></tr></table></figure></p>
-<h2 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h2><p><strong>Linux</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -tulpn | grep LISTEN</span><br></pre></td></tr></table></figure></p>
-<p><strong>MacOS X</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -anp tcp | grep LISTEN</span><br><span class="line">$ netstat -anp udp | grep LISTEN</span><br></pre></td></tr></table></figure></p>
-<p><strong>Windows</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -bano | more</span><br><span class="line">netstat -bano | findstr LISTENING</span><br><span class="line">netstat -bano | findstr /R /C:<span class="string">"[LISTEING]"</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="nmap-需要安装"><a href="#nmap-需要安装" class="headerlink" title="nmap(需要安装)"></a>nmap(需要安装)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nmap -sT -O localhost</span><br><span class="line">$ sudo nmap -sU -O 192.168.2.13 <span class="comment">##[ list open UDP ports ]##</span></span><br><span class="line">$ sudo nmap -sT -O 192.168.2.13 <span class="comment">##[ list open TCP ports ]##</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nmap -sTU -O 192.168.2.13</span><br></pre></td></tr></table></figure>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>时常会碰到莫名的端口被占用，总结一下各平台下检查端口使用情况的方法。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/05/15/check-if-port-is-in-use/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -239,39 +301,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/03/31/remove-duplicates/" class="post-title-link" itemprop="url">记一次简单的数据去重</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-03-31 04:28:10" itemprop="dateCreated datePublished" datetime="2019-03-31T04:28:10+08:00">2019-03-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-03-31 04:28:10" itemprop="dateCreated datePublished" datetime="2019-03-31T04:28:10+08:00">2019-03-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:25:03" itemprop="dateModified" datetime="2020-09-23T15:25:03+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -280,74 +347,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="探索数据"><a href="#探索数据" class="headerlink" title="探索数据"></a>探索数据</h2><p>拿到数据的第一件事很自然的就是探索，看看数据的组成方式，所包含的信息。</p>
-<p>这次拿到的是一份txt和一份csv，存储形式都是类似excel的表格形式。</p>
-<h2 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h2><p><strong>换行符</strong></p>
-<p>先使用最熟悉的node.js，使用linebylin模块尝试分行读取txt中的数据，结果很出乎意料。读出的数据与txt中显示的不符，似乎一下子就跳到了中间的数据，忽略了最开始的数据。</p>
-<p>其实原因很简单，只不过因为缺乏经验而没有第一时间注意到这个问题。</p>
-<p>原因是txt的换行符既不是linux下的<code>\n</code>，也不是windows下的<code>\r\n</code>，而是使用了老mac os的<code>\r</code>。这个在notepad中就有显示的信息，居然花了近半个小时才注意到。不得不说灯下黑。</p>
-<p>最常使用的<a href="https://en.wikipedia.org/wiki/Newline#Representation" target="_blank" rel="noopener">换行符</a>其实就只有两种，LF(Line Feed, ASCII 10, \n)或者CR-LF（Carriage Return，ASCII 13, \r）。</p>
-<p>在node的linebyline模块中，它是这样判断的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (data[i] == <span class="number">10</span> || data[i] == <span class="number">13</span>) &#123; <span class="comment">// Newline char was found.</span></span><br><span class="line">      <span class="keyword">if</span> (data[i] == <span class="number">10</span>) &#123;</span><br><span class="line">        lineCount++;</span><br><span class="line">        emit(lineCount, byteCount);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lineBuffer[lineLength] = data[i]; <span class="comment">// Buffer new line data.</span></span><br><span class="line">      lineLength++;</span><br><span class="line">    &#125;</span><br><span class="line">    byteCount++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>emit的条件是碰到\n，不管是linux还是windows，这段代码都能正常工作。但如果文件中只有\r，那么很显然会失效。</p>
-<p>解决办法是修改linebyline模块，或者使用兼容性更好的readline。</p>
-<p><strong>\x00</strong></p>
-<p>csv格式的文件读取，更习惯用python。</p>
-<p>一开始很顺利的读出数据，但却在某一行抛出<code>_csv.Error: line contains NULL byte</code>异常。</p>
-<p>好在问题很常见，搜索一下就能发现有相当多人遇到同样的问题。</p>
-<p>解决方法也很简单，在将数据交给csv reader之前，先过滤掉<code>NULL byte</code>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(CSV_FILENAME, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(l.replace(<span class="string">'\0'</span>, <span class="string">''</span>) <span class="keyword">for</span> l <span class="keyword">in</span> f)</span><br></pre></td></tr></table></figure></p>
-<p>在检查过程中，还发现存在”\x01”这样的数据，都属于不正常数据，需要修正或剔除。</p>
-<p><strong>数据一致性和完整性</strong></p>
-<p>txt和csv都能正常读取，但数据清洗并没完。还需要检查数据完整性和一致性。</p>
-<p>对比发现，csv读取到的条数与文件行数不符。</p>
-<p>检查发现原因是存在<strong>不正常换行</strong>，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;101&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;102&quot;,&quot;a&quot;,&quot;0</span><br><span class="line">&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;103&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;104&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br></pre></td></tr></table></figure></p>
-<p>对于这样的数据，可以另外写段脚本进行修正。</p>
-<h2 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h2><p>数据读取完成后，开始进行数据去重。</p>
-<p>去重的简单思路是先写入数据库，然后通过数据库命令进行去重。</p>
-<p>数据去重在逻辑上无非两部分，一是判断是否重复，二是去除。</p>
-<p><strong>mongodb</strong><br>如使用mongodb，有两种方法：</p>
-<ol>
-<li><p>使用aggregate聚合</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">var duplicates = [];</span><br><span class="line"></span><br><span class="line">db.collectionName.aggregate([</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      name: &#123; &quot;$ne&quot;: &apos;&apos; &#125;  // discard selection criteria</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $group: &#123;</span><br><span class="line">      _id: &#123; name: &quot;$name&quot; &#125;, // can be grouped on multiple properties </span><br><span class="line">      dups: &#123; &quot;$addToSet&quot;: &quot;$_id&quot; &#125;,</span><br><span class="line">      count: &#123; &quot;$sum&quot;: 1 &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      count: &#123; &quot;$gt&quot;: 1 &#125;    // Duplicates considered as count greater than one</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">],</span><br><span class="line">  &#123; allowDiskUse: true &#125;       // For faster processing if set is larger</span><br><span class="line">)               // You can display result until this and check duplicates </span><br><span class="line">  .forEach(function (doc) &#123;</span><br><span class="line">    doc.dups.shift();      // First element skipped for deleting</span><br><span class="line">    doc.dups.forEach(function (dupId) &#123;</span><br><span class="line">      duplicates.push(dupId);   // Getting all duplicate ids</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">// If you want to Check all &quot;_id&quot; which you are deleting else print statement not needed</span><br><span class="line">printjson(duplicates);</span><br><span class="line"></span><br><span class="line">// Remove all duplicates in one go</span><br><span class="line">db.collectionName.remove(&#123; _id: &#123; $in: duplicates &#125; &#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用mapreduce</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123;&#125;</span><br><span class="line">o.map = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  emit(<span class="keyword">this</span>.phone, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line">o.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">k, vals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.sum(vals)</span><br><span class="line">&#125;</span><br><span class="line">o.out = &#123;</span><br><span class="line">  replace: <span class="string">'mapreduce_demo'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> Item.mapReduce(o)</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>mapreduce完成后，在生成的新的collection是搜索出现次数超过1次的，再保留第一个，删除其它。</p>
-<p><strong>mysql</strong><br>如使用mysql，也有两种方式，具体请参考<a href="http://www.mysqltutorial.org/mysql-delete-duplicate-rows/" target="_blank" rel="noopener">这篇文章</a></p>
-<ol>
-<li><p>使用<code>DELETE JOIN</code></p>
-</li>
-<li><p>使用中间数据库</p>
-</li>
-</ol>
-<h2 id="超大数据"><a href="#超大数据" class="headerlink" title="超大数据"></a>超大数据</h2><p>使用数据来进行去重操作似乎是个常规选项，但当遇上超大数据时，就显得有点为了吃匹萨自己做个烤箱了。</p>
-<ol>
-<li>首先是内存问题</li>
-</ol>
-<p>如果是node，可以使用这样的命令来启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --max-old-space-size=8192 app.js</span><br></pre></td></tr></table></figure></p>
-<p>如果是mongodb，可以加上使用硬盘缓冲的选项：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> model.aggregate([&#123;</span><br><span class="line">  $group: &#123;</span><br><span class="line">    _id: &#123; <span class="attr">id</span>: <span class="string">'$_id'</span> &#125;,</span><br><span class="line">    count: &#123; <span class="string">'$sum'</span>: <span class="number">1</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]).allowDiskUse(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>其次是速度</li>
-</ol>
-<p>如果数据量过千万，即使是一个简单的分组查询动作，也要几十分钟才能完成。</p>
-<h2 id="结局"><a href="#结局" class="headerlink" title="结局"></a>结局</h2><p>最终，写了个简单的脚本，一边从源文件读取并加工数据，另一边输出到目标文件，放弃使用数据库。</p>
-<p>简单的一个去重数据操作，最终花耗了超过4个小时的时间。</p>
-<p>虽然曾经上过Udacity的数据分析纳米课程，但一旦真正上手，还是问题不断，感叹学海无涯。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>数据去重这步操作最好还是在入库前做，是将一个耗时巨长的操作分散在每一时刻，还是忙时尽量快，闲时再做长时间操作。</p>
-<p>或者再多思考下到底是出于什么目的进行数据去重。有索引的帮助，查询其实很快。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>记一次简单的数据去重</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/03/31/remove-duplicates/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -368,30 +387,35 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/03/18/tencentcloudxuexi/" class="post-title-link" itemprop="url">腾讯云认证培训的学习资料</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-03-18 01:33:57" itemprop="dateCreated datePublished" datetime="2019-03-18T01:33:57+08:00">2019-03-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
+      <time title="创建时间：2019-03-18 01:33:57" itemprop="dateCreated datePublished" datetime="2019-03-18T01:33:57+08:00">2019-03-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:25:14" itemprop="dateModified" datetime="2020-09-23T15:25:14+08:00">2020-09-23</time>
+      </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -400,39 +424,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>腾讯云认证培训的学习有下面几个途径。</p>
-<h3 id="腾讯云产品文档"><a href="#腾讯云产品文档" class="headerlink" title="腾讯云产品文档"></a>腾讯云产品文档</h3><p>视频的更新周期较长，网上外站查到的资料或过期或有误，还有什么比<a href="https://cloud.tencent.com/document/product" target="_blank" rel="noopener"><strong>官方文档</strong></a>更权威的呢？</p>
-<h3 id="腾讯云学院"><a href="#腾讯云学院" class="headerlink" title="腾讯云学院"></a>腾讯云学院</h3><p>培训云学院上有所有人都可以看的<a href="https://cloud.tencent.com/developer/edu/courses?cid=10014" target="_blank" rel="noopener"><strong>公开视频</strong></a>，如果觉得文档属于工具类，需要时才查看，或者觉得啃的无聊了，可以看看这个。</p>
-<h3 id="腾讯云合作伙伴学院"><a href="#腾讯云合作伙伴学院" class="headerlink" title="腾讯云合作伙伴学院"></a>腾讯云合作伙伴学院</h3><p>如果有腾讯云合作伙伴主账号或员工账号，可以看这个有针对性的<a href="https://cloud.tencent.com/developer/partner/courses?cid=102&amp;p=1" target="_blank" rel="noopener"><strong>合作伙伴视频</strong></a>。需要使用合作伙伴账号登录后才可观看。</p>
-<p>最好搭配视频PPT材料食用。注意：PPT材料同样需要登录合作伙伴账号后才可查看。</p>
-<ol>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1167" target="_blank" rel="noopener">云计算基础介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1170" target="_blank" rel="noopener">云服务器产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1173" target="_blank" rel="noopener">网络产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1176" target="_blank" rel="noopener">CDN产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1179" target="_blank" rel="noopener">云存储产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1182" target="_blank" rel="noopener">云数据库产品介绍</a></li>
-<li><a href="https://cloud.tencent.com/developer/partner/page/material/1017/1185" target="_blank" rel="noopener">安全产品介绍</a></li>
-</ol>
-<h3 id="腾讯云合作伙伴大学"><a href="#腾讯云合作伙伴大学" class="headerlink" title="腾讯云合作伙伴大学"></a>腾讯云合作伙伴大学</h3><p>已经有了腾讯云合作伙伴学院，为什么还要上腾讯云合作伙伴大学呢？</p>
-<p>原因很简单，因为这里有帮助最大的<a href="http://tencentcloudxuexi.com/exam.php?a=myExam" target="_blank" rel="noopener"><strong>模拟考试</strong></a>。</p>
-<p>注册合作伙伴大学账号需要填入合作伙伴账号的APPID（不是账号ID哦），可在<a href="https://console.cloud.tencent.com/developer" target="_blank" rel="noopener"><strong>账号信息</strong></a>中查看。</p>
-<h3 id="思维导图"><a href="#思维导图" class="headerlink" title="思维导图"></a>思维导图</h3><p>最后，在学习中，最好创建自己的思维导图来帮助记忆。不要去看别人的，别人写的是别人的思路，对你没有帮助。要自己写，写的过程是一种提炼，看的过程是一种记忆，强烈推荐。</p>
-<h3 id="云-社区"><a href="#云-社区" class="headerlink" title="云+社区"></a>云+社区</h3><p>当遇上问题时，可以先去云+社区的<a href="https://cloud.tencent.com/developer/ask" target="_blank" rel="noopener"><strong>问答版块</strong></a>寻找有没有人曾经提过相同的问题。上面的回复者很多是官方人员。</p>
-<p>要养成使用官方资源的习惯，在遇到专业问题时不要百度，百度在专业问题面前就是个坑货，不要再出现魏则西了。</p>
-<h3 id="使用学习工具"><a href="#使用学习工具" class="headerlink" title="使用学习工具"></a>使用学习工具</h3><p>我正在开发一个学习工具，<em>敬请期待咯</em>。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>腾讯云认证培训的学习资料</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/03/18/tencentcloudxuexi/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -453,43 +464,48 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2018/06/05/weixin-deeplink/" class="post-title-link" itemprop="url">从常规浏览器跳转至微信内部浏览器</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-06-05 11:47:24" itemprop="dateCreated datePublished" datetime="2018-06-05T11:47:24+08:00">2018-06-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/weixin/" itemprop="url" rel="index"><span itemprop="name">weixin</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2018-06-05 11:47:24" itemprop="dateCreated datePublished" datetime="2018-06-05T11:47:24+08:00">2018-06-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:25:51" itemprop="dateModified" datetime="2020-09-23T15:25:51+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/weixin/" itemprop="url" rel="index"><span itemprop="name">weixin</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -498,27 +514,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。</p>
-<h2 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h2><p>利用微信开放给一些VIP厂商的跳转接口来实现。</p>
-<p>比如京东就是一个大VIP。</p>
-<h3 id="获取ticket"><a href="#获取ticket" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先调用京东的请求接口来获取openlink。</p>
-<p><a href="http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123" target="_blank" rel="noopener">http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123</a></p>
-<p>请求之后的结果类似：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  getOpenLink(&#123;</span><br><span class="line">    <span class="string">"errcode"</span>: <span class="number">0</span>, </span><br><span class="line">    <span class="string">"openlink"</span>: <span class="string">"weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9"</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里面的<code>weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9</code>就是微信跳转的deeplink了。</p>
-<h3 id="跳转至微信内部浏览器打开商户域名"><a href="#跳转至微信内部浏览器打开商户域名" class="headerlink" title="跳转至微信内部浏览器打开商户域名"></a>跳转至微信内部浏览器打开商户域名</h3><p>可以在js中运行重定向来进行跳转：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loaciton.href = <span class="string">"weixin://dl/business/?ticket=t7ac579f071faadbce4c31fca854b3e59"</span>;</span><br></pre></td></tr></table></figure></p>
-<p>注意：这里的urlencode只支持类似wq.jd.com的域名。wq.jd.com是京东的微信/手Q微店。相信在微信的判断有域名和商户的绑定。</p>
-<h3 id="跳转至目标域名，完成目标"><a href="#跳转至目标域名，完成目标" class="headerlink" title="跳转至目标域名，完成目标"></a>跳转至目标域名，完成目标</h3><p>借助jd.com的域名来做跳转。</p>
-<p>比如京东微店的产品详情。</p>
-<p><a href="https://jos.jd.com/api/detail.htm?id=1744" target="_blank" rel="noopener">京东云宙斯的api</a></p>
-<p><a href="http://mjbbs.jd.com/thread-61877-1-1.html" target="_blank" rel="noopener">移动端链接转换详细说明</a></p>
-<p><a href="http://wqs.jd.com/weidian/index.shtml" target="_blank" rel="noopener">京东微店入口</a></p>
-<h2 id="可借助的域名"><a href="#可借助的域名" class="headerlink" title="可借助的域名"></a>可借助的域名</h2>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/blog/2018/06/05/weixin-deeplink/#more" rel="contents">
+              <a class="btn" href="/blog/2018/06/05/weixin-deeplink/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -530,9 +529,11 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -553,30 +554,35 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2018/03/08/install-redis-on-ubuntu-16-04/" class="post-title-link" itemprop="url">在ubuntu16.04系统上安装redis</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-03-08 20:51:19" itemprop="dateCreated datePublished" datetime="2018-03-08T20:51:19+08:00">2018-03-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
+      <time title="创建时间：2018-03-08 20:51:19" itemprop="dateCreated datePublished" datetime="2018-03-08T20:51:19+08:00">2018-03-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 14:39:58" itemprop="dateModified" datetime="2020-09-23T14:39:58+08:00">2020-09-23</time>
+      </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -585,19 +591,19 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04" target="_blank" rel="noopener">请看这里</a></p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-redis-on-ubuntu-16-04">请看这里</a></p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -618,30 +624,35 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2018/01/21/nginx-optimization/" class="post-title-link" itemprop="url">nginx优化</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-21 17:03:35" itemprop="dateCreated datePublished" datetime="2018-01-21T17:03:35+08:00">2018-01-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
+      <time title="创建时间：2018-01-21 17:03:35" itemprop="dateCreated datePublished" datetime="2018-01-21T17:03:35+08:00">2018-01-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 14:39:58" itemprop="dateModified" datetime="2020-09-23T14:39:58+08:00">2020-09-23</time>
+      </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -650,23 +661,24 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><p><strong>worker_processes</strong></p>
 <p>进程数设置，通常和worker_cpu_affinity搭配使用。</p>
-<p>比如一个4核机器，设置为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker_processes    4;</span><br><span class="line">worker_cpu_affinity 0001 0010 0100 1000;</span><br></pre></td></tr></table></figure></p>
+<p>比如一个4核机器，设置为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker_processes    4;</span><br><span class="line">worker_cpu_affinity 0001 0010 0100 1000;</span><br></pre></td></tr></table></figure>
 <p>代表开4个进程，分别绑定CPU0-CPU3。</p>
 <p>worker_processes取值可以为auto，会自动设置为cpu个数。<br>worker_cpu_affinity取值也可以为auto，会自动分别绑定可用的cpu。也可以auto 01010101，表示分别绑定CPU1、CPU3、CPU5、CPU7。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -687,39 +699,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2018/01/21/install-java8-on-ubuntu-16-04/" class="post-title-link" itemprop="url">如何使用包管理在ubuntu16.04上安装java</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-21 11:57:30" itemprop="dateCreated datePublished" datetime="2018-01-21T11:57:30+08:00">2018-01-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2018-01-21 11:57:30" itemprop="dateCreated datePublished" datetime="2018-01-21T11:57:30+08:00">2018-01-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:27:34" itemprop="dateModified" datetime="2020-09-23T15:27:34+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -728,41 +745,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="安装默认JRE-JDK"><a href="#安装默认JRE-JDK" class="headerlink" title="安装默认JRE/JDK"></a>安装默认JRE/JDK</h2><p>最简单的安装方式就是安装默认的OpenJDK8。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install default-jre</span><br><span class="line">sudo apt-get install default-jdk</span><br></pre></td></tr></table></figure>
-<h2 id="安装Oracle-JDK"><a href="#安装Oracle-JDK" class="headerlink" title="安装Oracle JDK"></a>安装Oracle JDK</h2><p>如果要安装oracle java，那么官方默认源里是没有的，我们使用第三方源。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/java</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-<p>接下来就可以安装oracle jdk8或者jdk9<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java9-installer</span><br></pre></td></tr></table></figure>
-<h2 id="修改ppa"><a href="#修改ppa" class="headerlink" title="修改ppa"></a>修改ppa</h2><p>webupd8team的更新经常不及时，比如截止到目前2018-01-19，webupd8team/java上的java8仍然是144版本，但是oracle已经更改了链接，所以直接使用会提示404错误，找不到安装包，我们需要手动修改ppa。</p>
-<p>先将144升级到152<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line">sudo sed -i <span class="string">'s|JAVA_VERSION=8u144|JAVA_VERSION=8u152|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|SHA256SUM_TGZ="e8a341ce566f32c3d06f6d0f0eeea9a0f434f538d22af949ae58bc86f2eeaae4"|SHA256SUM_TGZ="218b3b340c3f6d05d940b817d0270dfe0cfd657a636bad074dcabe0c111961bf"|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|J_DIR=jdk1.8.0_144|J_DIR=jdk1.8.0_152|'</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure></p>
-<p>再将152升级到161<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line"></span><br><span class="line">sudo sed -i <span class="string">'s|JAVA_VERSION=8u151|JAVA_VERSION=8u161|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|SHA256SUM_TGZ="c78200ce409367b296ec39be4427f020e2c585470c4eed01021feada576f027f"|SHA256SUM_TGZ="6dbc56a0e3310b69e91bb64db63a485bd7b6a8083f08e48047276380a0e2021e"|'</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">'s|J_DIR=jdk1.8.0_151|J_DIR=jdk1.8.0_161|'</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure></p>
-<p>接下来再次安装oracle-java8-installer就行了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure></p>
-<h2 id="管理java版本"><a href="#管理java版本" class="headerlink" title="管理java版本"></a>管理java版本</h2><p>如果希望多个java版本并存，就需要进行切换。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
-<p>以下是一个示例输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">There are 5 choices for the alternative java (providing /usr/bin/java).</span><br><span class="line"></span><br><span class="line">  Selection    Path                                            Priority   Status</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">* 0            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      auto mode</span><br><span class="line">  1            /usr/lib/jvm/java-6-oracle/jre/bin/java          1         manual mode</span><br><span class="line">  2            /usr/lib/jvm/java-7-oracle/jre/bin/java          2         manual mode</span><br><span class="line">  3            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode</span><br><span class="line">  4            /usr/lib/jvm/java-8-oracle/jre/bin/java          3         manual mode</span><br><span class="line">  5            /usr/lib/jvm/java-9-oracle/bin/java              4         manual mode</span><br><span class="line"></span><br><span class="line">Press &lt;enter&gt; to keep the current choice[*], or type selection number:</span><br></pre></td></tr></table></figure></p>
-<p>如果只有一个java版本，就会是这样的输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">There is only one alternative in link group java (providing /usr/bin/java): /usr/lib/jvm/java-8-oracle/jre/bin/java</span><br><span class="line">Nothing to configure.</span><br></pre></td></tr></table></figure></p>
-<p>接下来可以针对不同的<em>命令</em>来切换版本，典型的<em>命令</em>有javac, javadoc, jarsigner。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config <span class="variable">$command</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="设置环境变量JAVA-HOME"><a href="#设置环境变量JAVA-HOME" class="headerlink" title="设置环境变量JAVA_HOME"></a>设置环境变量JAVA_HOME</h2><p>很多应用都会使用$JAVA_HOME来调用java可执行文件，所以我们需要在安装完后设置$JAVA_HOME。</p>
-<p>首先找到当前使用的java环境目录。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure></p>
-<p>然后将找到的目录添加进环境变量。</p>
-<p>打开/etc/environment。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/environment</span><br></pre></td></tr></table></figure></p>
-<p>加入JAVA_HOME的设置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=&quot;/usr/lib/jvm/java-8-oracle&quot;</span><br></pre></td></tr></table></figure></p>
-<p>保存文件，并且加载它。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> /etc/environment</span><br></pre></td></tr></table></figure></p>
-<p>验证修改是否成功<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$JAVA_HOME</span></span><br></pre></td></tr></table></figure></p>
-<p>到此java8的安装就完成啦。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>ubuntu16.04？现在已经没什么人用了吧。不用点进来了。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2018/01/21/install-java8-on-ubuntu-16-04/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -783,39 +785,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2017/04/21/reset-the-trial-period-of-beyond-compare/" class="post-title-link" itemprop="url">重置beyond compare的试用期</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-04-21 02:38:40" itemprop="dateCreated datePublished" datetime="2017-04-21T02:38:40+08:00">2017-04-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2017-04-21 02:38:40" itemprop="dateCreated datePublished" datetime="2017-04-21T02:38:40+08:00">2017-04-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 14:39:58" itemprop="dateModified" datetime="2020-09-23T14:39:58+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -824,23 +831,24 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>首先声明一点，拒绝使用盗版或破解版，并且也不要过于依赖重置试用期的trick。像这种好用经典又不贵的软件还是入个正版吧。<del>又不是Adobe，BC的标准版才30刀</del></p>
 <h3 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h3><p>删除Library/Application Support/Beyond Compare/registry.dat</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm ~/Library/Application\ Support/Beyond\ Compare/registry.dat</span><br></pre></td></tr></table></figure>
+
 <h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>在注册表中删除HKEY_USERS/xx/SOFTWARE/Scooter Software/Beyond Compare 4/CacheID</p>
 <h3 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -rf ~/.beyondcompare</span><br></pre></td></tr></table></figure>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -861,39 +869,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2017/04/21/why-relu/" class="post-title-link" itemprop="url">为什么使用 ReLU</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-04-21 01:05:39" itemprop="dateCreated datePublished" datetime="2017-04-21T01:05:39+08:00">2017-04-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/machine-learning/" itemprop="url" rel="index"><span itemprop="name">machine learning</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2017-04-21 01:05:39" itemprop="dateCreated datePublished" datetime="2017-04-21T01:05:39+08:00">2017-04-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:25:39" itemprop="dateModified" datetime="2020-09-23T15:25:39+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/machine-learning/" itemprop="url" rel="index"><span itemprop="name">machine learning</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -902,27 +915,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="http://shuokay.com/2016/10/01/why-relu-work/#more" target="_blank" rel="noopener">转载自shuokay的博客</a></p>
-<p>在之前的机器学习和神经网络中, 对于非线性变换/激活函数比较常用的是 sigmoid, tanh 等这类比较 smooth 而且 被 bound 住的函数. 然而目前, 在深度学习尤其是卷积神经网络中, 用的最多的是 ReLU 函数. 直观上看, ReLU 是一个分段的线性函数, 因此, 就很容易想到 ReLU 应该不像 sigmoid 和 tanh 等这类 smooth &amp; bounded 的函数那样 powerful, 换句话说, ReLU 的效果应该比较差. 然而, 在实际应用中, ReLU 的效果要比 sigmoid 这类 smooth &amp; bounded 的函数效果要好很多. 经过现实的打脸之后, 不禁要问,底为什么 ReLU 的效果会比 sigmoid 好呢?</p>
-<p>首先还是要明确一下 ReLU 函数：</p>
-<div style="margin: 0.5em 0px; display: block!important; text-align: center"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="24.835ex" height="6.176ex" style="vertical-align: -2.505ex;" viewbox="0 -1580.7 10692.7 2659.1" role="img" focusable="false" xmlns="http://www.w3.org/2000/svg" aria-labelledby="MathJax-SVG-1-Title"><title id="MathJax-SVG-1-Title">ReLU(x)=\left\{    \begin{array}{lr}        x, &amp; x &gt; 0\\        0, &amp; x \leq 0    \end{array}\right.</title><defs aria-hidden="true"><path stroke-width="1" id="E1-MJMATHI-52" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"/><path stroke-width="1" id="E1-MJMATHI-65" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"/><path stroke-width="1" id="E1-MJMATHI-4C" d="M228 637Q194 637 192 641Q191 643 191 649Q191 673 202 682Q204 683 217 683Q271 680 344 680Q485 680 506 683H518Q524 677 524 674T522 656Q517 641 513 637H475Q406 636 394 628Q387 624 380 600T313 336Q297 271 279 198T252 88L243 52Q243 48 252 48T311 46H328Q360 46 379 47T428 54T478 72T522 106T564 161Q580 191 594 228T611 270Q616 273 628 273H641Q647 264 647 262T627 203T583 83T557 9Q555 4 553 3T537 0T494 -1Q483 -1 418 -1T294 0H116Q32 0 32 10Q32 17 34 24Q39 43 44 45Q48 46 59 46H65Q92 46 125 49Q139 52 144 61Q147 65 216 339T285 628Q285 635 228 637Z"/><path stroke-width="1" id="E1-MJMATHI-55" d="M107 637Q73 637 71 641Q70 643 70 649Q70 673 81 682Q83 683 98 683Q139 681 234 681Q268 681 297 681T342 682T362 682Q378 682 378 672Q378 670 376 658Q371 641 366 638H364Q362 638 359 638T352 638T343 637T334 637Q295 636 284 634T266 623Q265 621 238 518T184 302T154 169Q152 155 152 140Q152 86 183 55T269 24Q336 24 403 69T501 205L552 406Q599 598 599 606Q599 633 535 637Q511 637 511 648Q511 650 513 660Q517 676 519 679T529 683Q532 683 561 682T645 680Q696 680 723 681T752 682Q767 682 767 672Q767 650 759 642Q756 637 737 637Q666 633 648 597Q646 592 598 404Q557 235 548 205Q515 105 433 42T263 -22Q171 -22 116 34T60 167V183Q60 201 115 421Q164 622 164 628Q164 635 107 637Z"/><path stroke-width="1" id="E1-MJMAIN-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"/><path stroke-width="1" id="E1-MJMATHI-78" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"/><path stroke-width="1" id="E1-MJMAIN-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"/><path stroke-width="1" id="E1-MJMAIN-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"/><path stroke-width="1" id="E1-MJMAIN-7B" d="M434 -231Q434 -244 428 -250H410Q281 -250 230 -184Q225 -177 222 -172T217 -161T213 -148T211 -133T210 -111T209 -84T209 -47T209 0Q209 21 209 53Q208 142 204 153Q203 154 203 155Q189 191 153 211T82 231Q71 231 68 234T65 250T68 266T82 269Q116 269 152 289T203 345Q208 356 208 377T209 529V579Q209 634 215 656T244 698Q270 724 324 740Q361 748 377 749Q379 749 390 749T408 750H428Q434 744 434 732Q434 719 431 716Q429 713 415 713Q362 710 332 689T296 647Q291 634 291 499V417Q291 370 288 353T271 314Q240 271 184 255L170 250L184 245Q202 239 220 230T262 196T290 137Q291 131 291 1Q291 -134 296 -147Q306 -174 339 -192T415 -213Q429 -213 431 -216Q434 -219 434 -231Z"/><path stroke-width="1" id="E1-MJMAIN-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"/><path stroke-width="1" id="E1-MJMAIN-3E" d="M84 520Q84 528 88 533T96 539L99 540Q106 540 253 471T544 334L687 265Q694 260 694 250T687 235Q685 233 395 96L107 -40H101Q83 -38 83 -20Q83 -19 83 -17Q82 -10 98 -1Q117 9 248 71Q326 108 378 132L626 250L378 368Q90 504 86 509Q84 513 84 520Z"/><path stroke-width="1" id="E1-MJMAIN-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"/><path stroke-width="1" id="E1-MJMAIN-2264" d="M674 636Q682 636 688 630T694 615T687 601Q686 600 417 472L151 346L399 228Q687 92 691 87Q694 81 694 76Q694 58 676 56H670L382 192Q92 329 90 331Q83 336 83 348Q84 359 96 365Q104 369 382 500T665 634Q669 636 674 636ZM84 -118Q84 -108 99 -98H678Q694 -104 694 -118Q694 -130 679 -138H98Q84 -131 84 -118Z"/><path stroke-width="1" id="E1-MJSZ3-7B" d="M618 -943L612 -949H582L568 -943Q472 -903 411 -841T332 -703Q327 -682 327 -653T325 -350Q324 -28 323 -18Q317 24 301 61T264 124T221 171T179 205T147 225T132 234Q130 238 130 250Q130 255 130 258T131 264T132 267T134 269T139 272T144 275Q207 308 256 367Q310 436 323 519Q324 529 325 851Q326 1124 326 1154T332 1205Q369 1358 566 1443L582 1450H612L618 1444V1429Q618 1413 616 1411L608 1406Q599 1402 585 1393T552 1372T515 1343T479 1305T449 1257T429 1200Q425 1180 425 1152T423 851Q422 579 422 549T416 498Q407 459 388 424T346 364T297 318T250 284T214 264T197 254L188 251L205 242Q290 200 345 138T416 3Q421 -18 421 -48T423 -349Q423 -397 423 -472Q424 -677 428 -694Q429 -697 429 -699Q434 -722 443 -743T465 -782T491 -816T519 -845T548 -868T574 -886T595 -899T610 -908L616 -910Q618 -912 618 -928V-943Z"/></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)" aria-hidden="true"> <use xlink:href="#E1-MJMATHI-52" x="0" y="0"/> <use xlink:href="#E1-MJMATHI-65" x="759" y="0"/> <use xlink:href="#E1-MJMATHI-4C" x="1226" y="0"/> <use xlink:href="#E1-MJMATHI-55" x="1907" y="0"/> <use xlink:href="#E1-MJMAIN-28" x="2675" y="0"/> <use xlink:href="#E1-MJMATHI-78" x="3064" y="0"/> <use xlink:href="#E1-MJMAIN-29" x="3637" y="0"/> <use xlink:href="#E1-MJMAIN-3D" x="4304" y="0"/><g transform="translate(5360,0)"> <use xlink:href="#E1-MJSZ3-7B"/><g transform="translate(917,0)"><g transform="translate(-11,0)"><g transform="translate(0,650)"> <use xlink:href="#E1-MJMATHI-78" x="0" y="0"/> <use xlink:href="#E1-MJMAIN-2C" x="572" y="0"/></g><g transform="translate(0,-750)"> <use xlink:href="#E1-MJMAIN-30" x="0" y="0"/> <use xlink:href="#E1-MJMAIN-2C" x="500" y="0"/></g></g><g transform="translate(1840,0)"><g transform="translate(0,650)"> <use xlink:href="#E1-MJMATHI-78" x="0" y="0"/> <use xlink:href="#E1-MJMAIN-3E" x="850" y="0"/> <use xlink:href="#E1-MJMAIN-30" x="1906" y="0"/></g><g transform="translate(0,-750)"> <use xlink:href="#E1-MJMATHI-78" x="0" y="0"/> <use xlink:href="#E1-MJMAIN-2264" x="850" y="0"/> <use xlink:href="#E1-MJMAIN-30" x="1906" y="0"/></g></g></g></g></g></svg></div>
-<p>ReLU的输出要么是0，要么是输入本身，极其简单。如果没有实验结果打脸，那么，我第一反应就是这个函数太简单，根本学不到什么东西。但是，实验结果的打脸促使进一步的思考，为什么ReLU如此简单，却可以真正work。而且, 其效果还要比sigmoid、tanh等这些传统的经典激活函数好.<br>可以类比一下 Boost 算法, 把 ReLU 看成是一个分段的, 用来 separate 数据的函数, 而不是一个去真正的拟合某个函数. 在机器学习中, 数据集都是有限的, 所以, 通过去分割数据空间, 只要分割的次数足够多, 那么, 总是可以得到正确的分割结果.</p>
-<img src="/blog/2017/04/21/why-relu/relu-fold.png" title="ReLU Fold">
-<p>类似上图, 每一次 ReLU 操作都相当于一次折纸操作, 经过学习之后, 网络仅仅通过这种折纸操作就可以学习”对称”这个概念. 最终, 使用一个比较简单的分类器就可以把 ×× 和 ∘∘ 分开<br>在下图中, 说明了神经网络中是怎么随着网络层数加深, 最终, 可以通过一个比较简单的函数实现分类.</p>
-<img src="/blog/2017/04/21/why-relu/fold.png" title="Fold">
-<p>只要进行足够多次数的折叠, 或者说, 在神经网络中有足够多的层数, 那么, 使用 ReLU 函数, 也可以近似任意的函数, 而且, 如果我们在最后一层使用一个 smooth 的函数, 那么, 整个神经网络就是一个真正的 smooth function approximator. 然而, 在实际中, 并不需要一个太 smooth 的 function approximator, 因为这容易导致 overfitting. 我们需要的是是在 test 数据集上表现好的模型, 即要找的是 generalization 能力比较好的 approximator. 而 ReLU 这种仅仅 separate 样本空间的的函数, 其本身自带 regularization 能力, 所以, 其泛化能力更强一些. 因此, ReLU 是一个 reasonable 而且上佳的选择.<br>从这个角度讲, 即使在全链接进行分类的最后几层, 使用 ReLU 激活函数也是非常 reasonable 的.</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>测试math插件</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2017/04/21/why-relu/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -943,39 +955,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2017/04/20/Expandable-Notifications-for-Android/" class="post-title-link" itemprop="url">Android的可展开式通知</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-04-20 19:49:48" itemprop="dateCreated datePublished" datetime="2017-04-20T19:49:48+08:00">2017-04-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2017-04-20 19:49:48" itemprop="dateCreated datePublished" datetime="2017-04-20T19:49:48+08:00">2017-04-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:23:50" itemprop="dateModified" datetime="2020-09-23T15:23:50+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -984,49 +1001,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="http://codeversed.com/expandable-notifications-android/" target="_blank" rel="noopener">搬运自codeversed</a></p>
-<h2 id="可扩展通知"><a href="#可扩展通知" class="headerlink" title="可扩展通知"></a>可扩展通知</h2><p>Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。</p>
-<h3 id="NotificationManager"><a href="#NotificationManager" class="headerlink" title="NotificationManager"></a>NotificationManager</h3><p>安卓的通知是通过Notification类来创建的。在使用它之前需要先使用正确的Context来获得NotificationManager，Context由使用场景决定，可以是activity，也可以是service。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br></pre></td></tr></table></figure>
-<h3 id="Builder相关类"><a href="#Builder相关类" class="headerlink" title="Builder相关类"></a>Builder相关类</h3><p><strong>Notification.Builder</strong> – 这个类在Android 3.0 Honeycomb [API 11]被添加。所以如果想支持更老的安卓版本，得换成老掉牙的NotificationCompact。</p>
-<p><strong>NotificationCompat.Builder</strong> – 这个类在<a href="http://developer.android.com/tools/support-library/index.html" target="_blank" rel="noopener">Support Library</a> v4中被定义(适配Android 1.6+)。</p>
-<p>NotificationCompact.Builder像其它builder类一样，提供了创建Notification对象的接口。可以使用PendingIntent来指定点击后的intent行为。PendingIntent就像一个token，用SetCotentIntent方法来传给builder。如果需要一些额外的行为，比如收到邮件通知后想直接回复，可以通过builder的addAction方法来添加三个额外的行为。一旦你完成了Notification的构建，下一步你会看到它是如何被调用的。</p>
-<p>为了正确的处理交叉进程，我们可以考虑使用Android Support Library v4中的<a href="http://developer.android.com/reference/android/support/v4/app/TaskStackBuilder.html" target="_blank" rel="noopener">TaskStackBuilder</a>类。</p>
-<h3 id="Notification-views"><a href="#Notification-views" class="headerlink" title="Notification views"></a>Notification views</h3><p>Normal View – A notification in normal view appears in an area that’s up to 64 dp tall. Even if you create a notification with a big view style, it will appear in normal view until it’s expanded.</p>
-<pre><code>1. Content title
-2. Large icon
-3. Content text
-4. Content info
-5. Small icon
-6. Notification time
-</code></pre><p>Big View – A notification’s big view appears only when the notification is expanded, which happens when the notification is at the top of the notification drawer, or when the user expands the notification with a gesture.  Expanded notifications were first introduced in Android 4.1 JellyBean [API 16].  Expandable notifications were designed to support rich notification style objects called Notification.Style.</p>
-<pre><code>7. Details area
-</code></pre><h3 id="Creating-Notifications"><a href="#Creating-Notifications" class="headerlink" title="Creating Notifications"></a>Creating Notifications</h3><h4 id="Normal-View"><a href="#Normal-View" class="headerlink" title="Normal View"></a>Normal View</h4><p>One point to remember is that all notification objects, including a Normal View, are required to have a small icon, a title, and detail text.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">         <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the final Notification object.</span></span><br><span class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">"Normal Notification"</span>)</span><br><span class="line">        .setContentText(<span class="string">"This is an example of a Normal Style."</span>).build();</span><br></pre></td></tr></table></figure>
-<img src="/blog/2017/04/20/Expandable-Notifications-for-Android/normal_notification.png" title="Normal Notification">
-<h4 id="Big-View"><a href="#Big-View" class="headerlink" title="Big View"></a>Big View</h4><p>You will use this style the most when setting up expandable notifications.  This Notification.Style class contains three direct subclasses which are:</p>
-<p>Big Text Style – Displays a large text block to show the user more details on the item at hand.<br>Big Picture Style – Displays a bitmap up to 256 dp tall similar to a screenshot notification.<br>Inbox Style – Displays rows of text like a listView similar to the Gmail notification for multiple emails.<br>To apply a rich notification style to the notification, you first need to create the style object itself.  For this example I am showing you the BigPictureStyle subclass.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Bitmap remote_picture = <span class="keyword">null</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the style object with BigPictureStyle subclass.</span></span><br><span class="line">NotificationCompat.BigPictureStyle notiStyle = <span class="keyword">new</span> </span><br><span class="line">        NotificationCompat.BigPictureStyle();</span><br><span class="line">notiStyle.setBigContentTitle(<span class="string">"Big Picture Expanded"</span>);</span><br><span class="line">notiStyle.setSummaryText(<span class="string">"Nice big picture."</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">        remote_picture = BitmapFactory.decodeStream(</span><br><span class="line">                (InputStream) <span class="keyword">new</span> URL(sample_url).getContent());</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Add the big picture to the style.</span></span><br><span class="line">notiStyle.bigPicture(remote_picture);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended </span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself).</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">"Big Picture Normal"</span>)</span><br><span class="line">        .setContentText(<span class="string">"This is an example of a Big Picture Style."</span>)</span><br><span class="line">        .setStyle(notiStyle).build();</span><br></pre></td></tr></table></figure>
-<img src="/blog/2017/04/20/Expandable-Notifications-for-Android/expanded_notification.png" title="Expanded Notification">
-<h4 id="Custom-View"><a href="#Custom-View" class="headerlink" title="Custom View"></a>Custom View</h4><p>So what if the rich notification styles don’t provide you with the layout you need?  Easy, just create your own layout and pass it to the builder.  One little fact to retain is that notifications use remote views, which means you need to create a layout using a RemoteView.  Below is exactly how you would need to create this custom RemoteView.  When using a custom view, it will still function like the other expandable notifications we talked about.</p>
-<p>First you need to create your layout file, here is one for an example.</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:orientation</span>=<span class="string">"vertical"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:background</span>=<span class="string">"#545454"</span> </span></span><br><span class="line"><span class="tag">                <span class="attr">android:gravity</span>=<span class="string">"center_horizontal"</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">"@drawable/codeversed_logo"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:contentDescription</span>=<span class="string">"@string/codeversed_logo"</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>Next create the RemoteView that uses your custom layout and apply it RemoteView using bigContentView.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create remote view and set bigContentView.</span></span><br><span class="line">RemoteViews expandedView = <span class="keyword">new</span> RemoteViews(<span class="keyword">this</span>.getPackageName(), </span><br><span class="line">        R.layout.notification_custom_remote);</span><br><span class="line">expandedView.setTextViewText(R.id.text_view, <span class="string">"Neat logo!"</span>);</span><br><span class="line"> </span><br><span class="line">Notification notification = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">"Custom View"</span>).build();</span><br><span class="line"> </span><br><span class="line">notification.bigContentView = expandedView;</span><br></pre></td></tr></table></figure>
-<img src="/blog/2017/04/20/Expandable-Notifications-for-Android/customer_notification.png" title="Customer Notification">
-<h2 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h2><p><a href="https://github.com/srafx/Notifications" target="_blank" rel="noopener">示例代码</a></p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2017/04/20/Expandable-Notifications-for-Android/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -1040,8 +1034,7 @@
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1050,7 +1043,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1059,125 +1052,39 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">lckof</p>
-  <div class="site-description" itemprop="description">啊咧</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/blog/archives/">
-        
-          <span class="site-state-item-count">22</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/blog/lib/anime.min.js"></script>
-  <script src="/blog/lib/velocity/velocity.min.js"></script>
-  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/blog/js/utils.js"></script>
-
-<script src="/blog/js/motion.js"></script>
-
-
-<script src="/blog/js/schemes/muse.js"></script>
-
-
-<script src="/blog/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
 
@@ -1187,6 +1094,15 @@
 
 
 
+
+
+
+
+
+
+
+
+  
 
 
 

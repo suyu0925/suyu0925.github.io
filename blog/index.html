@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/blog/css/main.css">
 
 
-<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta name="description" content="啊咧">
@@ -30,10 +32,11 @@
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://suyu0925.github.io/blog/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -53,49 +56,58 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/blog/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Tasty Pub</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -108,25 +120,69 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
 
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -135,14 +191,15 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
+      
+
+      
       
   
   
@@ -158,24 +215,35 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2020/07/01/a-tag-in-weixin-mp/" class="post-title-link" itemprop="url">微信公众号消息中的文字链接</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-07-01 18:03:01 / 修改时间：18:06:17" itemprop="dateCreated datePublished" datetime="2020-07-01T18:03:01+08:00">2020-07-01</time>
-            </span>
+      <time title="创建时间：2020-07-01 18:03:01" itemprop="dateCreated datePublished" datetime="2020-07-01T18:03:01+08:00">2020-07-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:22:17" itemprop="dateModified" datetime="2020-09-23T15:22:17+08:00">2020-09-23</time>
+      </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -184,27 +252,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>在微信公众号后台回复文字消息时，可以在文字消息中插入<code>&lt;a&gt;</code>链接。</p>
-<p>在使用<code>&lt;a href=&quot;link&quot;&gt;text&lt;/a&gt;</code>的时候，有以下几个注意事项:</p>
-<ol>
-<li><p>href要使用双引号而不是单引号</p>
-</li>
-<li><p>text不能出现换行符<code>\n</code>，如果一定要换行，可使用多个a标签。</p>
-</li>
-</ol>
-<p>如果href使用了单引号或者text中出现了<code>\n</code>，那在安卓上就会解析a标签失败。天知道微信是怎么解析的。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>在微信公众号后台回复文字消息时，可以在文字消息中插入`<a>`链接。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/07/01/a-tag-in-weixin-mp/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -225,30 +292,35 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2020/05/17/antdv-default-path/" class="post-title-link" itemprop="url">Ant Design Vue Pro的默认路由</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-05-17 23:09:17" itemprop="dateCreated datePublished" datetime="2020-05-17T23:09:17+08:00">2020-05-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-01 18:09:26" itemprop="dateModified" datetime="2020-07-01T18:09:26+08:00">2020-07-01</time>
-              </span>
+      <time title="创建时间：2020-05-17 23:09:17" itemprop="dateCreated datePublished" datetime="2020-05-17T23:09:17+08:00">2020-05-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:12:35" itemprop="dateModified" datetime="2020-09-23T15:12:35+08:00">2020-09-23</time>
+      </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -257,34 +329,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="https://github.com/vueComponent/ant-design-vue-pro" target="_blank" rel="noopener">Ant Design Vue Pro项目</a>是<a href="https://github.com/ant-design/ant-design-pro" target="_blank" rel="noopener">Ant Design Pro</a>的第三方vue实现，对于vue使用者来说算是一个常见选项。</p>
-<p>它的默认路由是<code>/dashboard/workplace</code>，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。</p>
-<h3 id="路由-src-config-router-config-js"><a href="#路由-src-config-router-config-js" class="headerlink" title="路由(src/config/router.config.js)"></a>路由(src/config/router.config.js)</h3><p>这里是第一处了，通常不会遗漏</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> asyncRouterMap = [</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    name: <span class="string">'index'</span>,</span><br><span class="line">    component: BasicLayout,</span><br><span class="line">    meta: &#123; <span class="attr">title</span>: <span class="string">'首页'</span> &#125;,</span><br><span class="line">    redirect: <span class="string">'/dashboard/workplace'</span>, <span class="comment">// &lt;- 看这里看这里</span></span><br><span class="line">    children: [</span><br><span class="line">      <span class="comment">// dashboard</span></span><br><span class="line">      &#123;</span><br><span class="line">        path: <span class="string">'dashboard'</span>,</span><br><span class="line">        name: <span class="string">'dashboard'</span>,</span><br><span class="line">        redirect: <span class="string">'/dashboard/workplace'</span>,</span><br><span class="line">        component: RouteView,</span><br><span class="line">        meta: &#123; <span class="attr">title</span>: <span class="string">'仪表盘'</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">icon</span>: bxAnaalyse, <span class="attr">permission</span>: [ <span class="string">'dashboard'</span> ] &#125;,</span><br><span class="line">        children: [</span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">'analysis/:pageNo([1-9]\\d*)?'</span>,</span><br><span class="line">            name: <span class="string">'Analysis'</span>,</span><br><span class="line">            component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/dashboard/Analysis'</span>),</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">'分析页'</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">permission</span>: [ <span class="string">'dashboard'</span> ] &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">// 外部链接</span></span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">'https://www.baidu.com/'</span>,</span><br><span class="line">            name: <span class="string">'Monitor'</span>,</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">'监控页（外部）'</span>, <span class="attr">target</span>: <span class="string">'_blank'</span> &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">'workplace'</span>,</span><br><span class="line">            name: <span class="string">'Workplace'</span>,</span><br><span class="line">            component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/dashboard/Workplace'</span>),</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">'工作台'</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">permission</span>: [ <span class="string">'dashboard'</span> ] &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">'test-work'</span>,</span><br><span class="line">            name: <span class="string">'TestWork'</span>,</span><br><span class="line">            component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'@/views/dashboard/TestWork'</span>),</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">'测试功能'</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">permission</span>: [ <span class="string">'dashboard'</span> ] &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
-
-<h3 id="无权限页面-src-permission-js"><a href="#无权限页面-src-permission-js" class="headerlink" title="无权限页面(src\permission.js)"></a>无权限页面(src\permission.js)</h3><p>这里用的hard-code是<code>{ path: defaultRoutePath }</code>，没有使用<code>{ name: &#39;dashboard&#39; }</code>，更容易出问题。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> defaultRoutePath = <span class="string">'/dashboard/workplace'</span></span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  NProgress.start() <span class="comment">// start progress bar</span></span><br><span class="line">  to.meta &amp;&amp; (<span class="keyword">typeof</span> to.meta.title !== <span class="string">'undefined'</span> &amp;&amp; setDocumentTitle(<span class="string">`<span class="subst">$&#123;to.meta.title&#125;</span> - <span class="subst">$&#123;domTitle&#125;</span>`</span>))</span><br><span class="line">  <span class="keyword">if</span> (Vue.ls.get(ACCESS_TOKEN)) &#123;</span><br><span class="line">    <span class="comment">/* has token */</span></span><br><span class="line">    <span class="keyword">if</span> (to.path === <span class="string">'/user/login'</span>) &#123;</span><br><span class="line">      next(&#123; <span class="attr">path</span>: defaultRoutePath &#125;) <span class="comment">// &lt;- 看这里看这里</span></span><br><span class="line">      NProgress.done()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Logo-src-components-tools-Logo-vue"><a href="#Logo-src-components-tools-Logo-vue" class="headerlink" title="Logo(src\components\tools\Logo.vue)"></a>Logo(src\components\tools\Logo.vue)</h3><p>点击Logo回到首页，这是第二处，原作者并没有使用配置文件或其它方式来指定首页地方，而用了hard-code。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;logo&quot;&gt;</span><br><span class="line">    &lt;router-link :to&#x3D;&quot;&#123;name:&#39;dashboard&#39;&#125;&quot;&gt;</span><br><span class="line">      &lt;LogoSvg alt&#x3D;&quot;logo&quot; &#x2F;&gt;</span><br><span class="line">      &lt;h1 v-if&#x3D;&quot;showTitle&quot;&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;&#x2F;router-link&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
-
-<h3 id="异常页-src-components-Exception-ExceptionPage-vue"><a href="#异常页-src-components-Exception-ExceptionPage-vue" class="headerlink" title="异常页(src\components\Exception\ExceptionPage.vue)"></a>异常页(src\components\Exception\ExceptionPage.vue)</h3><p>在异常页的回到首页也是用的hard-code指定dashboard</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">'Exception'</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    type: &#123;</span><br><span class="line">      type: <span class="built_in">String</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="string">'404'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      config: types</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleToHome () &#123;</span><br><span class="line">      <span class="keyword">this</span>.$router.push(&#123; <span class="attr">name</span>: <span class="string">'dashboard'</span> &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="面包屑-src-components-tools-Breadcrumb-vue"><a href="#面包屑-src-components-tools-Breadcrumb-vue" class="headerlink" title="面包屑(src\components\tools\Breadcrumb.vue)"></a>面包屑(src\components\tools\Breadcrumb.vue)</h3><p>面包屑的“首页”。这里默认是关闭的，在打开时肯定会注意到。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      name: <span class="string">''</span>,</span><br><span class="line">      breadList: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="keyword">this</span>.getBreadcrumb()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getBreadcrumb () &#123;</span><br><span class="line">      <span class="keyword">this</span>.breadList = []</span><br><span class="line">      <span class="comment">// this.breadList.push(&#123;name: 'index', path: '/dashboard/', meta: &#123;title: '首页'&#125;&#125;) // &lt;- 看这里看这里</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.name = <span class="keyword">this</span>.$route.name</span><br><span class="line">      <span class="keyword">this</span>.$route.matched.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// item.name !== 'index' &amp;&amp; this.breadList.push(item)</span></span><br><span class="line">        <span class="keyword">this</span>.breadList.push(item)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    $route () &#123;</span><br><span class="line">      <span class="keyword">this</span>.getBreadcrumb()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+          <p>Ant Design Vue Pro项目是Ant Design Pro的第三方vue实现，对于vue使用者来说算是一个常见选项。<br><br>它的默认路由是/dashboard/workplace，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/05/17/antdv-default-path/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -305,24 +369,35 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/12/26/from-primary-to-secondary/" class="post-title-link" itemprop="url">小升初学区房</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-12-26 19:02:33 / 修改时间：19:19:24" itemprop="dateCreated datePublished" datetime="2019-12-26T19:02:33+08:00">2019-12-26</time>
-            </span>
+      <time title="创建时间：2019-12-26 19:02:33" itemprop="dateCreated datePublished" datetime="2019-12-26T19:02:33+08:00">2019-12-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:24:39" itemprop="dateModified" datetime="2020-09-23T15:24:39+08:00">2020-09-23</time>
+      </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -331,29 +406,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="招生地段公示"><a href="#招生地段公示" class="headerlink" title="招生地段公示"></a>招生地段公示</h2><p>首先去<a href="http://www.pudong.gov.cn/jyj/" target="_blank" rel="noopener">上海浦东教育局</a>下载告示文件。</p>
-<p>路径是先<a href="http://www.pudong.gov.cn/shpd/department/019020/019020004/019020004002/" target="_blank" rel="noopener">招生考试</a>，</p>
-<img src="/blog/2019/12/26/from-primary-to-secondary/jyj.jpg" title="招生考试">
-<p>然后再<a href="http://www.pudong.gov.cn/shpd/department/019020/019020004/019020004004/" target="_blank" rel="noopener">义务教育</a>。</p>
-<img src="/blog/2019/12/26/from-primary-to-secondary/compulsory.jpg" title="义务教育">
-<p>通常在每年的3月份左右，教育局会进行招生公示。</p>
-<img src="/blog/2019/12/26/from-primary-to-secondary/district.jpg" title="招生公示">
-<p>下载招生地段公示。</p>
-<img src="/blog/2019/12/26/from-primary-to-secondary/download.jpg" title="招生地段公示">
-<p>文件格式如下：</p>
-<img src="/blog/2019/12/26/from-primary-to-secondary/format.jpg" title="文件格式">
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>小升初的招生地段公示文件下载方法。养成查找一手资料的习惯。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/12/26/from-primary-to-secondary/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -374,39 +446,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/06/04/caoz-concurrent-6/" class="post-title-link" itemprop="url">如何应对并发(6) - 琐碎的日常</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-04 15:56:20" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:20+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-06-04 15:56:20" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:20+08:00">2019-06-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:22:55" itemprop="dateModified" datetime="2020-09-23T15:22:55+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -415,91 +492,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文引自<a href="https://mp.weixin.qq.com/s/5V4RF5WaHAmoo9WFH-udBw" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-6-琐碎的日常"><a href="#如何应对并发-6-琐碎的日常" class="headerlink" title="如何应对并发(6) - 琐碎的日常"></a>如何应对并发(6) - 琐碎的日常</h2><p>这应该是应对并发系列最后一篇。</p>
-<p>我知道我的技术文章既没有太多的技术含量，也不够前沿。和各路大牛不能相比，但是我也很想和新入行的年轻人分享一个观点，千万不要认为，作为一个高大上的架构师，每天就是追踪前沿，研究新技术，搞所有人都不明白的黑科技，实际上，你日常工作的大部分，是去看一些琐碎的日志，去跟踪和分析一些常见或不常见的问题，然后引入你的思考和判断，看看有什么成熟或前沿的技术，能够应对你现有的问题，并为你后续的目标提升做出保障。</p>
-<p>随着硬件能力的不断发展，实际上，很多历史上非常头疼和困扰的技术问题，已经完全迎刃而解，也就是说很多十年前让高级架构师们特别挣扎的障碍现在可能都不存在了。也许我们通过书本去学习一些旧的策略，方案都已经显得不合时宜，但是，你日常对问题细节的敏锐度，分析问题的思路，以及对待问题思考的方法，依然是通用的，一个好的架构师，不在于他学过什么，而在于他如何发现问题，分析问题，而这些，其实功夫都在日常。</p>
-<p>回顾一下这个系列</p>
-<p><a href="caoz-concurrent-1.md">如何应对并发(1) - 关于数据索引</a></p>
-<p><a href="caoz-concurrent-2.md">如何应对并发(2) - 请求合并及异步处理</a></p>
-<p><a href="caoz-concurrent-3.md">如何应对并发(3) - 需求裁剪</a></p>
-<p><a href="caoz-concurrent-4.md">如何应对并发(4) - 分布式数据库及反范式设计</a></p>
-<p><a href="caoz-concurrent-5.md">如何应对并发(5) - 关键的关键，是认识负载</a></p>
-<p>那么接上一个章节，认识负载。</p>
-<p>现在说一下，一些具体操作的细节，我们日常是如何认识负载，如何跟踪这些数据的。</p>
-<p>我相信很多运维工程师说，他们有会使用非常多监控系统，可以出各种监控报表，但是如果你自己没有认真对业务系统做足够的监控分析，这些监控系统大多是都是摆设，并不能给系统优化和架构提供足够的帮助。</p>
-<p>而实际上，自己编写一些针对具体业务系统简单的监控，并不复杂，非常简单，而且也不需要做太复杂的一些展示效果，只要最简单的基本数据留存，对很多疑难排查和性能分析就会帮助很大。我说一下我们日常会做什么监控</p>
-<p>1、数据库服务器，包括数据中间件服务器</p>
-<p>我们以mysql为例，因为我们用的就是mysql。</p>
-<p>1.1  基本的数据库连接数监控，以及内存，cpu占用监控，每分钟cron跑一下。</p>
-<p>设置一个阈值，比如说，最大数据库连接数是1024，阈值就是256，超过阈值的情况下，记录所有的show processlist到指定文件，这个特别重要，当你出现数据库链接过多的时候，你可能除了重启别无他法，你必须回溯当时发生了什么。 </p>
-<p>强调一点，mysql允许root用户比普通用户多一个链接数，这样保证系统崩溃的时候有自救方式，所以，业务系统一定不能使用root链接数据库，而监控系统建议使用root来跟踪，这样即便出现最大链接情况，依然可以将show porcesslist 留下来，便于优化分析。</p>
-<p>此外，监控程序可以执行自恢复能力，比如说当最大链接时直接在数据库里kill掉一些僵死查询，释放资源，恢复链接状态，前提是，你确信你的系统允许提供有损服务。  此外，不要依赖自恢复机制，这种机制只能救急，事后必须分析系统瓶颈，并做出有效方案提升整体系统的支撑性。</p>
-<p>processlist的状态和所对应的问题，我这个系列没有写，其实有很多需要思考的，在09-10年我做数据库调优的时候，基本上大部分时间都是跟不同的mysql status的链接过多做分析和作斗争； 如果要单拆出来都可以独立写一篇文章，不过如果写出来估计是我公众号上访问量最低的文章了。有兴趣的可以看 “如何应对并发4” 里点原文链接，在百度文库我有完整分享。</p>
-<p>1.2 binlog的分析</p>
-<p>这不需要实时分析，但我有个习惯，还是会不定期分析一下，特别是当binlog增长速度很快的时候，我们知道binlog是mysql的写入，更新的日志，也是数据库同步的依据。一个有经验的dba，看一下binlog日志的大小和更新的时间，就能评估出这个数据库的更新频次。</p>
-<p>如果没经验也没关系，有空的时候，把binlog服务器复制到空闲服务器，（如果数据库服务器很空闲也可以直接操作，但尽量不要在线上操作，以免负载冲击对线上业务造成干扰。） 用mysqldump 将binlog输出为标准的SQL格式，然后就可以做数据分析</p>
-<p>第一，每秒钟多少数据更新请求；</p>
-<p>第二，最多的更新请求请求的是哪个数据表；</p>
-<p>第三，最多的更新请求的SQL格式是什么；</p>
-<p>第四，是否存在短时间内大量重复主键的更新请求。（可以考虑合并操作部分，参见请求合并及异步处理）</p>
-<p>1.3 慢查询日志分析</p>
-<p>看慢查询的形成原因，是受累于整体系统环境的影响，还是受累于锁表的影响，还是本身索引的问题，或者查询本身其他的问题。</p>
-<p>2、web服务器，包括负载均衡服务器</p>
-<p>2.1 web日志</p>
-<p>建议打开执行时间监控，也就是可以看到网页和动态脚本的执行时间。（友情提醒一下，动态脚本的执行时间和网络速度有关，因为输出完成后脚本才算执行截至，而输出的过程是包含了网络传输过程，这一点务必要注意）</p>
-<p>分析不同动态脚本的执行频次，并找出频次最高的几个程序。</p>
-<p>分析不同动态脚本的执行时间分布，并找出执行时间最长且频次最高的几个程序。</p>
-<p>2.2 埋点分析</p>
-<p>找到平均执行时间较长，且频次较高的程序，做埋点分析，也就是对程序每个步骤，每个调用，埋点记录时间分布，然后将问题目标缩小到具体的调用和请求上。</p>
-<p>当然也可以用一些性能评估的程序来做测试，但是和埋点不同是埋点更能体现真实网络环境下的问题。</p>
-<p>日志分析+埋点分析，可以将当前web响应卡慢的问题精准定位，这样对解决问题就有非常重要的帮助，你都定位到具体的请求和调用了，你再找解决方案就明晰了。</p>
-<p>2.3 SQL查询输出</p>
-<p>通常对数据库查询会有一个对象或函数封装，我会不定期在封装的调用内对查询语句做一个输出，写到临时文件里（/dev/shm 目录下，尽量避免对i/o影响），然后看一下</p>
-<p>第一，每秒多少查询请求</p>
-<p>第二，最多查询表是哪个</p>
-<p>第三，最多查询的SQL是什么，索引是否合理</p>
-<p>第四，是否存在同一主键的大量重复查询（可以用缓存来做）</p>
-<p>2.4 错误异常日志分析</p>
-<p>error日志，包括webserver的error日志，也包括动态脚本的，比如php的error日志，这里往往你会看到很多网络蠕虫入侵和攻击的尝试，以及SQL注入的测试。 有些错误信息应该引起你极大的警觉，比如你会发现你其实存在SQL注入漏洞而攻击者只是猜测错了一点点没有得逞而已。</p>
-<p>2.5 链接状态监控</p>
-<p>当前web链接数，以及链接的资源消耗。</p>
-<p>存在这样的情况，有些脚本本身业务逻辑不复杂，按照最简单的编写方式，吃的资源按理说并不多，但是因为使用了较为庞大的框架，导致每个请求都调用了大量的资源，在连接数较多的时候，导致系统资源耗尽，形成雪崩效应。</p>
-<p>这就是我老说的，万恶的框架。</p>
-<p>当然，因为web请求比较容易做负载均衡，在现在硬盘，内存都很便宜的情况下，很多架构师会说，我加几台前端就好了，所以可能只有我这种远古时代的个人站长才会对这个特别敏感。</p>
-<p>3、内存、缓存服务器</p>
-<p>3.1 链接状态和资源监控</p>
-<p>3.2 命中率监控</p>
-<p>如果缓存的命中率太低，没有效率，应该问一下程序员，多半是设计有问题。很多人以为加了缓存就会提升效率，其实如果命中率不高的话是浪费效率，你本身多一次查询，请求，然后没有命中还要回到原始的数据库查询，这怎么会提高效率？</p>
-<p>4、一些通用的监控</p>
-<p>内存，cpu，硬盘占用监控</p>
-<p>（临时文件导致硬盘满导致服务器崩溃的案例不要太多！）</p>
-<p>swap分区占用的监控</p>
-<p>你觉得服务器内存挺宽的，但是莫名其妙swap分区占用过高，你整个服务器性能直线跳水下降。 因此导致系统崩溃的案例也是数不胜数。</p>
-<p>系统资源占用监控</p>
-<p>比如最大文件打开数，最大文件句柄数，syn连接数等，要对一些系统阈值有了解，也许某个系统阈值达到了而你系统资源其实还很宽松，但你服务器已经没法响应了。这就是所谓服务器很闲但是拒绝服务的原因。</p>
-<p>5、自恢复系统</p>
-<p>当数据库链接过多，webserver链接过多，或其他一些常见问题出现时，如果有一个cron任务，能自动杀掉阻塞进程，就可以以较少的服务拒绝为代价，让系统快速恢复运行，对于很多中小企业来说，运维可以睡个安稳觉，程序员不用半夜起来处理问题，还是很有意义的。</p>
-<p>但是这里必须强调，自恢复系统并不能治本，切忌产生依赖性，出现问题快速恢复，但是要给以业务系统足够的提示，当运维负责人或程序员上班时，应给予足够的提示，并快速回放问题现场，（参照如上的监控），寻找问题原因，并做出优化方案，以免问题重现。</p>
-<p>自恢复系统是一个对技术不十分成熟，业务发展迅速的平台，特别重要的一个处理思路，你可以用较低的成本完成服务较高的可靠性，并能减少技术人员加班频次，但必须强调的是，你必须有后续的跟进解决方案，否则问题积累到一定程度，就会变成自恢复-崩溃死循环。</p>
-<p>6、监控系统的资源占用</p>
-<p>必须强调，监控系统本身的资源开销也是需要考虑的，否则可能本身系统没事，因为你做了监控反而挂了。</p>
-<p>比如说，netstat -an 这种操作，在链接较多，负载较高的系统中我是不敢用的。比如说，埋点分析我通常会根据在线负载压力考虑采用随机值抽取一个百分比来做埋点，既保证样本的充分度又要保证对在线负载压力影响较小。再比如说，所有类似埋点分析或查询输出，我都是定位到/dev/shm目录，用内存而不是物理i/o， 当然，数据规模也要控制，否则把内存吃满也是大问题，</p>
-<p>但是我还是要强调，监控非常重要！</p>
-<p>有些人觉得监控占用开销，所以尽可能不开任何日志，比如不开web日志，不开binlog，不开error日志，他们认为这样可以提升效率，然后出问题来问，那怎么弄，我个人认为，在绝大部分业务情况下，binlog，web日志，error日志不会是业务系统的负载瓶颈所在，其对于高负载的系统而言，资源开销只是很小的比例，打开这些日志是非常有意义的。（binlog日志的存储方式要选对，否则可能对系统负载产生致命影响，有兴趣的可以看 “如何应对并发4” 里点原文链接，在百度文库我有完整分享。）</p>
-<p>以上是以前我做过的系统监控的一些总结，因为当时主要以web服务为主，对于其他类型的服务并没有特别多的研究，但我个人认为基本思路和逻辑是一致的。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>如何应对并发(6)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/06/04/caoz-concurrent-6/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -520,39 +532,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/06/04/caoz-concurrent-5/" class="post-title-link" itemprop="url">如何应对并发(5) - 关键的关键，是认识负载</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-04 15:56:13" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:13+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-06-04 15:56:13" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:13+08:00">2019-06-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:22:51" itemprop="dateModified" datetime="2020-09-23T15:22:51+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -561,50 +578,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文引自<a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=401014185&amp;idx=1&amp;sn=66850ac473e63c639448103066682dc7&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-5-关键的关键，是认识负载"><a href="#如何应对并发-5-关键的关键，是认识负载" class="headerlink" title="如何应对并发(5) - 关键的关键，是认识负载"></a>如何应对并发(5) - 关键的关键，是认识负载</h2><p>很多人会问我说，他们有个系统，流量有多大，用户有多多，然后问我用什么方案，实话说，这样的问题基本上都没办法回答，你必须首先清楚，你的负载构成是怎样的，以及负载增加的趋势是怎样的，才能有针对性的给出方案。</p>
-<p>1、负载的构成</p>
-<p>你要提出优化方案，首先你要知道你系统的负载是怎么构成的，</p>
-<p>CPU开销是多少，是哪些进程和服务占用的。</p>
-<p>内存开销是多少，是哪些进程和服务占用的，如果内存占用了swap分区，大量的硬盘虚拟内存操作，效率自然会直线下降。</p>
-<p>I/O开销 是多少，读请求的频率，写请求的频率，什么服务和什么操作占用了大量的i/o。</p>
-<p>连接数是多少，是怎么分布的，比如http链接多少，数据库链接多少，memcache链接多少，当然更细致的三次握手的链接是多少。</p>
-<p>了解这些，是优化的基础，这些都不清楚，谈个毛优化方案。</p>
-<p>2、负载增长趋势</p>
-<p>随着应用请求的增加，你的系统的负载是怎么增加的。</p>
-<p>第一种，是线性增加，就是请求两倍，负载变成两倍</p>
-<p>第二种，是指数增加，请求两倍，负载变成四倍甚至更多，</p>
-<p>有人会奇怪，为什么这样呢？因为请求增加和数据量增加很可能是一致的，比如一个毫无索引的遍历查询，数据量增加了一倍，查询效率就降低50%，请求量又增加1倍，所以负载就增加了4倍。 这种就是非常不合理的技术架构。</p>
-<p>第三种，收敛增加，随着你的请求增加规模，负载的增加低于线性增加并逐步收敛，比如说，大量使用缓存和异步更新，请求越多，缓存命中率越高，异步更新的请求合并率越高，这样负载的增加就呈现为收敛性，这样系统的支撑性就会很强大。</p>
-<p>3、系统阈值</p>
-<p>很多时候，我们系统出现瓶颈，并不是因为负载很高，而是因为某个请求规模超越了系统阈值，导致无法应答请求。</p>
-<p>典型范例如</p>
-<p>syn flood攻击时，最大的syn连接池被占满，导致无法应答新的请求，而此时服务器负载非常之低，这就是典型服务器很闲但不响应的情况。</p>
-<p>http链接数越界，http链接超时设置较长，大量链接没有释放，导致链接数超过默认最大值，http服务器无法响应新请求。</p>
-<p>mysql链接数越界，大量使用常链接或不释放链接，导致大量sleep链接占满系统默认连接数，数据库无法响应新请求。</p>
-<p>最大文件打开数越界，大量使用临时文件和缓存文件，大量的文件打开操作，而系统默认值没有调优。</p>
-<p>类似这样的还有很多，以上只是最常见的一些。</p>
-<p>这就是很多人觉得奇怪的一个现象，我看了一下系统负载不高为啥我服务器不响应了？要充分理解各种系统阈值，并针对自己的应用特性进行调优，才可以充分发挥系统硬件特性，实话说，很多系统或服务的默认阈值都偏低。</p>
-<p>4、峰谷的规律和预测</p>
-<p>通常，负载和请求并非一条平顺的曲线，每天都有波峰和波谷，如果有大的活动或市场推广计划，很可能也会有一条非常陡峭的增加曲线。</p>
-<p>这时候需要运营者有一个预测和判断，知道波峰在什么时候会发生，而且要知道相关的规律是什么。</p>
-<p>5、异常的监控和跟踪</p>
-<p>之前我的系列文章有提过一点，要对各种异常敏感，很多严重的性能问题其实是有先兆的，比如偶尔的501错误，偶尔的访问卡顿，偶尔的链接出错，很多时候，用户刷新一下，这个问题就没有了，但是很可能此事系统已经进入了一个不稳定的状态。</p>
-<p>有经验和有意识的架构师或运维专家，应该会做日志的跟踪和审计，随时查看这种错误信息的出现频率，并对此进行持续的跟踪监控，在高并发的真实环境中，在一定比例内，这样的偶发异常是非常难免的，你要问我如何彻底杜绝，对不起，我也不会，但是首先，这个比例应该是非常低的，比如说在万分之几甚至更低，当异常响应超过千分之几的时候你就应该足够敏感和足够紧张的去研究这个问题了。其次，当异常频现的时候应该在程序里埋点做跟踪了，并尽可能记录异常频次较高时候的系统负载值和各种连接数与阈值的比例。然后基于异常的一些提示信息在网上进行搜索，当然，不同的异常存在不同的可能，我没办法给出一揽子解决的方案，但是我希望提醒，当异常开始快速增加的时候，你至少要知道，系统已经呈现出可能崩溃的前兆了。</p>
-<p>认识负载，是优化系统的关键，今天先讲这些，这个系列并未结束。</p>
-<p>最近在多个城市穿梭，因此更新不够稳定，谢谢您继续关注和支持！</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>如何应对并发(5)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/06/04/caoz-concurrent-5/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -625,39 +618,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/06/04/caoz-concurrent-4/" class="post-title-link" itemprop="url">如何应对并发(4) - 分布式数据库及反范式设计</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-04 15:56:06" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:06+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-06-04 15:56:06" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:06+08:00">2019-06-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:22:47" itemprop="dateModified" datetime="2020-09-23T15:22:47+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -666,226 +664,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文引自<a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=400516974&amp;idx=1&amp;sn=66a65b0900a8a410b7268d4b9c7bbddb&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-4-分布式数据库及反范式设计"><a href="#如何应对并发-4-分布式数据库及反范式设计" class="headerlink" title="如何应对并发(4) - 分布式数据库及反范式设计"></a>如何应对并发(4) - 分布式数据库及反范式设计</h2><p>分布式数据库及反范式设计</p>
-<p>当数据容量非常大，请求频次非常高，索引优化，异步更新，合并操作，需求裁剪这些都做到位了，你发现系统依然存在严重的瓶颈，需要扩展，这时候，我们再来谈分布式方案。</p>
-<p>这个课题我四年前在Qcon架构师大会分享过，当场我看记录，好评数还可以，但事后有高手吐槽说我讲的玩意根本不算什么分布式数据库，可能他们看中硬核的东西，不过我这种野路子，关心的是实战中，中小型互联网公司遇到的数据库压力问题如何高效解决，简单有效是第一宗旨，您要是问一线的，比如淘宝怎么解决数据库压力，别问我，我不会。</p>
-<p>今天偷懒了，我把以前文档的内容贴出来。 不过这也是原创哦，四年前的原创。</p>
-<h2 id="分库-amp-拆表方案"><a href="#分库-amp-拆表方案" class="headerlink" title="分库&amp;拆表方案"></a>分库&amp;拆表方案</h2><ul>
-<li><p>基本认识</p>
-<ul>
-<li><p>用分库&amp;拆表是解决数据库容量问题的唯一途径。</p>
-</li>
-<li><p>分库&amp;拆表也是解决性能压力的最优选择。</p>
-</li>
-<li><p>分库 – 不同的数据表放到不同的数据库服务器中（也可能是虚拟服务器）</p>
-</li>
-<li><p>拆表 – 一张数据表拆成多张数据表，可能位于同一台服务器，也可能位于多台服务器（含虚拟服务器）。</p>
-</li>
-</ul>
-</li>
-<li><p>去关联化原则</p>
-<ul>
-<li><p>摘除数据表之间的关联，是分库的基础工作。</p>
-</li>
-<li><p>摘除关联的目的是，当数据表分布到不同服务器时，查询请求容易分发和处理。</p>
-</li>
-<li><p>学会理解反范式数据结构设计，所谓反范式，第一要点是不用外键，不允许Join操作，不允许任何需要跨越两个表的查询请求。第二要点是适度冗余减少查询请求，比如说，信息表，fromuid, touid, message字段外，还需要一个fromuname字段记录用户名，这样查询者通过touid查询后，能够立即得到发信人的用户名，而无需进行另一个数据表的查询。</p>
-</li>
-<li><p>去关联化处理会带来额外的考虑，比如说，某一个数据表内容的修改，对另一个数据表的影响。这一点需要在程序或其他途径去考虑。</p>
-</li>
-</ul>
-</li>
-<li><p>分库方案</p>
-<ul>
-<li><p>安全性拆分</p>
-<ul>
-<li>将高安全性数据与低安全性数据分库，这样的好处第一是便于维护，第二是高安全性数据的数据库参数配置可以以安全优先，而低安全性数据的参数配置以性能优先。参见运维优化相关部分。</li>
-</ul>
-</li>
-<li><p>基于业务逻辑拆分</p>
-<ul>
-<li><p>根据数据表的内容构成，业务逻辑拆分，便于日常维护和前端调用。</p>
-</li>
-<li><p>基于业务逻辑拆分，可以减少前端应用请求发送到不同数据库服务器的频次，从而减少链接开销。</p>
-</li>
-<li><p>基于业务逻辑拆分，可保留部分数据关联，前端web工程师可在限度范围内执行关联查询。</p>
-</li>
-</ul>
-</li>
-<li><p>基于负载压力拆分</p>
-<ul>
-<li><p>基于负载压力对数据结构拆分，便于直接将负载分担给不同的服务器。</p>
-</li>
-<li><p>基于负载压力拆分，可能拆分后的数据库包含不同业务类型的数据表，日常维护会有一定的烦恼。</p>
-</li>
-</ul>
-</li>
-<li><p>混合拆分组合</p>
-<ul>
-<li><p>基于安全与业务拆分为数据库实例，但是可以使用不同端口放在同一个服务器上。</p>
-</li>
-<li><p>基于负载可以拆分为更多数据库实例分布在不同数据库上</p>
-<p>例如，</p>
-<ul>
-<li><p>基于安全拆分出A数据库实例，</p>
-</li>
-<li><p>基于业务拆分出B,C数据库实例，</p>
-</li>
-<li><p>C数据库存在较高负载，基于负载拆分为C1,C2,C3,C4等 实例。</p>
-</li>
-<li><p>数据库服务器完全可以做到 A+B+C1 为一台，C2,C3,C4各单独一台。</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>分表方案</p>
-<p>数据量过大或者访问压力过大的数据表需要切分</p>
-<ul>
-<li><p>纵向分表（常见为忙闲分表）</p>
-<ul>
-<li><p>单数据表字段过多，可将频繁更新的整数数据与非频繁更新的字符串数据切分</p>
-<p>范例 user表 ，个人简介，地址，QQ号，联系方式，头像 这些字段为字符串类型，更新请求少； 最后登录时间，在线时常，访问次数，信件数这些字段为整数型字段，更新频繁，可以将后面这些更新频繁的字段独立拆出一张数据表，表内容变少，索引结构变少，读写请求变快。</p>
-</li>
-</ul>
-</li>
-<li><p>横向切表</p>
-<ul>
-<li><p>等分切表，如哈希切表或其他基于对某数字取余的切表。等分切表的优点是负载很方便的分布到不同服务器；缺点是当容量继续增加时无法方便的扩容，需要重新进行数据的切分或转表。而且一些关键主键不易处理。</p>
-</li>
-<li><p>递增切表，比如每1kw用户开一个新表，优点是可以适应数据的自增趋势；缺点是往往新数据负载高，压力分配不平均。</p>
-</li>
-<li><p>日期切表，适用于日志记录式数据，优缺点等同于递增切表。</p>
-</li>
-</ul>
-<p>个人倾向于递增切表，具体根据应用场景决定。</p>
-</li>
-<li><p>热点数据分表</p>
-<ul>
-<li><p>将数据量较大的数据表中将读写频繁的数据抽取出来，形成热点数据表。通常一个庞大数据表经常被读写的内容往往具有一定的集中性，如果这些集中数据单独处理，就会极大减少整体系统的负载。</p>
-</li>
-<li><p>热点数据表与旧有数据关系</p>
-<ul>
-<li><p>可以是一张冗余表，即该表数据丢失不会妨碍使用，因源数据仍存在于旧有结构中。优点是安全性高，维护方便，缺点是写压力不能分担，仍需要同步写回原系统。</p>
-</li>
-<li><p>可以是非冗余表，即热点数据的内容原有结构不再保存，优点是读写效率全部优化；缺点是当热点数据发生变化时，维护量较大。</p>
-</li>
-<li><p>具体方案选择需要根据读写比例决定，在读频率远高于写频率情况下，优先考虑冗余表方案。</p>
-</li>
-</ul>
-</li>
-<li><p>热点数据表可以用单独的优化的硬件存储，比如昂贵的闪存卡或大内存系统。</p>
-</li>
-</ul>
-</li>
-<li><p>热点数据表的重要指标</p>
-<ul>
-<li><p>热点数据的定义需要根据业务模式自行制定策略，常见策略为，按照最新的操作时间；按照内容丰富度等等。</p>
-</li>
-<li><p>数据规模，比如从1000万条数据，抽取出100万条热点数据。</p>
-</li>
-<li><p>热点命中率，比如查询10次，多少次命中在热点数据内。</p>
-</li>
-<li><p>理论上，数据规模越小，热点命中率越高，说明效果越好。需要根据业务自行评估。</p>
-</li>
-</ul>
-</li>
-<li><p>热点数据表的动态维护</p>
-<ul>
-<li><p>加载热点数据方案选择</p>
-<ul>
-<li><p>定时从旧有数据结构中按照新的策略获取</p>
-</li>
-<li><p>在从旧有数据结构读取时动态加载到热点数据</p>
-</li>
-</ul>
-</li>
-<li><p>剔除热点数据方案选择</p>
-<ul>
-<li><p>基于特定策略，定时将热点数据中访问频次较少的数据剔除</p>
-</li>
-<li><p>如热点数据是冗余表，则直接删除即可，如不是冗余表，需要回写给旧有数据结构。</p>
-</li>
-<li><p>通常，热点数据往往是基于缓存或者key-value 方案冗余存储，所以这里提到的热点数据表，其实更多是理解思路，用到的场合可能并不多….</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>反范式设计（冗余结构设计）<br>l 反范式设计的概念</p>
-<p>n 无外键，无连表查询。</p>
-<p>n 便于分布式设计，允许适度冗余，为了容量扩展允许适度开销。</p>
-<p>n 基于业务自由优化，基于i/o 或查询设计，无须遵循范式结构设计。</p>
-<p>l 冗余结构设计所面临的典型场景</p>
-<p>n 原有展现程序涉及多个表的查询，希望精简查询程序</p>
-<p>n 数据表拆分往往基于主键，而原有数据表往往存在非基于主键的关键查询，无法在分表结构中完成。</p>
-<p>n 存在较多数据统计需求（count, sum等），效率低下。</p>
-<p>l 冗余设计方案</p>
-<p>n 基于展现的冗余设计</p>
-<p>u 为了简化展现程序，在一些数据表中往往存在冗余字段</p>
-<p>u 举例，信息表 message，存在字段 fromuid,touid,msg,sendtime 四个字段，其中 touid+sendtime是复合索引。存在查询为 select * from message where touid=$uid order by sendtime desc limit 0,30;</p>
-<p>u 展示程序需要显示发送者姓名，此时通常会在message表中增加字段fromusername，甚至有的会增加fromusersex，从而无需连表查询直接输出信息的发送者姓名和性别。这就是一种简单的，为了避免连表查询而使用的冗余字段设计。</p>
-<p>n 基于查询的冗余设计</p>
-<p>u 涉及分表操作后，一些常见的索引查询可能需要跨表，带来不必要的麻烦。确认查询请求远大于写入请求时，应设置便于查询项的冗余表。</p>
-<p>u 冗余表要点</p>
-<p>l 数据一致性，简单说，同增，同删，同更新。</p>
-<p>l 可以做全冗余，或者只做主键关联的冗余，比如通过用户名查询uid，再基于uid查询源表。</p>
-<p>u 实战范例1</p>
-<p>l 用户分表，将用户库分成若干数据表</p>
-<p>l 基于用户名的查询和基于uid的查询都是高并发请求。</p>
-<p>l 用户分表基于uid分成数据表，同时基于用户名做对应冗余表。</p>
-<p>l 如果允许多方式登陆，可以有如下设计方法</p>
-<p>n uid,passwd,用户信息等等，主数据表，基于uid 分表</p>
-<p>n ukey,ukeytype,uid 基于ukey分表，便于用户登陆的查询。分解成如下两个SQL。</p>
-<p>u select uid from ulist_key_13 where ukey=’$username’ and ukeytype=‘login’;</p>
-<p>u select * from ulist_uid_23 where uid=$uid and passwd=’$passwd’;</p>
-<p>n ukeytype定义用户的登陆依据，比如用户名，手机号，邮件地址，网站昵称等。 Ukey+ukeytype 必须唯一。</p>
-<p>n 此种方式需要登陆密码统一，对于第三方connect接入模式，可以通过引申额外字段完成。</p>
-<p>u 实战范例2：用户游戏积分排名</p>
-<p>l 表结构 uid,gameid,score 参见前文实时积分排行。表内容巨大，需要拆表。</p>
-<p>l 需求1：基于游戏id查询积分排行</p>
-<p>l 需求2：基于用户id查询游戏积分记录</p>
-<p>l 解决方案：建立完全相同的两套表结构，其一以uid为拆表主键，其二以gameid为拆表主键，用户提交积分时，向两个数据结构同时提交。</p>
-<p>u 实战范例3：全冗余查询结构</p>
-<p>l 主信息表仅包括 主键及备注memo 字段（text类型），只支持主键查询，可以基于主键拆表。所以需要展现和存储的内容均在memo字段重体现。</p>
-<p>l 对每一个查询条件，建立查询冗余表，以查询条件字段为主键，以主信息表主键id 为内容。</p>
-<p>l 日常查询只基于查询冗余表，然后通过in的方式从主信息表获得内容。</p>
-<p>l 优点是结构扩展非常方便，只需要扩展新的查询信息表即可，核心思路是，只有查询才需要独立的索引结构，展现无需独立字段。</p>
-<p>l 缺点是只适合于相对固定的查询架构，对于更加灵活的组合查询束手无策。</p>
-<p>n 基于统计的冗余结构</p>
-<p>u 为了减少会涉及大规模影响结果集的表数据操作，比如count，sum操作。应将一些统计类数据通过冗余数据结构保存。</p>
-<p>u 冗余数据结构可能以字段方式存在，也可能以独立数据表结构存在，但是都应能通过源数据表恢复。</p>
-<p>u 实战范例：</p>
-<p>l 论坛板块的发帖量，回帖量，每日新增数据等。</p>
-<p>l 网站每日新增用户数等。</p>
-<p>l 参见Discuz论坛系统数据结构，有较多相关结构。</p>
-<p>l 参见前文分段积分结构，是典型用于统计的冗余结构。</p>
-<p>l 后台可以通过源数据表更新该数字。</p>
-<p>l Redis的Zset类型可以理解为存在一种冗余统计结构。</p>
-<p>n 历史数据表</p>
-<p>u 历史数据表对应于热点数据表，将需求较少又不能丢弃的数据存入，仅在少数情况下被访问。</p>
-<p>以上为节选，缺失部分请点击 “查看原文”</p>
-<p>分几次分享的意思其实很简单，这个文档很早就发布过，给很多人也分享过，但我总觉得效果不够好，不够好的原因是，很多人马马虎虎的看一遍下去，并不真的理解吸收，我还是希望有兴趣的读者多花一点时间思考这些技术问题，能透彻的理解其思路和逻辑，并真正用到工作中，提升代码和数据库操作的效率。</p>
-<p>我们平时看技术文档，看技术专家分享的时候，多半存在这个问题，贪多嚼不烂，看着觉得对方方案很牛，但很多都只是听到了一点概念，最后真正吸收和落实的不多，我希望一些做技术的朋友能稍微慢下来，多吸收和领悟一下，然后在实践中用起来，这样，这个分享才是有意义的。</p>
-<p>明天我会写一篇对一些技术人员吐槽的文章，谢谢。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>如何应对并发(4)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/06/04/caoz-concurrent-4/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -906,39 +704,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/06/04/caoz-concurrent-3/" class="post-title-link" itemprop="url">如何应对并发(3) - 需求裁剪</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-04 15:55:59" itemprop="dateCreated datePublished" datetime="2019-06-04T15:55:59+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-06-04 15:55:59" itemprop="dateCreated datePublished" datetime="2019-06-04T15:55:59+08:00">2019-06-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:22:44" itemprop="dateModified" datetime="2020-09-23T15:22:44+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -947,47 +750,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文引自<a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=400516974&amp;idx=1&amp;sn=66a65b0900a8a410b7268d4b9c7bbddb&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-3-需求裁剪"><a href="#如何应对并发-3-需求裁剪" class="headerlink" title="如何应对并发(3) - 需求裁剪"></a>如何应对并发(3) - 需求裁剪</h2><p>今天讲一下，应对并发，应对海量数据请求的一个关键策略，也是很多程序员的盲区，需求裁剪。</p>
-<p>这个，很多公司，技术人员会说，产品经理提需求，我们完成需求，怎么可能去裁剪需求，而且，裁剪需求会不会显得很low，说明水平很差呢。</p>
-<p>其实，这是一个对需求理解的问题。</p>
-<p>所谓需求，并不仅仅是功能实现，还包括性能指标，以及所谓的边界条件。</p>
-<p>实际上，即便是我们所熟知的巨头，面对性能负载问题，也会采取限定边界条件的方式来满足绝大部分用户的正常请求。</p>
-<p>下面，案例说话</p>
-<p>案例1：搜索大翻页问题，还记得我提过的这个搜索翻页越多，负载越高的问题么。</p>
-<p>请问，</p>
-<p>淘宝搜索一个关键词，最多翻多少页？百度呢？google呢？</p>
-<p>你们自行测试一下，这些巨头给出的搜索结果条目数，我跟你们实话说，都是估算值，最大翻页数，基本不超过100页。</p>
-<p>这就是设定了边界条件。</p>
-<p>正好前几天一个做比价的创业公司问我技术问题，他们抓了很多商品定价数据，虽然并发不高，但是数据量很大，要在每个搜索中给出结果数和精确翻页数，结果一个带搜索条件的 count(*)的问题出来了，效率特别低，执行开销特别大，跑来问我怎么优化，我告诉他，连百度和谷歌都没法做这样的精确结果，你让我怎么优化。这事就必须从需求出发，第一，不需要精确的返回结果数，第二，翻页做限定。</p>
-<p>案例2：雪崩效应的处理。</p>
-<p>前天讲的，当缓存扛不住，负载传递给数据库，瞬间过载，怎么处理？你说我多加数据库行不行？那要缓存干嘛用的呢？你说我缓存做实时同步实时备份？这缓存的存储效率多高啊，网速能跟的上？ </p>
-<p>这就涉及一个灾难应急机制，简单说就是 降级服务，有损服务。</p>
-<p>在出现类似问题的时候，系统自动降级，将部分用户请求频次低，价值低但是系统开销不低的功能或者数据临时阻断停止响应，确保整体系统的稳定性。</p>
-<p>比如说，大量用户会订阅热门内容，而少数用户会订阅冷门内容，那么在缓存崩溃的情况下，系统优先恢复热门内容，暂停冷门内容的请求的响应，可能可以在开销可控的情况下先满足了90%的访问请求，当数据库负载已经回落后再逐步恢复冷门内容的请求，从而使系统在开销可控的情况下自动完全恢复，避免雪崩效应导致全局崩溃。</p>
-<p>那么，有人会问，这个降级会不会很low？ 其实腾讯邮箱和新浪微博都有过类似的处理策略。</p>
-<p>在 caoz谈能力成长 - 取舍之道 这篇其实提过一些类似案例，在早期我技术并不高明的时候，实现CNZZ统计的功能，其实有非常多的数据是有损服务的，但是实际上用户并不会感受到，因为你损失的那些边界条件外的数据是1000个用户也不会有1个去查询的内容，而如果你要满足这些可能需要付出500%甚至更多的系统开销和研发工作量，这种对于很多早期创业公司来说，非常非常重要。</p>
-<p>我们说需求裁剪，说有损服务，并不是说不满足用户需求，我知道很多人有技术洁癖或者说追求技术完美，某些文章会说中国的创业太山寨太草根，美国人的创业都是以完美为导向。那么今天我就说一点，如果不看这篇文章，有几个人知道，google原来搜索的结果是不能翻出超过100页的？大家天天用淘宝吧，请问有谁知道淘宝搜索的最大翻页是100页？ 除了写蜘蛛抓人家数据的人之外，who care ?</p>
-<p>很多站长都用CNZZ，或其他第三方统计对吧，看数据的时候，看看自己网站的来源网页，请问谁会翻到第20页之后？</p>
-<p>这就是思路的关键，用户对功能的需求，你的满足度的边界在哪里？很多程序员没有这个概念，对于数据规模小，请求并发少的应用来说，这个东西你不考虑也没什么大不了，但是如果面对数据规模大，请求并发大，你就应该有一个概念，如何设定需求的边界条件，既能满足用户的正常请求可以顺畅的响应，同时保证系统在开销可控的情况下稳定健壮的运营；而当系统出现类似单点故障，雪崩效应呈现的时候，如何设定新的边界条件，让用户在基本可用的情况下给系统一个恢复周期。这些问题都是需要提前思考，并且不断随着业务规模的增加而调整的。</p>
-<p>案例3：关于主从分离同步的案例</p>
-<p>这个案例很好玩，我们刚开始做数据库主从读写分离的时候，经验也不是很丰富，然后发现一个问题，主从同步经常会有一个时延，虽然时间很短，大部分在1秒以内，但是在应用中，我们发现，用户发一个帖子，然后发完后就应该进入这个帖子的展示页吧，帖子发布到主数据库，而展示页调用的是从数据库，结果部分用户发完帖子，因为延迟，就看到了一个该帖子不存在的界面，这肯定是一个不好的情况么。当然，技术上肯定有各种解决方法，比如对这种新内容选择从主数据库访问，做一些标定等等，但是呢，我们就做了一个特别偷懒取巧的方案。什么方案呢？用户发完帖子后，先进入一个中转页，告诉用户您的帖子发布成功，3秒后自动进入帖子页。（对这个场景很多人都熟悉吧），就这么一个特简单甚至有点不是很友好的设计，主从同步延迟的问题就基本解决了。</p>
-<p>这不是一个完美方案，但是简单有效，而且对用户来说，虽然体验略有不好，但其实也不会有非常大的困扰。 当然，今天，我不推荐这样的方案，但是小团队，创业公司，遇到一些比较头疼的技术问题，其实完全可以通过需求的一点点微调就绕开，我希望分享的是这个观点。</p>
-<p>每次看到创业团队的技术把一个简单的项目做的又累又复杂的时候，我都想说一句，能不能简化一下，从需求到技术方案。很多所谓的复杂根本没有任何实际意义，除了浪费时间和精力外。</p>
-<p>最后，留一个思考题</p>
-<p>还是大翻页问题，一些论坛系统确实有大翻页的实际需要，在这种情况下，我说，只要不允许任意指定页码的跳转翻页，而是只允许上翻页下翻页（或者可以加上上五页，下五页这样的快速翻页）那么就会有特别高的效率的实现方法，有兴趣的同学思考一下。 就是用索引的思路去思考。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>如何应对并发(3)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/06/04/caoz-concurrent-3/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -1008,39 +790,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/06/04/caoz-concurrent-2/" class="post-title-link" itemprop="url">如何应对并发(2) - 请求合并及异步处理</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-04 15:55:51" itemprop="dateCreated datePublished" datetime="2019-06-04T15:55:51+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-06-04 15:55:51" itemprop="dateCreated datePublished" datetime="2019-06-04T15:55:51+08:00">2019-06-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:22:40" itemprop="dateModified" datetime="2020-09-23T15:22:40+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1049,68 +836,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文引自<a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=400480069&amp;idx=1&amp;sn=4119397d0e3b0444f04d25f76ecdfbe3&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-2-请求合并及异步处理"><a href="#如何应对并发-2-请求合并及异步处理" class="headerlink" title="如何应对并发(2) - 请求合并及异步处理"></a>如何应对并发(2) - 请求合并及异步处理</h2><p>先说昨天有人反应的问题</p>
-<p>有网友提醒，说数据查询只能用到一个索引，这个表达不精确，只限于单表的查询，而联表查询实际上每个表都可以有其独立的索引被用到。</p>
-<p>非常感谢这个提醒，其实呢，这里必须额外解释一下。</p>
-<p>我刚工作的时候呢，特别喜欢写复杂的SQL，觉得自己特酷，写出一个复杂的连表查询逻辑感觉智商优越感爆棚，然后还十分得瑟的给人看这SQL写的思路多牛逼。但是工作十多年后呢，慢慢意识到这样其实不对，特别是面对高并发，高处理请求的时候，联表查询所带来的问题不仅仅是效率的问题，更包括分布式，扩展性的问题，后来我们就制定了一个原则，禁止使用联表查询。所以我系列文章里不会提及任何涉及联表查询的优化问题。可能有的朋友会觉得这样是不是有些极端，是的。但是对于应对高并发的业务场景，这一条其实并不是我个人的规定，很多公司和架构师也都有这样的规定。</p>
-<p>那么禁止联表查询会带来一系列无法满足查询需求的问题，这个在后面的文章我会提到，在计划中这是第四篇的内容。</p>
-<p>另外，我可能是跟草根打交道比较多，加上我自己学数据库和编程基本都是野路子，所以特别理解草根创业者，以及野路子程序员面对技术问题的困境和纠结，实话说，因为一直以来跟草根创业者沟通比较多，在实战中遇到的各种优化问题和处理场景，我敢说要比很多大公司的架构师还要多，但也实话说可能并不是那些大公司所遇到的问题那么深。所以我的风格一直是，让菜鸟能够更容易理解和领悟，达到处理较高量级的性能优化水平。但是从几年前架构师大会上，就总有一些逼格很高的技术人员瞧不起我的路数，觉得太low太没技术含量，这个，我也是承认的，不过，敬请自便吧。</p>
-<p>我所提到的几个案例大家可以看到，其实都是非常典型的，使用场景广泛的，一般小公司很可能撞死在里面的案例，昨天还有人留言以前一直被蜘蛛拖死论坛，看了我的文章后才恍然大悟。但是昨天没有完全解读解决方案，请允许我挖个坑，因为饭要一口口吃，我这个系列会逐渐把处理思路一步步贯通。</p>
-<p>很多人都知道说，如果查询请求过多，其实可以用内存来做缓存，比如memcache，比如redis，很多缓存方案，但是如果更新请求过多，那么缓存就没法用了。而更新请求往往比查询请求更消耗资源，这样系统i/o压力就非常大。</p>
-<p>当然，这里我要额外说一句，并不是查询请求缓存化了系统效率就会提升，和缓存设计有关，同时缓存的使用也会带来新的风险。</p>
-<p>1、如果缓存命中率不高，可能反而是负担</p>
-<p>很多人觉得加了缓存就能提高效率，未必。如果缓存命中率不高，查询完缓存没有再去查询数据库，那么实际上是额外开销，只有命中率超过50%，才是有价值的缓存。</p>
-<p>2、如果缓存设计不合理，系统开销只会更高</p>
-<p>这个我们自己也遇到过，比如有些人喜欢把大量记录扔在缓存里，一条记录可能内容几百k甚至几兆，但是在我们用的时候可能只用到这个记录的某几个字段，这时候通过缓存去读取记录然后再从记录中拆解到这个字段的开销，比直接从数据库中读取这个记录的指定字段，系统开销要大不少。导致你需要更多的缓存服务器，当然，好处是数据库毕竟压力降了（数据库分布式比缓存服务器分布式设计上要复杂一些），但是对于我这样的抠门屌丝程序员，这种开销我是不能忍受的，有钱任性的人可以无视。</p>
-<p>3、雪崩效应的风险，</p>
-<p>缓存使用分两种，一种是只通过缓存调用，系统后台定时更新的，如果数据丢失或损坏无需从数据库读取；另一种是先从缓存查询，如果没有符合的记录再找数据库，那么就存在这样的风险，一旦缓存内容被重置或缓存服务器出现问题导致大量内容丢失，那么所有请求全部回源，数据库瞬间过载崩溃，导致系统架构响应崩溃。</p>
-<p>所以，缓存设计也是一门重要的学问，然而，这部分，很抱歉，不展开。</p>
-<p>部分内容明天可能会说一下。</p>
-<p>今天说的重点是，关于更新请求，是不是真的不能缓存呢？其实不是。</p>
-<p>这就是今天要明确的，请求合并，异步处理。</p>
-<p>第一，请求合并。</p>
-<p>先说个极端案例，以前有个挺不错的技术，但是早期接触数据库不多，刚开始做服务端的时候，设计了一套框架，然后用框架来实现业务逻辑，但是后来做性能压测就不行，我当时帮他分析，一下子就发现问题了。</p>
-<p>一个游戏角色，设置了一个操作对象，那么比如说角色生命的增加或减少，是一个方法，经验的增加或减少，是一个方法，金钱的增加和减少，是一个方法，以此类推， 那么游戏角色pk后，很多数值发生了改变，就依次执行这些方法，这不挺正常的逻辑么？但是我们看到的是，对同一个数据表同一条记录的不同字段，执行了多次更新操作，这些请求就是没必要的，完全可以合并成一条update语句。</p>
-<p>再说个常见初级程序员易犯错误，比如要列一个列表，显示符合条件的图书目录和作者信息，那么这人设置了如下方法，book.search(条件)， book.read(id)，先执行book.search，返回所有符合条件的图书id列表，然后循环执行book.read，读取所需要的作者信息，问题就来了，先执行了一个查询，然后在循环中不断执行查询操作。而实际上我们知道，其实一条SQL就解决了。</p>
-<p>以上两个案例都来源于一种思考习惯，就是我们常见的使用框架，使用面向对象的开发方式，这种方式当然优点多多，但在涉及性能优化的场合，往往其中存在大量的重复逻辑和冗余请求，往往很多可以合并的操作没有合并，很多程序员习惯用这样的方式思考，当然你说协同方便，开发效率高（其实我觉得也未必），但是调优成本就高很多了。 我可能属于上古时期学编程的，面向对象的思路一直不太灵光，所以我写程序的时候偏重于面向过程，缺点就是写出来的东西很low很让某些人不齿，优点就是调优的时候往往看的更清楚。</p>
-<p>以上这两个案例都是指在同一个用户操作行为中程序员编码不注意出现的重复请求操作，都是面向对象的编程中容易犯的错误，但是稍微有一些经验的程序员应该都能避免。</p>
-<p>下面说另一类常见问题，就是不同用户操作行为中出现的类重复请求操作，是否可以合并呢？答案是，其实也可以，这就是今天说的第二点，异步处理。</p>
-<p>常见案例，一个论坛，帖子页，用户每访问一次，就要 update post set views=views+1 where postid = $postid；一个热门论坛一天访问几百万次，上千万次，这个update操作就会执行几百万次，上千万次，别忘了这个post表又是访问请求最高的，会不会锁死？会不会响应不过来？</p>
-<p>第二个常见案例，还是一个社区，用户每次刷新页面，每次访问，都要记录 update users set lastact =$now where userid=$uid; 为了记录这个用户是否一致活跃及最后活跃的时间，（展示在社区中可以提高社区的活跃度，提高用户间交流的成功率），那么这个网站登录用户每天访问了多少pv，这个更新就执行了多少次。而users表显然也是一个高频率的查询需求的表。</p>
-<p>那么这两个案例，有优化空间么？</p>
-<p>其实有，而且很简单，这两个数据，其实你说实时性需要是不是那么高，是不是每个请求都必须立即处理，实际上并不一定，但是我还是希望处理更快一些，因为毕竟希望别人看到这个帖子的访问数，以及别人看到这个用户的最后时间，是非常接近的，而不是很久之后才处理的。那么怎么处理呢？就是当发生这样的行为的时候，把这个行为写到缓存里，在缓存里维持一个队列，最好用队列方式，（如果用memcache，数组的下标用increment方法，否则高访问量可能会导致数据覆盖，不展开解释了），然后后台启用一个cron任务，每分钟执行，把队列里的数据拿出来，</p>
-<p>案例1，对同一个帖子的views做汇总。（热门帖子往往点击特别频繁）</p>
-<p>案例2，对同一个用户最后活跃时间的更新请求，只保留最后一条。</p>
-<p>实测数据，越是火爆的社区，合并率越高，更新请求可以合并掉70%左右。异步更新的延迟时间不超过1分钟。如果延时加长，比如2分钟一执行，或5分钟一执行，合并率效率会更高，但是可能导致用户体验下降。</p>
-<p>以上就是今天要说的，请求合并和异步更新，这里注意的是，异步更新的内容，属于“丢了其实关系也不大”的数据，如果是非常核心的数据，异步更新要注意数据丢失的危险。</p>
-<p>那么肯定有人会问，我用了一个开源系统，我怎么知道哪些可以合并，哪些不能？</p>
-<p>下面继续讲方法论，就是你对一个毫不熟悉的系统，如何快速分析其冗余请求的构成和合并的可能性，以及合并可能带来的开销降低呢？</p>
-<p>之前有个朋友的公司，几年前做社交游戏的时候，腾讯合作，腾讯一推用户数咔嚓就上去了，然后后台就有点撑不住，请我过去看看，那么，对他们的游戏的产品，怎么开发的，代码怎么写的，我肯定是毫不知情，就是突然叫过去来分析，这怎么分析呢？</p>
-<p>慢查询日志肯定是要看的。</p>
-<p>昨天讲的 去数据库里，先show processlist;看到有疑问的SQL，去explain，然后set profiling=1；大家回忆一下，看看索引是不是对的，看看哪些SQL本身是有问题的。这些不赘述了。</p>
-<p>下面，重点是，一般大家都会把数据查询封装成一个类对吧，让他们从这个类里加一段代码，干嘛呢，输出都执行了哪些SQL。（每秒请求非常高，所以增加日志的i/o压力也很大，为了避免线上业务受影响，采用抽样输出，比如先算个随机数，符合什么数的才输出，然后根据抽样比例反推请求规模，输出结果存到 /dev/shm 目录下，为什么是这个目录，自己想一下。）</p>
-<p>打开日志我看什么呢？</p>
-<p>第一，看查询和更新的比例。</p>
-<p>第二，看最多查询的数据表有哪些，最多更新的数据表有哪些。</p>
-<p>第三，看最多查询的数据表最多查询的SQL是什么样子的，最多更新的数据表最多执行更新的SQL是怎样的，算出各自每秒的请求频率。</p>
-<p>第四，关键分析，最多查询的SQL，基于同一主键查询的比例多不多（潜台词，可以缓存化）。最多更新的SQL，基于同一主键的更新的比例高不高（潜台词，可以合并请求，异步处理，当然必须根据具体业务诉求再核对一遍）</p>
-<p>以上的操作并不需要额外编程或复杂的处理，首先用眼睛看日志找规律，其次基于规律用grep 来统计。 然后把内容整理后，询问相关的程序员，每条问题SQL的业务逻辑是什么，然后毕竟还是要让他们一线的程序员来评估业务逻辑上这些操作是否可以合并，缓存，或者异步处理。 但我想说的是，通过这种分析方式，很多非常重复的查询，非常重复的更新请求可以快速定位，即便是一个陌生系统，也可以快速找到症结所在，掌握这一种分析方法，你对系统性能优化的理解和处理能力，就会上升一个台阶。</p>
-<p>其实，其实根据两个多月运营公众号的观察和分析，我发现，写技术文章挺受累不讨好的，转发也不多，赞赏也不多，也不太容易拉粉； 公众号运营有一个规律，和知乎上皮去获取赞的规律一样，写实不如写虚，写内容不如写立场。</p>
-<p>真的，但是我还是想把这个系列写下去。</p>
-<p>这么多文章，我总结两条分享给大家，一是思考方式，二是分析方法，不论是做产品，做运营，创业，做投资，还是做技术。正确的思考方式，正确的分析方法，是最重要的。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>如何应对并发(2)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/06/04/caoz-concurrent-2/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -1131,39 +876,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/06/04/caoz-concurrent-1/" class="post-title-link" itemprop="url">如何应对并发(1) - 关于数据索引</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-04 15:50:32" itemprop="dateCreated datePublished" datetime="2019-06-04T15:50:32+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-06-04 15:50:32" itemprop="dateCreated datePublished" datetime="2019-06-04T15:50:32+08:00">2019-06-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:22:35" itemprop="dateModified" datetime="2020-09-23T15:22:35+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1172,96 +922,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本文引自<a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=400470606&amp;idx=1&amp;sn=eff5350f80190ad6e32659f434aac970&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-1-关于数据索引"><a href="#如何应对并发-1-关于数据索引" class="headerlink" title="如何应对并发(1) - 关于数据索引"></a>如何应对并发(1) - 关于数据索引</h2><p>前两天收到一个消息是这样说的，一个学生去面试，题目赫然就是从浏览器输入url到网页打开，都发生了什么。这个学生特别开心，因为订阅了我的公众号，所以对这类问题早有准备。希望他能顺利拿到心仪的offer。</p>
-<p>参见旧文 <a href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&amp;mid=209679438&amp;idx=1&amp;sn=d68c1512ad23f6e164f69bd351a18c62&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">一则经典技术面试题目的解读</a></p>
-<p>书归正传，应对并发，其实从整体架构来说分很多部分，比如常见的，存储层的i/o优化，网络层负载均衡，通讯层的连接池等等，不过我这里不讲这些。不讲这些的原因第一呢，是这些我基本都不太会；第二呢，是在实践过程中发现，特别是创业公司，中小企业，一般最容易出问题，也是最难处理的，往往是数据库方面的问题。 </p>
-<p>非技术人员往往会认为，负载高了，请求多了，加服务器加硬件不就完了？ 如果是只是应用程序处理，常见的负载均衡方案很成熟，加加硬件的确可以快速，有效的分担负载，提高支撑能力；但是且慢，通常到了数据库这里，如果你前期设计不合理，或者对这类问题考虑不全，那么，加硬件，很遗憾，是没用的。</p>
-<p>我们常说运维中要关注所谓的单点隐患，什么是单点隐患呢？就是这个点一旦崩溃，无法实现自动的灾难容错响应，从而导致全盘崩溃。一般比如说web服务器，负载均衡轮询，一台出问题了，系统会自动将负载转移到其他服务器，那么数据库可以不可以呢？其实不是不可以，但是就比较需要做好设计，否则很可能直接就死在这个环节上。而发展趋势不错的创业公司死在数据库的并发能力上的案例，可以说，比比皆是。</p>
-<p>再插一些题外话，如果你还是学生，你有意未来往互联网技术领域发展，那么数据结构这么课特别的重要，特别的关键。我上大学的时候糊里糊涂，选中了这门课却天天翘课，工作后特别后悔。就算你不想从事技术，而只是想从事一些产品方面的工作，我个人建议有可能也认真学习一下这门课，目前不少互联网公司都希望产品经理有一点技术背景，这样和技术沟通的时候会更顺畅一些。对研发工作的跟进也会能理解更多一些。</p>
-<p>今天的第一课，我们先要对数据索引和查询效率有个基本认识，连基本优化都做不好去讲什么架构是没意义的。</p>
-<p>第一个问题，为什么一条查询语句，使用了数据索引会提高效率？</p>
-<p>以及，通过一条SQL语句，能否估算出其执行开销和最佳索引选择？</p>
-<p>熟悉数据结构同学大概知道，一般数据库的索引大概是btree，b+tree，类似这样的结构，那么现在非关系型数据库特别流行，也就是所谓的key-value数据库，最求极端效率，通常是 hash结构的数据索引。但其实这些，我认为对于我这样笨的人来说，通常，只需要理解最基本的概念就行，最基本的是什么呢？就是数据索引提供了一种有序，在有序的情况下，进行检索，二分法效率最高，n条记录中定位查询开销是 log2(N)，（hash索引效率更高，但不提供关系型查询，应用场景比较受局限）。 那么所谓的btree结构也好，或其他的类似结构也好，把握一个原则，接近二分法的查询效率，因为如果做一个完全有序的队列，那么插入，删除，修改需要做的操作开销太大了，大家可以思考一下，所以才会有人设计树形结构，兼顾查询和更新操作。理解这一点对理解整个数据查询效率和索引结构，帮助极大。</p>
-<p>简单复习就是，查询效率的关键是有序，二分，反过来理解就是，无需遍历所有数据，即可实现快速的定位。</p>
-<p>这里就引出了一个特别经典的题目，ip地址反查。</p>
-<p>应用场景非常常见，你上一个什么旅游订票的网站，社区，或者上百度，该网站都希望立即知道你的地理位置，从而基于你的位置定向投放内容，比如当地酒店，或者当地的本地广告。网站一般是获取用户的ip地址，然后在ip-&gt;地区的对应表里去查询比对，通常，ip - 地区的对应表，有大约十万到数十万条记录（看地区粒度），格式是 ipstart, ipend, area 这样的数据结构。如果用纯粹的SQL查询是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> iparea <span class="keyword">where</span> $ip <span class="keyword">between</span> ipstart <span class="keyword">and</span> ipend;</span><br></pre></td></tr></table></figure>
-<p>在早期mysql及大部分数据库是不支持between and 中使用索引的，据说最新版本已经提供了支持，但是最近几年没有从事技术，没有测试，不知道效率如何，那么在早期，如果数据查询，这样一条SQL,无法使用索引，就要遍历所有结果，这个开销是不能忍受的，（虽然不用1秒就可以执行出结果，但是开销依然比较大，一秒钟可以处理的查询最多几十次，而我们的要求是，一秒钟几千次！）</p>
-<p>那么这个问题的特点是什么呢，ip地址区间表并不是经常变化的，比较固定，那么在这种情况下，其实不用数据库都可以，一个完全排好序的队列放在内存里，程序用二分法来查询，每秒种处理几千个非常轻松（这程序不用教了吧），当然，其实还有更极端效率的处理途径，这里不展开，有兴趣的同学自己思考。</p>
-<p>此处插播一条广告，目前国内最好最权威的ip地址区间表来自于高春辉，利益相关，我超过15年的好基友，互联网传奇人物，需要定期更新ip地址区间表的建议找他购买，联系方式，去微博搜索 高春辉 。</p>
-<p>再插播一个题外话，我在微博上说过，百度最应该购买，这是不耍流氓的情况下提升收入最快的方法，可能很多人不理解，其实百度有很多广告投放是按地区投放的，04年底 我刚进百度的时候闲着没事就给升级了一个ip地区对应表，把大量未知地区的ip定位到了已知地区，很多分地区投放的广告展现率一下子就提高了，收入自然随之增长，这玩意虽然看上去不是什么高大上的算法，但是勤更新对收入影响杠杠的。（小贴士，国际ip管理机构会不定期释放ip资源出来给新的网络设施和上网服务商，所以在最近这些年，ip地址区间表还是不断的扩充中）</p>
-<p>第二个问题，从一个常见SQL如何确定索引的构成</p>
-<p>以下所有案例均以mysql 为例，原因是，这个我熟悉。</p>
-<p>非mysql可能部分语法不同，但逻辑和思路相同。</p>
-<p>发现有一个简单问题很多人会答错，一个SQL可以用到几个索引？很多人会说是多个，其实是一个，目前一些第三方的数据引擎似乎开始支持一条SQL使用多索引了，比如我前几天看淘宝公开的那个开源数据结构的文档，从官方博客的描述中似乎有这样的提法，但是我最近确实很懒惰也脱离技术，所以没有去测试和仔细研究，这个留给有兴趣的同学吧，我还是回头说通常，我们用mysql或其他常见数据库的，一个查询只能用到一个索引；但是这里要强调的是，一个索引可以用到多个字段，也就是所谓的复合索引。</p>
-<p>那么，按照刚才提到的，基于有序这个概念，如何理解索引的使用和效率呢？特简单，你就把索引当作是一个有序数列放在脑子里，然后思考这个SQL，这个条件子句和排序子句，能否在这个索引的连续范围内精确命中结果，也就是所谓索引命中率高，这个查询就效率高，如果无法在索引这个有序数列连续范围内精确命中，查询效率就不高。</p>
-<p>那有人说了，索引并不是真的有序数列啊，我说的是一种模拟的思考方式，这样思考效率最高，当然，必须案例说话。</p>
-<p>比如一个社区，我希望用户进来，就能看到本地的用户，当然，是最新在线的，否则都是死用户就无法交流了。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> area=<span class="string">'$area'</span> <span class="keyword">order</span> <span class="keyword">by</span> lastlogin <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
-<p>(这个 limit 特别重要)</p>
-<p>稍微懂一点索引的同学都应该知道，正确的索引是area+lastlogin 复合索引，那么，我们把这个思考方式推演一下。</p>
-<p>如果只把area当作索引会怎样，数据库会把符合这个area的所有结果拿出来，然后按照lastlogin排好序给你，这样就要遍历所有符合这个area的用户记录；</p>
-<p>如果只把lastlogin作为索引会如何，我们想象，lastlogin是一个有序的数列，数据库会从最后一条开始往前挨条遍历，每条都去比对area是不是符合查询条件，直到数出30条，遍历结束，请注意，不是全部遍历，在这里，如果area 是个热门城市，比如上海，北京，可能遍历200次左右就出结果了，效率很快，但如果是个冷门城市，可能要遍历几千条几万条结果，甚至全部数据表遍历都凑不出符合条件的30条。这样效率就要命了。 所以用lastlogin为索引，效率存在风险。</p>
-<p>那么两个我都建立索引呢？这个mysql只会选择一个索引，我记得不同数据库版本的选择策略都不同（实战中遇到过测试服务器用的索引很正确，线上服务器使用了错误索引，因为数据库版本不同），所以我给不出肯定的答案，但是有一点，两个索引没有意义，都不是最优解。</p>
-<p>那么如果把lastlogin+area建立索引呢？你们设想一下，两个字段拼在一起，作为有序数列，然后数据库去查询的时候，lastlogin+area,这时候area是没用的后缀，在排序中根本体现不出他存在的意义，和单独lastlogin索引是完全一样的。</p>
-<p>而area+lastlogin呢，把两个字段拼接然后排好序后，看这条SQL在这个数列中查询的体现，所命中的完全是连续的30条，也就是数据库只遍历30条索引记录即完成搜索，效率最好。</p>
-<p>这段有点啰嗦，如果不理解，建议多读几遍，理解这个思路，对理解索引的效率帮助特别大，我刚工作的时候写SQL也是瞎写，对索引一知半解全靠蒙，有了这个概念后豁然开朗，从此对索引效率的认识精进了一大截，我看网上各种索引优化的教程，各种规律总结，其实你把这个认识达到了，那些规律基本上不用记，都浅显的如1+1一样。</p>
-<p>理解如上思路，就能一并理解如下策略</p>
-<p>A+B索引可以替代A索引，而不能替代B索引。</p>
-<p>where key like ‘keyword%’ 可以用到key 索引</p>
-<p>where key like ‘%keyword%’ 不能用到key索引</p>
-<p>我很笨，所以我的理解方式都是基于中学生知识基础的思路，如果您有更好的理解思路，也可以忽略本文。</p>
-<p>第三个问题，如何评估SQL的执行开销</p>
-<p>刚才提到一个重要的概念，就是索引中遍历的记录越少，效率越高，遍历的记录越多，效率越差。 在慢查询日志或者explain分析中，一个重要的指标是 affected rows，（好像也有别的叫法，不查证了，大家应该能知道我说的是什么），这个就是索引遍历的记录说，我以前硬翻译叫做影响结果集，我后来看其他人写的数据库文档叫索引扫描行数，概念是一样的。</p>
-<p>那么，要强调一点，一条查询语句，其执行开销，在大多数情况下，与影响结果集，也就是索引扫描行数，呈线性相关，举两个常见经典数据优化的问题案例。</p>
-<p>经典案例1，大翻页问题</p>
-<p>论坛社区常见，翻页越靠后效率越低，很多论坛本身访客到没事，访客不太会翻几百页几千页，但是被搜索引擎蜘蛛抓取的时候，因为连续抓取大翻页，导致数据库崩溃，这案例太多了，很多站长为此郁闷莫名，不知所措。</p>
-<p>案例SQL如下</p>
-<p>按最新更新的板块第一页帖子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> post <span class="keyword">where</span> boardid=$<span class="keyword">id</span> <span class="keyword">order</span> <span class="keyword">by</span> lastupd <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">30</span>;</span><br></pre></td></tr></table></figure>
-<p>按最新更新的板块第100页帖子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> post <span class="keyword">where</span> boardid=$<span class="keyword">id</span> <span class="keyword">order</span> <span class="keyword">by</span> lastupd <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">3000</span>,<span class="number">30</span>;</span><br></pre></td></tr></table></figure>
-<p>这两个SQL 看上去只有limit有区别，索引都是boardid+lastupd (不要搞错顺序，理解一下)</p>
-<p>但第一条SQL索引只扫描30行；第二条SQL索引扫描了3030行，其效率是第一条SQL的1/100.</p>
-<p>搜索引擎的蜘蛛抓取 大翻页就是 这样把论坛搞死的。</p>
-<p>经典案例2，积分排行问题</p>
-<p>比如很多小游戏提交成绩，告诉你排名全球多少名，有印象吧。</p>
-<p>这个问题我依稀记得云风大神吐槽过，好像曾经陌陌有一款游戏在这里有非常严重的性能问题，被他狠狠BS了一把。</p>
-<p>案例SQL如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> gamescore <span class="keyword">where</span> gameid=$gameid <span class="keyword">and</span> score&gt;<span class="string">'$score'</span> ;</span><br></pre></td></tr></table></figure>
-<p>索引怎么建？</p>
-<p>gameid+score复合索引，顺序不能错，为什么，按照上面说的思路，自己思考一下。</p>
-<p>那么这个效率怎么评估？</p>
-<p>看结果，如果你游戏成绩特别好，前几名，前几十名，你的结果就是索引扫描行数，（如果索引都设计错了那就不要提了）。</p>
-<p>如果你的游戏成绩很烂，几万名，几十万名，那么索引扫描了几万条，几十万条，就效率非常低了，如果有一批人同时在提交成绩，又都是这种几万名，几十万名的用户，数据库非崩溃不可，你再多服务器也白搭。</p>
-<p>所以，常见的解决方法是，积分排行只针对最靠前的用户提供，后面只给估算或区间了。</p>
-<p>当然，这里有个终极方案，用redis的有序数组结构，一劳永逸的解决这个问题，redis四种数据结构，各有所长，有兴趣的可以深入研究一下，今天这里不展开。</p>
-<p>第四个常见问题，MYSQL 分析和优化的方法</p>
-<p>刚才我说了索引扫描行数，或者说影响结果集，对查询效率的影响极大，那么有人说了，怎么证明呢？</p>
-<p>给大家一个日常SQL分析和自我测试的方法。</p>
-<p>首先，你一条SQL如果执行很慢，你用explain 解析一下，看看是否影响结果集很大，这是其一。</p>
-<p>其二，对这条很慢的SQL做一个状态拆解，在mysql中是这样操作的。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> profiling=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>执行问题SQL;</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> profile <span class="keyword">for</span> <span class="keyword">query</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-<p>通常，如果这个问题SQL确实是索引出了问题，也就是影响结果集，或者说索引扫描行数较多，那么他的执行状态最多的消耗就在 sending data这个状态上，这个状态不要被名字骗了，其实负载是在i/o，硬盘扫描上。</p>
-<p>你测试的时候就可以看，影响结果集的数字，和sending data上状态的开销，是不是线性相关，对一个复杂的数据表结构，导入上百万条记录，然后用不同索引方式和不同SQL查询，利用 explain 和set profiling 这些操作反复分析SQL的影响结果集和开销构成。结合我今天说的思考方式，就可以更好理解了。</p>
-<p>而且对于日常疑难的分析，这一招也是特别关键特别重要的。</p>
-<p>今天啰嗦的，都是数据优化分析的基本功，其实对某些高手来说，简直都弱爆了，但是我发现大部分一线程序员，特别是从业时间不长的年轻人，并不能完全了解和认识这些。</p>
-<p>我不是计算机科班出身，数据结构这门课也没好好上过，很多东西都是工作中慢慢琢磨出来的，如果有不严谨不准确的，万望指出，但我只自嗨的说一点，我这些招数，对大部分创业公司，中小型企业，应对百万级，千万级请求的问题而言，还是颇为管用，当然，今天只是一个开始，这一系列还将继续。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>如何应对并发(1)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/06/04/caoz-concurrent-1/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -1282,30 +962,35 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2019/05/15/http-413-error/" class="post-title-link" itemprop="url">http请求的413错误</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-05-15 18:01:03" itemprop="dateCreated datePublished" datetime="2019-05-15T18:01:03+08:00">2019-05-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
+      <time title="创建时间：2019-05-15 18:01:03" itemprop="dateCreated datePublished" datetime="2019-05-15T18:01:03+08:00">2019-05-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:24:49" itemprop="dateModified" datetime="2020-09-23T15:24:49+08:00">2020-09-23</time>
+      </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -1314,75 +999,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>当收到服务器返回413时，可检查这几处：</p>
-<h2 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client_max_body_size 50M;</span><br></pre></td></tr></table></figure>
-<p>默认值只有1M。</p>
-<h2 id="koa-bodyparser"><a href="#koa-bodyparser" class="headerlink" title="koa-bodyparser"></a>koa-bodyparser</h2><p>formLimit: limit of the urlencoded body. If the body ends up being larger than this limit, a 413 error code is returned. Default is 56kb.</p>
-<p>jsonLimit: limit of the json body. Default is 1mb.</p>
-<p>textLimit: limit of the text body. Default is 1mb.</p>
-<h2 id="body-parser"><a href="#body-parser" class="headerlink" title="body-parser"></a>body-parser</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app.use(bodyParser.json(&#123;<span class="attr">limit</span>: <span class="string">'50mb'</span>&#125;))</span><br><span class="line">app.use(bodyParser.urlencoded(&#123;<span class="attr">limit</span>: <span class="string">'50mb'</span>, <span class="attr">extended</span>: <span class="literal">false</span>&#125;))</span><br></pre></td></tr></table></figure>
-<h2 id="multer"><a href="#multer" class="headerlink" title="multer"></a>multer</h2><p><strong>limits</strong></p>
-<p>An object specifying the size limits of the following optional properties. Multer passes this object into busboy directly, and the details of the properties can be found on busboy’s page.</p>
-<p>The following integer values are available:</p>
-<table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>fieldNameSize</td>
-<td>Max field name size</td>
-<td>100 bytes</td>
-</tr>
-<tr>
-<td>fieldSize</td>
-<td>Max field value size</td>
-<td>1MB</td>
-</tr>
-<tr>
-<td>fields</td>
-<td>Max number of non-file fields</td>
-<td>Infinity</td>
-</tr>
-<tr>
-<td>fileSize</td>
-<td>For multipart forms, the max file size (in bytes)</td>
-<td>Infinity</td>
-</tr>
-<tr>
-<td>files</td>
-<td>For multipart forms, the max number of file fields</td>
-<td>Infinity</td>
-</tr>
-<tr>
-<td>parts</td>
-<td>For multipart forms, the max number of parts (fields + files)</td>
-<td>Infinity</td>
-</tr>
-<tr>
-<td>headerPairs</td>
-<td>For multipart forms, the max number of header key=&gt;value pairs to parse</td>
-<td>2000</td>
-</tr>
-</tbody>
-</table>
-<p>Specifying the limits can help protect your site against denial of service (DoS) attacks.</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/05/15/http-413-error/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -1396,8 +1032,7 @@
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1406,7 +1041,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1415,125 +1050,39 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">lckof</p>
-  <div class="site-description" itemprop="description">啊咧</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/blog/archives/">
-        
-          <span class="site-state-item-count">22</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/blog/lib/anime.min.js"></script>
-  <script src="/blog/lib/velocity/velocity.min.js"></script>
-  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/blog/js/utils.js"></script>
-
-<script src="/blog/js/motion.js"></script>
-
-
-<script src="/blog/js/schemes/muse.js"></script>
-
-
-<script src="/blog/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
 
@@ -1543,6 +1092,15 @@
 
 
 
+
+
+
+
+
+
+
+
+  
 
 
 

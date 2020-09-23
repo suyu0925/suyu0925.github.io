@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.2.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
@@ -13,11 +13,13 @@
 <link rel="stylesheet" href="/blog/css/main.css">
 
 
-<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
 
-<script id="hexo-configurations">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
   <meta name="description" content="啊咧">
@@ -30,10 +32,11 @@
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://suyu0925.github.io/blog/page/3/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -53,49 +56,58 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/blog/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">Tasty Pub</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -108,25 +120,69 @@
 
 
 
-<nav class="site-nav">
-  <ul id="menu" class="menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
 
 
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
@@ -135,14 +191,15 @@
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content index posts-expand">
-            
+    <div class="main-inner index posts-expand">
+      
+
+      
       
   
   
@@ -158,39 +215,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2017/04/19/install-latest-git-on-linux/" class="post-title-link" itemprop="url">在linux上安装最新版本的Git</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-04-19 20:45:00" itemprop="dateCreated datePublished" datetime="2017-04-19T20:45:00+08:00">2017-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2017-04-19 20:45:00" itemprop="dateCreated datePublished" datetime="2017-04-19T20:45:00+08:00">2017-04-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 14:39:58" itemprop="dateModified" datetime="2020-09-23T14:39:58+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -199,29 +261,37 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h2><p>在CentOS上使用yum安装的git默认是1.7.1，使用git 1.7.1去clone一些repo时会出现下面的错误：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository <span class="keyword">in</span> /root/blog/.git/</span><br><span class="line">error: The requested URL returned error: 400 Bad Request <span class="keyword">while</span> accessing https://git.coding.net/xxx/xxx.git/info/refs</span><br><span class="line"></span><br><span class="line">fatal: HTTP request failed</span><br></pre></td></tr></table></figure></p>
+          <h2 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h2><p>在CentOS上使用yum安装的git默认是1.7.1，使用git 1.7.1去clone一些repo时会出现下面的错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository <span class="keyword">in</span> /root/blog/.git/</span><br><span class="line">error: The requested URL returned error: 400 Bad Request <span class="keyword">while</span> accessing https://git.coding.net/xxx/xxx.git/info/refs</span><br><span class="line"></span><br><span class="line">fatal: HTTP request failed</span><br></pre></td></tr></table></figure>
 <p>这是因为版本过低的缘故，git.coding.net要求使用1.8+版本的git。</p>
 <p>升级git有两种方式，一种是下载源码编译，一种是使用第三方源。<br>本着懒人原则，我们使用第二种方法。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install http://opensource.wandisco.com/centos/6/git/x86_64/wandisco-git-release-6-1.noarch.rpm</span><br><span class="line">$ sudo yum update git</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.11.1</span><br></pre></td></tr></table></figure>
+
 <p>搞定收工。</p>
 <h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><p>在ubuntu14.04上使用apt-get默认安装的版本是1.9.1，但很显然1.9不是最新版本，最新版本已经是2.+了。</p>
 <p>和CentOS一样，使用第三方源来搞定。</p>
-<p>首先添加PPA (Personal Package Archive)中的git-core源。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:git-core/ppa</span><br></pre></td></tr></table></figure></p>
-<p>然后就可以顺利更新到最新版本的git。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure></p>
-<p>如果你使用的ubuntu很干净，有可能会提示add-apt-repository命令找不到。它是在software-properties-common包里的。对于一些版本的ubuntu，还需配合python-software-properties食用。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install software-properties-common python-software-properties</span><br></pre></td></tr></table></figure></p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<p>首先添加PPA (Personal Package Archive)中的git-core源。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:git-core/ppa</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以顺利更新到最新版本的git。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
+
+<p>如果你使用的ubuntu很干净，有可能会提示add-apt-repository命令找不到。它是在software-properties-common包里的。对于一些版本的ubuntu，还需配合python-software-properties食用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install software-properties-common python-software-properties</span><br></pre></td></tr></table></figure>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -242,39 +312,44 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
+
+    
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
             <a href="/blog/2017/04/19/android-lock-screen/" class="post-title-link" itemprop="url">Android6.0锁屏源码分析之界面布局分析</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-04-19 20:06:09" itemprop="dateCreated datePublished" datetime="2017-04-19T20:06:09+08:00">2017-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-26 18:53:16" itemprop="dateModified" datetime="2019-12-26T18:53:16+08:00">2019-12-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2017-04-19 20:06:09" itemprop="dateCreated datePublished" datetime="2017-04-19T20:06:09+08:00">2017-04-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-09-23 15:21:51" itemprop="dateModified" datetime="2020-09-23T15:21:51+08:00">2020-09-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
 
-          
+  
+</div>
 
         </div>
       </header>
@@ -283,55 +358,26 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-          <p>先大致介绍一下锁屏界面，Android的锁屏界面可以分为两级：</p>
-<ol>
-<li><p>一级锁屏界面暂且称之为锁屏界面<em>LockScreen</em></p>
-<p> 即平常用到的无需任何输入和验证，只需滑动解锁，没有任何的安全性可言，只是为了防止因为非故意触发手机造成的一定的困扰。</p>
-</li>
-<li><p>二级锁屏界面是在解锁一级界面后进入的一个界面<em>UnlockScreen</em></p>
-<p> 算是用于一定的加密，相当于给手机多了一层保护，所以二级界面通常称之为安全界面—–KeyguardSecurityView。要想解锁该界面就需要输入一定的验证信息，图案，密码，pin码等等各种加密方式。但也不要以为有了这个界面你的手机就有很好的加密性了，这种很好消除和破解。</p>
-</li>
-</ol>
-<p><strong>锁屏界面LockScreen</strong></p>
-<img src="/blog/2017/04/19/android-lock-screen/lockscreen.png" title="锁屏界面">
-<p>Android6.0的原生的锁屏界面如上，上滑解锁。<br>刚开始看到这个，确实不知道该如何去分析，不知道该界面到底隶属于谁。这时候就要借助sdk的工具了。<br>当然，如果你对framework层源码很熟悉的话也可以从代码角度来分析，该界面是在按下power电源键KEYCODE_POWER灭屏之后加载出来的，而不是说每次在灭屏状态下按键亮屏时再加载。根据这个逻辑，就要去看按键按下灭屏之后的处理，可以从PhoneWindowManager看起，在该类中有对Power按键的处理。</p>
-<p>如果从代码角度这么追的话可能需要花费的时间或多一些，建议还是直接使用sdk查看view视图的工具，直接就可以定位到该锁屏界面。<br><img src="/blog/2017/04/19/android-lock-screen/hierarchyviewer.png" title="hierarchyviewer"></p>
-<p>该工具可以显示出来当前显示的是哪一个界面，以及该界面的view视图，可以帮助很好的分析锁屏。借助该工具可以看到，锁屏界面对应的是StatusBar。<br><img src="/blog/2017/04/19/android-lock-screen/hierarchyviewer2.png" title="hierarchyviewer"></p>
-<p>可以看出，锁屏界面属于状态栏，属于SystemUi的一部分，类似于状态栏下拉之后的界面，而Android4.4.2是属于keyguard锁屏界面。<br>说的直白一点儿就是，6.0的锁屏界面就是状态栏下拉后的一个界面，准确来说是状态栏加载出来的一个View(也可以说是组)，解锁只需要上滑。Android4.4.2的锁屏界面隶属于keyguard，与statusBar没有关系，就是一个界面。<br>借助sdk工具，可以分析锁屏界面上你想分析的所有小部件，先看工具中显示的view视图的一小部分。<br><img src="/blog/2017/04/19/android-lock-screen/viewer.png" title="view"></p>
-<p>介绍一下代码所在位置，有需要改布局的或者锁屏相关的可以参考根据界面view的id/notification_panel。<br>可以找到锁屏界面整体的xml文件为status_bar_expanded.xml文件，文件所在目录为\android\frameworks\base\packages\SystemUI\res\layout\status_bar_expanded.xml，研究源码要借助源码搜索工具–openGrok可以很快的找到所搜索的内容在整个源码中使用的地方。</p>
-<p>用一张图可以很清晰的看出各个部件的id：<br><img src="/blog/2017/04/19/android-lock-screen/layout.png" title="layout"></p>
-<p>如果想要针对锁屏的布局或者某个小控件做修改的话可以按照这张图标注的id进行查找对应的view或者layout文件。<br>有了布局分析图后你现在可以进行基本的布局相关的调整工作了，比如隐藏某个view，更改某个view的样式，添加view，等等</p>
-<p>举个例子，我现在对底部的那三个按钮感兴趣，那么我就直接去找keyguard_bottom_area.xml文件（<br>文件目录在\android\frameworks\base\packages\SystemUI\res\layout\status_bar_expanded.xml），各个按钮的id我需要知道<br><img src="/blog/2017/04/19/android-lock-screen/layout2.png" title="layout2"></p>
-<p>要求一，滑动相机view时不进行任何操作<br>目前6.0源码中是在滑动照相机这个view一段距离后，会自动调起来相机应用。我现在不让他调起相机应用，而是开启别的应用，怎<br>么做？</p>
-<p>首先是分析既然是针对相机view的操作，那我们首先研究一下相机view滑动一段距离后怎么调起的相机应用。相应的可以直接把相机<br>应用替换成我们自己的应用，这样每当view滑动一段距离后就会调起自己想要调起的应用。所以首先是找到调起相机应用的地方</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (v == mCameraImageView) &#123;  </span><br><span class="line">        launchCamera(CAMERA_LAUNCH_SOURCE_AFFORDANCE);  </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>在KeyguardBottomAreaView.java中有关于按钮点击后打开相机的操作，代码目录为<br>\android\frameworks\base\packages\SystemUI\src\com\android\systemui\statusbar\phone\KeyguardBottomAreaView.Java<br>也就是说，你想让点击相机view之后做什么操作，只需要修改这里即可，至于相机应用如何起来的，可以根据代码流程就行分析，在<br>这里不多介绍。<br>电话view与相机view属于同一类型的view，同属于com.android.systemui.statusbar.KeyguardAffordanceView。点击事件也在该<br>onClick方法中。</p>
-<p>要求二，目前是上滑解锁，如何不让其上滑解锁<br>这个首先需要分析一下上滑这个动作在哪儿监听的，然后何时会调用解锁？按照这个思路分析了一下午，也没理出个头绪，幸而得到<br>一些指点，既然整个界面是个自定义的view，那么可以考虑对view屏蔽掉触摸事件，即在view的onTouchEvent中规定，当满足某种<br>条件时向上滑动不解锁，这样看来，省去了很多事。<br>可能有时候解决问题就是这样，没有必要去死钻牛角尖非要数到小数点才肯罢休。但如果是想学习研究的话确实可以看一看。</p>
-<p>要求三，定制某个按键，长按解锁<br>Android6.0锁屏有一个特点，那就是在一级锁屏界面状态下长按menu键可以解锁。所以针对第三个要求，可以在锁屏页进行按键分<br>发时进行一个判断，满足条件后调用menu菜单解锁的处理<br>做法如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchKeyEvent</span><span class="params">(KeyEvent event)</span> </span>&#123;  </span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 如果按键抬起，且为长按事件  </span></span><br><span class="line">    <span class="keyword">if</span> (event.getAction() == KeyEvent.ACTION_UP &amp;&amp;(event.getFlags() &amp; KeyEvent.FLAG_LONG_PRESS) == <span class="number">0</span>) &#123;  </span><br><span class="line">        <span class="keyword">int</span> keyCode = event.getKeyCode();  </span><br><span class="line">        <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; event.getRepeatCount() == <span class="number">0</span>)&#123;  </span><br><span class="line">            <span class="comment">// 判断按键，并进行解锁操作，mLongPress线程里调用的是按下menu键解锁的方法  </span></span><br><span class="line">            <span class="comment">// mKeyguardView.handleMenuKey()；  </span></span><br><span class="line">  </span><br><span class="line">            mHandler.removeCallbacks(mLongPress); </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.dispatchKeyEvent(event); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>二级界面—–keyguardSecurity安全界面<br><img src="/blog/2017/04/19/android-lock-screen/unlockscreen.png" title="unlockscreen"></p>
-<p>这就是所谓的安全界面，需要输入密码，在解锁了一级界面后如果设置了密码就会进入到二级界面，仿照一级界面的分析方法来分析二级界面。</p>
-<p>从现在开始，才开始是锁屏相关的界面，锁屏模块代码目录如下<br><img src="/blog/2017/04/19/android-lock-screen/foldertree.png" title="foldertree"></p>
-<p>对于二级界面有6中情况</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*根据不同的模式获取到不同的布局 </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getLayoutIdFor</span><span class="params">(SecurityMode securityMode)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">switch</span> (securityMode) &#123;  </span><br><span class="line">        <span class="keyword">case</span> Pattern: <span class="keyword">return</span> R.layout.keyguard_pattern_view;  </span><br><span class="line">        <span class="keyword">case</span> PIN: <span class="keyword">return</span> R.layout.keyguard_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> Password: <span class="keyword">return</span> R.layout.keyguard_password_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPin: <span class="keyword">return</span> R.layout.keyguard_sim_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPuk: <span class="keyword">return</span> R.layout.keyguard_sim_puk_view;  </span><br><span class="line">        <span class="keyword">default</span>:  </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>各种模式的定义在KeyguardSecurityMode.java中文件路径为android/frameworks/base/packages/Keyguard/src/com/android/keyguard/KeyguardSecurityMode.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> SecurityMode &#123;  </span><br><span class="line">    Invalid, <span class="comment">// NULL state  所设置的状态无效  </span></span><br><span class="line">    None, <span class="comment">// No security enabled  没有设置二级界面，即一级界面解锁后直接进入主屏幕  </span></span><br><span class="line">    Pattern, <span class="comment">// Unlock by drawing a pattern. 通过绘制图案解锁  </span></span><br><span class="line">    Password, <span class="comment">// Unlock by entering an alphanumeric password 输入密码解锁，该密码包括字母和数字  </span></span><br><span class="line">    PIN, <span class="comment">// Strictly numeric password 输入纯数字密码解锁  </span></span><br><span class="line">    SimPin, <span class="comment">// Unlock by entering a sim pin. 输入sim卡pin码解锁  </span></span><br><span class="line">    SimPuk <span class="comment">// Unlock by entering a sim puk，输入sim卡puk码解锁，该码是唯一的，当sim卡密码输入pin码错误次数  </span></span><br><span class="line">        <span class="comment">//过多时会需要输入puk码，每个手机卡有自己的puk码即ID由运营商提供  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不同的模式与布局文件一一对应，</p>
-<p>对于布局上想要修改的，就去找对应的那几个布局文件即可，在这里不再举例说明。。</p>
-<p>对于锁屏界面的布局就分析到这里了，有什么宝贵意见的大神们可以甩出来，是一个学习的过程。</p>
-<p>在完结了锁屏界面布局分析之后，接下来的博客就要对锁屏的加载即显示锁屏、解锁一级界面，解锁二级界面进行一个详细分析了。<br>感觉工程量好大。慢慢来吧~~</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+          <p>大致介绍一下锁屏界面</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2017/04/19/android-lock-screen/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
   
   
@@ -345,8 +391,7 @@
 
 
 
-          </div>
-          
+      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -355,7 +400,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -364,125 +409,39 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
 
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">lckof</p>
-  <div class="site-description" itemprop="description">啊咧</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/blog/archives/">
-        
-          <span class="site-state-item-count">22</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
-
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
+  </main>
 
+  <footer class="footer">
+    <div class="footer-inner">
+      
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
+      
 
 <div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/blog/lib/anime.min.js"></script>
-  <script src="/blog/lib/velocity/velocity.min.js"></script>
-  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/blog/js/utils.js"></script>
-
-<script src="/blog/js/motion.js"></script>
-
-
-<script src="/blog/js/schemes/muse.js"></script>
-
-
-<script src="/blog/js/next-boot.js"></script>
-
-
-
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
 
@@ -492,6 +451,15 @@
 
 
 
+
+
+
+
+
+
+
+
+  
 
 
 
