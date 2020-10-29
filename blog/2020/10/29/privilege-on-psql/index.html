@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="PostgreSQL的用户权限与其它SQL数据库不尽相同，它增加了一个SCHEMA。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PostgreSQL中的用户权限">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2020/10/29/privilege-on-psql/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="PostgreSQL的用户权限与其它SQL数据库不尽相同，它增加了一个SCHEMA。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-29T01:57:55.000Z">
+<meta property="article:modified_time" content="2020-10-29T07:41:27.089Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2020/10/29/privilege-on-psql/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PostgreSQL中的用户权限 | Tasty Pub</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Tasty Pub</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PostgreSQL%E4%B8%AD%E7%9A%84%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90"><span class="nav-number">1.</span> <span class="nav-text">PostgreSQL中的用户权限</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%84%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">1.1.</span> <span class="nav-text">常规初始化数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%95%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="nav-number">1.2.</span> <span class="nav-text">试验结果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%BC%E4%B9%8E%E8%BF%98%E6%9C%89%E5%93%AA%E9%87%8C%E4%B8%8D%E5%AF%B9"><span class="nav-number">1.3.</span> <span class="nav-text">似乎还有哪里不对</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%B7%E9%A2%98%E6%8F%AD%E6%99%93%EF%BC%9APSQL%E4%B8%AD%E7%9A%84Schema"><span class="nav-number">1.4.</span> <span class="nav-text">迷题揭晓：PSQL中的Schema</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.5.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%80%EF%BC%9A%E4%BF%AE%E6%94%B9public"><span class="nav-number">1.5.1.</span> <span class="nav-text">尝试一：修改public</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%9A%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84schema"><span class="nav-number">1.5.2.</span> <span class="nav-text">解决方法：创建新的schema</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="nav-number">1.5.3.</span> <span class="nav-text">最终效果</span></a></li></ol></li></ol></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2020/10/29/privilege-on-psql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PostgreSQL中的用户权限
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-10-29 09:57:55 / 修改时间：15:41:27" itemprop="dateCreated datePublished" datetime="2020-10-29T09:57:55+08:00">2020-10-29</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">PostgreSQL的用户权限与其它SQL数据库不尽相同，它增加了一个SCHEMA。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="PostgreSQL中的用户权限"><a href="#PostgreSQL中的用户权限" class="headerlink" title="PostgreSQL中的用户权限"></a>PostgreSQL中的用户权限</h1><p>假设这样一个使用场景，我们有一系列服装商品在网上商城出售，消费者在商城注册账号，浏览商品，下订单购买。</p>
+<p>后台使用了一个数据库emart，里面有users，products, orders三个表，分别对应消费者账号，产品信息，订单。</p>
+<p>除了开发人员要使用数据库外，我们还需开放数据给运营人员和供应链人员，来迭代优化购买体验。</p>
+<p>其中运营人员需要只读访问users表，来针对性的投放广告；供应链人员需要只读访问products和orders表，来调整仓储和供应链。</p>
+<p>我们基于以上假设来创建数据库并细分权限。</p>
+<h2 id="常规初始化数据库"><a href="#常规初始化数据库" class="headerlink" title="常规初始化数据库"></a>常规初始化数据库</h2><p>我们先试试常规的初始化流程，看看会发生什么。</p>
+<p>先使用数据库管理员账号登录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -U postgres</span><br></pre></td></tr></table></figure>
+
+<p>创建数据库emart和三个表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> emart;</span><br><span class="line">\c emart;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">users</span> (<span class="keyword">id</span> <span class="built_in">int</span>);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> products (<span class="keyword">id</span> <span class="built_in">int</span>);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> orders (<span class="keyword">id</span> <span class="built_in">int</span>);</span><br></pre></td></tr></table></figure>
+
+<p>创建三个角色，开发人员、运营人员和供应链人员。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">ROLE</span> dev; <span class="comment">-- 开发组</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> <span class="keyword">users</span> <span class="keyword">TO</span> dev;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> products <span class="keyword">TO</span> dev;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> orders <span class="keyword">TO</span> dev;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">ROLE</span> opr; <span class="comment">-- 运营组</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> <span class="keyword">users</span> <span class="keyword">TO</span> opr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">ROLE</span> scm; <span class="comment">-- 供应链组</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> products <span class="keyword">TO</span> scm;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> orders <span class="keyword">TO</span> scm;</span><br></pre></td></tr></table></figure>
+
+<p>创建三个用户，asher, bill, chris，分别对应开发人员、运营人员和供应链人员。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> albert <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">&#x27;albert_password&#x27;</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> bill <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">&#x27;bill_password&#x27;</span>;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> chris <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">&#x27;chris_password&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> dev <span class="keyword">TO</span> albert;</span><br><span class="line"><span class="keyword">GRANT</span> opr <span class="keyword">TO</span> bill;</span><br><span class="line"><span class="keyword">GRANT</span> scm <span class="keyword">to</span> chris;</span><br></pre></td></tr></table></figure>
+
+<h2 id="试验结果"><a href="#试验结果" class="headerlink" title="试验结果"></a>试验结果</h2><p>现在我们使用供应链人员chris的账号登录，他有对products和orders的查询权限。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -U chris emart</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">emart=&gt; SELECT * FROM users;</span><br><span class="line">错误:  对表 users 权限不够</span><br><span class="line">emart=&gt; INSERT INTO orders(id) VALUES (1);</span><br><span class="line">错误:  对表 orders 权限不够</span><br><span class="line">emart=&gt; SELECT * FROM products;</span><br><span class="line"> id</span><br><span class="line"><span class="comment">----</span></span><br><span class="line">(0 行记录)</span><br></pre></td></tr></table></figure>
+
+<h2 id="似乎还有哪里不对"><a href="#似乎还有哪里不对" class="headerlink" title="似乎还有哪里不对"></a>似乎还有哪里不对</h2><p>一切正常。但如果尝试下面的命令，那与我们的直觉不符。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">emart=&gt; \conninfo</span><br><span class="line">以用户 &quot;chris&quot; 的身份, 在主机&quot;localhost&quot; (地址 &quot;::1&quot;), 端口&quot;5432&quot;连接到数据库 &quot;emart&quot;.</span><br><span class="line"></span><br><span class="line">emart=&gt; \l</span><br><span class="line">                                                            数据库列表</span><br><span class="line">       名称        |  拥有者  | 字元编码 |            校对规则            |             Ctype              |       存取权限</span><br><span class="line"><span class="comment">-------------------+----------+----------+--------------------------------+--------------------------------+-----------------------</span></span><br><span class="line"> emart             | postgres | UTF8     | Chinese (Simplified)_China.936 | Chinese (Simplified)_China.936 |</span><br><span class="line">(1 行记录)</span><br><span class="line"></span><br><span class="line">emart=&gt; \d users</span><br><span class="line">           数据表 &quot;public.users&quot;</span><br><span class="line"> 栏位 |  类型   | 校对规则 | 可空的 | 预设</span><br><span class="line"><span class="comment">------+---------+----------+--------+------</span></span><br><span class="line"> id   | integer |          |        |</span><br></pre></td></tr></table></figure>
+
+<p>我们并不想让无关人员看到users表以及users表的列定义。</p>
+<p>再比如</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">emart=&gt; create table hello (id int);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span></span><br></pre></td></tr></table></figure>
+
+<p>竟然可以创建新表，我们期望的难道不是一个只有读取权限账号吗。</p>
+<h2 id="迷题揭晓：PSQL中的Schema"><a href="#迷题揭晓：PSQL中的Schema" class="headerlink" title="迷题揭晓：PSQL中的Schema"></a>迷题揭晓：<a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/ddl-schemas.html">PSQL中的Schema</a></h2><p>在PostgreSQL创建一个表时，它会默认将表放在名为public的shcema下。比如这两条sql语句是一样的：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> public.users;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以使用命令来查询当前数据库下的schema:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span> <span class="string">&quot;names&quot;</span>(<span class="string">&quot;name&quot;</span>) <span class="keyword">AS</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> n.nspname <span class="keyword">AS</span> <span class="string">&quot;name&quot;</span></span><br><span class="line">    <span class="keyword">FROM</span> pg_catalog.pg_namespace n</span><br><span class="line">      <span class="keyword">WHERE</span> n.nspname !~ <span class="string">&#x27;^pg_&#x27;</span></span><br><span class="line">        <span class="keyword">AND</span> n.nspname &lt;&gt; <span class="string">&#x27;information_schema&#x27;</span></span><br><span class="line">) <span class="keyword">SELECT</span> <span class="string">&quot;name&quot;</span>,</span><br><span class="line">  pg_catalog.has_schema_privilege(<span class="keyword">current_user</span>, <span class="string">&quot;name&quot;</span>, <span class="string">&#x27;CREATE&#x27;</span>) <span class="keyword">AS</span> <span class="string">&quot;create&quot;</span>,</span><br><span class="line">  pg_catalog.has_schema_privilege(<span class="keyword">current_user</span>, <span class="string">&quot;name&quot;</span>, <span class="string">&#x27;USAGE&#x27;</span>)  <span class="keyword">AS</span> <span class="string">&quot;usage&quot;</span>,</span><br><span class="line">  <span class="string">&quot;name&quot;</span> = pg_catalog.current_schema() <span class="keyword">AS</span> <span class="string">&quot;current&quot;</span></span><br><span class="line">    <span class="keyword">FROM</span> <span class="string">&quot;names&quot;</span>;</span><br><span class="line"></span><br><span class="line">  name  | <span class="keyword">create</span> | <span class="keyword">usage</span> | <span class="keyword">current</span></span><br><span class="line"><span class="comment">--------+--------+-------+---------</span></span><br><span class="line"> <span class="keyword">public</span> | t      | t     | t</span><br><span class="line">(<span class="number">1</span> 行记录)</span><br></pre></td></tr></table></figure>
+
+<p>而这个名为public的shcema的定义是这样的：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">TO</span> <span class="keyword">PUBLIC</span>;</span><br></pre></td></tr></table></figure>
+<p><code>ALL</code>在schema中代表USAGE和CREATE这两个权限。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>很容易想到有两种解决方案，第一种是从public中去除USAGE和CREATE这两个权限，第二种是创建一个新的schema。</p>
+<h3 id="尝试一：修改public"><a href="#尝试一：修改public" class="headerlink" title="尝试一：修改public"></a>尝试一：修改public</h3><p>使用管理员登录数据库emart，去除public对所有人的权限，改为对用户组开放。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">REVOKE</span> <span class="keyword">CREATE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">FROM</span> <span class="keyword">PUBLIC</span>;</span><br><span class="line"><span class="keyword">REVOKE</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">FROM</span> <span class="keyword">PUBLIC</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">TO</span> dev;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">TO</span> opr;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">TO</span> scm;</span><br></pre></td></tr></table></figure>
+
+<p>这样修改完public后，opr和scm用户组就无法进行创建表的操作。但chris仍然能看到其它表和表结构，所以我们进行第二项尝试。</p>
+<h3 id="解决方法：创建新的schema"><a href="#解决方法：创建新的schema" class="headerlink" title="解决方法：创建新的schema"></a>解决方法：创建新的schema</h3><p>使用管理员账号登录，创建名为opr, scm的schema，给对应的用户组创建和使用的权限。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">SCHEMA</span> opr;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> opr <span class="keyword">TO</span> opr;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> opr <span class="keyword">TO</span> dev;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">SCHEMA</span> scm;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> scm <span class="keyword">TO</span> scm;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">ALL</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> scm <span class="keyword">TO</span> dev;</span><br></pre></td></tr></table></figure>
+
+<p>将表从public中移至对应的schema下。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">users</span> <span class="keyword">SET</span> <span class="keyword">SCHEMA</span> opr;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> products <span class="keyword">SET</span> <span class="keyword">SCHEMA</span> scm;</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> orders <span class="keyword">SET</span> <span class="keyword">SCHEMA</span> scm;</span><br></pre></td></tr></table></figure>
+
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p>我们使用chris登录，尝试一下是否如我们所愿。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">emart=&gt; select * from opr.users;</span><br><span class="line">错误:  对模式 opr 权限不够</span><br><span class="line">第1行<span class="keyword">select</span> * <span class="keyword">from</span> opr.users;</span><br><span class="line">                   ^</span><br><span class="line">emart=&gt; select * from scm.orders;</span><br><span class="line"> id</span><br><span class="line"><span class="comment">----</span></span><br><span class="line">(0 行记录)</span><br><span class="line"></span><br><span class="line">emart=&gt; create table opr.hello (id int);</span><br><span class="line">错误:  对模式 opr 权限不够</span><br><span class="line">第1行<span class="keyword">create</span> <span class="keyword">table</span> opr.hello (<span class="keyword">id</span> <span class="built_in">int</span>);</span><br><span class="line">                  ^</span><br></pre></td></tr></table></figure>
+
+<p>不错，再试下查看表和表结构。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">emart=&gt; \d</span><br><span class="line">              关联列表</span><br><span class="line"> 架构模式 | 名称  |  类型  | 拥有者</span><br><span class="line"><span class="comment">----------+-------+--------+--------</span></span><br><span class="line"> public   | hello | 数据表 | chris</span><br><span class="line">(1 行记录)</span><br></pre></td></tr></table></figure>
+<p>不对呀，连scm下的表都看不到了。</p>
+<p>这是因为search_path没有设置的缘故。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">emart=&gt; SHOW search_path;</span><br><span class="line"> search_path</span><br><span class="line"><span class="comment">-------------</span></span><br><span class="line"> public</span><br><span class="line">(1 行记录)</span><br><span class="line"></span><br><span class="line">emart=&gt; SET search_path TO scm,public;</span><br><span class="line"><span class="keyword">SET</span></span><br><span class="line">emart=&gt; \d</span><br><span class="line">                关联列表</span><br><span class="line"> 架构模式 |   名称   |  类型  |  拥有者</span><br><span class="line"><span class="comment">----------+----------+--------+----------</span></span><br><span class="line"> <span class="keyword">public</span>   | hello    | 数据表 | chris</span><br><span class="line"> scm      | orders   | 数据表 | postgres</span><br><span class="line"> scm      | products | 数据表 | postgres</span><br><span class="line">(<span class="number">3</span> 行记录)</span><br></pre></td></tr></table></figure>
+
+<p>搞定收工。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2020/09/29/rambling-network-router/" rel="prev" title="路由器漫谈之测试工具">
+                  <i class="fa fa-chevron-left"></i> 路由器漫谈之测试工具
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
