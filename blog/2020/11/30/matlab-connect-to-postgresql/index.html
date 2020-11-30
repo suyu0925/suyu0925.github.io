@@ -22,21 +22,28 @@
     var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="如何应对并发(3)">
+  <meta name="description" content="matlab用的不多，记录备忘。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何应对并发(3) - 需求裁剪">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-3/index.html">
+<meta property="og:title" content="matlab连接postgresql">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="如何应对并发(3)">
+<meta property="og:description" content="matlab用的不多，记录备忘。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-06-04T07:55:59.000Z">
-<meta property="article:modified_time" content="2020-09-23T07:22:44.127Z">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-app.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-1.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-2.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-3.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-4.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-5.png">
+<meta property="article:published_time" content="2020-11-30T01:30:09.000Z">
+<meta property="article:modified_time" content="2020-11-30T02:43:13.726Z">
 <meta property="article:author" content="lckof">
-<meta property="article:tag" content="computer science">
+<meta property="article:tag" content="matlab">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-app.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-3/">
+<link rel="canonical" href="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/">
 
 
 <script class="page-configurations">
@@ -49,7 +56,7 @@
   };
 </script>
 
-  <title>如何应对并发(3) - 需求裁剪 | Tasty Pub</title>
+  <title>matlab连接postgresql | Tasty Pub</title>
   
 
 
@@ -149,7 +156,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E5%B9%B6%E5%8F%91-3-%E9%9C%80%E6%B1%82%E8%A3%81%E5%89%AA"><span class="nav-number">1.</span> <span class="nav-text">如何应对并发(3) - 需求裁剪</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDPostgreSQL-JDBC-driver"><span class="nav-number">1.</span> <span class="nav-text">下载PostgreSQL JDBC driver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85PostgreSQL-JDBC-driver"><span class="nav-number">2.</span> <span class="nav-text">安装PostgreSQL JDBC driver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E4%BB%A3%E7%A0%81%E8%B5%B0%E8%B5%B7"><span class="nav-number">3.</span> <span class="nav-text">直接代码走起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8matlab%E5%86%85%E7%BD%AE%E7%9A%84Database-Explorer%E6%9D%A5%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE"><span class="nav-number">4.</span> <span class="nav-text">使用matlab内置的Database Explorer来查看数据</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -209,7 +216,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-3/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -225,7 +232,7 @@
     
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          如何应对并发(3) - 需求裁剪
+          matlab连接postgresql
         </h1>
 
         <div class="post-meta-container">
@@ -235,16 +242,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2019-06-04 15:55:59" itemprop="dateCreated datePublished" datetime="2019-06-04T15:55:59+08:00">2019-06-04</time>
+      <time title="创建时间：2020-11-30 09:30:09 / 修改时间：10:43:13" itemprop="dateCreated datePublished" datetime="2020-11-30T09:30:09+08:00">2020-11-30</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:22:44" itemprop="dateModified" datetime="2020-09-23T15:22:44+08:00">2020-09-23</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -265,7 +266,7 @@
     </span>
 </div>
 
-            <div class="post-description">如何应对并发(3)</div>
+            <div class="post-description">matlab用的不多，记录备忘。</div>
         </div>
       </header>
 
@@ -273,35 +274,41 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>本文引自<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&mid=400516974&idx=1&sn=66a65b0900a8a410b7268d4b9c7bbddb&scene=21#wechat_redirect">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-3-需求裁剪"><a href="#如何应对并发-3-需求裁剪" class="headerlink" title="如何应对并发(3) - 需求裁剪"></a>如何应对并发(3) - 需求裁剪</h2><p>今天讲一下，应对并发，应对海量数据请求的一个关键策略，也是很多程序员的盲区，需求裁剪。</p>
-<p>这个，很多公司，技术人员会说，产品经理提需求，我们完成需求，怎么可能去裁剪需求，而且，裁剪需求会不会显得很low，说明水平很差呢。</p>
-<p>其实，这是一个对需求理解的问题。</p>
-<p>所谓需求，并不仅仅是功能实现，还包括性能指标，以及所谓的边界条件。</p>
-<p>实际上，即便是我们所熟知的巨头，面对性能负载问题，也会采取限定边界条件的方式来满足绝大部分用户的正常请求。</p>
-<p>下面，案例说话</p>
-<p>案例1：搜索大翻页问题，还记得我提过的这个搜索翻页越多，负载越高的问题么。</p>
-<p>请问，</p>
-<p>淘宝搜索一个关键词，最多翻多少页？百度呢？google呢？</p>
-<p>你们自行测试一下，这些巨头给出的搜索结果条目数，我跟你们实话说，都是估算值，最大翻页数，基本不超过100页。</p>
-<p>这就是设定了边界条件。</p>
-<p>正好前几天一个做比价的创业公司问我技术问题，他们抓了很多商品定价数据，虽然并发不高，但是数据量很大，要在每个搜索中给出结果数和精确翻页数，结果一个带搜索条件的 count(*)的问题出来了，效率特别低，执行开销特别大，跑来问我怎么优化，我告诉他，连百度和谷歌都没法做这样的精确结果，你让我怎么优化。这事就必须从需求出发，第一，不需要精确的返回结果数，第二，翻页做限定。</p>
-<p>案例2：雪崩效应的处理。</p>
-<p>前天讲的，当缓存扛不住，负载传递给数据库，瞬间过载，怎么处理？你说我多加数据库行不行？那要缓存干嘛用的呢？你说我缓存做实时同步实时备份？这缓存的存储效率多高啊，网速能跟的上？ </p>
-<p>这就涉及一个灾难应急机制，简单说就是 降级服务，有损服务。</p>
-<p>在出现类似问题的时候，系统自动降级，将部分用户请求频次低，价值低但是系统开销不低的功能或者数据临时阻断停止响应，确保整体系统的稳定性。</p>
-<p>比如说，大量用户会订阅热门内容，而少数用户会订阅冷门内容，那么在缓存崩溃的情况下，系统优先恢复热门内容，暂停冷门内容的请求的响应，可能可以在开销可控的情况下先满足了90%的访问请求，当数据库负载已经回落后再逐步恢复冷门内容的请求，从而使系统在开销可控的情况下自动完全恢复，避免雪崩效应导致全局崩溃。</p>
-<p>那么，有人会问，这个降级会不会很low？ 其实腾讯邮箱和新浪微博都有过类似的处理策略。</p>
-<p>在 caoz谈能力成长 - 取舍之道 这篇其实提过一些类似案例，在早期我技术并不高明的时候，实现CNZZ统计的功能，其实有非常多的数据是有损服务的，但是实际上用户并不会感受到，因为你损失的那些边界条件外的数据是1000个用户也不会有1个去查询的内容，而如果你要满足这些可能需要付出500%甚至更多的系统开销和研发工作量，这种对于很多早期创业公司来说，非常非常重要。</p>
-<p>我们说需求裁剪，说有损服务，并不是说不满足用户需求，我知道很多人有技术洁癖或者说追求技术完美，某些文章会说中国的创业太山寨太草根，美国人的创业都是以完美为导向。那么今天我就说一点，如果不看这篇文章，有几个人知道，google原来搜索的结果是不能翻出超过100页的？大家天天用淘宝吧，请问有谁知道淘宝搜索的最大翻页是100页？ 除了写蜘蛛抓人家数据的人之外，who care ?</p>
-<p>很多站长都用CNZZ，或其他第三方统计对吧，看数据的时候，看看自己网站的来源网页，请问谁会翻到第20页之后？</p>
-<p>这就是思路的关键，用户对功能的需求，你的满足度的边界在哪里？很多程序员没有这个概念，对于数据规模小，请求并发少的应用来说，这个东西你不考虑也没什么大不了，但是如果面对数据规模大，请求并发大，你就应该有一个概念，如何设定需求的边界条件，既能满足用户的正常请求可以顺畅的响应，同时保证系统在开销可控的情况下稳定健壮的运营；而当系统出现类似单点故障，雪崩效应呈现的时候，如何设定新的边界条件，让用户在基本可用的情况下给系统一个恢复周期。这些问题都是需要提前思考，并且不断随着业务规模的增加而调整的。</p>
-<p>案例3：关于主从分离同步的案例</p>
-<p>这个案例很好玩，我们刚开始做数据库主从读写分离的时候，经验也不是很丰富，然后发现一个问题，主从同步经常会有一个时延，虽然时间很短，大部分在1秒以内，但是在应用中，我们发现，用户发一个帖子，然后发完后就应该进入这个帖子的展示页吧，帖子发布到主数据库，而展示页调用的是从数据库，结果部分用户发完帖子，因为延迟，就看到了一个该帖子不存在的界面，这肯定是一个不好的情况么。当然，技术上肯定有各种解决方法，比如对这种新内容选择从主数据库访问，做一些标定等等，但是呢，我们就做了一个特别偷懒取巧的方案。什么方案呢？用户发完帖子后，先进入一个中转页，告诉用户您的帖子发布成功，3秒后自动进入帖子页。（对这个场景很多人都熟悉吧），就这么一个特简单甚至有点不是很友好的设计，主从同步延迟的问题就基本解决了。</p>
-<p>这不是一个完美方案，但是简单有效，而且对用户来说，虽然体验略有不好，但其实也不会有非常大的困扰。 当然，今天，我不推荐这样的方案，但是小团队，创业公司，遇到一些比较头疼的技术问题，其实完全可以通过需求的一点点微调就绕开，我希望分享的是这个观点。</p>
-<p>每次看到创业团队的技术把一个简单的项目做的又累又复杂的时候，我都想说一句，能不能简化一下，从需求到技术方案。很多所谓的复杂根本没有任何实际意义，除了浪费时间和精力外。</p>
-<p>最后，留一个思考题</p>
-<p>还是大翻页问题，一些论坛系统确实有大翻页的实际需要，在这种情况下，我说，只要不允许任意指定页码的跳转翻页，而是只允许上翻页下翻页（或者可以加上上五页，下五页这样的快速翻页）那么就会有特别高的效率的实现方法，有兴趣的同学思考一下。 就是用索引的思路去思考。</p>
+        <p>本文章基本摘自matlab<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/database/ug/postgresql-jdbc-windows.html">官方文档</a>，如果想获取更详细信息可以访问。</p>
+<h2 id="下载PostgreSQL-JDBC-driver"><a href="#下载PostgreSQL-JDBC-driver" class="headerlink" title="下载PostgreSQL JDBC driver"></a>下载PostgreSQL JDBC driver</h2><p>如果之前没有配置过JDBC，那么第一步是前往<a target="_blank" rel="noopener" href="https://jdbc.postgresql.org/download.html">postgresql官网</a>下载JDBC驱动。</p>
+<p>要注意的是，一定要下载<strong>匹配的java版本</strong>。</p>
+<p>比如MATLAB R2018b对应的java版本是java 8，那么必须使用PostgreSQL JDBC 4.2；<br>而如果MATLAB R2018b对应的java版本是java 7，那么则需使用PostgreSQL JDBC 4.1。</p>
+<p>下面matlab命令可以查看适配的java版本。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt; version -java</span><br><span class="line"></span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line"></span><br><span class="line">    <span class="string">&#x27;Java 1.8.0_152-b16 with Oracle Corporation Java HotSpot(TM) 64-Bit Server VM mixed mode&#x27;</span></span><br><span class="line"></span><br><span class="line">&gt;&gt; </span><br></pre></td></tr></table></figure>
+
+<h2 id="安装PostgreSQL-JDBC-driver"><a href="#安装PostgreSQL-JDBC-driver" class="headerlink" title="安装PostgreSQL JDBC driver"></a>安装PostgreSQL JDBC driver</h2><p>JDBC driver只是一个jar文件，还需要让matlab能读到。</p>
+<p>matlab<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/matlab_external/java-class-path.html">搜索java库</a>有两种方式，<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/matlab_external/static-path.html">静态路径</a>和<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/matlab/matlab_external/dynamic-path.html">动态路径</a>。前者更简单，我们用这个。</p>
+<p>matlab会在启动时读取用户首选项文件夹下的javaclasspath.txt来载入java路径，我们只需要将下载好的jar路径写入这个文件。</p>
+<ul>
+<li>在matlab中编译javaclasspath.txt<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd(prefdir)</span><br><span class="line">edit javaclasspath.txt</span><br></pre></td></tr></table></figure></li>
+<li>在文件末尾添加jar文件路径<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c:\Users\matlab\Downloads\postgresql-42.2.18.jar</span><br></pre></td></tr></table></figure></li>
+<li>重启matlab让它加载</li>
+</ul>
+<h2 id="直接代码走起"><a href="#直接代码走起" class="headerlink" title="直接代码走起"></a>直接代码走起</h2><p>如果是急性子，现在就已经可以运行SQL查询了。具体使用方法可参见<a target="_blank" rel="noopener" href="https://www.mathworks.com/help/database/ug/database.html">官网文档</a>。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% Make connection to database</span></span><br><span class="line">conn = database(<span class="string">&#x27;database-name&#x27;</span>,<span class="string">&#x27;username&#x27;</span>,<span class="string">&#x27;password&#x27;</span>,<span class="string">&#x27;Vendor&#x27;</span>,<span class="string">&#x27;POSTGRESQL&#x27;</span>,<span class="string">&#x27;Server&#x27;</span>,<span class="string">&#x27;server-host&#x27;</span>,<span class="string">&#x27;PortNumber&#x27;</span>,port-number);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% Execute query and fetch results</span></span><br><span class="line">data = fetch(conn,[<span class="string">&#x27;SELECT * &#x27;</span> ...</span><br><span class="line">    <span class="string">&#x27;FROM db.schema.table&#x27;</span>]);</span><br><span class="line"><span class="comment">%% Close connection to database</span></span><br><span class="line">close(conn)</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用matlab内置的Database-Explorer来查看数据"><a href="#使用matlab内置的Database-Explorer来查看数据" class="headerlink" title="使用matlab内置的Database Explorer来查看数据"></a>使用matlab内置的Database Explorer来查看数据</h2><p>打开app标签下的Database Exploerer：</p>
+<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-app.png" class="" title="matlab app">
+
+<p>配置JDBC数据源：</p>
+<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-1.png" class="" title="matlab app">
+
+<p>添加PostgreSQL JDBC数据源：</p>
+<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-2.png" class="" title="matlab app">
+
+<p>创建查询：</p>
+<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-3.png" class="" title="matlab app">
+
+<p>选择刚才添加的数据源：</p>
+<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-4.png" class="" title="matlab app">
+
+<p>输入账号密码即可连接预览：</p>
+<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-5.png" class="" title="matlab app">
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -311,21 +318,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
+              <a href="/blog/tags/matlab/" rel="tag"># matlab</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2019/06/04/caoz-concurrent-2/" rel="prev" title="如何应对并发(2) - 请求合并及异步处理">
-                  <i class="fa fa-chevron-left"></i> 如何应对并发(2) - 请求合并及异步处理
+                <a href="/blog/2020/10/29/privilege-on-psql/" rel="prev" title="PostgreSQL中的用户权限">
+                  <i class="fa fa-chevron-left"></i> PostgreSQL中的用户权限
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2019/06/04/caoz-concurrent-4/" rel="next" title="如何应对并发(4) - 分布式数据库及反范式设计">
-                  如何应对并发(4) - 分布式数据库及反范式设计 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
