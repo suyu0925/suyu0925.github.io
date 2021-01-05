@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="在这篇文章中，我将描述在数据可视化中使用的常见色板，提供配色的几个小窍门和最佳实例，最后会推荐几个用来生成和测试图表配色的工具。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【翻译】数据可视化中的颜色选择">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="在这篇文章中，我将描述在数据可视化中使用的常见色板，提供配色的几个小窍门和最佳实例，最后会推荐几个用来生成和测试图表配色的工具。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/qualitative-palettes-line-chart.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/bundle-smallest.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/two-colors-line-chart.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/sequential-pattles.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/multiple-sequential.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/diverging-palette.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/diverging-palette-bar.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/diverging-palette-2.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/sequential-pattle-map-chart.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/unnecessary-items.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/consistent-color.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/leverage-meaningfulness.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/color-blindness.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/ColorBrewer.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/data-color-picker.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/chroma.js.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/color-thief.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/viz-palette.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/viser-theme.png">
+<meta property="article:published_time" content="2021-01-05T02:36:14.000Z">
+<meta property="article:modified_time" content="2021-01-05T08:42:20.078Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="design">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/qualitative-palettes-line-chart.png">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【翻译】数据可视化中的颜色选择 | Tasty Pub</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Tasty Pub</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%89%B2%E6%9D%BF%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">调色板的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E8%89%B2%E6%9D%BF"><span class="nav-number">1.1.</span> <span class="nav-text">分类色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E8%89%B2%E6%9D%BF"><span class="nav-number">1.2.</span> <span class="nav-text">顺序色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E6%95%A3%E8%89%B2%E6%9D%BF"><span class="nav-number">1.3.</span> <span class="nav-text">发散色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3-vs-%E8%BF%9E%E7%BB%AD"><span class="nav-number">1.4.</span> <span class="nav-text">离散 vs. 连续</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%A2%9C%E8%89%B2%E6%97%B6%E7%9A%84%E9%A2%9D%E5%A4%96%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">2.</span> <span class="nav-text">使用颜色时的额外小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E9%A2%9C%E8%89%B2%E6%BB%A5%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">避免颜色滥用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E5%9B%BE%E8%A1%A8%E9%97%B4%E4%BD%BF%E7%94%A8%E7%9A%84%E9%A2%9C%E8%89%B2%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">不同图表间使用的颜色保持一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%8C%96%E5%88%A9%E7%94%A8%E9%A2%9C%E8%89%B2"><span class="nav-number">2.3.</span> <span class="nav-text">最大化利用颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%A6%81%E5%BF%98%E8%AE%B0%E8%89%B2%E7%9B%B2"><span class="nav-number">2.4.</span> <span class="nav-text">不要忘记色盲</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E9%A2%9C%E8%89%B2%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">选择颜色的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ColorBrewer"><span class="nav-number">3.1.</span> <span class="nav-text">ColorBrewer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Color-Picker"><span class="nav-number">3.2.</span> <span class="nav-text">Data Color Picker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chroma-js-Color-Palette-Helper"><span class="nav-number">3.3.</span> <span class="nav-text">Chroma.js Color Palette Helper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Color-Thief"><span class="nav-number">3.4.</span> <span class="nav-text">Color Thief</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viz-Palette"><span class="nav-number">3.5.</span> <span class="nav-text">Viz Palette</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viser%E4%B8%BB%E9%A2%98"><span class="nav-number">3.6.</span> <span class="nav-text">Viser主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+
+    
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【翻译】数据可视化中的颜色选择
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-05 10:36:14 / 修改时间：16:42:20" itemprop="dateCreated datePublished" datetime="2021-01-05T10:36:14+08:00">2021-01-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/data-visualization/" itemprop="url" rel="index"><span itemprop="name">data visualization</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">在这篇文章中，我将描述在数据可视化中使用的常见色板，提供配色的几个小窍门和最佳实例，最后会推荐几个用来生成和测试图表配色的工具。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文翻译并改写自Michael Yi的<a target="_blank" rel="noopener" href="https://medium.com/nightingale/how-to-choose-the-colors-for-your-data-visualizations-50b2557fa335">博文</a>。</p>
+<p>配色是图表的重要元素之一，一个好的配色可以给数据的故事添色不少，而差的配色会隐藏或转移重点。</p>
+<p>在这篇文章中，我将描述在数据可视化中使用的常见色板，提供配色的几个小窍门和最佳实例，最后会推荐几个用来生成和测试图表配色的工具。</p>
+<h2 id="调色板的类型"><a href="#调色板的类型" class="headerlink" title="调色板的类型"></a>调色板的类型</h2><p>数据可视化中的色板主要分成以下三类：</p>
+<ul>
+<li>分类色板(Qualitative palettes)</li>
+<li>顺序色板(Sequential palettes)</li>
+<li>发散色板(Diverging palettes)</li>
+</ul>
+<p>使用哪种类型取决于数据的特性。</p>
+<h3 id="分类色板"><a href="#分类色板" class="headerlink" title="分类色板"></a>分类色板</h3><img src="/blog/2021/01/05/data-viz-color/qualitative-palettes-line-chart.png" class="" title="分类折线图示例">
+
+<p>当变量具有天然的分类属性时，可适用分类色板。分类属性有明显区别并且没有固定顺序。比如国家、种族、排名、性别。每一种分类都对应色板中的一个颜色。</p>
+
+
+<p>分类色板的每一种颜色对应一个分类，且区分鲜明。<strong>根据经验，应尝试将分类色板的颜色数量限制到10个或以下。</strong>如果颜色太多，就很难将其区分。如果确实分类太多，超出了色板的颜色数量，可以将分类合计，比如将最少的几个分类合计为“其他”。多次列出所有颜色不是一个好主意，会引起视觉混乱。</p>
+<img src="/blog/2021/01/05/data-viz-color/bundle-smallest.png" class="" title="压缩分类">
+
+<p>我们区分不同色彩主要是依据其色调。当然也可以通过调整亮度和饱和度来获得其它变化，但最好不要调整过多。过大的高亮和饱和度的差异可能会让读者误解某些颜色更重要，除非你确实是想这样表达。请避免使用相同色调仅亮度和饱和度不同的两种颜色，除非数据与颜色有关。比如下面这个折线图，每天的订阅数表示为浅色线条，7日均线就可以使用暗色。</p>
+<img src="/blog/2021/01/05/data-viz-color/two-colors-line-chart.png" class="" title="性质相近的数据可以使用色调相近亮度不同的颜色">
+
+<h3 id="顺序色板"><a href="#顺序色板" class="headerlink" title="顺序色板"></a>顺序色板</h3><p>当变量是数字或有固定顺序时，可以使用顺序色板来表示。通常以色调、亮度来渐变。</p>
+<img src="/blog/2021/01/05/data-viz-color/sequential-pattles.png" class="" title="顺序色板">
+
+<p>或者色调和亮度一起。</p>
+<img src="/blog/2021/01/05/data-viz-color/multiple-sequential.png" class="" title="叠加色板">
+
+<p>顺序色板的颜色最突出的方面是亮度。一般来说，颜色越浅代表值越小，颜色越深代表值越大。不过在深色背景下，通常会返过来，值越大则越亮。原则就是值越大越醒目，对比度越高。</p>
+<p>顺序色板的次要维度是色调。大多数情况下可只使用同一个色调，用亮度来代表值的大小。但使用两种不同的颜色来辅助识别也不失为一种好办法。通常亮度高的一端使用暖色（趋向红色或黄色），较暗的一端使用冷色（超向绿色，蓝色或紫色）。</p>
+<h3 id="发散色板"><a href="#发散色板" class="headerlink" title="发散色板"></a>发散色板</h3><img src="/blog/2021/01/05/data-viz-color/diverging-palette.png" class="" title="发散色板">
+
+<p>如果我们的变量有一个中间值，类似数字中的0，那我们可以使用发散色板。发散色板本质上是两个顺序色板的首尾相接，接点即中间值。大于中间的值的变量分配中心一侧的颜色，小值分配相对侧的颜色。</p>
+<img src="/blog/2021/01/05/data-viz-color/diverging-palette-bar.png" class="" title="diverging-palette-bar">
+
+<p>通常，每个顺序色板都使用独特的色调，这样更容易区分相对于中心的正值和负值。与顺序色板一样，通常为中心值分配浅色，颜色越深表示距中心的距离越大。</p>
+<h3 id="离散-vs-连续"><a href="#离散-vs-连续" class="headerlink" title="离散 vs. 连续"></a>离散 vs. 连续</h3><p>顺序色板和发散色板可以通过两种不同的方式与数据值相关联：作为一组离散的颜色，或者作为数据值和颜色之间的连续函数。</p>
+<img src="/blog/2021/01/05/data-viz-color/diverging-palette-2.png" class="" title="diverging-palette-2">
+
+<p>用于创建色板的工具通常遵循第一类，而用于创建可视化的工具通常具有建立连续关联的能力。 虽然在值和颜色之间具有连续似乎总是更好，但离散色板仍然有其优点。</p>
+<p>相比位置或长度，我们辨别颜色差异更费力，所以将颜色与精确值关联已经处于劣势。颜色的离散化可以减轻认知负担，增加数据的梯度。另外，我们还可以通过调整色板的取值范围来更好的展现数据。比如当数据包含异常值时，连续色板会迫使大多数数据挤在一个小的颜色区间。而在使用离散色板时，我们可以创建大小不等的范围，以更好的表示数据中的差异。</p>
+<img src="/blog/2021/01/05/data-viz-color/sequential-pattle-map-chart.png" class="" title="sequential-pattle-map-chart">
+
+<p>而离散色板的主要问题是不能比较被划分在同一个范围中的元素。在使用连续色板的接近值之间存在一些颜色差异的地方（例如上图中的德克萨斯州和加利福尼亚之间），使用离散色板体现不出差异。</p>
+<h2 id="使用颜色时的额外小技巧"><a href="#使用颜色时的额外小技巧" class="headerlink" title="使用颜色时的额外小技巧"></a>使用颜色时的额外小技巧</h2><h3 id="避免颜色滥用"><a href="#避免颜色滥用" class="headerlink" title="避免颜色滥用"></a>避免颜色滥用</h3><p>尽管颜色是数据可视化的重要组成部分，但还是要有节制，只在适当的地方使用颜色。并不是每个图表都需要多种颜色。如果仅要绘制两个变量，则它们可能会由垂直和水平位置或长度进行编码。一般只有在第三个变量需要编码到图表中或作为<a target="_blank" rel="noopener" href="https://chartio.com/learn/charts/pie-chart-complete-guide/">饼图等专业图表</a>的组成部分时，才会出现颜色。但是，在某些情况下，可以添加颜色以强调特定的发现或作为额外的高亮编码。</p>
+<img src="/blog/2021/01/05/data-viz-color/unnecessary-items.png" class="" title="unnecessary items">
+
+<h3 id="不同图表间使用的颜色保持一致性"><a href="#不同图表间使用的颜色保持一致性" class="headerlink" title="不同图表间使用的颜色保持一致性"></a>不同图表间使用的颜色保持一致性</h3><img src="/blog/2021/01/05/data-viz-color/consistent-color.png" class="" title="consistent color">
+
+<p>如果你在做一个含有多个图表的仪表盘或报告，尽量在同一个分组或场景下的不同图表间使用一致的颜色。如果颜色变化了，会减低易读性。</p>
+<h3 id="最大化利用颜色"><a href="#最大化利用颜色" class="headerlink" title="最大化利用颜色"></a>最大化利用颜色</h3><p>有时可以利用颜色的感知方式来增强可视化效果。如果要绘制的组具有固有的颜色约定（例如运动队和政党），分配适当的颜色可以使读者更轻松地进行可视化处理。甚至可能要尝试使用品牌的颜色作为基础来创建自定义调色板。</p>
+<p>一般来说要避免使用高饱和度和高亮度的颜色，以减少读者的视觉疲劳。但在有高亮重要元素的需要时，可以视情况使用。</p>
+<p>同时也不要忽视灰色，它既是很好的数据背景，又可以有<a target="_blank" rel="noopener" href="https://www.visualisingdata.com/2015/01/make-grey-best-friend/">其它用途</a>。</p>
+<img src="/blog/2021/01/05/data-viz-color/leverage-meaningfulness.png" class="" title="leverage meaningfulness">
+
+<p>最后，值得一提的是，不同的文化可以将[不同的含义赋予每种色调]（<a target="_blank" rel="noopener" href="https://informationisbeautiful.net/visualizations/colours-in-cultures/%EF%BC%89%E3%80%82%E4%BE%8B%E5%A6%82%EF%BC%8C%E5%9C%A8%E6%9F%90%E4%BA%9B%E8%A5%BF%E6%96%B9%E6%96%87%E5%8C%96%E4%B8%AD%EF%BC%8C%E7%BA%A2%E8%89%B2%E5%8F%AF%E8%83%BD%E4%B8%8E%E7%83%AD%E6%83%85%E6%88%96%E5%8D%B1%E9%99%A9%E7%9B%B8%E5%85%B3%EF%BC%8C%E4%BD%86%E5%9C%A8%E6%9F%90%E4%BA%9B%E4%B8%9C%E6%96%B9%E6%96%87%E5%8C%96%E4%B8%AD%EF%BC%8C%E7%BA%A2%E8%89%B2%E4%BB%A3%E8%A1%A8%E7%B9%81%E8%8D%A3%E4%B8%8E%E5%90%89%E7%A5%A5%E3%80%82%E9%99%A4%E9%9D%9E%E5%B0%86%E8%B0%83%E6%9F%A5%E7%BB%93%E6%9E%9C%E5%91%88%E7%8E%B0%E7%BB%99%E5%B9%BF%E6%B3%9B%E7%9A%84%E5%8F%97%E4%BC%97%EF%BC%8C%E5%90%A6%E5%88%99%E8%BF%99%E5%8F%AF%E8%83%BD%E4%B8%8D%E6%98%AF%E7%89%B9%E5%88%AB%E9%87%8D%E8%A6%81%EF%BC%8C%E4%BD%86%E8%BF%99%E6%98%AF%E5%80%BC%E5%BE%97%E8%AE%B0%E4%BD%8F%E7%9A%84%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%B7%A5%E5%85%B7%EF%BC%8C%E5%8F%AF%E5%B8%AE%E5%8A%A9%E4%BD%A0%E6%9B%B4%E8%BD%BB%E6%9D%BE%E5%9C%B0%E6%8E%8C%E6%8F%A1%E5%8F%AF%E8%A7%86%E5%8C%96%E6%95%88%E6%9E%9C%E3%80%82">https://informationisbeautiful.net/visualizations/colours-in-cultures/）。例如，在某些西方文化中，红色可能与热情或危险相关，但在某些东方文化中，红色代表繁荣与吉祥。除非将调查结果呈现给广泛的受众，否则这可能不是特别重要，但这是值得记住的另一种工具，可帮助你更轻松地掌握可视化效果。</a></p>
+<h3 id="不要忘记色盲"><a href="#不要忘记色盲" class="headerlink" title="不要忘记色盲"></a>不要忘记色盲</h3><p>大约有4%的人有不同程度的色盲，绝大多数是男性。最常见的色盲是红绿色盲，他们分不清红色和绿色。基于以上原因，我们最好不要单纯只使用色调来区分数值，可以引入更多维度，比如亮度和饱和度。你可以使用像Coblis这样的<a target="_blank" rel="noopener" href="https://www.color-blindness.com/coblis-color-blindness-simulator/">色盲模式模拟</a>来确认最终的可视化效果能否被理解，以及是否存在颜色混淆。</p>
+<img src="/blog/2021/01/05/data-viz-color/color-blindness.png" class="" title="color blindness">
+
+<h2 id="选择颜色的工具"><a href="#选择颜色的工具" class="headerlink" title="选择颜色的工具"></a>选择颜色的工具</h2><p>懒得翻了…… 直接点开链接体验吧。</p>
+<p>There are many tools online to help you select and test colors for your data visualizations. Here, I will highlight some of the simplest tools to help you get up to speed on color choices.</p>
+<h3 id="ColorBrewer"><a href="#ColorBrewer" class="headerlink" title="ColorBrewer"></a><a target="_blank" rel="noopener" href="https://colorbrewer2.org/">ColorBrewer</a></h3><img src="/blog/2021/01/05/data-viz-color/ColorBrewer.png" class="" title="ColorBrewer">
+
+<p>ColorBrewer is the classic reference for color palettes, and provides a number of different palettes of each type. Certain palettes may be questionable for colorblind safety, so be sure to check out the eye-icon above the color codes pane to check if a color set has a potential to high chance of perception difficulties (indicated by a ? and X, respectively).</p>
+<h3 id="Data-Color-Picker"><a href="#Data-Color-Picker" class="headerlink" title="Data Color Picker"></a><a target="_blank" rel="noopener" href="https://learnui.design/tools/data-color-picker.html">Data Color Picker</a></h3><img src="/blog/2021/01/05/data-viz-color/data-color-picker.png" class="" title="Data Color Picker">
+
+<p>The Data Color Picker is a quick and easy to use tool for generating sequential and diverging palettes. The default “Palette” tab is best used for generating multi-hue sequential palettes rather than qualitative palettes, since the interpolation between endpoints will necessarily leave out some segment of hues in the color wheel.</p>
+<h3 id="Chroma-js-Color-Palette-Helper"><a href="#Chroma-js-Color-Palette-Helper" class="headerlink" title="Chroma.js Color Palette Helper"></a><a target="_blank" rel="noopener" href="https://vis4.net/palettes/">Chroma.js Color Palette Helper</a></h3><img src="/blog/2021/01/05/data-viz-color/chroma.js.png" class="" title="Chroma.js Color Palette Helper">
+
+<p>The chroma.js Color Palette Helper is a little bit more involved than Data Color Picker with its options for correcting lightness and bezier interpolation and slightly more difficult input of color values. However, it also allows for some additional freedom in setting multiple stop-points for the algorithm to try and fit a palette to. As an additional bonus, the application also includes a color blindness simulator on the same page, highlighting the most common types of deficiency where issues may crop up.</p>
+<h3 id="Color-Thief"><a href="#Color-Thief" class="headerlink" title="Color Thief"></a><a target="_blank" rel="noopener" href="https://lokeshdhakar.com/projects/color-thief/">Color Thief</a></h3><img src="/blog/2021/01/05/data-viz-color/color-thief.png" class="" title="Color Thief">
+
+<p>There aren’t as many quick-and-easy tools for generating qualitative palettes as there are for sequential and diverging palettes. <a target="_blank" rel="noopener" href="https://medialab.github.io/iwanthue/">I want hue</a> and <a target="_blank" rel="noopener" href="http://vrl.cs.brown.edu/color">Colorgorical</a> are both quick for generating random palettes, but a bit more difficult to work with when you want to customize your values.<br>But one fun way of creating a qualitative palette is to draw inspiration from images and screencaps with appealing natural palettes. There are a few tools out there to help do this, but Color Thief is one of the easiest to work with, automatically extracting a healthy-sized palette from uploaded pictures. This doesn’t necessarily mean that you can use the extracted colors directly and in order as a visualization palette. They can be an inspirational starting point for colors that look good together, but you’ll likely need to make some tweaks and revisions to ensure that the colors you choose are effective in a visualization context.</p>
+<h3 id="Viz-Palette"><a href="#Viz-Palette" class="headerlink" title="Viz Palette"></a><a target="_blank" rel="noopener" href="https://projects.susielu.com/viz-palette">Viz Palette</a></h3><img src="/blog/2021/01/05/data-viz-color/viz-palette.png" class="" title="Viz Palette">
+
+<p>In the previous section, <a target="_blank" rel="noopener" href="https://www.color-blindness.com/coblis-color-blindness-simulator/">Coblis</a> was linked as a resource for checking how your final visualization might look to those with color perception deficiencies. Viz Palette is a broader color palette tool you can use to check your palettes before you put together your visualizations. In addition to being able to view sets of colors in the context of example plots and under simulated-color perception deficiencies, you can also modify and change your palette’s colors immediately.</p>
+<h3 id="Viser主题"><a href="#Viser主题" class="headerlink" title="Viser主题"></a><a target="_blank" rel="noopener" href="https://viserjs.github.io/theme.html">Viser主题</a></h3><img src="/blog/2021/01/05/data-viz-color/viser-theme.png" class="" title="Viser Theme">
+
+<p>蚂蚁的Viser主题工具也提供了色板的默认方案与调试展示，同时提供了蚂蚁可视化的<a target="_blank" rel="noopener" href="https://antv.gitee.io/zh/docs/specification/language/palette">色板设计语言</a>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文简要概述了颜色可用于有效数据可视化的方式。根据映射到颜色的数据类型，应使用不同类型的色板（分类，顺序和发散）。确保使用颜色时，它是有意义的并且始终如一地使用，并尝试解决色盲问题，以改善绘图的可访问性。</p>
+<p>向他人展示发现结果时，请务必仔细考虑您的颜色选择，一组好的颜色可以让向听众传达信息变得更加容易。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/design/" rel="tag"># design</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2020/12/04/use-vpn-for-development/" rel="prev" title="在开发中使用代理">
+                  <i class="fa fa-chevron-left"></i> 在开发中使用代理
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
