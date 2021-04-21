@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
@@ -14,15 +16,14 @@
 
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-
-  <meta name="description" content="Ant Design Vue Pro项目是Ant Design Pro的第三方vue实现，对于vue使用者来说算是一个常见选项。它的默认路由是&#x2F;dashboard&#x2F;workplace，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。">
+<meta name="description" content="Ant Design Vue Pro项目是Ant Design Pro的第三方vue实现，对于vue使用者来说算是一个常见选项。它的默认路由是&#x2F;dashboard&#x2F;workplace，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ant Design Vue Pro的默认路由">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2020/05/17/antdv-default-path/index.html">
@@ -47,10 +48,8 @@
     lang   : 'zh-CN'
   };
 </script>
-
-  <title>Ant Design Vue Pro的默认路由 | Tasty Pub</title>
+<title>Ant Design Vue Pro的默认路由 | Tasty Pub</title>
   
-
 
   <script>
     var _hmt = _hmt || [];
@@ -61,7 +60,6 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
-
 
 
 
@@ -109,7 +107,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
   </div>
 
@@ -137,7 +135,7 @@
 </div>
         
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -155,18 +153,19 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1-src-config-router-config-js"><span class="nav-number">1.</span> <span class="nav-text">路由(src&#x2F;config&#x2F;router.config.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%9D%83%E9%99%90%E9%A1%B5%E9%9D%A2-src-permission-js"><span class="nav-number">2.</span> <span class="nav-text">无权限页面(src\permission.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logo-src-components-tools-Logo-vue"><span class="nav-number">3.</span> <span class="nav-text">Logo(src\components\tools\Logo.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E9%A1%B5-src-components-Exception-ExceptionPage-vue"><span class="nav-number">4.</span> <span class="nav-text">异常页(src\components\Exception\ExceptionPage.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%8C%85%E5%B1%91-src-components-tools-Breadcrumb-vue"><span class="nav-number">5.</span> <span class="nav-text">面包屑(src\components\tools\Breadcrumb.vue)</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1-src-config-router-config-js"><span class="nav-number">1.</span> <span class="nav-text">路由(src&#x2F;config&#x2F;router.config.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%9D%83%E9%99%90%E9%A1%B5%E9%9D%A2-src-permission-js"><span class="nav-number">2.</span> <span class="nav-text">无权限页面(src\permission.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logo-src-components-tools-Logo-vue"><span class="nav-number">3.</span> <span class="nav-text">Logo(src\components\tools\Logo.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E9%A1%B5-src-components-Exception-ExceptionPage-vue"><span class="nav-number">4.</span> <span class="nav-text">异常页(src\components\Exception\ExceptionPage.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%8C%85%E5%B1%91-src-components-tools-Breadcrumb-vue"><span class="nav-number">5.</span> <span class="nav-text">面包屑(src\components\tools\Breadcrumb.vue)</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">lckof</p>
   <div class="site-description" itemprop="description">啊咧</div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
@@ -189,7 +188,8 @@
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
   <div class="sidebar-dimmer"></div>
@@ -198,7 +198,7 @@
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -209,14 +209,16 @@
 
 
     <div class="main-inner post posts-expand">
-      
 
-      
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2020/05/17/antdv-default-path/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -228,9 +230,6 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Ant Design Vue Pro的默认路由
@@ -313,13 +312,13 @@
           </div>
     </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-      
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -342,18 +341,14 @@
     });
   }
 </script>
-
-    </div>
+</div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      
 
-      
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -386,19 +381,10 @@
   </footer>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 <script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
-
-
-
-
-
-
-
-
 
 
 
@@ -411,13 +397,6 @@
 
 
 
-
-
-
-
-  
-
-  
 
 </body>
 </html>

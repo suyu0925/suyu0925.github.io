@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
@@ -14,15 +16,14 @@
 
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-
-  <meta name="description" content="啊咧">
+<meta name="description" content="啊咧">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tasty Pub">
 <meta property="og:url" content="http://suyu0925.github.io/blog/page/3/index.html">
@@ -45,10 +46,8 @@
     lang   : 'zh-CN'
   };
 </script>
-
-  <title>Tasty Pub</title>
+<title>Tasty Pub</title>
   
-
 
   <script>
     var _hmt = _hmt || [];
@@ -59,7 +58,6 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
-
 
 
 
@@ -107,7 +105,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
   </div>
 
@@ -135,7 +133,7 @@
 </div>
         
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -153,17 +151,18 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">lckof</p>
   <div class="site-description" itemprop="description">啊咧</div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
@@ -186,7 +185,8 @@
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
   <div class="sidebar-dimmer"></div>
@@ -195,7 +195,7 @@
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -206,13 +206,15 @@
 
 
     <div class="main-inner index posts-expand">
-      
 
-      
-      
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2019/05/15/check-if-port-is-in-use/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -224,13 +226,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2019/05/15/check-if-port-is-in-use/" class="post-title-link" itemprop="url">检查端口使用情况</a>
+          <a href="/blog/2019/05/15/check-if-port-is-in-use/" class="post-title-link" itemprop="url">检查端口使用情况</a>
         </h2>
 
         <div class="post-meta-container">
@@ -291,14 +289,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -310,13 +313,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2019/03/31/remove-duplicates/" class="post-title-link" itemprop="url">记一次简单的数据去重</a>
+          <a href="/blog/2019/03/31/remove-duplicates/" class="post-title-link" itemprop="url">记一次简单的数据去重</a>
         </h2>
 
         <div class="post-meta-container">
@@ -377,14 +376,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2019/03/18/tencentcloudxuexi/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -396,13 +400,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2019/03/18/tencentcloudxuexi/" class="post-title-link" itemprop="url">腾讯云认证培训的学习资料</a>
+          <a href="/blog/2019/03/18/tencentcloudxuexi/" class="post-title-link" itemprop="url">腾讯云认证培训的学习资料</a>
         </h2>
 
         <div class="post-meta-container">
@@ -454,14 +454,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -473,13 +478,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2018/06/05/weixin-deeplink/" class="post-title-link" itemprop="url">从常规浏览器跳转至微信内部浏览器</a>
+          <a href="/blog/2018/06/05/weixin-deeplink/" class="post-title-link" itemprop="url">从常规浏览器跳转至微信内部浏览器</a>
         </h2>
 
         <div class="post-meta-container">
@@ -544,14 +545,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2018/03/08/install-redis-on-ubuntu-16-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -563,13 +569,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2018/03/08/install-redis-on-ubuntu-16-04/" class="post-title-link" itemprop="url">在ubuntu16.04系统上安装redis</a>
+          <a href="/blog/2018/03/08/install-redis-on-ubuntu-16-04/" class="post-title-link" itemprop="url">在ubuntu16.04系统上安装redis</a>
         </h2>
 
         <div class="post-meta-container">
@@ -614,14 +616,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2018/01/21/nginx-optimization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -633,13 +640,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2018/01/21/nginx-optimization/" class="post-title-link" itemprop="url">nginx优化</a>
+          <a href="/blog/2018/01/21/nginx-optimization/" class="post-title-link" itemprop="url">nginx优化</a>
         </h2>
 
         <div class="post-meta-container">
@@ -689,14 +692,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2018/01/21/install-java8-on-ubuntu-16-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -708,13 +716,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2018/01/21/install-java8-on-ubuntu-16-04/" class="post-title-link" itemprop="url">如何使用包管理在ubuntu16.04上安装java</a>
+          <a href="/blog/2018/01/21/install-java8-on-ubuntu-16-04/" class="post-title-link" itemprop="url">如何使用包管理在ubuntu16.04上安装java</a>
         </h2>
 
         <div class="post-meta-container">
@@ -775,14 +779,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2017/04/21/reset-the-trial-period-of-beyond-compare/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -794,13 +803,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2017/04/21/reset-the-trial-period-of-beyond-compare/" class="post-title-link" itemprop="url">重置beyond compare的试用期</a>
+          <a href="/blog/2017/04/21/reset-the-trial-period-of-beyond-compare/" class="post-title-link" itemprop="url">重置beyond compare的试用期</a>
         </h2>
 
         <div class="post-meta-container">
@@ -859,14 +864,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2017/04/21/why-relu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -878,13 +888,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2017/04/21/why-relu/" class="post-title-link" itemprop="url">为什么使用 ReLU</a>
+          <a href="/blog/2017/04/21/why-relu/" class="post-title-link" itemprop="url">为什么使用 ReLU</a>
         </h2>
 
         <div class="post-meta-container">
@@ -945,14 +951,19 @@
       
     </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2017/04/20/Expandable-Notifications-for-Android/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -964,13 +975,9 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2017/04/20/Expandable-Notifications-for-Android/" class="post-title-link" itemprop="url">Android的可展开式通知</a>
+          <a href="/blog/2017/04/20/Expandable-Notifications-for-Android/" class="post-title-link" itemprop="url">Android的可展开式通知</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1031,19 +1038,15 @@
       
     </footer>
   </article>
-  
-  
-  
+</div>
 
 
-  
+
+
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/blog/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
-
-
-      
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1066,18 +1069,14 @@
     });
   }
 </script>
-
-    </div>
+</div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      
 
-      
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1110,19 +1109,10 @@
   </footer>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 <script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1135,13 +1125,6 @@
 
 
 
-
-
-
-
-  
-
-  
 
 </body>
 </html>

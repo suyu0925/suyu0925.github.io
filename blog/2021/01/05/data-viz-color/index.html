@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
+<meta name="generator" content="Hexo 5.4.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
@@ -14,15 +16,14 @@
 
 
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-
-  <meta name="description" content="在这篇文章中，我将描述在数据可视化中使用的常见色板，提供配色的几个小窍门和最佳实例，最后会推荐几个用来生成和测试图表配色的工具。">
+<meta name="description" content="在这篇文章中，我将描述在数据可视化中使用的常见色板，提供配色的几个小窍门和最佳实例，最后会推荐几个用来生成和测试图表配色的工具。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【翻译】数据可视化中的颜色选择">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/index.html">
@@ -68,10 +69,8 @@
     lang   : 'zh-CN'
   };
 </script>
-
-  <title>【翻译】数据可视化中的颜色选择 | Tasty Pub</title>
+<title>【翻译】数据可视化中的颜色选择 | Tasty Pub</title>
   
-
 
   <script>
     var _hmt = _hmt || [];
@@ -82,7 +81,6 @@
       s.parentNode.insertBefore(hm, s);
     })();
   </script>
-
 
 
 
@@ -130,7 +128,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
   </div>
 
@@ -158,7 +156,7 @@
 </div>
         
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -176,18 +174,19 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%89%B2%E6%9D%BF%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">调色板的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E8%89%B2%E6%9D%BF"><span class="nav-number">1.1.</span> <span class="nav-text">分类色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E8%89%B2%E6%9D%BF"><span class="nav-number">1.2.</span> <span class="nav-text">顺序色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E6%95%A3%E8%89%B2%E6%9D%BF"><span class="nav-number">1.3.</span> <span class="nav-text">发散色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3-vs-%E8%BF%9E%E7%BB%AD"><span class="nav-number">1.4.</span> <span class="nav-text">离散 vs. 连续</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%A2%9C%E8%89%B2%E6%97%B6%E7%9A%84%E9%A2%9D%E5%A4%96%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">2.</span> <span class="nav-text">使用颜色时的额外小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E9%A2%9C%E8%89%B2%E6%BB%A5%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">避免颜色滥用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E5%9B%BE%E8%A1%A8%E9%97%B4%E4%BD%BF%E7%94%A8%E7%9A%84%E9%A2%9C%E8%89%B2%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">不同图表间使用的颜色保持一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%8C%96%E5%88%A9%E7%94%A8%E9%A2%9C%E8%89%B2"><span class="nav-number">2.3.</span> <span class="nav-text">最大化利用颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%A6%81%E5%BF%98%E8%AE%B0%E8%89%B2%E7%9B%B2"><span class="nav-number">2.4.</span> <span class="nav-text">不要忘记色盲</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E9%A2%9C%E8%89%B2%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">选择颜色的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ColorBrewer"><span class="nav-number">3.1.</span> <span class="nav-text">ColorBrewer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Color-Picker"><span class="nav-number">3.2.</span> <span class="nav-text">Data Color Picker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chroma-js-Color-Palette-Helper"><span class="nav-number">3.3.</span> <span class="nav-text">Chroma.js Color Palette Helper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Color-Thief"><span class="nav-number">3.4.</span> <span class="nav-text">Color Thief</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viz-Palette"><span class="nav-number">3.5.</span> <span class="nav-text">Viz Palette</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viser%E4%B8%BB%E9%A2%98"><span class="nav-number">3.6.</span> <span class="nav-text">Viser主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%89%B2%E6%9D%BF%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">调色板的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E8%89%B2%E6%9D%BF"><span class="nav-number">1.1.</span> <span class="nav-text">分类色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E8%89%B2%E6%9D%BF"><span class="nav-number">1.2.</span> <span class="nav-text">顺序色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E6%95%A3%E8%89%B2%E6%9D%BF"><span class="nav-number">1.3.</span> <span class="nav-text">发散色板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%BB%E6%95%A3-vs-%E8%BF%9E%E7%BB%AD"><span class="nav-number">1.4.</span> <span class="nav-text">离散 vs. 连续</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%A2%9C%E8%89%B2%E6%97%B6%E7%9A%84%E9%A2%9D%E5%A4%96%E5%B0%8F%E6%8A%80%E5%B7%A7"><span class="nav-number">2.</span> <span class="nav-text">使用颜色时的额外小技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E9%A2%9C%E8%89%B2%E6%BB%A5%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">避免颜色滥用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E5%90%8C%E5%9B%BE%E8%A1%A8%E9%97%B4%E4%BD%BF%E7%94%A8%E7%9A%84%E9%A2%9C%E8%89%B2%E4%BF%9D%E6%8C%81%E4%B8%80%E8%87%B4%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">不同图表间使用的颜色保持一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E5%8C%96%E5%88%A9%E7%94%A8%E9%A2%9C%E8%89%B2"><span class="nav-number">2.3.</span> <span class="nav-text">最大化利用颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%A6%81%E5%BF%98%E8%AE%B0%E8%89%B2%E7%9B%B2"><span class="nav-number">2.4.</span> <span class="nav-text">不要忘记色盲</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E9%A2%9C%E8%89%B2%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">选择颜色的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ColorBrewer"><span class="nav-number">3.1.</span> <span class="nav-text">ColorBrewer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Color-Picker"><span class="nav-number">3.2.</span> <span class="nav-text">Data Color Picker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chroma-js-Color-Palette-Helper"><span class="nav-number">3.3.</span> <span class="nav-text">Chroma.js Color Palette Helper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Color-Thief"><span class="nav-number">3.4.</span> <span class="nav-text">Color Thief</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viz-Palette"><span class="nav-number">3.5.</span> <span class="nav-text">Viz Palette</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Viser%E4%B8%BB%E9%A2%98"><span class="nav-number">3.6.</span> <span class="nav-text">Viser主题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">lckof</p>
   <div class="site-description" itemprop="description">啊咧</div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
@@ -210,7 +209,8 @@
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
   <div class="sidebar-dimmer"></div>
@@ -219,7 +219,7 @@
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -230,14 +230,16 @@
 
 
     <div class="main-inner post posts-expand">
-      
 
-      
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2021/01/05/data-viz-color/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -249,9 +251,6 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
     </span>
-
-    
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           【翻译】数据可视化中的颜色选择
@@ -408,13 +407,13 @@
           </div>
     </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-      
+
+
+
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -437,18 +436,14 @@
     });
   }
 </script>
-
-    </div>
+</div>
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      
 
-      
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -481,19 +476,10 @@
   </footer>
 
   
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 <script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
-
-
-
-
-
-
-
-
 
 
 
@@ -506,13 +492,6 @@
 
 
 
-
-
-
-
-  
-
-  
 
 </body>
 </html>
