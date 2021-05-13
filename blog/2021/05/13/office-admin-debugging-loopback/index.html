@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="每次调试都要选个Y&#x2F;n实在是太烦了……">
+<meta property="og:type" content="article">
+<meta property="og:title" content="office-admin-debugging时每次都提示localhost loopback">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2021/05/13/office-admin-debugging-loopback/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="每次调试都要选个Y&#x2F;n实在是太烦了……">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-13T06:24:02.000Z">
+<meta property="article:modified_time" content="2021-05-13T07:10:09.066Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="excel-add-in">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2021/05/13/office-admin-debugging-loopback/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>office-admin-debugging时每次都提示localhost loopback | Tasty Pub</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Tasty Pub</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">查找原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#office-addin-debugging%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">office-addin-debugging命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#office-addin-dev-settings"><span class="nav-number">2.2.</span> <span class="nav-text">office-addin-dev-settings</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stdout"><span class="nav-number">2.3.</span> <span class="nav-text">stdout</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%B8%80"><span class="nav-number">3.1.</span> <span class="nav-text">方案一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E4%BA%8C"><span class="nav-number">3.2.</span> <span class="nav-text">方案二</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2021/05/13/office-admin-debugging-loopback/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          office-admin-debugging时每次都提示localhost loopback
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-05-13 14:24:02 / 修改时间：15:10:09" itemprop="dateCreated datePublished" datetime="2021-05-13T14:24:02+08:00">2021-05-13</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">每次调试都要选个Y/n实在是太烦了……</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近在做一个<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/office/dev/add-ins/excel/excel-add-ins-overview">excel插件</a>，使用新的<a target="_blank" rel="noopener" href="https://github.com/OfficeDev/office-js">office.js</a>技术栈而不是<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/visualstudio/vsto/create-vsto-add-ins-for-office-by-using-visual-studio?view=vs-2019">VisualStudio Tools for Office</a>。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>开发时需要用到office-addin-debugging，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ office-addin-debugging start manifest.xml desktop --app excel</span><br><span class="line">Debugging is being started...</span><br><span class="line">App <span class="built_in">type</span>: desktop</span><br><span class="line">? Allow localhost loopback <span class="keyword">for</span> Microsoft Edge WebView? (Y/n) </span><br></pre></td></tr></table></figure>
+
+<p>但每次启动都会提示而不是会记住选择。</p>
+<h2 id="查找原因"><a href="#查找原因" class="headerlink" title="查找原因"></a>查找原因</h2><p>看了下源码，问题出现的原因其实出奇的简单。</p>
+<p>我们一步步的看吧。</p>
+<h3 id="office-addin-debugging命令"><a href="#office-addin-debugging命令" class="headerlink" title="office-addin-debugging命令"></a>office-addin-debugging命令</h3><p><code>office-addin-debugging</code>调用的是<code>node_modules\.bin\</code>下的可执行文件，在windwos下是<code>office-addin-debugging.cmd</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node  <span class="string">&quot;%~dp0\..\office-addin-debugging\cli.js&quot;</span> %* </span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://github.com/OfficeDev/Office-Addin-Scripts/blob/4ad77d7ac6e8ce8b7f5e778ad76e47749b489943/packages/office-addin-debugging/src/cli.ts#L32">cli.ts</a> -&gt;<br><a target="_blank" rel="noopener" href="https://github.com/OfficeDev/Office-Addin-Scripts/blob/4ad77d7ac6e8ce8b7f5e778ad76e47749b489943/packages/office-addin-debugging/src/commands.ts#L82">commands.ts@start</a> -&gt;<br><a target="_blank" rel="noopener" href="https://github.com/OfficeDev/Office-Addin-Scripts/blob/4ad77d7ac6e8ce8b7f5e778ad76e47749b489943/packages/office-addin-debugging/src/start.ts#L244">start.ts@startDebugging</a> -&gt;<br><a target="_blank" rel="noopener" href="https://github.com/OfficeDev/Office-Addin-Scripts/blob/4ad77d7ac6e8ce8b7f5e778ad76e47749b489943/packages/office-addin-debugging/src/start.ts#L300">office-addin-dev-settings@ensureLoopbackIsEnabled</a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// enable loopback for Edge</span></span><br><span class="line"><span class="keyword">if</span> (isWindowsPlatform &amp;&amp; <span class="built_in">parseInt</span>(os.release(), <span class="number">10</span>) === <span class="number">10</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> name = isDesktopAppType ? <span class="string">&quot;EdgeWebView&quot;</span> : <span class="string">&quot;EdgeWebBrowser&quot;</span>;</span><br><span class="line">    <span class="keyword">await</span> devSettings.ensureLoopbackIsEnabled(name); <span class="comment">// &lt;- 为edge开启loopback</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="office-addin-dev-settings"><a href="#office-addin-dev-settings" class="headerlink" title="office-addin-dev-settings"></a>office-addin-dev-settings</h3><p><a target="_blank" rel="noopener" href="https://github.com/OfficeDev/Office-Addin-Scripts/blob/4ad77d7ac6e8ce8b7f5e778ad76e47749b489943/packages/office-addin-dev-settings/src/appcontainer.ts#L123">appcontainer.ts@ensureLoopbackIsEnabled</a> -&gt;<br><a target="_blank" rel="noopener" href="https://github.com/OfficeDev/Office-Addin-Scripts/blob/4ad77d7ac6e8ce8b7f5e778ad76e47749b489943/packages/office-addin-dev-settings/src/appcontainer.ts#L51">appcontainer.ts@isLoopbackExemptionForAppcontainer</a></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> command = <span class="string">`CheckNetIsolation.exe LoopbackExempt -s`</span>;</span><br><span class="line"></span><br><span class="line">  childProcess.exec(command, <span class="function">(<span class="params">error, stdout</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">      reject(stdout);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> expr = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">`Name: <span class="subst">$&#123;name&#125;</span>`</span>, <span class="string">&quot;i&quot;</span>); <span class="comment">// &lt;- 判断是否已经在豁免列表</span></span><br><span class="line">      <span class="keyword">const</span> found: <span class="built_in">boolean</span> = expr.test(stdout);</span><br><span class="line">      resolve(found);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="stdout"><a href="#stdout" class="headerlink" title="stdout"></a>stdout</h3><p>stdout的内容会根据<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/console/console-code-pages">console code page</a>变化，并不一定是英文的。</p>
+<p>如果我们的windows显示语言为中文，活跃代码页为<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/intl/code-page-identifiers">936(gb2312)</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ chcp</span><br><span class="line">活动代码页: 936</span><br></pre></td></tr></table></figure>
+
+<p>此时上面的命令行<code>CheckNetIsolation.exe LoopbackExempt -s</code>输出的stout为</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ CheckNetIsolation.exe LoopbackExempt -s</span><br><span class="line"></span><br><span class="line">列出环回免除的 AppContainer</span><br><span class="line"></span><br><span class="line">[1] -----------------------------------------------------------------</span><br><span class="line">    名称: microsoft.win32webviewhost_cw5n1h2txyewy</span><br><span class="line">    SID:  S-1-15-2-1310292540-1029022339-4008023048-2190398717-53961996-4257829345-603366646</span><br></pre></td></tr></table></figure>
+
+<p>注意到那个汉字<code>名称:</code>了吗？此时的匹配就会无效<code>RegExp(`Name: $&#123;name&#125;`, &quot;i&quot;)</code>。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><p>直接改源码，只需将<a target="_blank" rel="noopener" href="https://github.com/OfficeDev/Office-Addin-Scripts/blob/4ad77d7ac6e8ce8b7f5e778ad76e47749b489943/packages/office-addin-dev-settings/src/appcontainer.ts#L63"><code>RegExp(`Name: $&#123;name&#125;`, &quot;i&quot;)</code></a>改为<code>RegExp(`$&#123;name&#125;`, &quot;i&quot;)</code>就完事。</p>
+<h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><p>不改源码，让<code>childProcess.exec(command,</code>的stdout为英文。</p>
+<p>方案二可能会增加开发的前置工作，故直接使用方案一。只需要修改excel插件工程下的<code>node_modules\office-addin-dev-settings\lib\appcontainer.js</code>，就对当前工程一直用效。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/excel-add-in/" rel="tag"># excel-add-in</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2021/04/20/android-emulator-with-hyper-v/" rel="prev" title="兼容docker的安卓模拟器">
+                  <i class="fa fa-chevron-left"></i> 兼容docker的安卓模拟器
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
