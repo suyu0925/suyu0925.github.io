@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="习惯了nosql再使用sql来存储层级数据总是觉得麻烦，这次彻底的撸一遍。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用pgsql存储层级数据">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2021/07/28/hierarchical-data-in-psql/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="习惯了nosql再使用sql来存储层级数据总是觉得麻烦，这次彻底的撸一遍。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-07-28T08:50:08.000Z">
+<meta property="article:modified_time" content="2021-07-29T06:39:06.124Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2021/07/28/hierarchical-data-in-psql/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>使用pgsql存储层级数据 | Tasty Pub</title>
+  
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Tasty Pub</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nosql"><span class="nav-number">1.</span> <span class="nav-text">nosql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql"><span class="nav-number">2.</span> <span class="nav-text">sql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ltree-extension"><span class="nav-number">3.</span> <span class="nav-text">ltree extension</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#json"><span class="nav-number">4.</span> <span class="nav-text">json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">复合类型</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives">
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2021/07/28/hierarchical-data-in-psql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用pgsql存储层级数据
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-07-28 16:50:08" itemprop="dateCreated datePublished" datetime="2021-07-28T16:50:08+08:00">2021-07-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-07-29 14:39:06" itemprop="dateModified" datetime="2021-07-29T14:39:06+08:00">2021-07-29</time>
+      </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">习惯了nosql再使用sql来存储层级数据总是觉得麻烦，这次彻底的撸一遍。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>首先这个层级数据一定是很小量的数据，如果数据量很大，那必然是每一级一张表，然后做外键。</p>
+<p>假设我们有这样的数据要存入数据库：公司，部门，员工。</p>
+<h2 id="nosql"><a href="#nosql" class="headerlink" title="nosql"></a>nosql</h2><p>如果使用nosql比如mongodb，我们可以把所有数据都存在一个表里。</p>
+<p>定义数据库中的数据类型，数据类型几乎可以与前端保持一致。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Company = &#123;</span><br><span class="line">  id: <span class="built_in">string</span></span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  departments: Department[]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Department = &#123;</span><br><span class="line">  id: <span class="built_in">string</span></span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">  employees: Employee[]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Employee = &#123;</span><br><span class="line">  id: <span class="built_in">string</span></span><br><span class="line">  name: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>新建公司时，只需要做一次插入动作。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> companies: Company[] = [&#123;</span><br><span class="line">  id: <span class="string">&#x27;alibaba&#x27;</span>,</span><br><span class="line">  name: <span class="string">&#x27;阿里巴巴&#x27;</span>,</span><br><span class="line">  departments: [&#123;</span><br><span class="line">    id: <span class="string">&#x27;research-2&#x27;</span>,</span><br><span class="line">    name: <span class="string">&#x27;研发二部&#x27;</span>,</span><br><span class="line">    employees: [&#123;</span><br><span class="line">      id: <span class="string">&#x27;2021123&#x27;</span>,</span><br><span class="line">      name: <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line">db.collection(<span class="string">&#x27;company&#x27;</span>).insertMany(companies)</span><br></pre></td></tr></table></figure>
+
+<p>当要修改任何一处数据时，我们都直接更新整个结构的数据。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> updatedCompany: Company = &#123;</span><br><span class="line">  id: <span class="string">&#x27;alibaba&#x27;</span>,</span><br><span class="line">  name: <span class="string">&#x27;阿里巴巴&#x27;</span>,</span><br><span class="line">  departments: [&#123;</span><br><span class="line">    id: <span class="string">&#x27;research-3&#x27;</span>,</span><br><span class="line">    name: <span class="string">&#x27;研发三部&#x27;</span>,</span><br><span class="line">    employees: [&#123;</span><br><span class="line">      id: <span class="string">&#x27;2021123&#x27;</span>,</span><br><span class="line">      name: <span class="string">&#x27;张三三&#x27;</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      id: <span class="string">&#x27;2021124&#x27;</span>,</span><br><span class="line">      name: <span class="string">&#x27;李四&#x27;</span></span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">db.collection(<span class="string">&#x27;company&#x27;</span>).updateOne(&#123;id: updatedCompany.id&#125;, &#123;$set: updatedCompany&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="sql"><a href="#sql" class="headerlink" title="sql"></a>sql</h2><p>但如果使用通用sql，就需要这样做：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> company (</span><br><span class="line">  <span class="keyword">id</span>      <span class="built_in">SERIAL</span>,</span><br><span class="line">  <span class="keyword">name</span>    <span class="built_in">TEXT</span>,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> pk_company PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  <span class="keyword">id</span>              <span class="built_in">SERIAL</span>,</span><br><span class="line">  <span class="keyword">name</span>            <span class="built_in">TEXT</span>,</span><br><span class="line">  company_id      <span class="built_in">INT</span>,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> pk_department PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> fk_company <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (company_id) <span class="keyword">REFERENCES</span> company(<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employee (</span><br><span class="line">  <span class="keyword">id</span>              <span class="built_in">SERIAL</span>,</span><br><span class="line">  <span class="keyword">name</span>            <span class="built_in">TEXT</span>,</span><br><span class="line">  department_id   <span class="built_in">INT</span>,</span><br><span class="line">  company_id      <span class="built_in">INT</span>,</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> pk_employee PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> fk_department <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (department_id) <span class="keyword">REFERENCES</span> department(<span class="keyword">id</span>),</span><br><span class="line">  <span class="keyword">CONSTRAINT</span> fk_company <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (company_id) <span class="keyword">REFERENCES</span> company(<span class="keyword">id</span>)  </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>新建公司时，拿到前端数据后，必须从上到下的创建。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> *</span><br><span class="line">engine = create_engine(<span class="string">&quot;postgresql://username:password@localhost/testdb&quot;</span>, echo=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> engine.connect() <span class="keyword">as</span> conn:</span><br><span class="line">    metadata = MetaData()</span><br><span class="line">    company = Table(<span class="string">&#x27;company&#x27;</span>, metadata, autoload_with=engine)</span><br><span class="line">    ins = company.insert().values(name=<span class="string">&#x27;阿里巴巴&#x27;</span>)</span><br><span class="line">    result = conn.execute(ins)</span><br><span class="line">    company_id = result.inserted_primary_key[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    department = Table(<span class="string">&#x27;department&#x27;</span>, metadata, autoload_with=engine)</span><br><span class="line">    ins = department.insert().values(name=<span class="string">&#x27;研发二部&#x27;</span>, company_id=company_id)</span><br><span class="line">    result = conn.execute(ins)</span><br><span class="line">    department_id = result.inserted_primary_key[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    employee = Table(<span class="string">&#x27;employee&#x27;</span>, metadata, autoload_with=engine)</span><br><span class="line">    ins = employee.insert().values(name=<span class="string">&#x27;研发二部&#x27;</span>, company_id=company_id, department_id=department_id)</span><br><span class="line">    result = conn.execute(ins)</span><br><span class="line">    employee_id = result.inserted_primary_key[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>当修改时，也需要从上到下。比如当员工的部门变化时，需要先确保新部门存在，再修改员工记录。</p>
+<p>如果要像mongodb那样一次更新整个结构，可以用一个事务清空再重建。</p>
+<h2 id="ltree-extension"><a href="#ltree-extension" class="headerlink" title="ltree extension"></a><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/ltree.html">ltree extension</a></h2><p>ltree是postgresql的一个扩展插件，它提供了一种数据类型<code>ltree</code>来支持树形结构的存储，同时支持基于标签的查询。</p>
+<p>直接上例子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> EXTENSION ltree;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">test</span> (<span class="keyword">path</span> ltree);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Science&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Science.Astronomy&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Science.Astronomy.Astrophysics&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Science.Astronomy.Cosmology&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Hobbies&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Hobbies.Amateurs_Astronomy&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Collections&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Collections.Pictures&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Collections.Pictures.Astronomy&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Collections.Pictures.Astronomy.Stars&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Collections.Pictures.Astronomy.Galaxies&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">test</span> <span class="keyword">VALUES</span> (<span class="string">&#x27;Top.Collections.Pictures.Astronomy.Astronauts&#x27;</span>);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> path_gist_idx <span class="keyword">ON</span> <span class="keyword">test</span> <span class="keyword">USING</span> GIST (<span class="keyword">path</span>);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> path_idx <span class="keyword">ON</span> <span class="keyword">test</span> <span class="keyword">USING</span> BTREE (<span class="keyword">path</span>);</span><br></pre></td></tr></table></figure>
+
+<p>继承关系：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ltreetest=&gt; SELECT path FROM test WHERE path &lt;@ &#x27;Top.Science&#x27;;</span><br><span class="line">                path</span><br><span class="line"><span class="comment">------------------------------------</span></span><br><span class="line"> Top.Science</span><br><span class="line"> Top.Science.Astronomy</span><br><span class="line"> Top.Science.Astronomy.Astrophysics</span><br><span class="line"> Top.Science.Astronomy.Cosmology</span><br><span class="line">(4 rows)</span><br></pre></td></tr></table></figure>
+
+<p>路径匹配：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">ltreetest=&gt; SELECT path FROM test WHERE path ~ &#x27;*.Astronomy.*&#x27;;</span><br><span class="line">                     path</span><br><span class="line"><span class="comment">-----------------------------------------------</span></span><br><span class="line"> Top.Science.Astronomy</span><br><span class="line"> Top.Science.Astronomy.Astrophysics</span><br><span class="line"> Top.Science.Astronomy.Cosmology</span><br><span class="line"> Top.Collections.Pictures.Astronomy</span><br><span class="line"> Top.Collections.Pictures.Astronomy.Stars</span><br><span class="line"> Top.Collections.Pictures.Astronomy.Galaxies</span><br><span class="line"> Top.Collections.Pictures.Astronomy.Astronauts</span><br><span class="line">(7 rows)</span><br><span class="line"></span><br><span class="line">ltreetest=&gt; SELECT path FROM test WHERE path ~ &#x27;*.!pictures@.*.Astronomy.*&#x27;;</span><br><span class="line">                path</span><br><span class="line"><span class="comment">------------------------------------</span></span><br><span class="line"> Top.Science.Astronomy</span><br><span class="line"> Top.Science.Astronomy.Astrophysics</span><br><span class="line"> Top.Science.Astronomy.Cosmology</span><br><span class="line">(3 rows)</span><br></pre></td></tr></table></figure>
+
+<p>文本搜索：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ltreetest=&gt; SELECT path FROM test WHERE path @ &#x27;Astro*% &amp; !pictures@&#x27;;</span><br><span class="line">                path</span><br><span class="line"><span class="comment">------------------------------------</span></span><br><span class="line"> Top.Science.Astronomy</span><br><span class="line"> Top.Science.Astronomy.Astrophysics</span><br><span class="line"> Top.Science.Astronomy.Cosmology</span><br><span class="line"> Top.Hobbies.Amateurs_Astronomy</span><br><span class="line">(4 rows)</span><br><span class="line"></span><br><span class="line">ltreetest=&gt; SELECT path FROM test WHERE path @ &#x27;Astro* &amp; !pictures@&#x27;;</span><br><span class="line">                path</span><br><span class="line"><span class="comment">------------------------------------</span></span><br><span class="line"> Top.Science.Astronomy</span><br><span class="line"> Top.Science.Astronomy.Astrophysics</span><br><span class="line"> Top.Science.Astronomy.Cosmology</span><br><span class="line">(3 rows)</span><br></pre></td></tr></table></figure>
+
+<p>回到公司部门员工的应用场景。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> employee_ltree (id_path ltree, name_path ltree);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 注意ltree不能用&#x27;-&#x27;，要用&#x27;_&#x27;代替</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_ltree <span class="keyword">VALUES</span> (<span class="string">&#x27;alibaba.research_2.2021123&#x27;</span>, <span class="string">&#x27;阿里巴巴.研发二部.张三&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_ltree <span class="keyword">VALUES</span> (<span class="string">&#x27;alibaba.research_2.2021123&#x27;</span>, <span class="string">&#x27;阿里巴巴.研发二部.李四&#x27;</span>); </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_ltree <span class="keyword">VALUES</span> (<span class="string">&#x27;alibaba.research_3.2021123&#x27;</span>, <span class="string">&#x27;阿里巴巴.研发三部.王五&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> employee_ltree <span class="keyword">VALUES</span> (<span class="string">&#x27;tencent.marketing.199800001&#x27;</span>, <span class="string">&#x27;腾讯.市场部.钱一&#x27;</span>); </span><br></pre></td></tr></table></figure>
+
+<p>查找所有公司</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> subpath(id_path, <span class="number">0</span>, <span class="number">1</span>)::<span class="built_in">text</span> <span class="keyword">AS</span> <span class="keyword">id</span>, subpath(name_path, <span class="number">0</span>, <span class="number">1</span>)::<span class="built_in">text</span> <span class="keyword">AS</span> <span class="keyword">name</span> <span class="keyword">FROM</span> employee_ltree;</span><br></pre></td></tr></table></figure>
+
+<p>查找研发二部下的员工</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> subpath(id_path, <span class="number">2</span>, <span class="number">1</span>)::<span class="built_in">text</span> <span class="keyword">AS</span> <span class="keyword">id</span>, subpath(name_path, <span class="number">2</span>, <span class="number">1</span>)::<span class="built_in">text</span> <span class="keyword">AS</span> <span class="keyword">name</span> </span><br><span class="line"><span class="keyword">FROM</span> employee_ltree</span><br><span class="line"><span class="keyword">WHERE</span> name_path ~ <span class="string">&#x27;*.研发二部.*&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>查找alibaba的所有员工</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> subpath(id_path, <span class="number">2</span>, <span class="number">1</span>)::<span class="built_in">text</span> <span class="keyword">AS</span> <span class="keyword">id</span>, subpath(name_path, <span class="number">2</span>, <span class="number">1</span>)::<span class="built_in">text</span> <span class="keyword">AS</span> <span class="keyword">name</span> </span><br><span class="line"><span class="keyword">FROM</span> employee_ltree</span><br><span class="line"><span class="keyword">WHERE</span> id_path &lt;@ <span class="string">&#x27;alibaba&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="json"><a href="#json" class="headerlink" title="json"></a><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/functions-json.html">json</a></h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> company (</span><br><span class="line">  <span class="keyword">id</span>    <span class="built_in">serial</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">  info  <span class="keyword">json</span> <span class="keyword">NOT</span> <span class="literal">NULL</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>插入数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> company (info)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">  (<span class="string">&#x27;&#123;&quot;id&quot;:&quot;alibaba&quot;,&quot;name&quot;:&quot;阿里巴巴&quot;,&quot;departments&quot;:[&#123;&quot;id&quot;:&quot;research-2&quot;,&quot;name&quot;:&quot;研发二部&quot;,&quot;employees&quot;:[&#123;&quot;id&quot;:&quot;2021123&quot;,&quot;name&quot;:&quot;张三&quot;&#125;]&#125;]&#125;&#x27;</span>),</span><br><span class="line">  (<span class="string">&#x27;&#123;&quot;id&quot;:&quot;alibaba&quot;,&quot;name&quot;:&quot;阿里巴巴&quot;,&quot;departments&quot;:[&#123;&quot;id&quot;:&quot;research-2&quot;,&quot;name&quot;:&quot;研发二部&quot;,&quot;employees&quot;:[&#123;&quot;id&quot;:&quot;2021124&quot;,&quot;name&quot;:&quot;李四&quot;&#125;]&#125;]&#125;&#x27;</span>),</span><br><span class="line">  (<span class="string">&#x27;&#123;&quot;id&quot;:&quot;alibaba&quot;,&quot;name&quot;:&quot;阿里巴巴&quot;,&quot;departments&quot;:[&#123;&quot;id&quot;:&quot;research-3&quot;,&quot;name&quot;:&quot;研发三部&quot;,&quot;employees&quot;:[&#123;&quot;id&quot;:&quot;2021125&quot;,&quot;name&quot;:&quot;王五&quot;&#125;]&#125;]&#125;&#x27;</span>),</span><br><span class="line">  (<span class="string">&#x27;&#123;&quot;id&quot;:&quot;tencent&quot;,&quot;name&quot;:&quot;腾讯&quot;,&quot;departments&quot;:[&#123;&quot;id&quot;:&quot;marketing&quot;,&quot;name&quot;:&quot;市场部&quot;,&quot;employees&quot;:[&#123;&quot;id&quot;:&quot;199800001&quot;,&quot;name&quot;:&quot;钱一&quot;&#125;]&#125;]&#125;&#x27;</span>)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<p>查找阿里巴巴的研发二部的所有员工</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> </span><br><span class="line">  json_array_elements(x.department -&gt; <span class="string">&#x27;employees&#x27;</span>) -&gt;&gt; <span class="string">&#x27;id&#x27;</span> <span class="keyword">AS</span> <span class="keyword">id</span>,</span><br><span class="line">  json_array_elements(x.department -&gt; <span class="string">&#x27;employees&#x27;</span>) -&gt;&gt; <span class="string">&#x27;name&#x27;</span> <span class="keyword">AS</span> <span class="keyword">name</span></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> </span><br><span class="line">    json_array_elements(info -&gt; <span class="string">&#x27;departments&#x27;</span>) <span class="keyword">AS</span> department</span><br><span class="line">  <span class="keyword">FROM</span> company</span><br><span class="line">  <span class="keyword">WHERE</span> info -&gt;&gt; <span class="string">&#x27;name&#x27;</span> = <span class="string">&#x27;阿里巴巴&#x27;</span></span><br><span class="line">) <span class="keyword">AS</span> x</span><br><span class="line"><span class="keyword">WHERE</span> department -&gt;&gt; <span class="string">&#x27;name&#x27;</span> = <span class="string">&#x27;研发二部&#x27;</span></span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<h2 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a><a target="_blank" rel="noopener" href="https://www.postgresql.org/docs/current/rowtypes.html">复合类型</a></h2><p>使用psql的复合类型也可以用来存储与查询层级数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TYPE</span> employee <span class="keyword">AS</span> (</span><br><span class="line">  <span class="keyword">id</span>              <span class="built_in">text</span>,</span><br><span class="line">  <span class="keyword">name</span>            <span class="built_in">text</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TYPE</span> department <span class="keyword">AS</span> (</span><br><span class="line">  <span class="keyword">id</span>              <span class="built_in">text</span>,</span><br><span class="line">  <span class="keyword">name</span>            <span class="built_in">text</span>,</span><br><span class="line">  employees       employee <span class="built_in">array</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> company (</span><br><span class="line">  <span class="keyword">id</span>              <span class="built_in">text</span> PRIMARY <span class="keyword">KEY</span>,</span><br><span class="line">  <span class="keyword">name</span>            <span class="built_in">text</span>,</span><br><span class="line">  departments     department <span class="built_in">array</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> company</span><br><span class="line"><span class="keyword">VALUES</span> </span><br><span class="line">  (<span class="string">&#x27;alibaba&#x27;</span>, <span class="string">&#x27;阿里巴巴&#x27;</span>, <span class="built_in">array</span>[</span><br><span class="line">    (<span class="string">&#x27;research_2&#x27;</span>, <span class="string">&#x27;研发二部&#x27;</span>, <span class="built_in">array</span>[</span><br><span class="line">      (<span class="string">&#x27;2021123&#x27;</span>, <span class="string">&#x27;张三&#x27;</span>),</span><br><span class="line">      (<span class="string">&#x27;2021124&#x27;</span>, <span class="string">&#x27;李四&#x27;</span>)</span><br><span class="line">    ]::employee[]),</span><br><span class="line">    (<span class="string">&#x27;research_3&#x27;</span>, <span class="string">&#x27;研发三部&#x27;</span>, <span class="built_in">array</span>[</span><br><span class="line">      (<span class="string">&#x27;2021125&#x27;</span>, <span class="string">&#x27;王五&#x27;</span>)</span><br><span class="line">    ]::employee[])    </span><br><span class="line">  ]::department[]),</span><br><span class="line">  (<span class="string">&#x27;tencent&#x27;</span>, <span class="string">&#x27;腾讯&#x27;</span>, <span class="built_in">array</span>[</span><br><span class="line">    (<span class="string">&#x27;marketing&#x27;</span>, <span class="string">&#x27;市场部&#x27;</span>, <span class="built_in">array</span>[</span><br><span class="line">      (<span class="string">&#x27;199800001&#x27;</span>, <span class="string">&#x27;钱一&#x27;</span>)</span><br><span class="line">    ]::employee[])    </span><br><span class="line">  ]::department[])  </span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<p>查询研发二部下的员工</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> (employee).id <span class="keyword">AS</span> <span class="keyword">id</span>, (employee).name <span class="keyword">AS</span> <span class="keyword">name</span></span><br><span class="line"><span class="keyword">FROM</span> (</span><br><span class="line">  <span class="keyword">SELECT</span> <span class="keyword">UNNEST</span>((department).employees) <span class="keyword">AS</span> employee</span><br><span class="line">  <span class="keyword">FROM</span> (</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="keyword">UNNEST</span>(departments) <span class="keyword">AS</span> department <span class="keyword">FROM</span> company</span><br><span class="line">  ) x</span><br><span class="line">  <span class="keyword">WHERE</span> (department).name = <span class="string">&#x27;研发二部&#x27;</span></span><br><span class="line">) y</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<p>以上这些方法可以根据实际需求来选择。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2021/07/22/client-offset-and-scroll-in-html/" rel="prev" title="html里的client、offset、scroll属性">
+                  <i class="fa fa-chevron-left"></i> html里的client、offset、scroll属性
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
