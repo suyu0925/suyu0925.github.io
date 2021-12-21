@@ -31,7 +31,7 @@
 <meta property="og:description" content="当我们需要搜索非结构化数据时时，首先考虑的是elasticsearch，但又想保持唯一可信数据源postgres，此时可考虑使用python库pysnc来实现。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-11T01:16:56.000Z">
-<meta property="article:modified_time" content="2021-11-11T02:28:53.144Z">
+<meta property="article:modified_time" content="2021-11-26T02:07:18.562Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="postgres">
 <meta property="article:tag" content="elasticsearch">
@@ -158,7 +158,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pgsync"><span class="nav-number">1.</span> <span class="nav-text">pgsync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%9C%80%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">使用需求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81userepl%E6%9D%83%E9%99%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B4%A6%E6%88%B7"><span class="nav-number">2.1.</span> <span class="nav-text">需要userepl权限的数据库账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logical-decoding"><span class="nav-number">2.2.</span> <span class="nav-text">logical decoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max-replication-slots"><span class="nav-number">2.3.</span> <span class="nav-text">max_replication_slots</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#schema"><span class="nav-number">3.</span> <span class="nav-text">schema</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cpgsync"><span class="nav-number">4.</span> <span class="nav-text">运行pgsync</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bootstrap"><span class="nav-number">4.1.</span> <span class="nav-text">bootstrap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync"><span class="nav-number">4.2.</span> <span class="nav-text">sync</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.3.</span> <span class="nav-text">环境变量</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pgsync"><span class="nav-number">1.</span> <span class="nav-text">pgsync</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%9C%80%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">使用需求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E8%A6%81userepl%E6%9D%83%E9%99%90%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B4%A6%E6%88%B7"><span class="nav-number">2.1.</span> <span class="nav-text">需要userepl权限的数据库账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logical-decoding"><span class="nav-number">2.2.</span> <span class="nav-text">logical decoding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#max-replication-slots"><span class="nav-number">2.3.</span> <span class="nav-text">max_replication_slots</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91RDS"><span class="nav-number">2.4.</span> <span class="nav-text">阿里云RDS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#schema"><span class="nav-number">3.</span> <span class="nav-text">schema</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8Cpgsync"><span class="nav-number">4.</span> <span class="nav-text">运行pgsync</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bootstrap"><span class="nav-number">4.1.</span> <span class="nav-text">bootstrap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sync"><span class="nav-number">4.2.</span> <span class="nav-text">sync</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.3.</span> <span class="nav-text">环境变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -171,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -244,10 +244,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-11-11 09:16:56 / 修改时间：10:28:53" itemprop="dateCreated datePublished" datetime="2021-11-11T09:16:56+08:00">2021-11-11</time>
+      <time title="创建时间：2021-11-11 09:16:56" itemprop="dateCreated datePublished" datetime="2021-11-11T09:16:56+08:00">2021-11-11</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-11-26 10:07:18" itemprop="dateModified" datetime="2021-11-26T10:07:18+08:00">2021-11-26</time>
+      </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -293,6 +299,7 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> max_replication_slots;</span><br></pre></td></tr></table></figure>
 
 <p>本地安装的默认值是10，阿里云上的RDS是64。</p>
+<h3 id="阿里云RDS"><a href="#阿里云RDS" class="headerlink" title="阿里云RDS"></a>阿里云RDS</h3><p>如使用阿里云RDS，可参考最佳实践相关文档：<a target="_blank" rel="noopener" href="https://www.alibabacloud.com/help/zh/doc-detail/281785.html">开发运维建议</a>和<a target="_blank" rel="noopener" href="https://www.alibabacloud.com/help/zh/doc-detail/119393.html?spm=a2c63.p38356.0.0.342ffd5a7jqWGy">逻辑订阅</a>。</p>
 <h2 id="schema"><a href="#schema" class="headerlink" title="schema"></a><a target="_blank" rel="noopener" href="https://pgsync.com/schema/">schema</a></h2><p><a target="_blank" rel="noopener" href="https://pgsync.com/schema/">schema</a>是核心，在常规使用时，只需要修改schema文件就可以完成所有操作。</p>
 <p>可参考官方文档中给出的各种<a target="_blank" rel="noopener" href="https://pgsync.com/tutorial/json-fields/">例子</a>。</p>
 <h2 id="运行pgsync"><a href="#运行pgsync" class="headerlink" title="运行pgsync"></a>运行pgsync</h2><p>pgsync的使用分为两步，第一步创建triggers和logical replication slot，第二步启动同步守护。</p>
@@ -302,6 +309,18 @@
 
 <p>如果不想使用命令行，或者是在windows下使用，也可使用纯python，参见<a target="_blank" rel="noopener" href="https://github.com/toluaina/pgsync/blob/master/bin/bootstrap">bootstrap</a>和<a target="_blank" rel="noopener" href="https://github.com/toluaina/pgsync/blob/master/bin/pgsync">pgsync</a>命令的实现。</p>
 <h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>在使用python时要注意<a target="_blank" rel="noopener" href="https://pgsync.com/env-vars/">环境变量</a>要否成功设置，可考虑使用<a target="_blank" rel="noopener" href="https://saurabh-kumar.com/python-dotenv/">python-dotenv</a>在一开始就载入。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>打开逻辑订阅后会极大的增加硬盘使用量，一定要监控硬盘使用量，避免硬盘爆掉。</p>
+<p><a target="_blank" rel="noopener" href="https://postgresqlco.nf/doc/en/param/max_wal_size/">max_wal_size</a>只是一个软限制，在高负载的情况下会超出这个值。</p>
+<p>节点掉线会导致wal日志累积，slot会一直保留节点所需的日志直到节点再次上线。</p>
+<p>在生产环境中使用replication slot，有以下建议：</p>
+<ol>
+<li>增加xlog日志个数的监控，当xlog数量超过正常值时报警</li>
+<li>做好对每个复制槽同步状态的监控，出现某个槽同步状态异常要及时处理，同步异常会造成lsn不向前推进</li>
+<li>对于业务很空闲但是数据需要同步的库，可以自定义脚本，定期更新无用表，手工推进lsn</li>
+<li>如果xlog已经堆积很多磁盘马上要爆炸的情况下，在考虑应急删掉复制槽之前要评估剩余空间是否还有足够富余，因为即使删掉复制槽，xlog也不是马上就会清理，删掉后主库vacuum也会产生较多xlog日志，一定要做好评估</li>
+<li>增加pg_replication_slot()视图中restart_lsn的监控，对于落后较大和长期不推进的lsn进行告警</li>
+<li>避免长事务，一般超过1天的事务理论上都可以取消掉的</li>
+</ol>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
