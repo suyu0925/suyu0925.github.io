@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
@@ -16,14 +16,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="Ant Design Vue Pro项目是Ant Design Pro的第三方vue实现，对于vue使用者来说算是一个常见选项。它的默认路由是&#x2F;dashboard&#x2F;workplace，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="Ant Design Vue Pro项目是Ant Design Pro的第三方vue实现，对于vue使用者来说算是一个常见选项。它的默认路由是&#x2F;dashboard&#x2F;workplace，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ant Design Vue Pro的默认路由">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2020/05/17/antdv-default-path/index.html">
@@ -39,65 +37,22 @@
 <link rel="canonical" href="http://suyu0925.github.io/blog/2020/05/17/antdv-default-path/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2020/05/17/antdv-default-path/","path":"2020/05/17/antdv-default-path/","title":"Ant Design Vue Pro的默认路由"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Ant Design Vue Pro的默认路由 | Tasty Pub</title>
   
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
 
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -115,7 +70,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -156,7 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1-src-config-router-config-js"><span class="nav-number">1.</span> <span class="nav-text">路由(src&#x2F;config&#x2F;router.config.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%9D%83%E9%99%90%E9%A1%B5%E9%9D%A2-src-permission-js"><span class="nav-number">2.</span> <span class="nav-text">无权限页面(src\permission.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logo-src-components-tools-Logo-vue"><span class="nav-number">3.</span> <span class="nav-text">Logo(src\components\tools\Logo.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E9%A1%B5-src-components-Exception-ExceptionPage-vue"><span class="nav-number">4.</span> <span class="nav-text">异常页(src\components\Exception\ExceptionPage.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%8C%85%E5%B1%91-src-components-tools-Breadcrumb-vue"><span class="nav-number">5.</span> <span class="nav-text">面包屑(src\components\tools\Breadcrumb.vue)</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1-src-x2F-config-x2F-router-config-js"><span class="nav-number">1.</span> <span class="nav-text">路由(src&#x2F;config&#x2F;router.config.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E6%9D%83%E9%99%90%E9%A1%B5%E9%9D%A2-src-permission-js"><span class="nav-number">2.</span> <span class="nav-text">无权限页面(src\permission.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Logo-src-components-tools-Logo-vue"><span class="nav-number">3.</span> <span class="nav-text">Logo(src\components\tools\Logo.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E9%A1%B5-src-components-Exception-ExceptionPage-vue"><span class="nav-number">4.</span> <span class="nav-text">异常页(src\components\Exception\ExceptionPage.vue)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%A2%E5%8C%85%E5%B1%91-src-components-tools-Breadcrumb-vue"><span class="nav-number">5.</span> <span class="nav-text">面包屑(src\components\tools\Breadcrumb.vue)</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,18 +123,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/blog/archives">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
+          <a href="/blog/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
+          <a href="/blog/tags/">
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -224,11 +179,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Ant Design Vue Pro的默认路由 | Tasty Pub">
+      <meta itemprop="description" content="Ant Design Vue Pro项目是Ant Design Pro的第三方vue实现，对于vue使用者来说算是一个常见选项。<br><br>它的默认路由是/dashboard/workplace，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -245,16 +205,16 @@
 
       <time title="创建时间：2020-05-17 23:09:17" itemprop="dateCreated datePublished" datetime="2020-05-17T23:09:17+08:00">2020-05-17</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:12:35" itemprop="dateModified" datetime="2020-09-23T15:12:35+08:00">2020-09-23</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-23 15:12:35" itemprop="dateModified" datetime="2020-09-23T15:12:35+08:00">2020-09-23</time>
+    </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -273,20 +233,20 @@
     <div class="post-body" itemprop="articleBody">
         <p><a target="_blank" rel="noopener" href="https://github.com/vueComponent/ant-design-vue-pro">Ant Design Vue Pro项目</a>是<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design-pro">Ant Design Pro</a>的第三方vue实现，对于vue使用者来说算是一个常见选项。</p>
 <p>它的默认路由是<code>/dashboard/workplace</code>，用于自己项目时经常要改成别的，这里记录一下需要修改的几处地方，以免遗漏。</p>
-<h3 id="路由-src-config-router-config-js"><a href="#路由-src-config-router-config-js" class="headerlink" title="路由(src/config/router.config.js)"></a>路由(src/config/router.config.js)</h3><p>这里是第一处了，通常不会遗漏</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> asyncRouterMap = [</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    name: <span class="string">&#x27;index&#x27;</span>,</span><br><span class="line">    component: BasicLayout,</span><br><span class="line">    meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;首页&#x27;</span> &#125;,</span><br><span class="line">    redirect: <span class="string">&#x27;/dashboard/workplace&#x27;</span>, <span class="comment">// &lt;- 看这里看这里</span></span><br><span class="line">    children: [</span><br><span class="line">      <span class="comment">// dashboard</span></span><br><span class="line">      &#123;</span><br><span class="line">        path: <span class="string">&#x27;dashboard&#x27;</span>,</span><br><span class="line">        name: <span class="string">&#x27;dashboard&#x27;</span>,</span><br><span class="line">        redirect: <span class="string">&#x27;/dashboard/workplace&#x27;</span>,</span><br><span class="line">        component: RouteView,</span><br><span class="line">        meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;仪表盘&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">icon</span>: bxAnaalyse, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;,</span><br><span class="line">        children: [</span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">&#x27;analysis/:pageNo([1-9]\\d*)?&#x27;</span>,</span><br><span class="line">            name: <span class="string">&#x27;Analysis&#x27;</span>,</span><br><span class="line">            component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/dashboard/Analysis&#x27;</span>),</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;分析页&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">// 外部链接</span></span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">&#x27;https://www.baidu.com/&#x27;</span>,</span><br><span class="line">            name: <span class="string">&#x27;Monitor&#x27;</span>,</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;监控页（外部）&#x27;</span>, <span class="attr">target</span>: <span class="string">&#x27;_blank&#x27;</span> &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">&#x27;workplace&#x27;</span>,</span><br><span class="line">            name: <span class="string">&#x27;Workplace&#x27;</span>,</span><br><span class="line">            component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/dashboard/Workplace&#x27;</span>),</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;工作台&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            path: <span class="string">&#x27;test-work&#x27;</span>,</span><br><span class="line">            name: <span class="string">&#x27;TestWork&#x27;</span>,</span><br><span class="line">            component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/dashboard/TestWork&#x27;</span>),</span><br><span class="line">            meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;测试功能&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="路由-src-x2F-config-x2F-router-config-js"><a href="#路由-src-x2F-config-x2F-router-config-js" class="headerlink" title="路由(src&#x2F;config&#x2F;router.config.js)"></a>路由(src&#x2F;config&#x2F;router.config.js)</h3><p>这里是第一处了，通常不会遗漏</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> asyncRouterMap = [</span><br><span class="line"></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;index&#x27;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">BasicLayout</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&#x27;首页&#x27;</span> &#125;,</span><br><span class="line">    <span class="attr">redirect</span>: <span class="string">&#x27;/dashboard/workplace&#x27;</span>, <span class="comment">// &lt;- 看这里看这里</span></span><br><span class="line">    <span class="attr">children</span>: [</span><br><span class="line">      <span class="comment">// dashboard</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&#x27;dashboard&#x27;</span>,</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;dashboard&#x27;</span>,</span><br><span class="line">        <span class="attr">redirect</span>: <span class="string">&#x27;/dashboard/workplace&#x27;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="title class_">RouteView</span>,</span><br><span class="line">        <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&#x27;仪表盘&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">icon</span>: bxAnaalyse, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;,</span><br><span class="line">        <span class="attr">children</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;analysis/:pageNo([1-9]\\d*)?&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;Analysis&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;@/views/dashboard/Analysis&#x27;</span>),</span><br><span class="line">            <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&#x27;分析页&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="comment">// 外部链接</span></span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;https://www.baidu.com/&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;Monitor&#x27;</span>,</span><br><span class="line">            <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&#x27;监控页（外部）&#x27;</span>, <span class="attr">target</span>: <span class="string">&#x27;_blank&#x27;</span> &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;workplace&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;Workplace&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;@/views/dashboard/Workplace&#x27;</span>),</span><br><span class="line">            <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&#x27;工作台&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">path</span>: <span class="string">&#x27;test-work&#x27;</span>,</span><br><span class="line">            <span class="attr">name</span>: <span class="string">&#x27;TestWork&#x27;</span>,</span><br><span class="line">            <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;@/views/dashboard/TestWork&#x27;</span>),</span><br><span class="line">            <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&#x27;测试功能&#x27;</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">permission</span>: [ <span class="string">&#x27;dashboard&#x27;</span> ] &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br></pre></td></tr></table></figure>
 
 <h3 id="无权限页面-src-permission-js"><a href="#无权限页面-src-permission-js" class="headerlink" title="无权限页面(src\permission.js)"></a>无权限页面(src\permission.js)</h3><p>这里用的hard-code是<code>&#123; path: defaultRoutePath &#125;</code>，没有使用<code>&#123; name: &#39;dashboard&#39; &#125;</code>，更容易出问题。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> defaultRoutePath = <span class="string">&#x27;/dashboard/workplace&#x27;</span></span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  NProgress.start() <span class="comment">// start progress bar</span></span><br><span class="line">  to.meta &amp;&amp; (<span class="keyword">typeof</span> to.meta.title !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; setDocumentTitle(<span class="string">`<span class="subst">$&#123;to.meta.title&#125;</span> - <span class="subst">$&#123;domTitle&#125;</span>`</span>))</span><br><span class="line">  <span class="keyword">if</span> (Vue.ls.get(ACCESS_TOKEN)) &#123;</span><br><span class="line">    <span class="comment">/* has token */</span></span><br><span class="line">    <span class="keyword">if</span> (to.path === <span class="string">&#x27;/user/login&#x27;</span>) &#123;</span><br><span class="line">      next(&#123; <span class="attr">path</span>: defaultRoutePath &#125;) <span class="comment">// &lt;- 看这里看这里</span></span><br><span class="line">      NProgress.done()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;      </span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> defaultRoutePath = <span class="string">&#x27;/dashboard/workplace&#x27;</span></span><br><span class="line"></span><br><span class="line">router.<span class="title function_">beforeEach</span>(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="title class_">NProgress</span>.<span class="title function_">start</span>() <span class="comment">// start progress bar</span></span><br><span class="line">  to.<span class="property">meta</span> &amp;&amp; (<span class="keyword">typeof</span> to.<span class="property">meta</span>.<span class="property">title</span> !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; <span class="title function_">setDocumentTitle</span>(<span class="string">`<span class="subst">$&#123;to.meta.title&#125;</span> - <span class="subst">$&#123;domTitle&#125;</span>`</span>))</span><br><span class="line">  <span class="keyword">if</span> (<span class="title class_">Vue</span>.<span class="property">ls</span>.<span class="title function_">get</span>(<span class="variable constant_">ACCESS_TOKEN</span>)) &#123;</span><br><span class="line">    <span class="comment">/* has token */</span></span><br><span class="line">    <span class="keyword">if</span> (to.<span class="property">path</span> === <span class="string">&#x27;/user/login&#x27;</span>) &#123;</span><br><span class="line">      <span class="title function_">next</span>(&#123; <span class="attr">path</span>: defaultRoutePath &#125;) <span class="comment">// &lt;- 看这里看这里</span></span><br><span class="line">      <span class="title class_">NProgress</span>.<span class="title function_">done</span>()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;      </span><br></pre></td></tr></table></figure>
 
 <h3 id="Logo-src-components-tools-Logo-vue"><a href="#Logo-src-components-tools-Logo-vue" class="headerlink" title="Logo(src\components\tools\Logo.vue)"></a>Logo(src\components\tools\Logo.vue)</h3><p>点击Logo回到首页，这是第二处，原作者并没有使用配置文件或其它方式来指定首页地方，而用了hard-code。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class&#x3D;&quot;logo&quot;&gt;</span><br><span class="line">    &lt;router-link :to&#x3D;&quot;&#123;name:&#39;dashboard&#39;&#125;&quot;&gt;</span><br><span class="line">      &lt;LogoSvg alt&#x3D;&quot;logo&quot; &#x2F;&gt;</span><br><span class="line">      &lt;h1 v-if&#x3D;&quot;showTitle&quot;&gt;&#123;&#123; title &#125;&#125;&lt;&#x2F;h1&gt;</span><br><span class="line">    &lt;&#x2F;router-link&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;logo&quot;&gt;</span><br><span class="line">    &lt;router-link :to=&quot;&#123;name:&#x27;dashboard&#x27;&#125;&quot;&gt;</span><br><span class="line">      &lt;LogoSvg alt=&quot;logo&quot; /&gt;</span><br><span class="line">      &lt;h1 v-if=&quot;showTitle&quot;&gt;&#123;&#123; title &#125;&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;/router-link&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="异常页-src-components-Exception-ExceptionPage-vue"><a href="#异常页-src-components-Exception-ExceptionPage-vue" class="headerlink" title="异常页(src\components\Exception\ExceptionPage.vue)"></a>异常页(src\components\Exception\ExceptionPage.vue)</h3><p>在异常页的回到首页也是用的hard-code指定dashboard</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">&#x27;Exception&#x27;</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    type: &#123;</span><br><span class="line">      type: <span class="built_in">String</span>,</span><br><span class="line">      <span class="keyword">default</span>: <span class="string">&#x27;404&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      config: types</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleToHome () &#123;</span><br><span class="line">      <span class="built_in">this</span>.$router.push(&#123; <span class="attr">name</span>: <span class="string">&#x27;dashboard&#x27;</span> &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Exception&#x27;</span>,</span><br><span class="line">  <span class="attr">props</span>: &#123;</span><br><span class="line">    <span class="attr">type</span>: &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="title class_">String</span>,</span><br><span class="line">      <span class="attr">default</span>: <span class="string">&#x27;404&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">config</span>: types</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    handleToHome () &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$router</span>.<span class="title function_">push</span>(&#123; <span class="attr">name</span>: <span class="string">&#x27;dashboard&#x27;</span> &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="面包屑-src-components-tools-Breadcrumb-vue"><a href="#面包屑-src-components-tools-Breadcrumb-vue" class="headerlink" title="面包屑(src\components\tools\Breadcrumb.vue)"></a>面包屑(src\components\tools\Breadcrumb.vue)</h3><p>面包屑的“首页”。这里默认是关闭的，在打开时肯定会注意到。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      name: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      breadList: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="built_in">this</span>.getBreadcrumb()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getBreadcrumb () &#123;</span><br><span class="line">      <span class="built_in">this</span>.breadList = []</span><br><span class="line">      <span class="comment">// this.breadList.push(&#123;name: &#x27;index&#x27;, path: &#x27;/dashboard/&#x27;, meta: &#123;title: &#x27;首页&#x27;&#125;&#125;) // &lt;- 看这里看这里</span></span><br><span class="line"></span><br><span class="line">      <span class="built_in">this</span>.name = <span class="built_in">this</span>.$route.name</span><br><span class="line">      <span class="built_in">this</span>.$route.matched.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// item.name !== &#x27;index&#x27; &amp;&amp; this.breadList.push(item)</span></span><br><span class="line">        <span class="built_in">this</span>.breadList.push(item)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    $route () &#123;</span><br><span class="line">      <span class="built_in">this</span>.getBreadcrumb()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      <span class="attr">breadList</span>: []</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getBreadcrumb</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    getBreadcrumb () &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">breadList</span> = []</span><br><span class="line">      <span class="comment">// this.breadList.push(&#123;name: &#x27;index&#x27;, path: &#x27;/dashboard/&#x27;, meta: &#123;title: &#x27;首页&#x27;&#125;&#125;) // &lt;- 看这里看这里</span></span><br><span class="line"></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">name</span> = <span class="variable language_">this</span>.<span class="property">$route</span>.<span class="property">name</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">$route</span>.<span class="property">matched</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// item.name !== &#x27;index&#x27; &amp;&amp; this.breadList.push(item)</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">breadList</span>.<span class="title function_">push</span>(item)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">watch</span>: &#123;</span><br><span class="line">    $route () &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getBreadcrumb</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -319,28 +279,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -357,7 +295,7 @@
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
 <div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -365,7 +303,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -374,18 +312,17 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
 
 
 

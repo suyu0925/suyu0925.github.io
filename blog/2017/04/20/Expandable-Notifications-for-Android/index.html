@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
@@ -16,14 +16,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android的可展开式通知">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2017/04/20/Expandable-Notifications-for-Android/index.html">
@@ -45,65 +43,22 @@
 <link rel="canonical" href="http://suyu0925.github.io/blog/2017/04/20/Expandable-Notifications-for-Android/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2017/04/20/Expandable-Notifications-for-Android/","path":"2017/04/20/Expandable-Notifications-for-Android/","title":"Android的可展开式通知"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Android的可展开式通知 | Tasty Pub</title>
   
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
 
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -121,7 +76,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -174,18 +129,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/blog/archives">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
+          <a href="/blog/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
+          <a href="/blog/tags/">
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -230,11 +185,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android的可展开式通知 | Tasty Pub">
+      <meta itemprop="description" content="Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -251,13 +211,13 @@
 
       <time title="创建时间：2017-04-20 19:49:48" itemprop="dateCreated datePublished" datetime="2017-04-20T19:49:48+08:00">2017-04-20</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:23:50" itemprop="dateModified" datetime="2020-09-23T15:23:50+08:00">2020-09-23</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-23 15:23:50" itemprop="dateModified" datetime="2020-09-23T15:23:50+08:00">2020-09-23</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -269,7 +229,7 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -289,7 +249,7 @@
         <p><a target="_blank" rel="noopener" href="http://codeversed.com/expandable-notifications-android/">搬运自codeversed</a></p>
 <h2 id="可扩展通知"><a href="#可扩展通知" class="headerlink" title="可扩展通知"></a>可扩展通知</h2><p>Android 4.1给我们提供了更强大的功能，如可展开式通知和操作按钮。我们可以使用丰富的样式，甚至创建自定义的可展开式通知。在尺寸和布局上都有足够的灵活度来创建完美的可展开式通知。</p>
 <h3 id="NotificationManager"><a href="#NotificationManager" class="headerlink" title="NotificationManager"></a>NotificationManager</h3><p>安卓的通知是通过Notification类来创建的。在使用它之前需要先使用正确的Context来获得NotificationManager，Context由使用场景决定，可以是activity，也可以是service。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NotificationManager</span> <span class="variable">notificationManager</span> <span class="operator">=</span> (NotificationManager) getSystemService(NOTIFICATION_SERVICE);</span><br></pre></td></tr></table></figure>
 
 <h3 id="Builder相关类"><a href="#Builder相关类" class="headerlink" title="Builder相关类"></a>Builder相关类</h3><p><strong>Notification.Builder</strong> – 这个类在Android 3.0 Honeycomb [API 11]被添加。所以如果想支持更老的安卓版本，得换成老掉牙的NotificationCompact。</p>
 <p><strong>NotificationCompat.Builder</strong> – 这个类在<a target="_blank" rel="noopener" href="http://developer.android.com/tools/support-library/index.html">Support Library</a> v4中被定义(适配Android 1.6+)。</p>
@@ -301,17 +261,19 @@
 3. Content text
 4. Content info
 5. Small icon
-6. Notification time</code></pre>
+6. Notification time
+</code></pre>
 <p>Big View – A notification’s big view appears only when the notification is expanded, which happens when the notification is at the top of the notification drawer, or when the user expands the notification with a gesture.  Expanded notifications were first introduced in Android 4.1 JellyBean [API 16].  Expandable notifications were designed to support rich notification style objects called Notification.Style.</p>
-<pre><code>7. Details area</code></pre>
+<pre><code>7. Details area
+</code></pre>
 <h3 id="Creating-Notifications"><a href="#Creating-Notifications" class="headerlink" title="Creating Notifications"></a>Creating Notifications</h3><h4 id="Normal-View"><a href="#Normal-View" class="headerlink" title="Normal View"></a>Normal View</h4><p>One point to remember is that all notification objects, including a Normal View, are required to have a small icon, a title, and detail text.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">         <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the final Notification object.</span></span><br><span class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">&quot;Normal Notification&quot;</span>)</span><br><span class="line">        .setContentText(<span class="string">&quot;This is an example of a Normal Style.&quot;</span>).build();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line"><span class="type">Intent</span> <span class="variable">resultIntent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(<span class="built_in">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line"><span class="type">TaskStackBuilder</span> <span class="variable">stackBuilder</span> <span class="operator">=</span> TaskStackBuilder.create(<span class="built_in">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line"><span class="type">PendingIntent</span> <span class="variable">resultPendingIntent</span> <span class="operator">=</span> stackBuilder.getPendingIntent(</span><br><span class="line">         <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the final Notification object.</span></span><br><span class="line">Notification myNotification <span class="keyword">new</span> <span class="title class_">NotificationCompat</span>.Builder(<span class="built_in">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="literal">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">&quot;Normal Notification&quot;</span>)</span><br><span class="line">        .setContentText(<span class="string">&quot;This is an example of a Normal Style.&quot;</span>).build();</span><br></pre></td></tr></table></figure>
 
 <img src="/blog/2017/04/20/Expandable-Notifications-for-Android/normal_notification.png" class="" title="Normal Notification">
 
 <h4 id="Big-View"><a href="#Big-View" class="headerlink" title="Big View"></a>Big View</h4><p>You will use this style the most when setting up expandable notifications.  This Notification.Style class contains three direct subclasses which are:</p>
 <p>Big Text Style – Displays a large text block to show the user more details on the item at hand.<br>Big Picture Style – Displays a bitmap up to 256 dp tall similar to a screenshot notification.<br>Inbox Style – Displays rows of text like a listView similar to the Gmail notification for multiple emails.<br>To apply a rich notification style to the notification, you first need to create the style object itself.  For this example I am showing you the BigPictureStyle subclass.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Bitmap remote_picture = <span class="keyword">null</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the style object with BigPictureStyle subclass.</span></span><br><span class="line">NotificationCompat.BigPictureStyle notiStyle = <span class="keyword">new</span> </span><br><span class="line">        NotificationCompat.BigPictureStyle();</span><br><span class="line">notiStyle.setBigContentTitle(<span class="string">&quot;Big Picture Expanded&quot;</span>);</span><br><span class="line">notiStyle.setSummaryText(<span class="string">&quot;Nice big picture.&quot;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">        remote_picture = BitmapFactory.decodeStream(</span><br><span class="line">                (InputStream) <span class="keyword">new</span> URL(sample_url).getContent());</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Add the big picture to the style.</span></span><br><span class="line">notiStyle.bigPicture(remote_picture);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended </span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself).</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line">Notification myNotification <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">&quot;Big Picture Normal&quot;</span>)</span><br><span class="line">        .setContentText(<span class="string">&quot;This is an example of a Big Picture Style.&quot;</span>)</span><br><span class="line">        .setStyle(notiStyle).build();</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Bitmap</span> <span class="variable">remote_picture</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create the style object with BigPictureStyle subclass.</span></span><br><span class="line">NotificationCompat.<span class="type">BigPictureStyle</span> <span class="variable">notiStyle</span> <span class="operator">=</span> <span class="keyword">new</span> </span><br><span class="line">        <span class="title class_">NotificationCompat</span>.BigPictureStyle();</span><br><span class="line">notiStyle.setBigContentTitle(<span class="string">&quot;Big Picture Expanded&quot;</span>);</span><br><span class="line">notiStyle.setSummaryText(<span class="string">&quot;Nice big picture.&quot;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">        remote_picture = BitmapFactory.decodeStream(</span><br><span class="line">                (InputStream) <span class="keyword">new</span> <span class="title class_">URL</span>(sample_url).getContent());</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Add the big picture to the style.</span></span><br><span class="line">notiStyle.bigPicture(remote_picture);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line"><span class="type">Intent</span> <span class="variable">resultIntent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(<span class="built_in">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended </span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line"><span class="type">TaskStackBuilder</span> <span class="variable">stackBuilder</span> <span class="operator">=</span> TaskStackBuilder.create(<span class="built_in">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself).</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line"><span class="type">PendingIntent</span> <span class="variable">resultPendingIntent</span> <span class="operator">=</span> stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line">Notification myNotification <span class="keyword">new</span> <span class="title class_">NotificationCompat</span>.Builder(<span class="built_in">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="literal">true</span>)</span><br><span class="line">        .setLargeIcon(remote_picture)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">&quot;Big Picture Normal&quot;</span>)</span><br><span class="line">        .setContentText(<span class="string">&quot;This is an example of a Big Picture Style.&quot;</span>)</span><br><span class="line">        .setStyle(notiStyle).build();</span><br></pre></td></tr></table></figure>
 
 <img src="/blog/2017/04/20/Expandable-Notifications-for-Android/expanded_notification.png" class="" title="Expanded Notification">
 
@@ -320,7 +282,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:background</span>=<span class="string">&quot;#545454&quot;</span> </span></span><br><span class="line"><span class="tag">                <span class="attr">android:gravity</span>=<span class="string">&quot;center_horizontal&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">ImageView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:background</span>=<span class="string">&quot;@drawable/codeversed_logo&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:contentDescription</span>=<span class="string">&quot;@string/codeversed_logo&quot;</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span>/&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>Next create the RemoteView that uses your custom layout and apply it RemoteView using bigContentView.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line">Intent resultIntent = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line">TaskStackBuilder stackBuilder = TaskStackBuilder.create(<span class="keyword">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line">PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create remote view and set bigContentView.</span></span><br><span class="line">RemoteViews expandedView = <span class="keyword">new</span> RemoteViews(<span class="keyword">this</span>.getPackageName(), </span><br><span class="line">        R.layout.notification_custom_remote);</span><br><span class="line">expandedView.setTextViewText(R.id.text_view, <span class="string">&quot;Neat logo!&quot;</span>);</span><br><span class="line"> </span><br><span class="line">Notification notification = <span class="keyword">new</span> NotificationCompat.Builder(<span class="keyword">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="keyword">true</span>)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">&quot;Custom View&quot;</span>).build();</span><br><span class="line"> </span><br><span class="line">notification.bigContentView = expandedView;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Creates an explicit intent for an ResultActivity to receive.</span></span><br><span class="line"><span class="type">Intent</span> <span class="variable">resultIntent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(<span class="built_in">this</span>, ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// This ensures that the back button follows the recommended</span></span><br><span class="line"><span class="comment">// convention for the back key.</span></span><br><span class="line"><span class="type">TaskStackBuilder</span> <span class="variable">stackBuilder</span> <span class="operator">=</span> TaskStackBuilder.create(<span class="built_in">this</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the back stack for the Intent (but not the Intent itself)</span></span><br><span class="line">stackBuilder.addParentStack(ResultActivity.class);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Adds the Intent that starts the Activity to the top of the stack.</span></span><br><span class="line">stackBuilder.addNextIntent(resultIntent);</span><br><span class="line"><span class="type">PendingIntent</span> <span class="variable">resultPendingIntent</span> <span class="operator">=</span> stackBuilder.getPendingIntent(</span><br><span class="line">        <span class="number">0</span>, PendingIntent.FLAG_UPDATE_CURRENT);</span><br><span class="line"> </span><br><span class="line"><span class="comment">// Create remote view and set bigContentView.</span></span><br><span class="line"><span class="type">RemoteViews</span> <span class="variable">expandedView</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RemoteViews</span>(<span class="built_in">this</span>.getPackageName(), </span><br><span class="line">        R.layout.notification_custom_remote);</span><br><span class="line">expandedView.setTextViewText(R.id.text_view, <span class="string">&quot;Neat logo!&quot;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="type">Notification</span> <span class="variable">notification</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">NotificationCompat</span>.Builder(<span class="built_in">this</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.ic_launcher)</span><br><span class="line">        .setAutoCancel(<span class="literal">true</span>)</span><br><span class="line">        .setContentIntent(resultPendingIntent)</span><br><span class="line">        .setContentTitle(<span class="string">&quot;Custom View&quot;</span>).build();</span><br><span class="line"> </span><br><span class="line">notification.bigContentView = expandedView;</span><br></pre></td></tr></table></figure>
 
 <img src="/blog/2017/04/20/Expandable-Notifications-for-Android/customer_notification.png" class="" title="Customer Notification">
 
@@ -361,28 +323,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -399,7 +339,7 @@
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
 <div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -407,7 +347,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -416,18 +356,17 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
 
 
 

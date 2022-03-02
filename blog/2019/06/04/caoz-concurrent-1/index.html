@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
@@ -16,14 +16,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="如何应对并发(1)">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="如何应对并发(1)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何应对并发(1) - 关于数据索引">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-1/index.html">
@@ -40,65 +38,22 @@
 <link rel="canonical" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-1/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-1/","path":"2019/06/04/caoz-concurrent-1/","title":"如何应对并发(1) - 关于数据索引"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>如何应对并发(1) - 关于数据索引 | Tasty Pub</title>
   
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
 
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -116,7 +71,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -169,18 +124,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/blog/archives">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
+          <a href="/blog/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
+          <a href="/blog/tags/">
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -225,11 +180,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="如何应对并发(1) - 关于数据索引 | Tasty Pub">
+      <meta itemprop="description" content="如何应对并发(1)">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -246,13 +206,13 @@
 
       <time title="创建时间：2019-06-04 15:50:32" itemprop="dateCreated datePublished" datetime="2019-06-04T15:50:32+08:00">2019-06-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:22:35" itemprop="dateModified" datetime="2020-09-23T15:22:35+08:00">2020-09-23</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-23 15:22:35" itemprop="dateModified" datetime="2020-09-23T15:22:35+08:00">2020-09-23</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -264,7 +224,7 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -284,7 +244,7 @@
         <p>本文引自<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&mid=400470606&idx=1&sn=eff5350f80190ad6e32659f434aac970&scene=21#wechat_redirect">caoz的梦呓的同名文章</a></p>
 <h2 id="如何应对并发-1-关于数据索引"><a href="#如何应对并发-1-关于数据索引" class="headerlink" title="如何应对并发(1) - 关于数据索引"></a>如何应对并发(1) - 关于数据索引</h2><p>前两天收到一个消息是这样说的，一个学生去面试，题目赫然就是从浏览器输入url到网页打开，都发生了什么。这个学生特别开心，因为订阅了我的公众号，所以对这类问题早有准备。希望他能顺利拿到心仪的offer。</p>
 <p>参见旧文 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&mid=209679438&idx=1&sn=d68c1512ad23f6e164f69bd351a18c62&scene=21#wechat_redirect">一则经典技术面试题目的解读</a></p>
-<p>书归正传，应对并发，其实从整体架构来说分很多部分，比如常见的，存储层的i/o优化，网络层负载均衡，通讯层的连接池等等，不过我这里不讲这些。不讲这些的原因第一呢，是这些我基本都不太会；第二呢，是在实践过程中发现，特别是创业公司，中小企业，一般最容易出问题，也是最难处理的，往往是数据库方面的问题。 </p>
+<p>书归正传，应对并发，其实从整体架构来说分很多部分，比如常见的，存储层的i&#x2F;o优化，网络层负载均衡，通讯层的连接池等等，不过我这里不讲这些。不讲这些的原因第一呢，是这些我基本都不太会；第二呢，是在实践过程中发现，特别是创业公司，中小企业，一般最容易出问题，也是最难处理的，往往是数据库方面的问题。 </p>
 <p>非技术人员往往会认为，负载高了，请求多了，加服务器加硬件不就完了？ 如果是只是应用程序处理，常见的负载均衡方案很成熟，加加硬件的确可以快速，有效的分担负载，提高支撑能力；但是且慢，通常到了数据库这里，如果你前期设计不合理，或者对这类问题考虑不全，那么，加硬件，很遗憾，是没用的。</p>
 <p>我们常说运维中要关注所谓的单点隐患，什么是单点隐患呢？就是这个点一旦崩溃，无法实现自动的灾难容错响应，从而导致全盘崩溃。一般比如说web服务器，负载均衡轮询，一台出问题了，系统会自动将负载转移到其他服务器，那么数据库可以不可以呢？其实不是不可以，但是就比较需要做好设计，否则很可能直接就死在这个环节上。而发展趋势不错的创业公司死在数据库的并发能力上的案例，可以说，比比皆是。</p>
 <p>再插一些题外话，如果你还是学生，你有意未来往互联网技术领域发展，那么数据结构这么课特别的重要，特别的关键。我上大学的时候糊里糊涂，选中了这门课却天天翘课，工作后特别后悔。就算你不想从事技术，而只是想从事一些产品方面的工作，我个人建议有可能也认真学习一下这门课，目前不少互联网公司都希望产品经理有一点技术背景，这样和技术沟通的时候会更顺畅一些。对研发工作的跟进也会能理解更多一些。</p>
@@ -295,7 +255,7 @@
 <p>简单复习就是，查询效率的关键是有序，二分，反过来理解就是，无需遍历所有数据，即可实现快速的定位。</p>
 <p>这里就引出了一个特别经典的题目，ip地址反查。</p>
 <p>应用场景非常常见，你上一个什么旅游订票的网站，社区，或者上百度，该网站都希望立即知道你的地理位置，从而基于你的位置定向投放内容，比如当地酒店，或者当地的本地广告。网站一般是获取用户的ip地址，然后在ip-&gt;地区的对应表里去查询比对，通常，ip - 地区的对应表，有大约十万到数十万条记录（看地区粒度），格式是 ipstart, ipend, area 这样的数据结构。如果用纯粹的SQL查询是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> iparea <span class="keyword">where</span> $ip <span class="keyword">between</span> ipstart <span class="keyword">and</span> ipend;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> iparea <span class="keyword">where</span> $ip <span class="keyword">between</span> ipstart <span class="keyword">and</span> ipend;</span><br></pre></td></tr></table></figure>
 
 <p>在早期mysql及大部分数据库是不支持between and 中使用索引的，据说最新版本已经提供了支持，但是最近几年没有从事技术，没有测试，不知道效率如何，那么在早期，如果数据查询，这样一条SQL,无法使用索引，就要遍历所有结果，这个开销是不能忍受的，（虽然不用1秒就可以执行出结果，但是开销依然比较大，一秒钟可以处理的查询最多几十次，而我们的要求是，一秒钟几千次！）</p>
 <p>那么这个问题的特点是什么呢，ip地址区间表并不是经常变化的，比较固定，那么在这种情况下，其实不用数据库都可以，一个完全排好序的队列放在内存里，程序用二分法来查询，每秒种处理几千个非常轻松（这程序不用教了吧），当然，其实还有更极端效率的处理途径，这里不展开，有兴趣的同学自己思考。</p>
@@ -308,7 +268,7 @@
 <p>那么，按照刚才提到的，基于有序这个概念，如何理解索引的使用和效率呢？特简单，你就把索引当作是一个有序数列放在脑子里，然后思考这个SQL，这个条件子句和排序子句，能否在这个索引的连续范围内精确命中结果，也就是所谓索引命中率高，这个查询就效率高，如果无法在索引这个有序数列连续范围内精确命中，查询效率就不高。</p>
 <p>那有人说了，索引并不是真的有序数列啊，我说的是一种模拟的思考方式，这样思考效率最高，当然，必须案例说话。</p>
 <p>比如一个社区，我希望用户进来，就能看到本地的用户，当然，是最新在线的，否则都是死用户就无法交流了。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> area=<span class="string">&#x27;$area&#x27;</span> <span class="keyword">order</span> <span class="keyword">by</span> lastlogin <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> area<span class="operator">=</span><span class="string">&#x27;$area&#x27;</span> <span class="keyword">order</span> <span class="keyword">by</span> lastlogin <span class="keyword">desc</span> limit <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
 
 <p>(这个 limit 特别重要)</p>
 <p>稍微懂一点索引的同学都应该知道，正确的索引是area+lastlogin 复合索引，那么，我们把这个思考方式推演一下。</p>
@@ -330,19 +290,19 @@
 <p>论坛社区常见，翻页越靠后效率越低，很多论坛本身访客到没事，访客不太会翻几百页几千页，但是被搜索引擎蜘蛛抓取的时候，因为连续抓取大翻页，导致数据库崩溃，这案例太多了，很多站长为此郁闷莫名，不知所措。</p>
 <p>案例SQL如下</p>
 <p>按最新更新的板块第一页帖子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> post <span class="keyword">where</span> boardid=$<span class="keyword">id</span> <span class="keyword">order</span> <span class="keyword">by</span> lastupd <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">0</span>,<span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> post <span class="keyword">where</span> boardid<span class="operator">=</span>$id <span class="keyword">order</span> <span class="keyword">by</span> lastupd <span class="keyword">desc</span> limit <span class="number">0</span>,<span class="number">30</span>;</span><br></pre></td></tr></table></figure>
 
 <p>按最新更新的板块第100页帖子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> post <span class="keyword">where</span> boardid=$<span class="keyword">id</span> <span class="keyword">order</span> <span class="keyword">by</span> lastupd <span class="keyword">desc</span> <span class="keyword">limit</span> <span class="number">3000</span>,<span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> post <span class="keyword">where</span> boardid<span class="operator">=</span>$id <span class="keyword">order</span> <span class="keyword">by</span> lastupd <span class="keyword">desc</span> limit <span class="number">3000</span>,<span class="number">30</span>;</span><br></pre></td></tr></table></figure>
 
 <p>这两个SQL 看上去只有limit有区别，索引都是boardid+lastupd (不要搞错顺序，理解一下)</p>
-<p>但第一条SQL索引只扫描30行；第二条SQL索引扫描了3030行，其效率是第一条SQL的1/100.</p>
+<p>但第一条SQL索引只扫描30行；第二条SQL索引扫描了3030行，其效率是第一条SQL的1&#x2F;100.</p>
 <p>搜索引擎的蜘蛛抓取 大翻页就是 这样把论坛搞死的。</p>
 <p>经典案例2，积分排行问题</p>
 <p>比如很多小游戏提交成绩，告诉你排名全球多少名，有印象吧。</p>
 <p>这个问题我依稀记得云风大神吐槽过，好像曾经陌陌有一款游戏在这里有非常严重的性能问题，被他狠狠BS了一把。</p>
 <p>案例SQL如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> gamescore <span class="keyword">where</span> gameid=$gameid <span class="keyword">and</span> score&gt;<span class="string">&#x27;$score&#x27;</span> ;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> gamescore <span class="keyword">where</span> gameid<span class="operator">=</span>$gameid <span class="keyword">and</span> score<span class="operator">&gt;</span><span class="string">&#x27;$score&#x27;</span> ;</span><br></pre></td></tr></table></figure>
 
 <p>索引怎么建？</p>
 <p>gameid+score复合索引，顺序不能错，为什么，按照上面说的思路，自己思考一下。</p>
@@ -356,12 +316,12 @@
 <p>给大家一个日常SQL分析和自我测试的方法。</p>
 <p>首先，你一条SQL如果执行很慢，你用explain 解析一下，看看是否影响结果集很大，这是其一。</p>
 <p>其二，对这条很慢的SQL做一个状态拆解，在mysql中是这样操作的。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> profiling=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> profiling<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
 <p>执行问题SQL;</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> profile <span class="keyword">for</span> <span class="keyword">query</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> profile <span class="keyword">for</span> query <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
-<p>通常，如果这个问题SQL确实是索引出了问题，也就是影响结果集，或者说索引扫描行数较多，那么他的执行状态最多的消耗就在 sending data这个状态上，这个状态不要被名字骗了，其实负载是在i/o，硬盘扫描上。</p>
+<p>通常，如果这个问题SQL确实是索引出了问题，也就是影响结果集，或者说索引扫描行数较多，那么他的执行状态最多的消耗就在 sending data这个状态上，这个状态不要被名字骗了，其实负载是在i&#x2F;o，硬盘扫描上。</p>
 <p>你测试的时候就可以看，影响结果集的数字，和sending data上状态的开销，是不是线性相关，对一个复杂的数据表结构，导入上百万条记录，然后用不同索引方式和不同SQL查询，利用 explain 和set profiling 这些操作反复分析SQL的影响结果集和开销构成。结合我今天说的思考方式，就可以更好理解了。</p>
 <p>而且对于日常疑难的分析，这一招也是特别关键特别重要的。</p>
 <p>今天啰嗦的，都是数据优化分析的基本功，其实对某些高手来说，简直都弱爆了，但是我发现大部分一线程序员，特别是从业时间不长的年轻人，并不能完全了解和认识这些。</p>
@@ -401,28 +361,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -439,7 +377,7 @@
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
 <div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -447,7 +385,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -456,18 +394,17 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
 
 
 

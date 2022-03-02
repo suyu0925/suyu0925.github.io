@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
@@ -16,14 +16,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="如何应对并发(2)">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="如何应对并发(2)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何应对并发(2) - 请求合并及异步处理">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-2/index.html">
@@ -40,65 +38,22 @@
 <link rel="canonical" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-2/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-2/","path":"2019/06/04/caoz-concurrent-2/","title":"如何应对并发(2) - 请求合并及异步处理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>如何应对并发(2) - 请求合并及异步处理 | Tasty Pub</title>
   
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
 
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -116,7 +71,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -169,18 +124,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/blog/archives">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
+          <a href="/blog/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
+          <a href="/blog/tags/">
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -225,11 +180,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="如何应对并发(2) - 请求合并及异步处理 | Tasty Pub">
+      <meta itemprop="description" content="如何应对并发(2)">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -246,13 +206,13 @@
 
       <time title="创建时间：2019-06-04 15:55:51" itemprop="dateCreated datePublished" datetime="2019-06-04T15:55:51+08:00">2019-06-04</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:22:40" itemprop="dateModified" datetime="2020-09-23T15:22:40+08:00">2020-09-23</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-23 15:22:40" itemprop="dateModified" datetime="2020-09-23T15:22:40+08:00">2020-09-23</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -264,7 +224,7 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -289,7 +249,7 @@
 <p>那么禁止联表查询会带来一系列无法满足查询需求的问题，这个在后面的文章我会提到，在计划中这是第四篇的内容。</p>
 <p>另外，我可能是跟草根打交道比较多，加上我自己学数据库和编程基本都是野路子，所以特别理解草根创业者，以及野路子程序员面对技术问题的困境和纠结，实话说，因为一直以来跟草根创业者沟通比较多，在实战中遇到的各种优化问题和处理场景，我敢说要比很多大公司的架构师还要多，但也实话说可能并不是那些大公司所遇到的问题那么深。所以我的风格一直是，让菜鸟能够更容易理解和领悟，达到处理较高量级的性能优化水平。但是从几年前架构师大会上，就总有一些逼格很高的技术人员瞧不起我的路数，觉得太low太没技术含量，这个，我也是承认的，不过，敬请自便吧。</p>
 <p>我所提到的几个案例大家可以看到，其实都是非常典型的，使用场景广泛的，一般小公司很可能撞死在里面的案例，昨天还有人留言以前一直被蜘蛛拖死论坛，看了我的文章后才恍然大悟。但是昨天没有完全解读解决方案，请允许我挖个坑，因为饭要一口口吃，我这个系列会逐渐把处理思路一步步贯通。</p>
-<p>很多人都知道说，如果查询请求过多，其实可以用内存来做缓存，比如memcache，比如redis，很多缓存方案，但是如果更新请求过多，那么缓存就没法用了。而更新请求往往比查询请求更消耗资源，这样系统i/o压力就非常大。</p>
+<p>很多人都知道说，如果查询请求过多，其实可以用内存来做缓存，比如memcache，比如redis，很多缓存方案，但是如果更新请求过多，那么缓存就没法用了。而更新请求往往比查询请求更消耗资源，这样系统i&#x2F;o压力就非常大。</p>
 <p>当然，这里我要额外说一句，并不是查询请求缓存化了系统效率就会提升，和缓存设计有关，同时缓存的使用也会带来新的风险。</p>
 <p>1、如果缓存命中率不高，可能反而是负担</p>
 <p>很多人觉得加了缓存就能提高效率，未必。如果缓存命中率不高，查询完缓存没有再去查询数据库，那么实际上是额外开销，只有命中率超过50%，才是有价值的缓存。</p>
@@ -308,8 +268,8 @@
 <p>以上两个案例都来源于一种思考习惯，就是我们常见的使用框架，使用面向对象的开发方式，这种方式当然优点多多，但在涉及性能优化的场合，往往其中存在大量的重复逻辑和冗余请求，往往很多可以合并的操作没有合并，很多程序员习惯用这样的方式思考，当然你说协同方便，开发效率高（其实我觉得也未必），但是调优成本就高很多了。 我可能属于上古时期学编程的，面向对象的思路一直不太灵光，所以我写程序的时候偏重于面向过程，缺点就是写出来的东西很low很让某些人不齿，优点就是调优的时候往往看的更清楚。</p>
 <p>以上这两个案例都是指在同一个用户操作行为中程序员编码不注意出现的重复请求操作，都是面向对象的编程中容易犯的错误，但是稍微有一些经验的程序员应该都能避免。</p>
 <p>下面说另一类常见问题，就是不同用户操作行为中出现的类重复请求操作，是否可以合并呢？答案是，其实也可以，这就是今天说的第二点，异步处理。</p>
-<p>常见案例，一个论坛，帖子页，用户每访问一次，就要 update post set views=views+1 where postid = $postid；一个热门论坛一天访问几百万次，上千万次，这个update操作就会执行几百万次，上千万次，别忘了这个post表又是访问请求最高的，会不会锁死？会不会响应不过来？</p>
-<p>第二个常见案例，还是一个社区，用户每次刷新页面，每次访问，都要记录 update users set lastact =$now where userid=$uid; 为了记录这个用户是否一致活跃及最后活跃的时间，（展示在社区中可以提高社区的活跃度，提高用户间交流的成功率），那么这个网站登录用户每天访问了多少pv，这个更新就执行了多少次。而users表显然也是一个高频率的查询需求的表。</p>
+<p>常见案例，一个论坛，帖子页，用户每访问一次，就要 update post set views&#x3D;views+1 where postid &#x3D; $postid；一个热门论坛一天访问几百万次，上千万次，这个update操作就会执行几百万次，上千万次，别忘了这个post表又是访问请求最高的，会不会锁死？会不会响应不过来？</p>
+<p>第二个常见案例，还是一个社区，用户每次刷新页面，每次访问，都要记录 update users set lastact &#x3D;$now where userid&#x3D;$uid; 为了记录这个用户是否一致活跃及最后活跃的时间，（展示在社区中可以提高社区的活跃度，提高用户间交流的成功率），那么这个网站登录用户每天访问了多少pv，这个更新就执行了多少次。而users表显然也是一个高频率的查询需求的表。</p>
 <p>那么这两个案例，有优化空间么？</p>
 <p>其实有，而且很简单，这两个数据，其实你说实时性需要是不是那么高，是不是每个请求都必须立即处理，实际上并不一定，但是我还是希望处理更快一些，因为毕竟希望别人看到这个帖子的访问数，以及别人看到这个用户的最后时间，是非常接近的，而不是很久之后才处理的。那么怎么处理呢？就是当发生这样的行为的时候，把这个行为写到缓存里，在缓存里维持一个队列，最好用队列方式，（如果用memcache，数组的下标用increment方法，否则高访问量可能会导致数据覆盖，不展开解释了），然后后台启用一个cron任务，每分钟执行，把队列里的数据拿出来，</p>
 <p>案例1，对同一个帖子的views做汇总。（热门帖子往往点击特别频繁）</p>
@@ -320,8 +280,8 @@
 <p>下面继续讲方法论，就是你对一个毫不熟悉的系统，如何快速分析其冗余请求的构成和合并的可能性，以及合并可能带来的开销降低呢？</p>
 <p>之前有个朋友的公司，几年前做社交游戏的时候，腾讯合作，腾讯一推用户数咔嚓就上去了，然后后台就有点撑不住，请我过去看看，那么，对他们的游戏的产品，怎么开发的，代码怎么写的，我肯定是毫不知情，就是突然叫过去来分析，这怎么分析呢？</p>
 <p>慢查询日志肯定是要看的。</p>
-<p>昨天讲的 去数据库里，先show processlist;看到有疑问的SQL，去explain，然后set profiling=1；大家回忆一下，看看索引是不是对的，看看哪些SQL本身是有问题的。这些不赘述了。</p>
-<p>下面，重点是，一般大家都会把数据查询封装成一个类对吧，让他们从这个类里加一段代码，干嘛呢，输出都执行了哪些SQL。（每秒请求非常高，所以增加日志的i/o压力也很大，为了避免线上业务受影响，采用抽样输出，比如先算个随机数，符合什么数的才输出，然后根据抽样比例反推请求规模，输出结果存到 /dev/shm 目录下，为什么是这个目录，自己想一下。）</p>
+<p>昨天讲的 去数据库里，先show processlist;看到有疑问的SQL，去explain，然后set profiling&#x3D;1；大家回忆一下，看看索引是不是对的，看看哪些SQL本身是有问题的。这些不赘述了。</p>
+<p>下面，重点是，一般大家都会把数据查询封装成一个类对吧，让他们从这个类里加一段代码，干嘛呢，输出都执行了哪些SQL。（每秒请求非常高，所以增加日志的i&#x2F;o压力也很大，为了避免线上业务受影响，采用抽样输出，比如先算个随机数，符合什么数的才输出，然后根据抽样比例反推请求规模，输出结果存到 &#x2F;dev&#x2F;shm 目录下，为什么是这个目录，自己想一下。）</p>
 <p>打开日志我看什么呢？</p>
 <p>第一，看查询和更新的比例。</p>
 <p>第二，看最多查询的数据表有哪些，最多更新的数据表有哪些。</p>
@@ -366,28 +326,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -404,7 +342,7 @@
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
 <div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -412,7 +350,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -421,18 +359,17 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
 
 
 

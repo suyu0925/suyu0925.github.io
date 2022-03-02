@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
@@ -16,14 +16,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从常规浏览器跳转至微信内部浏览器">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/index.html">
@@ -49,65 +47,22 @@
 <link rel="canonical" href="http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2018/06/05/weixin-deeplink/","path":"2018/06/05/weixin-deeplink/","title":"从常规浏览器跳转至微信内部浏览器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>从常规浏览器跳转至微信内部浏览器 | Tasty Pub</title>
   
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
 
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -125,7 +80,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -178,18 +133,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/blog/archives">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
+          <a href="/blog/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
+          <a href="/blog/tags/">
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -234,11 +189,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="从常规浏览器跳转至微信内部浏览器 | Tasty Pub">
+      <meta itemprop="description" content="相信大多数手握WAP量的兄逮都会有这个需求，想将在外部投放的广告转化到公众号吸粉。那么我们来探讨一下可能性。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -255,13 +215,13 @@
 
       <time title="创建时间：2018-06-05 11:47:24" itemprop="dateCreated datePublished" datetime="2018-06-05T11:47:24+08:00">2018-06-05</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:25:51" itemprop="dateModified" datetime="2020-09-23T15:25:51+08:00">2020-09-23</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-23 15:25:51" itemprop="dateModified" datetime="2020-09-23T15:25:51+08:00">2020-09-23</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -277,7 +237,7 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -300,19 +260,19 @@
 <h3 id="获取ticket"><a href="#获取ticket" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先调用京东的请求接口来获取openlink。</p>
 <p><a target="_blank" rel="noopener" href="http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123">http://wq.jd.com/mjgj/link/GetOpenLink?callback=getOpenLink&amp;rurl=http://wq.jd.com/mshop/gethomepage?venderid=123</a></p>
 <p>请求之后的结果类似：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  getOpenLink(&#123;</span><br><span class="line">    <span class="string">&quot;errcode&quot;</span>: <span class="number">0</span>, </span><br><span class="line">    <span class="string">&quot;openlink&quot;</span>: <span class="string">&quot;weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9&quot;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="title function_">getOpenLink</span>(&#123;</span><br><span class="line">    <span class="string">&quot;errcode&quot;</span>: <span class="number">0</span>, </span><br><span class="line">    <span class="string">&quot;openlink&quot;</span>: <span class="string">&quot;weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9&quot;</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里面的<code>weixin://dl/business/?ticket=t56560d3fba95d2601278168445705cb9</code>就是微信跳转的deeplink了。</p>
 <h3 id="跳转至微信内部浏览器打开商户域名"><a href="#跳转至微信内部浏览器打开商户域名" class="headerlink" title="跳转至微信内部浏览器打开商户域名"></a>跳转至微信内部浏览器打开商户域名</h3><p>可以在js中运行重定向来进行跳转：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loaciton.href = <span class="string">&quot;weixin://dl/business/?ticket=t7ac579f071faadbce4c31fca854b3e59&quot;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loaciton.<span class="property">href</span> = <span class="string">&quot;weixin://dl/business/?ticket=t7ac579f071faadbce4c31fca854b3e59&quot;</span>;</span><br></pre></td></tr></table></figure>
 
-<p>注意：这里的urlencode只支持类似wq.jd.com的域名。wq.jd.com是京东的微信/手Q微店。相信在微信的判断有域名和商户的绑定。</p>
+<p>注意：这里的urlencode只支持类似wq.jd.com的域名。wq.jd.com是京东的微信&#x2F;手Q微店。相信在微信的判断有域名和商户的绑定。</p>
 <h3 id="跳转至目标域名，完成目标"><a href="#跳转至目标域名，完成目标" class="headerlink" title="跳转至目标域名，完成目标"></a>跳转至目标域名，完成目标</h3><p>借助jd.com的域名来做跳转。</p>
 <p>比如京东微店的产品详情。</p>
 <p><a target="_blank" rel="noopener" href="https://jos.jd.com/api/detail.htm?id=1744">京东云宙斯的api</a></p>
 <p><a target="_blank" rel="noopener" href="http://mjbbs.jd.com/thread-61877-1-1.html">移动端链接转换详细说明</a></p>
 <p><a target="_blank" rel="noopener" href="http://wqs.jd.com/weidian/index.shtml">京东微店入口</a></p>
-<h2 id="可借助的域名"><a href="#可借助的域名" class="headerlink" title="可借助的域名"></a>可借助的域名</h2><a id="more"></a>
+<h2 id="可借助的域名"><a href="#可借助的域名" class="headerlink" title="可借助的域名"></a>可借助的域名</h2><span id="more"></span>
 
 <h3 id="京东商铺资讯模式"><a href="#京东商铺资讯模式" class="headerlink" title="京东商铺资讯模式"></a>京东商铺资讯模式</h3><p>未完成，待补充</p>
 <h3 id="京东达人平台模式"><a href="#京东达人平台模式" class="headerlink" title="京东达人平台模式"></a>京东达人平台模式</h3><ul>
@@ -321,9 +281,7 @@
 <li><p>然后登陆选择“文章”栏目发布</p>
 </li>
 <li><p>获取文章地址教程 </p>
-<img src="/blog/2018/06/05/weixin-deeplink/jd00.png" class="" title="获取文章地址教程">
-
-</li>
+<img src="/blog/2018/06/05/weixin-deeplink/jd00.png" class="" title="获取文章地址教程"></li>
 </ul>
 <h3 id="微信游戏圈话题模式"><a href="#微信游戏圈话题模式" class="headerlink" title="微信游戏圈话题模式"></a>微信游戏圈话题模式</h3><ul>
 <li><p><a target="_blank" rel="noopener" href="https://game.weixin.qq.com/cgi-bin/h5/static/club/html/toggle.html?jsapi=1&appid=wx687f4629ba7c3086&uin=&key=&_a=1#wechat_redirect">微信打开游戏圈</a></p>
@@ -342,29 +300,39 @@
 <li><p>打开这个地址<code>http://mjbbs.jd.com/forum.php?mod=forumdisplay&amp;fid=137</code></p>
 </li>
 <li><p>随便点开一个帖子</p>
-<img src="/blog/2018/06/05/weixin-deeplink/jd11.png" class="" title="京东帖子">
-</li>
-<li><p>点击左上方回复按钮</p>
-<img src="/blog/2018/06/05/weixin-deeplink/jd22.png" class="" title="京东帖子">
-</li>
-<li><p>点击高级模式按钮</p>
-<img src="/blog/2018/06/05/weixin-deeplink/jd33.png" class="" title="京东帖子">
-</li>
-<li><p>按步骤上传图片，并且插入进去，点击回复主题</p>
-<img src="/blog/2018/06/05/weixin-deeplink/jd44.png" class="" title="京东帖子">
-</li>
-<li><p>找到你回复的内容，右键提取图片链接</p>
-<img src="/blog/2018/06/05/weixin-deeplink/jd55.png" class="" title="京东帖子">
-</li>
-<li><p>你已经得到一个京东达人的图片链接了</p>
-<p><a target="_blank" rel="noopener" href="http://mjbbs.jd.com/data/attachment/forum/201806/11/170212ym070jwqphzawbrd.jpg">例子</a></p>
 </li>
 </ol>
+  <img src="/blog/2018/06/05/weixin-deeplink/jd11.png" class="" title="京东帖子">
+
+<ol start="3">
+<li>点击左上方回复按钮</li>
+</ol>
+  <img src="/blog/2018/06/05/weixin-deeplink/jd22.png" class="" title="京东帖子">
+
+<ol start="4">
+<li>点击高级模式按钮</li>
+</ol>
+  <img src="/blog/2018/06/05/weixin-deeplink/jd33.png" class="" title="京东帖子">
+
+<ol start="5">
+<li>按步骤上传图片，并且插入进去，点击回复主题</li>
+</ol>
+  <img src="/blog/2018/06/05/weixin-deeplink/jd44.png" class="" title="京东帖子">
+
+<ol start="6">
+<li>找到你回复的内容，右键提取图片链接</li>
+</ol>
+  <img src="/blog/2018/06/05/weixin-deeplink/jd55.png" class="" title="京东帖子">
+
+<ol start="7">
+<li>你已经得到一个京东达人的图片链接了</li>
+</ol>
+<p>  <a target="_blank" rel="noopener" href="http://mjbbs.jd.com/data/attachment/forum/201806/11/170212ym070jwqphzawbrd.jpg">例子</a></p>
 <h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p><a target="_blank" rel="noopener" href="http://www.seoniao.com/">微信跳转技术</a>这个网站在提供这项服务。</p>
 <p><a href="weixin://dl/business/?ticket=t259174b0bd1abfc5e0c16a6515f7a9af#wechat_redirect">跳转链接示例</a></p>
 <p>我们来拆解下它的演示样例。</p>
 <h3 id="获取ticket-1"><a href="#获取ticket-1" class="headerlink" title="获取ticket"></a>获取ticket</h3><p>首先它提供了一个<a target="_blank" rel="noopener" href="http://hadaku.cn/jumpfinal/to2.php?token=wtPZxdAM2Z">演示入口</a>，它会在服务器端获取一个ticket，然后在前端进行跳转。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="regexp">/(iPhone|iPad|iPod|iOS)/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/ baiduboxapp/i</span>.test(navigator.userAgent)) &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">&#x27;bdbox://utils?action=sendIntent&amp;minver=7.4&amp;params=%7B%22intent%22%3A%22weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610%23Intent%3Bend%22%7D&#x27;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.location.replace(<span class="string">&#x27;weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">window</span>.location.replace(<span class="string">&#x27;weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&quot;loading&quot;</span>).style.display=<span class="string">&quot;none&quot;</span>;</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">&quot;buttons&quot;</span>).style.display=<span class="string">&quot;table-cell&quot;</span>;</span><br><span class="line">&#125;, <span class="number">3000</span>); </span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!<span class="regexp">/(iPhone|iPad|iPod|iOS)/i</span>.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>)) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/ baiduboxapp/i</span>.<span class="title function_">test</span>(navigator.<span class="property">userAgent</span>)) &#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="title function_">replace</span>(<span class="string">&#x27;bdbox://utils?action=sendIntent&amp;minver=7.4&amp;params=%7B%22intent%22%3A%22weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610%23Intent%3Bend%22%7D&#x27;</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="title function_">replace</span>(<span class="string">&#x27;weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">location</span>.<span class="title function_">replace</span>(<span class="string">&#x27;weixin://dl/business/?ticket=t15bc3836874e3b1e3597f67e143ac610&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;loading&quot;</span>).<span class="property">style</span>.<span class="property">display</span>=<span class="string">&quot;none&quot;</span>;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;buttons&quot;</span>).<span class="property">style</span>.<span class="property">display</span>=<span class="string">&quot;table-cell&quot;</span>;</span><br><span class="line">&#125;, <span class="number">3000</span>); </span><br></pre></td></tr></table></figure>
 
 <h3 id="跳转至微信内部浏览器并打开合作商户网址"><a href="#跳转至微信内部浏览器并打开合作商户网址" class="headerlink" title="跳转至微信内部浏览器并打开合作商户网址"></a>跳转至微信内部浏览器并打开合作商户网址</h3><p>截此到本文录入(2018-06-05 15:02)时，<a target="_blank" rel="noopener" href="http://www.seoniao.com/">微信跳转技术</a>这个网站的功能已经被关闭了。</p>
 <p>前天还是可用的呢。暂地告一段落。</p>
@@ -406,28 +374,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -444,7 +390,7 @@
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
 <div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -452,7 +398,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -461,18 +407,17 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
 
 
 

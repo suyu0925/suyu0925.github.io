@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
@@ -16,14 +16,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="记一次简单的数据去重">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="记一次简单的数据去重">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次简单的数据去重">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/index.html">
@@ -40,65 +38,22 @@
 <link rel="canonical" href="http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2019/03/31/remove-duplicates/","path":"2019/03/31/remove-duplicates/","title":"记一次简单的数据去重"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>记一次简单的数据去重 | Tasty Pub</title>
   
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
 
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -116,7 +71,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -169,18 +124,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/blog/archives">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
+          <a href="/blog/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
+          <a href="/blog/tags/">
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -225,11 +180,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="记一次简单的数据去重 | Tasty Pub">
+      <meta itemprop="description" content="记一次简单的数据去重">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -246,13 +206,13 @@
 
       <time title="创建时间：2019-03-31 04:28:10" itemprop="dateCreated datePublished" datetime="2019-03-31T04:28:10+08:00">2019-03-31</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:25:03" itemprop="dateModified" datetime="2020-09-23T15:25:03+08:00">2020-09-23</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-23 15:25:03" itemprop="dateModified" datetime="2020-09-23T15:25:03+08:00">2020-09-23</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -264,7 +224,7 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -289,7 +249,7 @@
 <p>原因是txt的换行符既不是linux下的<code>\n</code>，也不是windows下的<code>\r\n</code>，而是使用了老mac os的<code>\r</code>。这个在notepad中就有显示的信息，居然花了近半个小时才注意到。不得不说灯下黑。</p>
 <p>最常使用的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Newline#Representation">换行符</a>其实就只有两种，LF(Line Feed, ASCII 10, \n)或者CR-LF（Carriage Return，ASCII 13, \r）。</p>
 <p>在node的linebyline模块中，它是这样判断的：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.on(<span class="string">&#x27;data&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (data[i] == <span class="number">10</span> || data[i] == <span class="number">13</span>) &#123; <span class="comment">// Newline char was found.</span></span><br><span class="line">      <span class="keyword">if</span> (data[i] == <span class="number">10</span>) &#123;</span><br><span class="line">        lineCount++;</span><br><span class="line">        emit(lineCount, byteCount);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lineBuffer[lineLength] = data[i]; <span class="comment">// Buffer new line data.</span></span><br><span class="line">      lineLength++;</span><br><span class="line">    &#125;</span><br><span class="line">    byteCount++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>, <span class="keyword">function</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; data.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (data[i] == <span class="number">10</span> || data[i] == <span class="number">13</span>) &#123; <span class="comment">// Newline char was found.</span></span><br><span class="line">      <span class="keyword">if</span> (data[i] == <span class="number">10</span>) &#123;</span><br><span class="line">        lineCount++;</span><br><span class="line">        <span class="title function_">emit</span>(lineCount, byteCount);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      lineBuffer[lineLength] = data[i]; <span class="comment">// Buffer new line data.</span></span><br><span class="line">      lineLength++;</span><br><span class="line">    &#125;</span><br><span class="line">    byteCount++;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>emit的条件是碰到\n，不管是linux还是windows，这段代码都能正常工作。但如果文件中只有\r，那么很显然会失效。</p>
 <p>解决办法是修改linebyline模块，或者使用兼容性更好的readline。</p>
 <p><strong>\x00</strong></p>
@@ -297,14 +257,14 @@
 <p>一开始很顺利的读出数据，但却在某一行抛出<code>_csv.Error: line contains NULL byte</code>异常。</p>
 <p>好在问题很常见，搜索一下就能发现有相当多人遇到同样的问题。</p>
 <p>解决方法也很简单，在将数据交给csv reader之前，先过滤掉<code>NULL byte</code>。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(CSV_FILENAME, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    reader = csv.reader(l.replace(<span class="string">&#x27;\0&#x27;</span>, <span class="string">&#x27;&#x27;</span>) <span class="keyword">for</span> l <span class="keyword">in</span> f)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="title function_">open</span>(<span class="variable constant_">CSV_FILENAME</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf8&#x27;</span>) <span class="keyword">as</span> <span class="attr">f</span>:</span><br><span class="line">    reader = csv.<span class="title function_">reader</span>(l.<span class="title function_">replace</span>(<span class="string">&#x27;\0&#x27;</span>, <span class="string">&#x27;&#x27;</span>) <span class="keyword">for</span> l <span class="keyword">in</span> f)</span><br></pre></td></tr></table></figure>
 
 <p>在检查过程中，还发现存在”\x01”这样的数据，都属于不正常数据，需要修正或剔除。</p>
 <p><strong>数据一致性和完整性</strong></p>
 <p>txt和csv都能正常读取，但数据清洗并没完。还需要检查数据完整性和一致性。</p>
 <p>对比发现，csv读取到的条数与文件行数不符。</p>
 <p>检查发现原因是存在<strong>不正常换行</strong>，如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;101&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;102&quot;,&quot;a&quot;,&quot;0</span><br><span class="line">&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;103&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;104&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;101&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;102&quot;,&quot;a&quot;,&quot;0</span><br><span class="line">&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;103&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br><span class="line">&quot;104&quot;,&quot;a&quot;,&quot;0&quot;,&quot;2019-03-31&quot;</span><br></pre></td></tr></table></figure>
 
 <p>对于这样的数据，可以另外写段脚本进行修正。</p>
 <h2 id="数据去重"><a href="#数据去重" class="headerlink" title="数据去重"></a>数据去重</h2><p>数据读取完成后，开始进行数据去重。</p>
@@ -313,10 +273,10 @@
 <p><strong>mongodb</strong><br>如使用mongodb，有两种方法：</p>
 <ol>
 <li><p>使用aggregate聚合</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">var duplicates &#x3D; [];</span><br><span class="line"></span><br><span class="line">db.collectionName.aggregate([</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      name: &#123; &quot;$ne&quot;: &#39;&#39; &#125;  &#x2F;&#x2F; discard selection criteria</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $group: &#123;</span><br><span class="line">      _id: &#123; name: &quot;$name&quot; &#125;, &#x2F;&#x2F; can be grouped on multiple properties </span><br><span class="line">      dups: &#123; &quot;$addToSet&quot;: &quot;$_id&quot; &#125;,</span><br><span class="line">      count: &#123; &quot;$sum&quot;: 1 &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      count: &#123; &quot;$gt&quot;: 1 &#125;    &#x2F;&#x2F; Duplicates considered as count greater than one</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">],</span><br><span class="line">  &#123; allowDiskUse: true &#125;       &#x2F;&#x2F; For faster processing if set is larger</span><br><span class="line">)               &#x2F;&#x2F; You can display result until this and check duplicates </span><br><span class="line">  .forEach(function (doc) &#123;</span><br><span class="line">    doc.dups.shift();      &#x2F;&#x2F; First element skipped for deleting</span><br><span class="line">    doc.dups.forEach(function (dupId) &#123;</span><br><span class="line">      duplicates.push(dupId);   &#x2F;&#x2F; Getting all duplicate ids</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; If you want to Check all &quot;_id&quot; which you are deleting else print statement not needed</span><br><span class="line">printjson(duplicates);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Remove all duplicates in one go</span><br><span class="line">db.collectionName.remove(&#123; _id: &#123; $in: duplicates &#125; &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">var duplicates = [];</span><br><span class="line"></span><br><span class="line">db.collectionName.aggregate([</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      name: &#123; &quot;$ne&quot;: &#x27;&#x27; &#125;  // discard selection criteria</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $group: &#123;</span><br><span class="line">      _id: &#123; name: &quot;$name&quot; &#125;, // can be grouped on multiple properties </span><br><span class="line">      dups: &#123; &quot;$addToSet&quot;: &quot;$_id&quot; &#125;,</span><br><span class="line">      count: &#123; &quot;$sum&quot;: 1 &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    $match: &#123;</span><br><span class="line">      count: &#123; &quot;$gt&quot;: 1 &#125;    // Duplicates considered as count greater than one</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">],</span><br><span class="line">  &#123; allowDiskUse: true &#125;       // For faster processing if set is larger</span><br><span class="line">)               // You can display result until this and check duplicates </span><br><span class="line">  .forEach(function (doc) &#123;</span><br><span class="line">    doc.dups.shift();      // First element skipped for deleting</span><br><span class="line">    doc.dups.forEach(function (dupId) &#123;</span><br><span class="line">      duplicates.push(dupId);   // Getting all duplicate ids</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">// If you want to Check all &quot;_id&quot; which you are deleting else print statement not needed</span><br><span class="line">printjson(duplicates);</span><br><span class="line"></span><br><span class="line">// Remove all duplicates in one go</span><br><span class="line">db.collectionName.remove(&#123; _id: &#123; $in: duplicates &#125; &#125;)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用mapreduce</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123;&#125;</span><br><span class="line">o.map = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  emit(<span class="built_in">this</span>.phone, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line">o.reduce = <span class="function"><span class="keyword">function</span>(<span class="params">k, vals</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Array</span>.sum(vals)</span><br><span class="line">&#125;</span><br><span class="line">o.out = &#123;</span><br><span class="line">  replace: <span class="string">&#x27;mapreduce_demo&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> Item.mapReduce(o)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o = &#123;&#125;</span><br><span class="line">o.<span class="property">map</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title function_">emit</span>(<span class="variable language_">this</span>.<span class="property">phone</span>, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line">o.<span class="property">reduce</span> = <span class="keyword">function</span>(<span class="params">k, vals</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="title function_">sum</span>(vals)</span><br><span class="line">&#125;</span><br><span class="line">o.<span class="property">out</span> = &#123;</span><br><span class="line">  <span class="attr">replace</span>: <span class="string">&#x27;mapreduce_demo&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title class_">Item</span>.<span class="title function_">mapReduce</span>(o)</span><br></pre></td></tr></table></figure>
 <p>mapreduce完成后，在生成的新的collection是搜索出现次数超过1次的，再保留第一个，删除其它。</p>
 </li>
 </ol>
@@ -335,7 +295,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --max-old-space-size=8192 app.js</span><br></pre></td></tr></table></figure>
 
 <p>如果是mongodb，可以加上使用硬盘缓冲的选项：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> model.aggregate([&#123;</span><br><span class="line">  $group: &#123;</span><br><span class="line">    _id: &#123; <span class="attr">id</span>: <span class="string">&#x27;$_id&#x27;</span> &#125;,</span><br><span class="line">    count: &#123; <span class="string">&#x27;$sum&#x27;</span>: <span class="number">1</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]).allowDiskUse(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> model.<span class="title function_">aggregate</span>([&#123;</span><br><span class="line">  <span class="attr">$group</span>: &#123;</span><br><span class="line">    <span class="attr">_id</span>: &#123; <span class="attr">id</span>: <span class="string">&#x27;$_id&#x27;</span> &#125;,</span><br><span class="line">    <span class="attr">count</span>: &#123; <span class="string">&#x27;$sum&#x27;</span>: <span class="number">1</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;]).<span class="title function_">allowDiskUse</span>(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>其次是速度</li>
@@ -381,28 +341,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -419,7 +357,7 @@
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
 <div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -427,7 +365,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -436,18 +374,17 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
 
 
 

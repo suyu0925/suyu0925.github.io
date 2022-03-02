@@ -2,9 +2,9 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.0.0">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
@@ -16,14 +16,12 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" integrity="sha256-jTIdiMuX/e3DGJUGwl3pKSxuc6YOuqtJYkM0bGQESA4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta name="description" content="大致介绍一下锁屏界面">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="大致介绍一下锁屏界面">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android6.0锁屏源码分析之界面布局分析">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/index.html">
@@ -50,65 +48,22 @@
 <link rel="canonical" href="http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/">
 
 
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2017/04/19/android-lock-screen/","path":"2017/04/19/android-lock-screen/","title":"Android6.0锁屏源码分析之界面布局分析"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Android6.0锁屏源码分析之界面布局分析 | Tasty Pub</title>
   
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
 
 
 
   <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -126,7 +81,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -178,18 +133,18 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/blog/archives">
+        <a href="/blog/archives/">
           <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/blog/categories/">
+          <a href="/blog/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-            <a href="/blog/tags/">
+          <a href="/blog/tags/">
         <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -234,11 +189,16 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
       <meta itemprop="name" content="lckof">
-      <meta itemprop="description" content="啊咧">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android6.0锁屏源码分析之界面布局分析 | Tasty Pub">
+      <meta itemprop="description" content="大致介绍一下锁屏界面">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -255,13 +215,13 @@
 
       <time title="创建时间：2017-04-19 20:06:09" itemprop="dateCreated datePublished" datetime="2017-04-19T20:06:09+08:00">2017-04-19</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-09-23 15:21:51" itemprop="dateModified" datetime="2020-09-23T15:21:51+08:00">2020-09-23</time>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
       </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-23 15:21:51" itemprop="dateModified" datetime="2020-09-23T15:21:51+08:00">2020-09-23</time>
+    </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -273,7 +233,7 @@
     </span>
 
   
-    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -312,7 +272,7 @@
 <p>可以看出，锁屏界面属于状态栏，属于SystemUi的一部分，类似于状态栏下拉之后的界面，而Android4.4.2是属于keyguard锁屏界面。<br>说的直白一点儿就是，6.0的锁屏界面就是状态栏下拉后的一个界面，准确来说是状态栏加载出来的一个View(也可以说是组)，解锁只需要上滑。Android4.4.2的锁屏界面隶属于keyguard，与statusBar没有关系，就是一个界面。<br>借助sdk工具，可以分析锁屏界面上你想分析的所有小部件，先看工具中显示的view视图的一小部分。</p>
 <img src="/blog/2017/04/19/android-lock-screen/viewer.png" class="" title="view">
 
-<p>介绍一下代码所在位置，有需要改布局的或者锁屏相关的可以参考根据界面view的id/notification_panel。<br>可以找到锁屏界面整体的xml文件为status_bar_expanded.xml文件，文件所在目录为\android\frameworks\base\packages\SystemUI\res\layout\status_bar_expanded.xml，研究源码要借助源码搜索工具–openGrok可以很快的找到所搜索的内容在整个源码中使用的地方。</p>
+<p>介绍一下代码所在位置，有需要改布局的或者锁屏相关的可以参考根据界面view的id&#x2F;notification_panel。<br>可以找到锁屏界面整体的xml文件为status_bar_expanded.xml文件，文件所在目录为\android\frameworks\base\packages\SystemUI\res\layout\status_bar_expanded.xml，研究源码要借助源码搜索工具–openGrok可以很快的找到所搜索的内容在整个源码中使用的地方。</p>
 <p>用一张图可以很清晰的看出各个部件的id：</p>
 <img src="/blog/2017/04/19/android-lock-screen/layout.png" class="" title="layout">
 
@@ -322,12 +282,12 @@
 
 <p>要求一，滑动相机view时不进行任何操作<br>目前6.0源码中是在滑动照相机这个view一段距离后，会自动调起来相机应用。我现在不让他调起相机应用，而是开启别的应用，怎<br>么做？</p>
 <p>首先是分析既然是针对相机view的操作，那我们首先研究一下相机view滑动一段距离后怎么调起的相机应用。相应的可以直接把相机<br>应用替换成我们自己的应用，这样每当view滑动一段距离后就会调起自己想要调起的应用。所以首先是找到调起相机应用的地方</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (v == mCameraImageView) &#123;  </span><br><span class="line">        launchCamera(CAMERA_LAUNCH_SOURCE_AFFORDANCE);  </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View v)</span> &#123;  </span><br><span class="line">    <span class="keyword">if</span> (v == mCameraImageView) &#123;  </span><br><span class="line">        launchCamera(CAMERA_LAUNCH_SOURCE_AFFORDANCE);  </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
 <p>在KeyguardBottomAreaView.java中有关于按钮点击后打开相机的操作，代码目录为<br>\android\frameworks\base\packages\SystemUI\src\com\android\systemui\statusbar\phone\KeyguardBottomAreaView.Java<br>也就是说，你想让点击相机view之后做什么操作，只需要修改这里即可，至于相机应用如何起来的，可以根据代码流程就行分析，在<br>这里不多介绍。<br>电话view与相机view属于同一类型的view，同属于com.android.systemui.statusbar.KeyguardAffordanceView。点击事件也在该<br>onClick方法中。</p>
 <p>要求二，目前是上滑解锁，如何不让其上滑解锁<br>这个首先需要分析一下上滑这个动作在哪儿监听的，然后何时会调用解锁？按照这个思路分析了一下午，也没理出个头绪，幸而得到<br>一些指点，既然整个界面是个自定义的view，那么可以考虑对view屏蔽掉触摸事件，即在view的onTouchEvent中规定，当满足某种<br>条件时向上滑动不解锁，这样看来，省去了很多事。<br>可能有时候解决问题就是这样，没有必要去死钻牛角尖非要数到小数点才肯罢休。但如果是想学习研究的话确实可以看一看。</p>
 <p>要求三，定制某个按键，长按解锁<br>Android6.0锁屏有一个特点，那就是在一级锁屏界面状态下长按menu键可以解锁。所以针对第三个要求，可以在锁屏页进行按键分<br>发时进行一个判断，满足条件后调用menu菜单解锁的处理<br>做法如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchKeyEvent</span><span class="params">(KeyEvent event)</span> </span>&#123;  </span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 如果按键抬起，且为长按事件  </span></span><br><span class="line">    <span class="keyword">if</span> (event.getAction() == KeyEvent.ACTION_UP &amp;&amp;(event.getFlags() &amp; KeyEvent.FLAG_LONG_PRESS) == <span class="number">0</span>) &#123;  </span><br><span class="line">        <span class="keyword">int</span> keyCode = event.getKeyCode();  </span><br><span class="line">        <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; event.getRepeatCount() == <span class="number">0</span>)&#123;  </span><br><span class="line">            <span class="comment">// 判断按键，并进行解锁操作，mLongPress线程里调用的是按下menu键解锁的方法  </span></span><br><span class="line">            <span class="comment">// mKeyguardView.handleMenuKey()；  </span></span><br><span class="line">  </span><br><span class="line">            mHandler.removeCallbacks(mLongPress); </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.dispatchKeyEvent(event); </span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>  </span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">dispatchKeyEvent</span><span class="params">(KeyEvent event)</span> &#123;  </span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 如果按键抬起，且为长按事件  </span></span><br><span class="line">    <span class="keyword">if</span> (event.getAction() == KeyEvent.ACTION_UP &amp;&amp;(event.getFlags() &amp; KeyEvent.FLAG_LONG_PRESS) == <span class="number">0</span>) &#123;  </span><br><span class="line">        <span class="type">int</span> <span class="variable">keyCode</span> <span class="operator">=</span> event.getKeyCode();  </span><br><span class="line">        <span class="keyword">if</span> (keyCode == KeyEvent.KEYCODE_BACK &amp;&amp; event.getRepeatCount() == <span class="number">0</span>)&#123;  </span><br><span class="line">            <span class="comment">// 判断按键，并进行解锁操作，mLongPress线程里调用的是按下menu键解锁的方法  </span></span><br><span class="line">            <span class="comment">// mKeyguardView.handleMenuKey()；  </span></span><br><span class="line">  </span><br><span class="line">            mHandler.removeCallbacks(mLongPress); </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">super</span>.dispatchKeyEvent(event); </span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
 
 <p>二级界面—–keyguardSecurity安全界面</p>
 <img src="/blog/2017/04/19/android-lock-screen/unlockscreen.png" class="" title="unlockscreen">
@@ -337,10 +297,10 @@
 <img src="/blog/2017/04/19/android-lock-screen/foldertree.png" class="" title="foldertree">
 
 <p>对于二级界面有6中情况</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*根据不同的模式获取到不同的布局 </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getLayoutIdFor</span><span class="params">(SecurityMode securityMode)</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">switch</span> (securityMode) &#123;  </span><br><span class="line">        <span class="keyword">case</span> Pattern: <span class="keyword">return</span> R.layout.keyguard_pattern_view;  </span><br><span class="line">        <span class="keyword">case</span> PIN: <span class="keyword">return</span> R.layout.keyguard_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> Password: <span class="keyword">return</span> R.layout.keyguard_password_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPin: <span class="keyword">return</span> R.layout.keyguard_sim_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPuk: <span class="keyword">return</span> R.layout.keyguard_sim_puk_view;  </span><br><span class="line">        <span class="keyword">default</span>:  </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">*根据不同的模式获取到不同的布局 </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">getLayoutIdFor</span><span class="params">(SecurityMode securityMode)</span> &#123;  </span><br><span class="line">    <span class="keyword">switch</span> (securityMode) &#123;  </span><br><span class="line">        <span class="keyword">case</span> Pattern: <span class="keyword">return</span> R.layout.keyguard_pattern_view;  </span><br><span class="line">        <span class="keyword">case</span> PIN: <span class="keyword">return</span> R.layout.keyguard_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> Password: <span class="keyword">return</span> R.layout.keyguard_password_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPin: <span class="keyword">return</span> R.layout.keyguard_sim_pin_view;  </span><br><span class="line">        <span class="keyword">case</span> SimPuk: <span class="keyword">return</span> R.layout.keyguard_sim_puk_view;  </span><br><span class="line">        <span class="keyword">default</span>:  </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
-<p>各种模式的定义在KeyguardSecurityMode.java中文件路径为android/frameworks/base/packages/Keyguard/src/com/android/keyguard/KeyguardSecurityMode.java</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">SecurityMode</span> </span>&#123;  </span><br><span class="line">    Invalid, <span class="comment">// NULL state  所设置的状态无效  </span></span><br><span class="line">    None, <span class="comment">// No security enabled  没有设置二级界面，即一级界面解锁后直接进入主屏幕  </span></span><br><span class="line">    Pattern, <span class="comment">// Unlock by drawing a pattern. 通过绘制图案解锁  </span></span><br><span class="line">    Password, <span class="comment">// Unlock by entering an alphanumeric password 输入密码解锁，该密码包括字母和数字  </span></span><br><span class="line">    PIN, <span class="comment">// Strictly numeric password 输入纯数字密码解锁  </span></span><br><span class="line">    SimPin, <span class="comment">// Unlock by entering a sim pin. 输入sim卡pin码解锁  </span></span><br><span class="line">    SimPuk <span class="comment">// Unlock by entering a sim puk，输入sim卡puk码解锁，该码是唯一的，当sim卡密码输入pin码错误次数  </span></span><br><span class="line">        <span class="comment">//过多时会需要输入puk码，每个手机卡有自己的puk码即ID由运营商提供  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>各种模式的定义在KeyguardSecurityMode.java中文件路径为android&#x2F;frameworks&#x2F;base&#x2F;packages&#x2F;Keyguard&#x2F;src&#x2F;com&#x2F;android&#x2F;keyguard&#x2F;KeyguardSecurityMode.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">SecurityMode</span> &#123;  </span><br><span class="line">    Invalid, <span class="comment">// NULL state  所设置的状态无效  </span></span><br><span class="line">    None, <span class="comment">// No security enabled  没有设置二级界面，即一级界面解锁后直接进入主屏幕  </span></span><br><span class="line">    Pattern, <span class="comment">// Unlock by drawing a pattern. 通过绘制图案解锁  </span></span><br><span class="line">    Password, <span class="comment">// Unlock by entering an alphanumeric password 输入密码解锁，该密码包括字母和数字  </span></span><br><span class="line">    PIN, <span class="comment">// Strictly numeric password 输入纯数字密码解锁  </span></span><br><span class="line">    SimPin, <span class="comment">// Unlock by entering a sim pin. 输入sim卡pin码解锁  </span></span><br><span class="line">    SimPuk <span class="comment">// Unlock by entering a sim puk，输入sim卡puk码解锁，该码是唯一的，当sim卡密码输入pin码错误次数  </span></span><br><span class="line">        <span class="comment">//过多时会需要输入puk码，每个手机卡有自己的puk码即ID由运营商提供  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>不同的模式与布局文件一一对应，</p>
 <p>对于布局上想要修改的，就去找对应的那几个布局文件即可，在这里不再举例说明。。</p>
@@ -379,28 +339,6 @@
 
 
 
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
 </div>
   </main>
 
@@ -417,7 +355,7 @@
   <span class="author" itemprop="copyrightHolder">lckof</span>
 </div>
 <div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
       </span>
@@ -425,7 +363,7 @@
         <span id="busuanzi_value_site_uv"></span>
       </span>
     </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
       <span class="post-meta-item-icon">
         <i class="fa fa-eye"></i>
       </span>
@@ -434,18 +372,17 @@
       </span>
     </span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
-
 
 
 
