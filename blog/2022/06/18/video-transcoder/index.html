@@ -21,25 +21,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.10.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
 
-    <meta name="description" content="啊咧">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Tasty Pub">
-<meta property="og:url" content="http://suyu0925.github.io/blog/archives/2018/06/index.html">
+    <meta name="description" content="2022年了，除了ffmpeg应该还有更好选择。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频转码">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/06/18/video-transcoder/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="啊咧">
+<meta property="og:description" content="2022年了，除了ffmpeg应该还有更好选择。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-18T12:44:28.000Z">
+<meta property="article:modified_time" content="2022-06-18T12:55:24.252Z">
 <meta property="article:author" content="lckof">
+<meta property="article:tag" content="善用佳软">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/archives/2018/06/">
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/06/18/video-transcoder/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"archives/2018/06/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/06/18/video-transcoder/","path":"2022/06/18/video-transcoder/","title":"视频转码"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>归档 | Tasty Pub</title>
+<title>视频转码 | Tasty Pub</title>
   
 
   <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
@@ -68,7 +71,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">Tasty Pub</h1>
+      <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -160,50 +163,107 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/06/18/video-transcoder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+    
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="视频转码 | Tasty Pub">
+      <meta itemprop="description" content="2022年了，除了ffmpeg应该还有更好选择。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          视频转码
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-06-18 20:44:28 / 修改时间：20:55:24" itemprop="dateCreated datePublished" datetime="2022-06-18T20:44:28+08:00">2022-06-18</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">2022年了，除了ffmpeg应该还有更好选择。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>你还在使用难用的<a target="_blank" rel="noopener" href="https://ffmpeg.org/">ffmpeg</a>命令行吗，本期推荐的佳软是<a target="_blank" rel="noopener" href="https://handbrake.fr/">HandBrake</a>。它提供了方便的UI界面，不再需要去查ffmpeg的文档了。</p>
+<p>它当然也支持<a target="_blank" rel="noopener" href="https://handbrake.fr/docs/en/1.5.0/cli/cli-options.html">命令行</a>，</p>
+<p>使用时一般不需要像ffmpeg一样<a target="_blank" rel="noopener" href="https://ffmpeg.org/ffmpeg.html#Main-options">指定各种参数</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i &#123;input&#125;.mov -c:v libx264 -c:a aac -vf format=yuv420p -movflags +faststart &#123;output&#125;.mp4</span><br></pre></td></tr></table></figure>
+
+<p>直接使用<a target="_blank" rel="noopener" href="https://handbrake.fr/docs/en/1.5.0/cli/cli-options.html">默认设置</a>通常就会得到想到的结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">handbrakecli -i &#123;input&#125;.mov -o &#123;output&#125;.mp4</span><br></pre></td></tr></table></figure>
+
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/" rel="tag"># 善用佳软</a>
+          </div>
+
         
-        <span class="collection-header">不错! 目前共计 54 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2018</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2018-06-05T11:47:24+08:00"
-              content="2018-06-05">
-          06-05
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/blog/2018/06/05/weixin-deeplink/" itemprop="url">
-            <span itemprop="name">从常规浏览器跳转至微信内部浏览器</span>
-          </a>
-      </div>
-
-      
-    </header>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/06/16/microsoft-remote-desktop-mac/" rel="prev" title="mac下的windows远程桌面">
+                  <i class="fa fa-chevron-left"></i> mac下的windows远程桌面
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
+
+
+
 
 </div>
   </main>
