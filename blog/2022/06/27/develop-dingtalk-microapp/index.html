@@ -21,27 +21,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
 
-    <meta name="description" content="mainworker_processes 进程数设置，通常和worker_cpu_affinity搭配使用。 比如一个4核机器，设置为 12worker_processes    4;worker_cpu_affinity 0001 0010 0100 1000; 代表开4个进程，分别绑定CPU0-CPU3。 worker_processes取值可以为auto，会自动设置为cpu个数。worker">
+    <meta name="description" content="随手记录一下在开发钉钉H5微应用时遇到的一些坑。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nginx优化">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2018/01/21/nginx-optimization/index.html">
+<meta property="og:title" content="开发钉钉微应用随笔">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/06/27/develop-dingtalk-microapp/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="mainworker_processes 进程数设置，通常和worker_cpu_affinity搭配使用。 比如一个4核机器，设置为 12worker_processes    4;worker_cpu_affinity 0001 0010 0100 1000; 代表开4个进程，分别绑定CPU0-CPU3。 worker_processes取值可以为auto，会自动设置为cpu个数。worker">
+<meta property="og:description" content="随手记录一下在开发钉钉H5微应用时遇到的一些坑。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-01-21T09:03:35.000Z">
-<meta property="article:modified_time" content="2020-09-23T06:39:58.950Z">
+<meta property="article:published_time" content="2022-06-27T02:39:25.000Z">
+<meta property="article:modified_time" content="2022-06-27T06:48:52.114Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2018/01/21/nginx-optimization/">
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/06/27/develop-dingtalk-microapp/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2018/01/21/nginx-optimization/","path":"2018/01/21/nginx-optimization/","title":"nginx优化"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/06/27/develop-dingtalk-microapp/","path":"2022/06/27/develop-dingtalk-microapp/","title":"开发钉钉微应用随笔"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>nginx优化 | Tasty Pub</title>
+<title>开发钉钉微应用随笔 | Tasty Pub</title>
   
 
   <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
@@ -111,7 +111,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#main"><span class="nav-number">1.</span> <span class="nav-text">main</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BE%AE%E5%BA%94%E7%94%A8%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="nav-number">1.</span> <span class="nav-text">微应用调试工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%92%89%E9%92%89RC%E7%89%88"><span class="nav-number">1.1.</span> <span class="nav-text">钉钉RC版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dingtalk-design-cli"><span class="nav-number">1.2.</span> <span class="nav-text">dingtalk-design-cli</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">服务端</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,7 +174,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2018/01/21/nginx-optimization/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/06/27/develop-dingtalk-microapp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -187,12 +187,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="nginx优化 | Tasty Pub">
-      <meta itemprop="description" content="">
+      <meta itemprop="name" content="开发钉钉微应用随笔 | Tasty Pub">
+      <meta itemprop="description" content="随手记录一下在开发钉钉H5微应用时遇到的一些坑。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          nginx优化
+          开发钉钉微应用随笔
         </h1>
 
         <div class="post-meta-container">
@@ -202,15 +202,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2018-01-21 17:03:35" itemprop="dateCreated datePublished" datetime="2018-01-21T17:03:35+08:00">2018-01-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-09-23 14:39:58" itemprop="dateModified" datetime="2020-09-23T14:39:58+08:00">2020-09-23</time>
+      <time title="创建时间：2022-06-27 10:39:25 / 修改时间：14:48:52" itemprop="dateCreated datePublished" datetime="2022-06-27T10:39:25+08:00">2022-06-27</time>
     </span>
 
   
@@ -223,6 +217,7 @@
     </span>
 </div>
 
+            <div class="post-description">随手记录一下在开发钉钉H5微应用时遇到的一些坑。</div>
         </div>
       </header>
 
@@ -230,12 +225,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="main"><a href="#main" class="headerlink" title="main"></a>main</h2><p><strong>worker_processes</strong></p>
-<p>进程数设置，通常和worker_cpu_affinity搭配使用。</p>
-<p>比如一个4核机器，设置为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker_processes    4;</span><br><span class="line">worker_cpu_affinity 0001 0010 0100 1000;</span><br></pre></td></tr></table></figure>
-<p>代表开4个进程，分别绑定CPU0-CPU3。</p>
-<p>worker_processes取值可以为auto，会自动设置为cpu个数。<br>worker_cpu_affinity取值也可以为auto，会自动分别绑定可用的cpu。也可以auto 01010101，表示分别绑定CPU1、CPU3、CPU5、CPU7。</p>
+        <h2 id="微应用调试工具"><a href="#微应用调试工具" class="headerlink" title="微应用调试工具"></a>微应用调试工具</h2><p>类似微信开发者工具中的公众号网页调试，我们在开发时需要一个能看到调试信息的类浏览器环境。</p>
+<h3 id="钉钉RC版"><a href="#钉钉RC版" class="headerlink" title="钉钉RC版"></a>钉钉RC版</h3><p><a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/resourcedownload/h5-debug">钉钉RC版</a>是钉钉开放平台推出的用于调试钉钉微应用的调试工具，仅支持安卓和win。</p>
+<p>与钉钉Desktop版长的基本一样，在微应用界面可以按下<code>F2</code>或<code>F12</code>打开开发者工具。</p>
+<h3 id="dingtalk-design-cli"><a href="#dingtalk-design-cli" class="headerlink" title="dingtalk-design-cli"></a>dingtalk-design-cli</h3><p><a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/resourcedownload/local-development-tools-for-microapplications">dingtalk-design-cli</a>是钉钉开放平台新推出的H5微应用本地开发工具，开发者通过这个工具可以做到在Web浏览器中调试H5微应用和JSAPI，像开发一个普通H5应用一样开发钉钉H5微应用。</p>
+<p>首先安装dingtalk-design-cli</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i dingtalk-design-cli -g</span><br></pre></td></tr></table></figure>
+
+<p>以开发模式运行网页</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx react-scripts start</span><br></pre></td></tr></table></figure>
+
+<p>在网页目录下新建<a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/resourcedownload/configuration-description"><code>ding.config.json</code></a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;h5&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;typescript&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;base&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后以指定targetH5Url模式运行ding</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ding dev web --targetH5Url http://127.0.0.1:3000</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong><br>要先将<code>http://127.0.0.1:3000</code>填入对应企业的微应用的应用首页地址中。</p>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><p>钉钉官方提供了统一的<a href="(https://open.dingtalk.com/document/resourcedownload/download-server-sdk)%EF%BC%8C%E4%BD%BF%E7%94%A8SDK%E5%8F%AF%E4%BB%A5%E4%BE%BF%E6%8D%B7%E5%9C%B0%E8%B0%83%E7%94%A8%5B%E6%9C%8D%E5%8A%A1%E7%AB%AFAPI%5D(https://open.dingtalk.com/document/orgapp-server/api-overview">SDK</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/resourcedownload/api-explorer">API Explorer</a>是一款可视化的<a target="_blank" rel="noopener" href="https://open-dev.dingtalk.com/apiExplorer">API在线调试工具</a>，集成了API总览、快速检索、开发文档、可视化调试、同步动态生成可执行SDK Demo代码，功能丰富、简单易用。可以在API Explorer中查看Demo代码，来了解SDK的用法。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -249,14 +257,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2018/01/21/install-java8-on-ubuntu-16-04/" rel="prev" title="如何使用包管理在ubuntu16.04上安装java">
-                  <i class="fa fa-chevron-left"></i> 如何使用包管理在ubuntu16.04上安装java
+                <a href="/blog/2022/06/21/google-search-behind-a-proxy/" rel="prev" title="使用日本代理后谷歌搜索结果一堆日文">
+                  <i class="fa fa-chevron-left"></i> 使用日本代理后谷歌搜索结果一堆日文
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2018/03/08/install-redis-on-ubuntu-16-04/" rel="next" title="在ubuntu16.04系统上安装redis">
-                  在ubuntu16.04系统上安装redis <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
