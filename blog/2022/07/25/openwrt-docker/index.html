@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="如果不是特别的性能敏感，应该没有什么能比用docker安装软件更方便的了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Openwrt]使用docker">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-docker/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="如果不是特别的性能敏感，应该没有什么能比用docker安装软件更方便的了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-25T07:27:38.000Z">
+<meta property="article:modified_time" content="2022-07-25T09:10:19.804Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="openwrt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/07/25/openwrt-docker/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/07/25/openwrt-docker/","path":"2022/07/25/openwrt-docker/","title":"[Openwrt]使用docker"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[Openwrt]使用docker | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E7%9B%98"><span class="nav-number">2.</span> <span class="nav-text">硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5jellyfin%E4%B8%BA%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">以jellyfin为例</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/07/25/openwrt-docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[Openwrt]使用docker | Tasty Pub">
+      <meta itemprop="description" content="如果不是特别的性能敏感，应该没有什么能比用docker安装软件更方便的了。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Openwrt]使用docker
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-25 15:27:38 / 修改时间：17:10:19" itemprop="dateCreated datePublished" datetime="2022-07-25T15:27:38+08:00">2022-07-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">如果不是特别的性能敏感，应该没有什么能比用docker安装软件更方便的了。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg install dockerd</span><br><span class="line">opkg install luci-app-dockerman</span><br></pre></td></tr></table></figure>
+
+<h2 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h2><p>docker使用的目录为<code>/opt/docker</code>，所以我们在安装docker前，需要准确一个足够剩余空间的<code>/opt</code>，docker的镜像文件还是蛮占空间的。</p>
+<h2 id="以jellyfin为例"><a href="#以jellyfin为例" class="headerlink" title="以jellyfin为例"></a>以jellyfin为例</h2><p>我们试着<a target="_blank" rel="noopener" href="https://jellyfin.org/docs/general/administration/installing.html#container-images">在docker中安装jellyfin</a>。</p>
+<ol>
+<li>下载镜像文件</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull jellyfin/jellyfin</span><br></pre></td></tr></table></figure>
+
+<p>如果官方源连接失败，我们可以切换到国内源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$&gt; docker pull jellyfin/jellyfin</span><br><span class="line">Using default tag: latest</span><br><span class="line">Error response from daemon: Get <span class="string">&quot;https://registry-1.docker.io/v2/&quot;</span>: net/http: TLS handshake <span class="built_in">timeout</span></span><br></pre></td></tr></table></figure>
+
+<p>修改<code>/etc/config/dockerd</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># The following settings require a restart of docker to take full effect, A reload will only have partial or no effect:</span><br><span class="line"># bip</span><br><span class="line"># blocked_interfaces</span><br><span class="line"># extra_iptables_args</span><br><span class="line"># device</span><br><span class="line"></span><br><span class="line">config globals &#x27;globals&#x27;</span><br><span class="line">#       option alt_config_file &#x27;/etc/docker/daemon.json&#x27;</span><br><span class="line">        option data_root &#x27;/opt/docker/&#x27;</span><br><span class="line">        option log_level &#x27;warn&#x27;</span><br><span class="line">        option iptables &#x27;1&#x27;</span><br><span class="line">#       list hosts &#x27;unix:///var/run/docker.sock&#x27;</span><br><span class="line">#       option bip &#x27;172.18.0.1/24&#x27;</span><br><span class="line">#       option fixed_cidr &#x27;172.17.0.0/16&#x27;</span><br><span class="line">#       option fixed_cidr_v6 &#x27;fc00:1::/80&#x27;</span><br><span class="line">#       option ipv6 &#x27;1&#x27;</span><br><span class="line">#       option ip &#x27;::ffff:0.0.0.0&#x27;</span><br><span class="line">#       list dns &#x27;172.17.0.1&#x27;</span><br><span class="line">        list registry_mirrors &#x27;https://docker.mirrors.ustc.edu.cn/&#x27;    # &lt;-------- 添加国内源</span><br><span class="line">#       list registry_mirrors &#x27;https://hub.docker.com&#x27;</span><br><span class="line"></span><br><span class="line"># Docker ignores fw3 rules and by default all external source IPs are allowed to connect to the Docker host.</span><br><span class="line"># See https://docs.docker.com/network/iptables/ for more details.</span><br><span class="line"># firewall config changes are only additive i.e firewall will need to be restarted first to clear old changes,</span><br><span class="line"># then docker restarted to load in new changes.</span><br><span class="line">config firewall &#x27;firewall&#x27;</span><br><span class="line">        option device &#x27;docker0&#x27;</span><br><span class="line">        list blocked_interfaces &#x27;wan&#x27;</span><br><span class="line">#       option extra_iptables_args &#x27;--match conntrack ! --ctstate RELATED,ESTABLISHED&#x27; # allow outbound connections</span><br></pre></td></tr></table></figure>
+
+<p>修改完后重启dockerd并验证国内源是否添加成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$&gt; service dockerd restart</span><br><span class="line">$&gt; docker info</span><br><span class="line"> ...</span><br><span class="line"> Registry: https://index.docker.io/v1/</span><br><span class="line"> Labels:</span><br><span class="line"> Experimental: <span class="literal">false</span></span><br><span class="line"> Insecure Registries:</span><br><span class="line">  127.0.0.0/8</span><br><span class="line"> Registry Mirrors:</span><br><span class="line">  https://docker.mirrors.ustc.edu.cn/</span><br><span class="line"> Live Restore Enabled: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">WARNING: No swap <span class="built_in">limit</span> support</span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，使用国内源后，latest版本的更新可能不会那么及时，如果需要使用docker hub上的最新版，还得恢复到官方源，<a target="_blank" rel="noopener" href="https://docs.docker.com/network/proxy/">使用代理</a>来拉取。</p>
+<ol start="2">
+<li>创建一个持久化的目录来保存配置和缓存</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /root/jellyfin/config</span><br><span class="line"><span class="built_in">mkdir</span> /root/jellyfin/cache</span><br></pre></td></tr></table></figure>
+
+<p>或者也可以使用<a target="_blank" rel="noopener" href="https://docs.docker.com/storage/volumes/">volume</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker volume create jellyfin-config</span><br><span class="line">docker volume create jellyfin-cache</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>启动</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name jellyfin \</span><br><span class="line"> --user uid:gid \</span><br><span class="line"> --net=host \</span><br><span class="line"> --volume /path/to/config:/config \</span><br><span class="line"> --volume /path/to/cache:/cache \</span><br><span class="line"> --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/path/to/media,target=/media \</span><br><span class="line"> --restart=unless-stopped \</span><br><span class="line"> jellyfin/jellyfin</span><br></pre></td></tr></table></figure>
+
+<p>注意上面的uid:gid，和三个路径。</p>
+<p>如果全部使用默认配置，则可以直接一步到位：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /root/jellyfin/config</span><br><span class="line"><span class="built_in">mkdir</span> -p /root/jellyfin/cache</span><br><span class="line"><span class="built_in">mkdir</span> -p /root/media</span><br><span class="line"></span><br><span class="line">docker run -d \</span><br><span class="line"> --name jellyfin \</span><br><span class="line"> --net=host \</span><br><span class="line"> --volume /root/jellyfin/config:/config \</span><br><span class="line"> --volume /root/jellyfin/cache:/cache \</span><br><span class="line"> --mount <span class="built_in">type</span>=<span class="built_in">bind</span>,<span class="built_in">source</span>=/root/media,target=/media \</span><br><span class="line"> --restart=unless-stopped \</span><br><span class="line"> jellyfin/jellyfin</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>控制台</li>
+</ol>
+<p>默认端口为8096，直接访问<code>http://ip-address-of-openwrt:8096</code>即可访问jellyfin控制台进行初始化设置。</p>
+<p>jellyfin中的<code>/media</code>为OpenWrt中的<code>/root/media</code>。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/openwrt/" rel="tag"># openwrt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/07/25/openwrt-unblock-netease-music/" rel="prev" title="[OpenWrt]解除网易云音乐播放限制">
+                  <i class="fa fa-chevron-left"></i> [OpenWrt]解除网易云音乐播放限制
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/07/25/openwrt-openclash/" rel="next" title="[OpenWrt]使用OpenClash科学上网">
+                  [OpenWrt]使用OpenClash科学上网 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

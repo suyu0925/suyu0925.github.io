@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="网易云音乐的智能推荐很好用，但因为版权问题而音源不全。实在是不想下载一堆音乐app，那么可以考虑使用解除网易云音乐播放限制这个工具。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[OpenWrt]解除网易云音乐播放限制">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-unblock-netease-music/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="网易云音乐的智能推荐很好用，但因为版权问题而音源不全。实在是不想下载一堆音乐app，那么可以考虑使用解除网易云音乐播放限制这个工具。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-25T03:07:46.000Z">
+<meta property="article:modified_time" content="2022-07-25T05:43:33.860Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="openwrt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/07/25/openwrt-unblock-netease-music/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/07/25/openwrt-unblock-netease-music/","path":"2022/07/25/openwrt-unblock-netease-music/","title":"[OpenWrt]解除网易云音乐播放限制"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[OpenWrt]解除网易云音乐播放限制 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">下载安装包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E9%A1%B5"><span class="nav-number">2.1.</span> <span class="nav-text">网页</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">配置</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/07/25/openwrt-unblock-netease-music/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[OpenWrt]解除网易云音乐播放限制 | Tasty Pub">
+      <meta itemprop="description" content="网易云音乐的智能推荐很好用，但因为版权问题而音源不全。实在是不想下载一堆音乐app，那么可以考虑使用解除网易云音乐播放限制这个工具。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [OpenWrt]解除网易云音乐播放限制
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-25 11:07:46 / 修改时间：13:43:33" itemprop="dateCreated datePublished" datetime="2022-07-25T11:07:46+08:00">2022-07-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">网易云音乐的智能推荐很好用，但因为版权问题而音源不全。实在是不想下载一堆音乐app，那么可以考虑使用解除网易云音乐播放限制这个工具。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://github.com/UnblockNeteaseMusic/server">解除网易云音乐播放限制</a>的工作原理是拦劫网易云音乐的网络请求，使用其它音源来代替变灰的歌曲来实现解除播放限制。</p>
+<p>它的使用需要一定的门槛，而且每个客户端还需要单独设置代理。所以不如直接使用OpenWrt路由器插件。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic">[OpenWrt]解除网易云音乐播放限制</a>是一个OpenWrt的开源软件，它提供了两种安装方式：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic/releases">下载预编译的<code>.ipk</code></a></li>
+<li>自行编译</li>
+</ul>
+<p>在这里我们选择使用预编译的<code>ipk</code>文件。</p>
+<h2 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h2><p>首先下载<a target="_blank" rel="noopener" href="https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic/releases/download/v2.13-1/luci-app-unblockneteasemusic_2.13-1_all.ipk">最新的<code>ipk</code>文件</a>，截止到本文编写时间，最新版本为<code>v2.13-1</code>。</p>
+<p>可直接在OpenWrt中使用命令行下载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic/releases/download/v2.13-1/luci-app-unblockneteasemusic_2.13-1_all.ipk</span><br></pre></td></tr></table></figure>
+
+<p>但如果github被墙，那么就需要在本地先通过代理下载好，再拷贝至OpenWrt。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ./luci-app-unblockneteasemusic_2.13-1_all.ipk root@192.168.56.2:/root/</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>直接使用opkg安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install ./luci-app-unblockneteasemusic_2.13-1_all.ipk</span><br></pre></td></tr></table></figure>
+
+<p><strong>dnsmasq</strong></p>
+<p>如果是初始环境，很可能遇到下面这个错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Configuring kmod-nfnetlink.</span><br><span class="line">Configuring libnfnetlink0.</span><br><span class="line">Configuring kmod-nf-conntrack-netlink.</span><br><span class="line">Configuring libmnl0.</span><br><span class="line">Configuring libnetfilter-conntrack3.</span><br><span class="line">Configuring libgmp10.</span><br><span class="line">Configuring libnettle8.</span><br><span class="line">Configuring kmod-ipt-ipset.</span><br><span class="line">Collected errors:</span><br><span class="line"> * check_data_file_clashes: Package dnsmasq-full wants to install file /etc/hotplug.d/ntp/25-dnsmasqsec</span><br><span class="line">        But that file is already provided by package  * dnsmasq</span><br><span class="line"> * check_data_file_clashes: Package dnsmasq-full wants to install file /etc/init.d/dnsmasq</span><br><span class="line">        But that file is already provided by package  * dnsmasq</span><br><span class="line"> * check_data_file_clashes: Package dnsmasq-full wants to install file /usr/lib/dnsmasq/dhcp-script.sh</span><br><span class="line">        But that file is already provided by package  * dnsmasq</span><br><span class="line"> * check_data_file_clashes: Package dnsmasq-full wants to install file /usr/sbin/dnsmasq</span><br><span class="line">        But that file is already provided by package  * dnsmasq</span><br><span class="line"> * check_data_file_clashes: Package dnsmasq-full wants to install file /usr/share/acl.d/dnsmasq_acl.json</span><br><span class="line">        But that file is already provided by package  * dnsmasq</span><br><span class="line"> * check_data_file_clashes: Package dnsmasq-full wants to install file /usr/share/dnsmasq/dhcpbogushostname.conf</span><br><span class="line">        But that file is already provided by package  * dnsmasq</span><br><span class="line"> * check_data_file_clashes: Package dnsmasq-full wants to install file /usr/share/dnsmasq/rfc6761.conf</span><br><span class="line">        But that file is already provided by package  * dnsmasq</span><br><span class="line"> * opkg_install_cmd: Cannot install package luci-app-unblockneteasemusic.</span><br></pre></td></tr></table></figure>
+
+<p>这是因为在<code>luci-app-unblockneteasemusic</code>中依赖了<code>dnsmasq-full</code>，与预装的<code>dnsmasq</code>发生冲突。</p>
+<p><code>dnsmasq-full</code>可以替代<code>dnsmasq</code>，我们卸载<code>dnsmasq</code>后重装安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg remove dnsmasq</span><br><span class="line">opkg install ./luci-app-unblockneteasemusic_2.13-1_all.ipk</span><br></pre></td></tr></table></figure>
+
+<p>即可安装成功。</p>
+<p>安装结束后会提示一个错误，可以忽略。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Collected errors:</span><br><span class="line"> * resolve_conffiles: Existing conffile /etc/config/dhcp is different from the conffile <span class="keyword">in</span> the new package. The new conffile will be placed at /etc/config/dhcp-opkg.</span><br></pre></td></tr></table></figure>
+
+<h3 id="网页"><a href="#网页" class="headerlink" title="网页"></a>网页</h3><p>安装完成后，如果没有出现配置菜单，登出再登入即可，不需要重启。</p>
+<p>如果是初始环境，在打开配置网页时可能会出现下面的错误。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/lua/luci/dispatcher.lua:1347: module <span class="string">&#x27;luci.cbi&#x27;</span> not found:</span><br><span class="line">	no field package.preload[<span class="string">&#x27;luci.cbi&#x27;</span>]</span><br><span class="line">	no file <span class="string">&#x27;./luci/cbi.lua&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/share/lua/luci/cbi.lua&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/share/lua/luci/cbi/init.lua&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/lib/lua/luci/cbi.lua&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/lib/lua/luci/cbi/init.lua&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;./luci/cbi.so&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/lib/lua/luci/cbi.so&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/lib/lua/loadall.so&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;./luci.so&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/lib/lua/luci.so&#x27;</span></span><br><span class="line">	no file <span class="string">&#x27;/usr/lib/lua/loadall.so&#x27;</span></span><br><span class="line">stack traceback:</span><br><span class="line">	[C]: <span class="keyword">in</span> <span class="keyword">function</span> <span class="string">&#x27;require&#x27;</span></span><br><span class="line">	/usr/lib/lua/luci/dispatcher.lua:1347: <span class="keyword">in</span> <span class="keyword">function</span> <span class="string">&#x27;_cbi&#x27;</span></span><br><span class="line">	/usr/lib/lua/luci/dispatcher.lua:1024: <span class="keyword">in</span> <span class="keyword">function</span> <span class="string">&#x27;dispatch&#x27;</span></span><br><span class="line">	/usr/lib/lua/luci/dispatcher.lua:985: <span class="keyword">in</span> <span class="keyword">function</span> <span class="string">&#x27;dispatch&#x27;</span></span><br><span class="line">	/usr/lib/lua/luci/dispatcher.lua:479: <span class="keyword">in</span> <span class="keyword">function</span> &lt;/usr/lib/lua/luci/dispatcher.lua:478&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这是因为缺少库<code>luci-compat</code>，补上后再刷新网页即可工作正常。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install luci-compat</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>默认配置不需要修改即可使用，所以可以直接勾选<code>启用本插件</code>开启服务，然后<code>保存并提交</code>。</p>
+<p>在安装完成后，是没有核心的。所以在首次使用时，会在后台下载核心，需要等待一会。</p>
+<p>可以去<code>日志</code>标签页查看是否更新完成。</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Local version: NOT FOUND, latest version: 7cbc0acff167f78748f69709894dd6a0747ccdbc.</span><br><span class="line">Updating core...</span><br></pre></td></tr></table></figure>
+
+<p>如果更新失败，需要手动在<code>更新组件</code>标签页去再次更新核心。</p>
+<figure class="highlight plaintext"><figcaption><span>text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Succeeded in updating core.</span><br><span class="line">Current core version: 7cbc0acff167f78748f69709894dd6a0747ccdbc.</span><br><span class="line"></span><br><span class="line">&#123;&quot;level&quot;:30,&quot;time&quot;:1658718197068,&quot;pid&quot;:6249,&quot;hostname&quot;:&quot;OpenWrt&quot;,&quot;scope&quot;:&quot;app&quot;,&quot;msg&quot;:&quot;HTTP Server running @ http://0.0.0.0:5200&quot;&#125;</span><br><span class="line">&#123;&quot;level&quot;:30,&quot;time&quot;:1658718197070,&quot;pid&quot;:6249,&quot;hostname&quot;:&quot;OpenWrt&quot;,&quot;scope&quot;:&quot;app&quot;,&quot;msg&quot;:&quot;HTTPS Server running @ http://0.0.0.0:5201&quot;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直至下载成功后，本插件才可以正常工作。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/openwrt/" rel="tag"># openwrt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/07/22/openwrt-in-vbox/" rel="prev" title="在VirtualBox虚拟机中玩耍OpenWrt">
+                  <i class="fa fa-chevron-left"></i> 在VirtualBox虚拟机中玩耍OpenWrt
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/07/25/openwrt-docker/" rel="next" title="[Openwrt]使用docker">
+                  [Openwrt]使用docker <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
