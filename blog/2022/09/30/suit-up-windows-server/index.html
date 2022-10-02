@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="最近想升级一下Windows Server版本，记录一下装机必备。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows Server云服务器装机必备">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/09/30/suit-up-windows-server/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="最近想升级一下Windows Server版本，记录一下装机必备。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-30T02:33:19.000Z">
+<meta property="article:modified_time" content="2022-10-01T09:19:01.274Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/09/30/suit-up-windows-server/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/09/30/suit-up-windows-server/","path":"2022/09/30/suit-up-windows-server/","title":"Windows Server云服务器装机必备"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Windows Server云服务器装机必备 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E5%BE%80%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87Microsoft-Store%E5%AE%89%E8%A3%85%E7%9A%84App"><span class="nav-number">1.</span> <span class="nav-text">以往可以通过Microsoft Store安装的App</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E8%84%91%E6%94%BB%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">无脑攻略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VC-v14-Desktop-Framework-Package"><span class="nav-number">2.1.</span> <span class="nav-text">VC++ v14 Desktop Framework Package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dotnet"><span class="nav-number">2.2.</span> <span class="nav-text">Dotnet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Studio%E5%92%8CVisual-Studio-Code"><span class="nav-number">2.3.</span> <span class="nav-text">Visual Studio和Visual Studio Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microsoft-UI-Xaml"><span class="nav-number">2.4.</span> <span class="nav-text">Microsoft.UI.Xaml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#winget%EF%BC%8C%E4%B8%8D%E6%94%AF%E6%8C%81Windows-Server"><span class="nav-number">2.5.</span> <span class="nav-text">*winget，不支持Windows Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">2.5.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Terminal"><span class="nav-number">2.6.</span> <span class="nav-text">Windows Terminal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96-1"><span class="nav-number">2.6.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#z-jump"><span class="nav-number">2.7.</span> <span class="nav-text">z-jump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wsl%EF%BC%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BA%8C%E6%AC%A1%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="nav-number">2.8.</span> <span class="nav-text">*wsl，云服务器不支持二次虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">2.9.</span> <span class="nav-text">docker</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/09/30/suit-up-windows-server/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Windows Server云服务器装机必备 | Tasty Pub">
+      <meta itemprop="description" content="最近想升级一下Windows Server版本，记录一下装机必备。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows Server云服务器装机必备
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-30 10:33:19" itemprop="dateCreated datePublished" datetime="2022-09-30T10:33:19+08:00">2022-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-01 17:19:01" itemprop="dateModified" datetime="2022-10-01T17:19:01+08:00">2022-10-01</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">最近想升级一下Windows Server版本，记录一下装机必备。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="以往可以通过Microsoft-Store安装的App"><a href="#以往可以通过Microsoft-Store安装的App" class="headerlink" title="以往可以通过Microsoft Store安装的App"></a>以往可以通过Microsoft Store安装的App</h1><p>首先一个很大的区别是<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/msix/msix-server-2019#considerations">Server没有Microsoft Store</a>，所以很多App只能通过命令行的形式来安装。</p>
+<p>比如巨好用的<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">Windows Terminal</a>，以及很顺手的包管理器<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli">winget</a>，甚至是<a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9PN20MSR04DW">Ubuntu 22.04.1 LTS</a>。</p>
+<h1 id="无脑攻略"><a href="#无脑攻略" class="headerlink" title="无脑攻略"></a>无脑攻略</h1><h2 id="VC-v14-Desktop-Framework-Package"><a href="#VC-v14-Desktop-Framework-Package" class="headerlink" title="VC++ v14 Desktop Framework Package"></a>VC++ v14 Desktop Framework Package</h2><p>很多App都依赖<a target="_blank" rel="noopener" href="https://docs.microsoft.com/troubleshoot/cpp/c-runtime-packages-desktop-bridge#how-to-install-and-update-desktop-framework-packages">VC++ v14 Desktop Framework Package</a>，比如<code>Windows Terminal</code>和<code>winget</code>，所以第一步先安装它。</p>
+<p>下载<a target="_blank" rel="noopener" href="https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx">Microsoft.VCLibs.x64.14.00.Desktop.appx</a>，然后使用命令行安装：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Add-AppxPackage</span> Microsoft.VCLibs.x64.<span class="number">14.00</span>.Desktop.appx</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dotnet"><a href="#Dotnet" class="headerlink" title="Dotnet"></a>Dotnet</h2><p><a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0/runtime">Dotnet运行时</a>也算是装机必备了，一次到位我们直接安装<a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/en-us/download">SDK</a>。目前的LTS版本是6.0，截止写这篇博客时的最新版是<a target="_blank" rel="noopener" href="https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/sdk-6.0.401-windows-x64-installer">6.0.401</a>。</p>
+<h2 id="Visual-Studio和Visual-Studio-Code"><a href="#Visual-Studio和Visual-Studio-Code" class="headerlink" title="Visual Studio和Visual Studio Code"></a>Visual Studio和Visual Studio Code</h2><p><a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/vs/">VS</a>和<a target="_blank" rel="noopener" href="https://code.visualstudio.com/">VS Code</a>就不用多说了。</p>
+<h2 id="Microsoft-UI-Xaml"><a href="#Microsoft-UI-Xaml" class="headerlink" title="Microsoft.UI.Xaml"></a>Microsoft.UI.Xaml</h2><p><a target="_blank" rel="noopener" href="https://github.com/microsoft/microsoft-ui-xaml">Microsoft.UI.Xaml</a>是一个UI库，被很多App使用（比如winget）。</p>
+<p>Microsoft.UI.Xaml是一个面向开发者的库，它并没有直接提供可安装的msixbundle，所以安装方式有一点不一样。</p>
+<p>首先去<a target="_blank" rel="noopener" href="https://www.nuget.org/packages/Microsoft.UI.Xaml">nuget</a>下载最新的稳定版<a target="_blank" rel="noopener" href="https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3">nupkg文件</a>，然后解压，再安装包里的bundle。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Rename-Item</span> <span class="literal">-Path</span> <span class="string">&quot;microsoft.ui.xaml.2.7.3.nupkg&quot;</span> <span class="literal">-NewName</span> <span class="string">&quot;microsoft.ui.xaml.2.7.3.zip&quot;</span></span><br><span class="line"><span class="built_in">Expand-Archive</span> <span class="string">&quot;microsoft.ui.xaml.2.7.3.zip&quot;</span> <span class="literal">-DestinationPath</span> <span class="string">&quot;./microsoft.ui.xaml&quot;</span></span><br><span class="line"><span class="built_in">Add-AppxPackage</span> <span class="string">&quot;microsoft.ui.xaml\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="winget，不支持Windows-Server"><a href="#winget，不支持Windows-Server" class="headerlink" title="*winget，不支持Windows Server"></a>*winget，不支持Windows Server</h2><p>去<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/releases">发布页</a>下载<code>Microsoft.DesktopAppInstaller_&lt;versionNumber&gt;.msixbundle</code>，然后使用命令行安装：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Add-AppxPackage</span> Microsoft.DesktopAppInstaller_&lt;versionNumber&gt;.msixbundle</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<p>原来winget不支持Windows Server，请参见<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/issues/702#issuecomment-764997870">issue中的讨论</a>。</p>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><ul>
+<li><p><a href="#VC-v14-Desktop-Framework-Package">VC++ v14 Desktop Framework Package</a>。</p>
+</li>
+<li><p><a href="#Microsoft-UI-Xaml">Microsoft.UI.Xaml</a></p>
+</li>
+</ul>
+<h2 id="Windows-Terminal"><a href="#Windows-Terminal" class="headerlink" title="Windows Terminal"></a>Windows Terminal</h2><p>以往我们可以<a target="_blank" rel="noopener" href="https://aka.ms/terminal">在微软商店里</a>安装<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">Windows Terminal</a>，现在只能去github项目的<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal/releases">release页面</a>下载msixbundle文件。</p>
+<p>然后手动运行命令安装：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NOTE: If you are using PowerShell 7+, please run</span></span><br><span class="line"><span class="comment"># Import-Module Appx -UseWindowsPowerShell</span></span><br><span class="line"><span class="comment"># before using Add-AppxPackage.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Add-AppxPackage</span> Microsoft.WindowsTerminal_&lt;versionNumber&gt;.msixbundle</span><br></pre></td></tr></table></figure>
+
+<h3 id="依赖-1"><a href="#依赖-1" class="headerlink" title="依赖"></a>依赖</h3><ul>
+<li><a href="#VC-v14-Desktop-Framework-Package">VC++ v14 Desktop Framework Package</a>。</li>
+</ul>
+<h2 id="z-jump"><a href="#z-jump" class="headerlink" title="z-jump"></a>z-jump</h2><p>z-dump的安装方法参照<a href="/blog/2021/11/19/z-jump-around/" title="在命令行快速切换目录">另一篇博文</a>，Windows Server没有区别。</p>
+<h2 id="wsl，云服务器不支持二次虚拟化"><a href="#wsl，云服务器不支持二次虚拟化" class="headerlink" title="*wsl，云服务器不支持二次虚拟化"></a>*wsl，云服务器不支持二次虚拟化</h2><p>在Windows Server上，只需要很简单的<code>wsl --install</code>就可以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-on-server">全部配置好</a>，也可以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-manual">一步步的手动操作</a>。</p>
+<p>在服务器上下载Ubuntu LTS实在是太慢了，所以推荐<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-manual#downloading-distributions">在本地下载好</a>，再拷贝到服务器上去离线安装。其它服务器在海外的安装包也都可以这么操作。</p>
+<ol>
+<li><p>开启Linux子系统</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Enable-WindowsOptionalFeature</span> <span class="literal">-Online</span> <span class="literal">-FeatureName</span> Microsoft<span class="literal">-Windows-Subsystem-Linux</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从本地拷贝Linux发行版到服务器上，再运行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Rename-Item</span> .\Ubuntu2204<span class="literal">-220620</span>.AppxBundle .\Ubuntu2204<span class="literal">-220620</span>.zip</span><br><span class="line"><span class="built_in">Expand-Archive</span> .\Ubuntu2204<span class="literal">-220620</span>.zip .\Ubuntu2204<span class="literal">-220620</span></span><br><span class="line"><span class="built_in">Add-AppxPackage</span> .\Ubuntu2204<span class="literal">-220620</span>\Ubuntu_2204.<span class="number">0.10</span>.<span class="number">0</span>_x64.appx</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>然后发现安装失败…… 云服务器本来建议在虚拟化之上，所以<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/25412.html#section-nxc-2zs-2gb">没办法再虚拟一个Linux</a>了。真难受。</p>
+<h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><p>docker只能使用windows container，使用场景大幅受限。</p>
+<p>而且docker desktop在Windows Server 2022运行不起来，晚些再来弄这个问题。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/08/04/limit-wsl2-memory/" rel="prev" title="限制wsl2的最大使用内存">
+                  <i class="fa fa-chevron-left"></i> 限制wsl2的最大使用内存
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2022/10/01/install-openwrt-on-soft-router/" rel="next" title="[OpenWrt]给软路由安装openwrt">
+                  [OpenWrt]给软路由安装openwrt <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
