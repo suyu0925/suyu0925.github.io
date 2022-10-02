@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/10/01/install-openwrt-on-soft-router/diskpart_extend_partition.jpg">
 <meta property="article:published_time" content="2022-10-01T14:43:18.000Z">
-<meta property="article:modified_time" content="2022-10-02T03:37:57.201Z">
+<meta property="article:modified_time" content="2022-10-02T09:32:10.287Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-02 11:37:57" itemprop="dateModified" datetime="2022-10-02T11:37:57+08:00">2022-10-02</time>
+      <time title="修改时间：2022-10-02 17:32:10" itemprop="dateModified" datetime="2022-10-02T17:32:10+08:00">2022-10-02</time>
     </span>
 
   
@@ -240,7 +240,8 @@
 <li>一台软路由</li>
 </ul>
 <h3 id="openwrt镜像文件"><a href="#openwrt镜像文件" class="headerlink" title="openwrt镜像文件"></a>openwrt镜像文件</h3><p>去<a target="_blank" rel="noopener" href="https://downloads.openwrt.org/">openwrt官网</a>下载对应架构的稳定版镜像文件。</p>
-<h4 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h4><p>我试了下最新的<a target="_blank" rel="noopener" href="https://downloads.openwrt.org/releases/22.03.0/targets/x86/64/">22.03.0</a>，发现docker daemon无法正常工作。建议不要使用小版本号为0的版本，还是回退到上一个稳定版<a target="_blank" rel="noopener" href="https://downloads.openwrt.org/releases/21.02.3/targets/x86/64/">22.02.3</a>比较保险。</p>
+<h4 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h4><p>试了下最新的<a target="_blank" rel="noopener" href="https://downloads.openwrt.org/releases/22.03.0/targets/x86/64/">22.03.0</a>，发现docker daemon无法正常工作。</p>
+<p>建议不要使用小版本号为0的版本，还是回退到上一个稳定版<a target="_blank" rel="noopener" href="https://downloads.openwrt.org/releases/21.02.3/targets/x86/64/">22.02.3</a>比较保险。</p>
 <h4 id="选哪个镜像"><a href="#选哪个镜像" class="headerlink" title="选哪个镜像"></a>选哪个镜像</h4><p>OpenWrt的镜像有很多个，大概是下面几个选项的排列组合：</p>
 <ul>
 <li>ext4还是squashfs</li>
@@ -297,6 +298,7 @@
 
 <h4 id="DiskGenius"><a href="#DiskGenius" class="headerlink" title="DiskGenius"></a>DiskGenius</h4><p>如果实在不习惯命令行，想用DiskGenius，那最简单的方法是使用第三方WinPE，第三方WinPE都会集成常用工具。比如<a target="_blank" rel="noopener" href="https://www.upe.net/">优启通</a>。</p>
 <p>DiskGenius的使用方法就不多说了，扩展rootfs分区使用剩余未分区空间再保存就行。</p>
+<p><strong>注意</strong>，我在使用DiskGenius扩容rootfs分区时，<code>generic-squashfs-combined-efi</code>会出现错误，最后使用了<code>generic-squashfs-combined</code>。</p>
 <h2 id="安装Openwrt"><a href="#安装Openwrt" class="headerlink" title="安装Openwrt"></a>安装Openwrt</h2><p>将软路由接上显示器，键盘，鼠标，U盘，然后插电。</p>
 <h3 id="通电直接启动"><a href="#通电直接启动" class="headerlink" title="通电直接启动"></a>通电直接启动</h3><p>默认软由器会通电直接开机，而不用按下开机键。这样才能在断电又来电后自动恢复。</p>
 <p>这项设置在BIOS的<code>Restore AC Power Loss</code>中，将它设为<code>Power On</code>即可。</p>
@@ -320,8 +322,8 @@
 <li><a href="/blog/2022/07/25/openwrt-openclash/" title="[OpenWrt]使用OpenClash科学上网">OpenClash</a></li>
 <li><a href="/blog/2022/07/26/openwrt-aria2/" title="[Openwrt]使用aria2">Aria2</a></li>
 <li><a href="/blog/2022/08/01/openwrt-samba/" title="[OpenWrt]使用samba">Samba</a></li>
-<li><a href="/blog/2021/11/19/z-jump-around/" title="在命令行快速切换目录">解锁网易云</a></li>
-<li><a href="/blog/2022/07/25/openwrt-unblock-netease-music/" title="[OpenWrt]解除网易云音乐播放限制">Docker</a></li>
+<li><a href="/blog/2022/07/25/openwrt-unblock-netease-music/" title="[OpenWrt]解除网易云音乐播放限制">解锁网易云</a></li>
+<li><a href="/blog/2022/07/25/openwrt-docker/" title="[Openwrt]使用docker">Docker</a></li>
 </ul>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
