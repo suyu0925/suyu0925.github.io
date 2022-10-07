@@ -20,28 +20,32 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
 
-    <meta name="description" content="wsl2简直是内存吞噬者，还是做一下限制吧。">
+    <meta name="description" content="最近在验证阿里云的Windows Server，创建了好多临时服务器，导致远程桌面连接产生了一大堆无用的记录，记录一下删除的方法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="限制wsl2的最大使用内存">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2022/08/04/limit-wsl2-memory/index.html">
+<meta property="og:title" content="删除远程桌面连接记录">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="wsl2简直是内存吞噬者，还是做一下限制吧。">
+<meta property="og:description" content="最近在验证阿里云的Windows Server，创建了好多临时服务器，导致远程桌面连接产生了一大堆无用的记录，记录一下删除的方法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-04T07:36:34.000Z">
-<meta property="article:modified_time" content="2022-08-26T16:52:19.897Z">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/Default.rdp.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/server-list.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/recent.png">
+<meta property="article:published_time" content="2022-10-07T17:36:37.000Z">
+<meta property="article:modified_time" content="2022-10-07T17:53:58.924Z">
 <meta property="article:author" content="lckof">
-<meta property="article:tag" content="docker">
+<meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/Default.rdp.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2022/08/04/limit-wsl2-memory/">
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/08/04/limit-wsl2-memory/","path":"2022/08/04/limit-wsl2-memory/","title":"限制wsl2的最大使用内存"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/","path":"2022/10/08/remove-deprecated-mstsc-servers/","title":"删除远程桌面连接记录"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>限制wsl2的最大使用内存 | Tasty Pub</title>
+<title>删除远程桌面连接记录 | Tasty Pub</title>
   
 
   <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
@@ -99,7 +103,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -112,6 +116,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">默认的远程连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%88%97%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">服务器列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E8%BF%91%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">最近使用</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -174,7 +179,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/08/04/limit-wsl2-memory/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/10/08/remove-deprecated-mstsc-servers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -187,12 +192,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="限制wsl2的最大使用内存 | Tasty Pub">
-      <meta itemprop="description" content="wsl2简直是内存吞噬者，还是做一下限制吧。">
+      <meta itemprop="name" content="删除远程桌面连接记录 | Tasty Pub">
+      <meta itemprop="description" content="最近在验证阿里云的Windows Server，创建了好多临时服务器，导致远程桌面连接产生了一大堆无用的记录，记录一下删除的方法。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          限制wsl2的最大使用内存
+          删除远程桌面连接记录
         </h1>
 
         <div class="post-meta-container">
@@ -202,15 +207,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-08-04 15:36:34" itemprop="dateCreated datePublished" datetime="2022-08-04T15:36:34+08:00">2022-08-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 00:52:19" itemprop="dateModified" datetime="2022-08-27T00:52:19+08:00">2022-08-27</time>
+      <time title="创建时间：2022-10-08 01:36:37 / 修改时间：01:53:58" itemprop="dateCreated datePublished" datetime="2022-10-08T01:36:37+08:00">2022-10-08</time>
     </span>
 
   
@@ -223,7 +222,7 @@
     </span>
 </div>
 
-            <div class="post-description">wsl2简直是内存吞噬者，还是做一下限制吧。</div>
+            <div class="post-description">最近在验证阿里云的Windows Server，创建了好多临时服务器，导致远程桌面连接产生了一大堆无用的记录，记录一下删除的方法。</div>
         </div>
       </header>
 
@@ -231,14 +230,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>wsl2默认会吃下80%的内存（<code>build 20175</code>之前的版本，之后的版本是50%内存和8G取较小值）(任务管理器中的<a target="_blank" rel="noopener" href="https://devblogs.microsoft.com/oldnewthing/20180717-00/?p=99265">Vmmem</a>就是它啦)，并且不会积极释放，所以一旦执行过重负载任务，就得重启才能恢复，实在影响体验。</p>
-<blockquote>
-<p>可以在PowerShell中使用<code>[environment]::OSVersion.Version</code>或者CMD中使用<code>ver</code>来查看系统版本。</p>
-</blockquote>
-<p>可是docker<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/windows/wsl/#enabling-docker-support-in-wsl-2-distros">推荐的后端又是wsl2</a>，性能比hyper-v好一些，所以如果系统版本早于<code>build 20175</code>就还是给wsl2设置一下内存限制吧。</p>
-<p>在<code>%USERPROFILE%</code>下新建<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig">.wslconfig</a>配置文件，添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Settings apply across all Linux distros running on WSL 2</span><br><span class="line">[wsl2]</span><br><span class="line"></span><br><span class="line"># Limits VM memory to use no more than 4 GB, this can be set as whole numbers using GB or MB</span><br><span class="line">memory=4GB</span><br></pre></td></tr></table></figure>
-<p>然后重启即可。</p>
+        <h2 id="默认的远程连接"><a href="#默认的远程连接" class="headerlink" title="默认的远程连接"></a>默认的远程连接</h2><img src="/blog/2022/10/08/remove-deprecated-mstsc-servers/Default.rdp.png" class="" title="默认的远程连接">
+
+<p><code>%USERPROFILE%\Documents\Default.rdp</code>这里保存着最近一次登录的远程连接，可以不用管。</p>
+<h2 id="服务器列表"><a href="#服务器列表" class="headerlink" title="服务器列表"></a>服务器列表</h2><p>服务器列表保存在注册表的<code>计算机\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Terminal Server Client\Default</code>下。</p>
+<img src="/blog/2022/10/08/remove-deprecated-mstsc-servers/server-list.png" class="" title="服务器列表">
+
+<p>不需要哪个直接删除哪个就好。</p>
+<p>后面的<code>MRU0</code>，<code>MRU1</code>的0和1这些序号可以不用管，在成功登录一次后会被重新排序。</p>
+<h2 id="最近使用"><a href="#最近使用" class="headerlink" title="最近使用"></a>最近使用</h2><img src="/blog/2022/10/08/remove-deprecated-mstsc-servers/recent.png" class="" title="最近使用">
+
+<p>远程桌面连接应用的最近使用记录则需要手动删除。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -248,21 +250,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/docker/" rel="tag"># docker</a>
+              <a href="/blog/tags/windows/" rel="tag"># windows</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2022/08/01/openwrt-samba/" rel="prev" title="[OpenWrt]使用samba">
-                  <i class="fa fa-chevron-left"></i> [OpenWrt]使用samba
+                <a href="/blog/2022/10/01/install-openwrt-on-soft-router/" rel="prev" title="[OpenWrt]给软路由安装openwrt">
+                  <i class="fa fa-chevron-left"></i> [OpenWrt]给软路由安装openwrt
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2022/09/30/suit-up-windows-server/" rel="next" title="Windows Server云服务器装机必备">
-                  Windows Server云服务器装机必备 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
