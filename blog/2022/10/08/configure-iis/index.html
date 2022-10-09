@@ -20,28 +20,31 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
 
-    <meta name="description" content="如何应对并发(5)">
+    <meta name="description" content="在Windows Server上，IIS比nginx性能强很多，试着配置一下吧。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何应对并发(5) - 关键的关键，是认识负载">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-5/index.html">
+<meta property="og:title" content="配置IIS实现反向代理">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/10/08/configure-iis/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="如何应对并发(5)">
+<meta property="og:description" content="在Windows Server上，IIS比nginx性能强很多，试着配置一下吧。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-06-04T07:56:13.000Z">
-<meta property="article:modified_time" content="2022-08-26T16:52:19.850Z">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/10/08/configure-iis/install-iis.png">
+<meta property="article:published_time" content="2022-10-07T18:39:41.000Z">
+<meta property="article:modified_time" content="2022-10-09T08:39:51.572Z">
 <meta property="article:author" content="lckof">
-<meta property="article:tag" content="computer science">
+<meta property="article:tag" content="windows">
+<meta property="article:tag" content="iis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2022/10/08/configure-iis/install-iis.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-5/">
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/10/08/configure-iis/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-5/","path":"2019/06/04/caoz-concurrent-5/","title":"如何应对并发(5) - 关键的关键，是认识负载"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/10/08/configure-iis/","path":"2022/10/08/configure-iis/","title":"配置IIS实现反向代理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>如何应对并发(5) - 关键的关键，是认识负载 | Tasty Pub</title>
+<title>配置IIS实现反向代理 | Tasty Pub</title>
   
 
   <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
@@ -112,7 +115,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E5%B9%B6%E5%8F%91-5-%E5%85%B3%E9%94%AE%E7%9A%84%E5%85%B3%E9%94%AE%EF%BC%8C%E6%98%AF%E8%AE%A4%E8%AF%86%E8%B4%9F%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">如何应对并发(5) - 关键的关键，是认识负载</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85IIS"><span class="nav-number">1.</span> <span class="nav-text">安装IIS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">Web平台安装程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-Request-Routing"><span class="nav-number">3.</span> <span class="nav-text">Application Request Routing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">设置反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AFARR%E7%9A%84%E4%BB%A3%E7%90%86%E5%8A%9F%E8%83%BD"><span class="nav-number">4.1.</span> <span class="nav-text">开启ARR的代理功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E9%87%8D%E5%86%99"><span class="nav-number">4.2.</span> <span class="nav-text">URL重写</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -175,7 +178,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2019/06/04/caoz-concurrent-5/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/10/08/configure-iis/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -188,12 +191,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="如何应对并发(5) - 关键的关键，是认识负载 | Tasty Pub">
-      <meta itemprop="description" content="如何应对并发(5)">
+      <meta itemprop="name" content="配置IIS实现反向代理 | Tasty Pub">
+      <meta itemprop="description" content="在Windows Server上，IIS比nginx性能强很多，试着配置一下吧。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          如何应对并发(5) - 关键的关键，是认识负载
+          配置IIS实现反向代理
         </h1>
 
         <div class="post-meta-container">
@@ -204,23 +207,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2019-06-04 15:56:13" itemprop="dateCreated datePublished" datetime="2019-06-04T15:56:13+08:00">2019-06-04</time>
+      <time title="创建时间：2022-10-08 02:39:41" itemprop="dateCreated datePublished" datetime="2022-10-08T02:39:41+08:00">2022-10-08</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-27 00:52:19" itemprop="dateModified" datetime="2022-08-27T00:52:19+08:00">2022-08-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
-        </span>
+      <time title="修改时间：2022-10-09 16:39:51" itemprop="dateModified" datetime="2022-10-09T16:39:51+08:00">2022-10-09</time>
     </span>
 
   
@@ -233,7 +227,7 @@
     </span>
 </div>
 
-            <div class="post-description">如何应对并发(5)</div>
+            <div class="post-description">在Windows Server上，IIS比nginx性能强很多，试着配置一下吧。</div>
         </div>
       </header>
 
@@ -241,38 +235,35 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>本文引自<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&mid=401014185&idx=1&sn=66850ac473e63c639448103066682dc7&scene=21#wechat_redirect">caoz的梦呓的同名文章</a></p>
-<h2 id="如何应对并发-5-关键的关键，是认识负载"><a href="#如何应对并发-5-关键的关键，是认识负载" class="headerlink" title="如何应对并发(5) - 关键的关键，是认识负载"></a>如何应对并发(5) - 关键的关键，是认识负载</h2><p>很多人会问我说，他们有个系统，流量有多大，用户有多多，然后问我用什么方案，实话说，这样的问题基本上都没办法回答，你必须首先清楚，你的负载构成是怎样的，以及负载增加的趋势是怎样的，才能有针对性的给出方案。</p>
-<p>1、负载的构成</p>
-<p>你要提出优化方案，首先你要知道你系统的负载是怎么构成的，</p>
-<p>CPU开销是多少，是哪些进程和服务占用的。</p>
-<p>内存开销是多少，是哪些进程和服务占用的，如果内存占用了swap分区，大量的硬盘虚拟内存操作，效率自然会直线下降。</p>
-<p>I&#x2F;O开销 是多少，读请求的频率，写请求的频率，什么服务和什么操作占用了大量的i&#x2F;o。</p>
-<p>连接数是多少，是怎么分布的，比如http链接多少，数据库链接多少，memcache链接多少，当然更细致的三次握手的链接是多少。</p>
-<p>了解这些，是优化的基础，这些都不清楚，谈个毛优化方案。</p>
-<p>2、负载增长趋势</p>
-<p>随着应用请求的增加，你的系统的负载是怎么增加的。</p>
-<p>第一种，是线性增加，就是请求两倍，负载变成两倍</p>
-<p>第二种，是指数增加，请求两倍，负载变成四倍甚至更多，</p>
-<p>有人会奇怪，为什么这样呢？因为请求增加和数据量增加很可能是一致的，比如一个毫无索引的遍历查询，数据量增加了一倍，查询效率就降低50%，请求量又增加1倍，所以负载就增加了4倍。 这种就是非常不合理的技术架构。</p>
-<p>第三种，收敛增加，随着你的请求增加规模，负载的增加低于线性增加并逐步收敛，比如说，大量使用缓存和异步更新，请求越多，缓存命中率越高，异步更新的请求合并率越高，这样负载的增加就呈现为收敛性，这样系统的支撑性就会很强大。</p>
-<p>3、系统阈值</p>
-<p>很多时候，我们系统出现瓶颈，并不是因为负载很高，而是因为某个请求规模超越了系统阈值，导致无法应答请求。</p>
-<p>典型范例如</p>
-<p>syn flood攻击时，最大的syn连接池被占满，导致无法应答新的请求，而此时服务器负载非常之低，这就是典型服务器很闲但不响应的情况。</p>
-<p>http链接数越界，http链接超时设置较长，大量链接没有释放，导致链接数超过默认最大值，http服务器无法响应新请求。</p>
-<p>mysql链接数越界，大量使用常链接或不释放链接，导致大量sleep链接占满系统默认连接数，数据库无法响应新请求。</p>
-<p>最大文件打开数越界，大量使用临时文件和缓存文件，大量的文件打开操作，而系统默认值没有调优。</p>
-<p>类似这样的还有很多，以上只是最常见的一些。</p>
-<p>这就是很多人觉得奇怪的一个现象，我看了一下系统负载不高为啥我服务器不响应了？要充分理解各种系统阈值，并针对自己的应用特性进行调优，才可以充分发挥系统硬件特性，实话说，很多系统或服务的默认阈值都偏低。</p>
-<p>4、峰谷的规律和预测</p>
-<p>通常，负载和请求并非一条平顺的曲线，每天都有波峰和波谷，如果有大的活动或市场推广计划，很可能也会有一条非常陡峭的增加曲线。</p>
-<p>这时候需要运营者有一个预测和判断，知道波峰在什么时候会发生，而且要知道相关的规律是什么。</p>
-<p>5、异常的监控和跟踪</p>
-<p>之前我的系列文章有提过一点，要对各种异常敏感，很多严重的性能问题其实是有先兆的，比如偶尔的501错误，偶尔的访问卡顿，偶尔的链接出错，很多时候，用户刷新一下，这个问题就没有了，但是很可能此事系统已经进入了一个不稳定的状态。</p>
-<p>有经验和有意识的架构师或运维专家，应该会做日志的跟踪和审计，随时查看这种错误信息的出现频率，并对此进行持续的跟踪监控，在高并发的真实环境中，在一定比例内，这样的偶发异常是非常难免的，你要问我如何彻底杜绝，对不起，我也不会，但是首先，这个比例应该是非常低的，比如说在万分之几甚至更低，当异常响应超过千分之几的时候你就应该足够敏感和足够紧张的去研究这个问题了。其次，当异常频现的时候应该在程序里埋点做跟踪了，并尽可能记录异常频次较高时候的系统负载值和各种连接数与阈值的比例。然后基于异常的一些提示信息在网上进行搜索，当然，不同的异常存在不同的可能，我没办法给出一揽子解决的方案，但是我希望提醒，当异常开始快速增加的时候，你至少要知道，系统已经呈现出可能崩溃的前兆了。</p>
-<p>认识负载，是优化系统的关键，今天先讲这些，这个系列并未结束。</p>
-<p>最近在多个城市穿梭，因此更新不够稳定，谢谢您继续关注和支持！</p>
+        <h2 id="安装IIS"><a href="#安装IIS" class="headerlink" title="安装IIS"></a>安装IIS</h2><p>打开<code>服务管理器</code>，点击<code>添加角色和功能</code>，选择安装<code>Web 服务器(IIS)</code>。</p>
+<img src="/blog/2022/10/08/configure-iis/install-iis.png" class="" title="安装IIS">
+
+<p>一般来说，直接按默认设置一路下一步就好。</p>
+<h2 id="Web平台安装程序"><a href="#Web平台安装程序" class="headerlink" title="Web平台安装程序"></a>Web平台安装程序</h2><p>下一步要安装<a target="_blank" rel="noopener" href="https://www.microsoft.com/web/downloads/platform.aspx">Web平台安装程序</a>，即Web Platform Installer，简写为WebPI。</p>
+<p>如果使用ARR离线安装包，这一步可以省去。</p>
+<h2 id="Application-Request-Routing"><a href="#Application-Request-Routing" class="headerlink" title="Application Request Routing"></a>Application Request Routing</h2><p>通过WebPI安装<a target="_blank" rel="noopener" href="https://www.iis.net/downloads/microsoft/application-request-routing">Application Request Routing</a>，简写ARR。</p>
+<p>如果无法通过WebPI在线安装，也可直接下载<a target="_blank" rel="noopener" href="https://www.microsoft.com/web/handlers/webpi.ashx?command=getinstallerredirect&appid=ARRv3_0">离线安装包</a>。</p>
+<h2 id="设置反向代理"><a href="#设置反向代理" class="headerlink" title="设置反向代理"></a>设置反向代理</h2><h3 id="开启ARR的代理功能"><a href="#开启ARR的代理功能" class="headerlink" title="开启ARR的代理功能"></a>开启ARR的代理功能</h3><p>这一步其实也能省略，如果没有开启ARR的代理功能，在进入<code>URL重写(rewrite)</code>的时候会提示要不要打开。</p>
+<h3 id="URL重写"><a href="#URL重写" class="headerlink" title="URL重写"></a>URL重写</h3><p>这里简单记录一下反向代理域名到本地端口的设置方式，关于后引用比如<code>&#123;R:1&#125;</code>和<code>&#123;C:1&#125;</code>的使用可查看<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference#using-back-references-in-rewrite-rules">微软官方文档</a>。</p>
+<ol>
+<li><p>添加空白入站规则。</p>
+</li>
+<li><p>匹配URL</p>
+</li>
+</ol>
+<p>这里的模式一般填<code>(.*)</code>就好，所有URL我们都要反向代理。</p>
+<ol start="3">
+<li>条件</li>
+</ol>
+<p>条件输入为<code>&#123;HTTP_HOST&#125;</code>，模式为域名，如<code>^www\.yourdomain\.com</code>。</p>
+<ol start="4">
+<li>操作</li>
+</ol>
+<p>重写到本地端口，如<code>http://localhost:3000</code></p>
+<ol start="5">
+<li><strong>勾选</strong>停止处理后续规则</li>
+</ol>
+<p>当反向代理匹配成功后，停止继续匹配后续规则，防止出现幺娥子。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -282,21 +273,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/computer-science/" rel="tag"># computer science</a>
+              <a href="/blog/tags/windows/" rel="tag"># windows</a>
+              <a href="/blog/tags/iis/" rel="tag"># iis</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2019/06/04/caoz-concurrent-4/" rel="prev" title="如何应对并发(4) - 分布式数据库及反范式设计">
-                  <i class="fa fa-chevron-left"></i> 如何应对并发(4) - 分布式数据库及反范式设计
+                <a href="/blog/2022/10/08/remove-deprecated-mstsc-servers/" rel="prev" title="删除远程桌面连接记录">
+                  <i class="fa fa-chevron-left"></i> 删除远程桌面连接记录
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2019/06/04/caoz-concurrent-6/" rel="next" title="如何应对并发(6) - 琐碎的日常">
-                  如何应对并发(6) - 琐碎的日常 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
