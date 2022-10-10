@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="最近想升级一下Windows Server版本，记录一下装机必备。">
 <meta property="og:type" content="article">
@@ -28,7 +28,7 @@
 <meta property="og:description" content="最近想升级一下Windows Server版本，记录一下装机必备。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-30T02:33:19.000Z">
-<meta property="article:modified_time" content="2022-10-09T17:42:50.117Z">
+<meta property="article:modified_time" content="2022-10-10T02:47:31.495Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
@@ -77,15 +77,46 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
 
 
 
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
         
@@ -111,7 +142,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E5%BE%80%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87Microsoft-Store%E5%AE%89%E8%A3%85%E7%9A%84App"><span class="nav-number">1.</span> <span class="nav-text">以往可以通过Microsoft Store安装的App</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E8%84%91%E6%94%BB%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">无脑攻略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VC-v14-Desktop-Framework-Package"><span class="nav-number">2.1.</span> <span class="nav-text">VC++ v14 Desktop Framework Package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dotnet"><span class="nav-number">2.2.</span> <span class="nav-text">Dotnet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Studio%E5%92%8CVisual-Studio-Code"><span class="nav-number">2.3.</span> <span class="nav-text">Visual Studio和Visual Studio Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microsoft-UI-Xaml"><span class="nav-number">2.4.</span> <span class="nav-text">Microsoft.UI.Xaml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#winget%EF%BC%8C%E4%B8%8D%E6%94%AF%E6%8C%81Windows-Server"><span class="nav-number">2.5.</span> <span class="nav-text">*winget，不支持Windows Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">2.5.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Terminal"><span class="nav-number">2.6.</span> <span class="nav-text">Windows Terminal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96-1"><span class="nav-number">2.6.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#z-jump"><span class="nav-number">2.7.</span> <span class="nav-text">z-jump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wsl%EF%BC%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BA%8C%E6%AC%A1%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="nav-number">2.8.</span> <span class="nav-text">*wsl，云服务器不支持二次虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">2.9.</span> <span class="nav-text">docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Desktop%EF%BC%8C%E4%B8%8D%E6%94%AF%E6%8C%81Windows-Server"><span class="nav-number">2.9.1.</span> <span class="nav-text">*Docker Desktop，不支持Windows Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80container%E5%8A%9F%E8%83%BD"><span class="nav-number">2.9.2.</span> <span class="nav-text">打开container功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85docker"><span class="nav-number">2.9.3.</span> <span class="nav-text">安装docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8docker%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.9.4.</span> <span class="nav-text">启动docker服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81docker"><span class="nav-number">2.9.5.</span> <span class="nav-text">验证docker</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A5%E5%BE%80%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87Microsoft-Store%E5%AE%89%E8%A3%85%E7%9A%84App"><span class="nav-number">1.</span> <span class="nav-text">以往可以通过Microsoft Store安装的App</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E8%84%91%E6%94%BB%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">无脑攻略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VC-v14-Desktop-Framework-Package"><span class="nav-number">2.1.</span> <span class="nav-text">VC++ v14 Desktop Framework Package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dotnet"><span class="nav-number">2.2.</span> <span class="nav-text">Dotnet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visual-Studio%E5%92%8CVisual-Studio-Code"><span class="nav-number">2.3.</span> <span class="nav-text">Visual Studio和Visual Studio Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Microsoft-UI-Xaml"><span class="nav-number">2.4.</span> <span class="nav-text">Microsoft.UI.Xaml</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#winget%EF%BC%8C%E4%B8%8D%E6%94%AF%E6%8C%81Windows-Server"><span class="nav-number">2.5.</span> <span class="nav-text">*winget，不支持Windows Server</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">2.5.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Terminal"><span class="nav-number">2.6.</span> <span class="nav-text">Windows Terminal</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">2.6.1.</span> <span class="nav-text">依赖</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#z-jump"><span class="nav-number">2.7.</span> <span class="nav-text">z-jump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wsl%EF%BC%8C%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8D%E6%94%AF%E6%8C%81%E4%BA%8C%E6%AC%A1%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="nav-number">2.8.</span> <span class="nav-text">*wsl，云服务器不支持二次虚拟化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker"><span class="nav-number">2.9.</span> <span class="nav-text">docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker-Desktop%EF%BC%8C%E4%B8%8D%E6%94%AF%E6%8C%81Windows-Server"><span class="nav-number">2.9.1.</span> <span class="nav-text">*Docker Desktop，不支持Windows Server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80container%E5%8A%9F%E8%83%BD"><span class="nav-number">2.9.2.</span> <span class="nav-text">打开container功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85docker"><span class="nav-number">2.9.3.</span> <span class="nav-text">安装docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8docker%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.9.4.</span> <span class="nav-text">启动docker服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81docker"><span class="nav-number">2.9.5.</span> <span class="nav-text">验证docker</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -210,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-10-10 01:42:50" itemprop="dateModified" datetime="2022-10-10T01:42:50+08:00">2022-10-10</time>
+      <time title="修改时间：2022-10-10 10:47:31" itemprop="dateModified" datetime="2022-10-10T10:47:31+08:00">2022-10-10</time>
     </span>
 
   
@@ -244,7 +275,12 @@
 <p>首先去<a target="_blank" rel="noopener" href="https://www.nuget.org/packages/Microsoft.UI.Xaml">nuget</a>下载最新的稳定版<a target="_blank" rel="noopener" href="https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3">nupkg文件</a>，然后解压，再安装包里的bundle。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Rename-Item</span> <span class="literal">-Path</span> <span class="string">&quot;microsoft.ui.xaml.2.7.3.nupkg&quot;</span> <span class="literal">-NewName</span> <span class="string">&quot;microsoft.ui.xaml.2.7.3.zip&quot;</span></span><br><span class="line"><span class="built_in">Expand-Archive</span> <span class="string">&quot;microsoft.ui.xaml.2.7.3.zip&quot;</span> <span class="literal">-DestinationPath</span> <span class="string">&quot;./microsoft.ui.xaml&quot;</span></span><br><span class="line"><span class="built_in">Add-AppxPackage</span> <span class="string">&quot;microsoft.ui.xaml\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="winget，不支持Windows-Server"><a href="#winget，不支持Windows-Server" class="headerlink" title="*winget，不支持Windows Server"></a>*winget，不支持Windows Server</h2><p>去<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/releases">发布页</a>下载<code>Microsoft.DesktopAppInstaller_&lt;versionNumber&gt;.msixbundle</code>，然后使用命令行安装：</p>
+<h2 id="winget，不支持Windows-Server"><a href="#winget，不支持Windows-Server" class="headerlink" title="*winget，不支持Windows Server"></a>*winget，不支持Windows Server</h2><div class='spoiler collapsed'>
+    <div class='spoiler-title'>
+        winget
+    </div>
+    <div class='spoiler-content'>
+        <p>去<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli/releases">发布页</a>下载<code>Microsoft.DesktopAppInstaller_&lt;versionNumber&gt;.msixbundle</code>，然后使用命令行安装：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Add-AppxPackage</span> Microsoft.DesktopAppInstaller_&lt;versionNumber&gt;.msixbundle</span><br></pre></td></tr></table></figure>
 
 <p><strong>注意</strong></p>
@@ -255,17 +291,26 @@
 <li><p><a href="#Microsoft-UI-Xaml">Microsoft.UI.Xaml</a></p>
 </li>
 </ul>
+
+    </div>
+</div>
+
 <h2 id="Windows-Terminal"><a href="#Windows-Terminal" class="headerlink" title="Windows Terminal"></a>Windows Terminal</h2><p>截止本文更新时间，最新版本是<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal/releases/tag/v1.15.2524.0">Windows Terminal v1.15.252</a>。</p>
 <p>Windows Terminal从第一个版本开始，最低支持Windows内部版本18362.0。在阿里云的Windows Server上只支持2022，其它版本都嫌弃版本低（阿里云的2019内部版本是17763.3287）。</p>
 <p>以往我们可以<a target="_blank" rel="noopener" href="https://aka.ms/terminal">在微软商店里</a>安装<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">Windows Terminal</a>，现在只能去github项目的<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal/releases">release页面</a>下载msixbundle文件。</p>
 <p>然后手动运行命令安装：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># NOTE: If you are using PowerShell 7+, please run</span></span><br><span class="line"><span class="comment"># Import-Module Appx -UseWindowsPowerShell</span></span><br><span class="line"><span class="comment"># before using Add-AppxPackage.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Add-AppxPackage</span> Microsoft.WindowsTerminal_&lt;versionNumber&gt;.msixbundle</span><br></pre></td></tr></table></figure>
 
-<h3 id="依赖-1"><a href="#依赖-1" class="headerlink" title="依赖"></a>依赖</h3><ul>
+<h3 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h3><ul>
 <li><a href="#VC-v14-Desktop-Framework-Package">VC++ v14 Desktop Framework Package</a>。</li>
 </ul>
 <h2 id="z-jump"><a href="#z-jump" class="headerlink" title="z-jump"></a>z-jump</h2><p>z-dump的安装方法参照<a href="/blog/2021/11/19/z-jump-around/" title="在命令行快速切换目录">另一篇博文</a>，Windows Server没有区别。</p>
-<h2 id="wsl，云服务器不支持二次虚拟化"><a href="#wsl，云服务器不支持二次虚拟化" class="headerlink" title="*wsl，云服务器不支持二次虚拟化"></a>*wsl，云服务器不支持二次虚拟化</h2><p>在Windows Server上，只需要很简单的<code>wsl --install</code>就可以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-on-server">全部配置好</a>，也可以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-manual">一步步的手动操作</a>。</p>
+<h2 id="wsl，云服务器不支持二次虚拟化"><a href="#wsl，云服务器不支持二次虚拟化" class="headerlink" title="*wsl，云服务器不支持二次虚拟化"></a>*wsl，云服务器不支持二次虚拟化</h2><div class='spoiler collapsed'>
+    <div class='spoiler-title'>
+        wsl
+    </div>
+    <div class='spoiler-content'>
+        <p>在Windows Server上，只需要很简单的<code>wsl --install</code>就可以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-on-server">全部配置好</a>，也可以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-manual">一步步的手动操作</a>。</p>
 <p>在服务器上下载Ubuntu LTS实在是太慢了，所以推荐<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/wsl/install-manual#downloading-distributions">在本地下载好</a>，再拷贝到服务器上去离线安装。其它服务器在海外的安装包也都可以这么操作。</p>
 <ol>
 <li><p>开启Linux子系统</p>
@@ -275,6 +320,10 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Rename-Item</span> .\Ubuntu2204<span class="literal">-220620</span>.AppxBundle .\Ubuntu2204<span class="literal">-220620</span>.zip</span><br><span class="line"><span class="built_in">Expand-Archive</span> .\Ubuntu2204<span class="literal">-220620</span>.zip .\Ubuntu2204<span class="literal">-220620</span></span><br><span class="line"><span class="built_in">Add-AppxPackage</span> .\Ubuntu2204<span class="literal">-220620</span>\Ubuntu_2204.<span class="number">0.10</span>.<span class="number">0</span>_x64.appx</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>然后发现安装失败…… 云服务器本来建议在虚拟化之上，所以<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/25412.html#section-nxc-2zs-2gb">没办法再虚拟一个Linux</a>了。真难受。</p>
+
+    </div>
+</div>
+
 <h2 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h2><p>docker在云服务器上只能使用windows container，使用场景大幅受限，几近鸡肋。</p>
 <h3 id="Docker-Desktop，不支持Windows-Server"><a href="#Docker-Desktop，不支持Windows-Server" class="headerlink" title="*Docker Desktop，不支持Windows Server"></a>*Docker Desktop，不支持Windows Server</h3><p><strong>注意</strong>，<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>在Windows Server上运行不起来，因为默认会使用Hyper-V，只建议在Windows 10&#x2F;11上使用而不是Server。</p>
 <p>在Server上我们有Server的打开方式。</p>
@@ -364,6 +413,8 @@
 <script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
 
   
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
 
 
 

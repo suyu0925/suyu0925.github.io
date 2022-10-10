@@ -86,12 +86,7 @@
     }
   };
 
-  let api_server;
-  if (server_url) {
-    api_server = server_url;
-  } else if (app_id.slice(-9) === '-MdYXbMMI') {
-    api_server = `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
-  }
+  const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
 
   document.addEventListener('page:loaded', () => {
     if (api_server) {
