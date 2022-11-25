@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="在发布应用时经常会碰到证书问题，将windows下证书相关的知识整理一下，从此不再惧怕。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows下的证书">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/11/25/windows-certificate/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="在发布应用时经常会碰到证书问题，将windows下证书相关的知识整理一下，从此不再惧怕。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-25T01:35:20.000Z">
+<meta property="article:modified_time" content="2022-11-25T07:16:32.936Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="windows">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/11/25/windows-certificate/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/11/25/windows-certificate/","path":"2022/11/25/windows-certificate/","title":"windows下的证书"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>windows下的证书 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">常见的文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%89%A9%E5%B1%95%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">常见的扩展名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#windows%E4%B8%8B%E7%9A%84%E8%AF%81%E4%B9%A6%E5%B7%A5%E5%85%B7"><span class="nav-number">3.</span> <span class="nav-text">windows下的证书工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#certmgr-msc%EF%BC%88%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E5%8D%95%E5%85%83%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">certmgr.msc（证书管理单元）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mmc-exe%EF%BC%88Microsoft%E7%AE%A1%E7%90%86%E6%8E%A7%E5%88%B6%E5%8F%B0%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">mmc.exe（Microsoft管理控制台）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#certmgr-exe%EF%BC%88%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E5%99%A8%E5%B7%A5%E5%85%B7%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">certmgr.exe（证书管理器工具）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Powershell-Cmdlet"><span class="nav-number">3.4.</span> <span class="nav-text">Powershell Cmdlet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#openssl"><span class="nav-number">3.5.</span> <span class="nav-text">openssl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%81%E4%B9%A6%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">证书操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6"><span class="nav-number">4.1.</span> <span class="nav-text">创建自签证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8Epfx%E9%87%8C%E5%AF%BC%E5%87%BAcer%E5%85%AC%E9%92%A5"><span class="nav-number">4.2.</span> <span class="nav-text">从pfx里导出cer公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87openssl%E5%88%9B%E5%BB%BA%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6"><span class="nav-number">4.3.</span> <span class="nav-text">通过openssl创建自签证书</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/11/25/windows-certificate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="windows下的证书 | Tasty Pub">
+      <meta itemprop="description" content="在发布应用时经常会碰到证书问题，将windows下证书相关的知识整理一下，从此不再惧怕。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          windows下的证书
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-11-25 09:35:20 / 修改时间：15:16:32" itemprop="dateCreated datePublished" datetime="2022-11-25T09:35:20+08:00">2022-11-25</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">在发布应用时经常会碰到证书问题，将windows下证书相关的知识整理一下，从此不再惧怕。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>数字证书本身就不用过多的解释了，参见<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E8%AA%8D%E8%AD%89">维基百科</a>。</p>
+<p>数字证书最常用的格式标准是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/X.509">X.509</a>。windows上也是使用的X.509。</p>
+<h2 id="常见的文件格式"><a href="#常见的文件格式" class="headerlink" title="常见的文件格式"></a>常见的文件格式</h2><ul>
+<li>der</li>
+</ul>
+<p>der的全写是Distinguished Encoding Rules(<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/X.690#DER_encoding">唯一编码规则</a>)，是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/ASN.1">ASN.1</a>标准中定义的一种二进制编码方式。</p>
+<ul>
+<li>pem</li>
+</ul>
+<p>pem的全写是Privacy-Enhanced Mail(<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Pem%E6%A0%BC%E5%BC%8F">隐私增强型电子邮件格式</a>)，主要在<a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc1422">RFC 1422</a>定义。为了方便der通过电子邮件传输，采用了base64编码。</p>
+<p>pem格式并不约束存放的内容，也可以用来存放私钥、根证书甚至证书签名请求(比如<a target="_blank" rel="noopener" href="https://jamielinux.com/docs/openssl-certificate-authority/create-the-intermediate-pair.html">这里</a>)。</p>
+<p>可以从注释中看出里面保存的是什么内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN &#123;TYPE&#125;-----</span><br><span class="line">-----END &#123;TYPE&#125;-----</span><br></pre></td></tr></table></figure>
+<p>列几个常见的<code>TYPE</code>：</p>
+<ol>
+<li>RSA PRIVATE KEY</li>
+<li>PRIVATE KEY</li>
+<li>PUBLIC KEY</li>
+<li>NEW CERTIFICATE REQUEST</li>
+</ol>
+<ul>
+<li>pfx</li>
+</ul>
+<p>pfx的全写是Personal Information Exchange，是微软的<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/install/personal-information-exchange---pfx--files">个人信息交换</a>文件格式。</p>
+<p>因为太过复杂而被诟病，后被<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/RSA_%E5%AE%89%E5%85%A8">RSA实验室</a>提出的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/PKCS_12">PKCS #12</a>替代。</p>
+<ul>
+<li>PKCS #12</li>
+</ul>
+<p>PKCS #12是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A0%87%E5%87%86">公钥密码学标准</a>中的个人消息交换标准，用于实现存储许多加密对象在一个单独的文件中。通常用它来打包一个私钥及有关的X.509证书，或者打包信任链的全部项目。</p>
+<ul>
+<li>PKCS #7</li>
+</ul>
+<p>PKCS #7是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A0%87%E5%87%86">公钥密码学标准</a>中的密码消息语法标准，在<a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc2315">RFC 2315</a>中定义。规范了以<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E5%9F%BA%E7%A4%8E%E5%BB%BA%E8%A8%AD">公开密钥基础设施</a>（PKI）所产生之签名&#x2F;密文之格式。其目的一样是为了拓展数字证书的应用，其中，包含了<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/S/MIME">S&#x2F;MIME</a>和<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cryptographic_Message_Syntax">CMS</a>。</p>
+<p>java天生支持PKCS #7，通常使用.keystore扩展名。</p>
+<h2 id="常见的扩展名"><a href="#常见的扩展名" class="headerlink" title="常见的扩展名"></a>常见的扩展名</h2><ul>
+<li>.der</li>
+</ul>
+<p>使用der标准编码的二进制文件。</p>
+<ul>
+<li>.pem</li>
+</ul>
+<p>通常就是base64编码的der。需要结合文件名来判断存放的内容。比如cert.pem一般是公钥，key.pem是私钥。</p>
+<ul>
+<li>.key</li>
+</ul>
+<p>pem格式的私钥。</p>
+<ul>
+<li>.cer, .crt</li>
+</ul>
+<p>通常是pem格式的公钥。有时候也可能是der格式的公钥。</p>
+<ul>
+<li>.pfx</li>
+</ul>
+<p>保留了微软pfx格式的扩展名，但通常使用的是PKCS #12格式。</p>
+<ul>
+<li>.keystore, .p7b</li>
+</ul>
+<p>PKCS #7格式的文件。其中，java天生支持.keystore。</p>
+<h2 id="windows下的证书工具"><a href="#windows下的证书工具" class="headerlink" title="windows下的证书工具"></a>windows下的证书工具</h2><h3 id="certmgr-msc（证书管理单元）"><a href="#certmgr-msc（证书管理单元）" class="headerlink" title="certmgr.msc（证书管理单元）"></a>certmgr.msc（证书管理单元）</h3><p>注意区分certmgr<code>.msc</code>和certmgr<code>.exe</code>。</p>
+<p>certmgr.msc会打开<strong>当前用户</strong>的证书。它属于mmc（Microsoft管理控制台）的一部分。</p>
+<h3 id="mmc-exe（Microsoft管理控制台）"><a href="#mmc-exe（Microsoft管理控制台）" class="headerlink" title="mmc.exe（Microsoft管理控制台）"></a>mmc.exe（Microsoft管理控制台）</h3><p>进入mmc后，需要先添加证书管理单元。</p>
+<p>在添加时，需要选择证书管理单元的管理账户。分为我的用户账户、服务账户和计算机账户。</p>
+<p>如果选择我的用户账户，即和certmgr.msc完全一致。</p>
+<h3 id="certmgr-exe（证书管理器工具）"><a href="#certmgr-exe（证书管理器工具）" class="headerlink" title="certmgr.exe（证书管理器工具）"></a>certmgr.exe（证书管理器工具）</h3><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/dotnet/framework/tools/certmgr-exe-certificate-manager-tool">certmgr.exe</a>在安装Visual Studio时会被顺带安装。它的路径通常在<code>C:\Program Files (x86)\Windows Kits\10\bin\&#123;Version&#125;\x64\certmgr.exe</code>，无运行依赖，可以单独拷贝至其它电脑上运行。</p>
+<p>它可以用来将证书添加到受信任的发布者。<br><strong>使用管理员权限</strong>运行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certmgr.exe <span class="literal">-add</span> ExcelAddin_ProdKey.cer <span class="literal">-c</span> <span class="literal">-s</span> <span class="literal">-r</span> localMachine TrustedPublisher</span><br></pre></td></tr></table></figure>
+<p>即可将公钥添加到受信任的发布者。</p>
+<p><code>ExcelAddin_ProdKey.cer</code>可为der格式也可为pem格式，<code>certmgr.exe</code>都支持。</p>
+<h3 id="Powershell-Cmdlet"><a href="#Powershell-Cmdlet" class="headerlink" title="Powershell Cmdlet"></a>Powershell Cmdlet</h3><p>Powershell提供了很多证书相关的Cmdlet，如</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate">New-SelfSignedCertificate</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/pki/export-pfxcertificate">Export-PfxCertificate</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/get-pfxcertificate">Get-PfxCertificate</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/pki/export-certificate">Export-Certificate</a></li>
+</ul>
+<p>来实现新建证书、导出证书、获取证书信息等等。</p>
+<h3 id="openssl"><a href="#openssl" class="headerlink" title="openssl"></a>openssl</h3><p><a target="_blank" rel="noopener" href="https://www.openssl.org/docs/man3.0/man1/openssl.html">openssl</a>就不用多说啦，最通用的证书工具。</p>
+<h2 id="证书操作"><a href="#证书操作" class="headerlink" title="证书操作"></a>证书操作</h2><h3 id="创建自签证书"><a href="#创建自签证书" class="headerlink" title="创建自签证书"></a>创建自签证书</h3><p>首先生成自签名证书，保存在windows证书存储区里。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cert</span> = <span class="built_in">New-SelfSignedCertificate</span> `</span><br><span class="line">  <span class="literal">-Type</span> Custom `</span><br><span class="line">  <span class="literal">-Subject</span> <span class="string">&quot;CN=Tasty Pub&quot;</span> `</span><br><span class="line">  <span class="literal">-CertStoreLocation</span> Cert:\CurrentUser\My `</span><br><span class="line">  <span class="literal">-KeyUsage</span> DigitalSignature `</span><br><span class="line">  <span class="literal">-KeyAlgorithm</span> RSA <span class="literal">-KeyLength</span> <span class="number">2048</span> `</span><br><span class="line">  <span class="literal">-NotAfter</span> (<span class="built_in">Get-Date</span>).AddMonths(<span class="number">36</span>)</span><br></pre></td></tr></table></figure>
+
+<p>然后将证书导出成pfx文件。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$password</span> = <span class="string">&quot;yourpassword&quot;</span></span><br><span class="line"><span class="variable">$securePassword</span> = <span class="built_in">ConvertTo-SecureString</span> <span class="literal">-String</span> <span class="variable">$password</span> <span class="literal">-Force</span> <span class="literal">-AsPlainText</span></span><br><span class="line"><span class="comment"># 如果担心忘记密码，也可以将密码设成空：</span></span><br><span class="line"><span class="variable">$emptyPassword</span> = <span class="built_in">New-Object</span> System.Security.SecureString</span><br><span class="line"><span class="variable">$outname</span> = <span class="string">&quot;./tastypub.pfx&quot;</span></span><br><span class="line"><span class="built_in">Export-PfxCertificate</span> `</span><br><span class="line">  <span class="literal">-Cert</span> <span class="variable">$cert</span> `</span><br><span class="line">  <span class="literal">-FilePath</span> <span class="variable">$outname</span> `</span><br><span class="line">  <span class="literal">-Password</span> <span class="variable">$emptyPassword</span> `</span><br><span class="line">  <span class="literal">-ChainOption</span> EndEntityCertOnly `</span><br><span class="line">  <span class="literal">-NoProperties</span> <span class="literal">-Verbose</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="从pfx里导出cer公钥"><a href="#从pfx里导出cer公钥" class="headerlink" title="从pfx里导出cer公钥"></a>从pfx里导出cer公钥</h3><p>想要从pfx里导出cer公钥，可直接使用Export-Certificate：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Get-PfxCertificate</span> <span class="literal">-FilePath</span> ExcelAddin_ProdKey.pfx | </span><br><span class="line"><span class="built_in">Export-Certificate</span> <span class="literal">-FilePath</span> ExcelAddin_ProdKey.cer <span class="literal">-Type</span> CERT</span><br></pre></td></tr></table></figure>
+<p>注意这里<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/pki/export-certificate">Export-Certificate</a>导出的是der格式。</p>
+<p>也可使用<a target="_blank" rel="noopener" href="https://www.openssl.org/docs/man3.0/man1/openssl.html">openssl</a>：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 <span class="operator">-in</span> ExcelAddin_ProdKey.pfx <span class="literal">-out</span> ExcelAddin_ProdKey.crt <span class="literal">-nokeys</span> <span class="literal">-clcerts</span></span><br></pre></td></tr></table></figure>
+<p>openssl默认导出的是pem格式。</p>
+<p>der和pem可以<a target="_blank" rel="noopener" href="https://knowledge.digicert.com/solution/SO26449.html">用openssl任意转换</a>：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 <span class="literal">-inform</span> der <span class="operator">-in</span> ExcelAddin_ProdKey.cer <span class="literal">-out</span> ExcelAddin_ProdKey.<span class="number">1</span>.pem</span><br><span class="line">openssl x509 <span class="literal">-outform</span> der <span class="operator">-in</span> ExcelAddin_ProdKey.<span class="number">1</span>.pem <span class="literal">-out</span> ExcelAddin_ProdKey.<span class="number">1</span>.cer</span><br><span class="line">fc.exe ExcelAddin_ProdKey.cer ExcelAddin_ProdKey.<span class="number">1</span>.cer</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过openssl创建自签证书"><a href="#通过openssl创建自签证书" class="headerlink" title="通过openssl创建自签证书"></a>通过openssl创建自签证书</h3><p>也可以通过openssl生成pfx。</p>
+<p>首先要确认openssl.cnf是否存在，为了统一，我们直接创建一个：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Invoke-WebRequest</span> <span class="string">&#x27;http://web.mit.edu/crypto/openssl.cnf&#x27;</span> <span class="literal">-OutFile</span> ./openssl.cnf</span><br></pre></td></tr></table></figure>
+
+<p>首先使用<a target="_blank" rel="noopener" href="https://www.openssl.org/docs/man3.0/man1/openssl-req.html">openssl-req</a>生成一个私钥和公钥：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">openssl req `</span><br><span class="line">  <span class="literal">-config</span> <span class="string">&quot;./openssl.cnf&quot;</span> `</span><br><span class="line">  <span class="literal">-x509</span> <span class="literal">-newkey</span> rsa:<span class="number">4096</span> `</span><br><span class="line">  <span class="literal">-nodes</span> `</span><br><span class="line">  <span class="literal">-keyout</span> ExcelAddin_New.key `</span><br><span class="line">  <span class="literal">-out</span> ExcelAddin_New.crt `</span><br><span class="line">  <span class="literal">-days</span> <span class="number">1080</span> `</span><br><span class="line">  <span class="literal">-subj</span> /CN=<span class="string">&quot;Tasty Pub&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后使用<a target="_blank" rel="noopener" href="https://www.openssl.org/docs/man3.0/man1/openssl-pkcs12.html">openssl-pkcs12</a>基于私钥和公钥生成pfx：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$password</span> = <span class="string">&quot;yourpassword&quot;</span></span><br><span class="line"><span class="variable">$emptyPassword</span> = <span class="string">&quot;&quot;</span></span><br><span class="line">openssl pkcs12 `</span><br><span class="line">  <span class="literal">-export</span> `</span><br><span class="line">  <span class="literal">-out</span> ExcelAddin_New.pfx `</span><br><span class="line">  <span class="literal">-inkey</span> ExcelAddin_New.key `</span><br><span class="line">  <span class="operator">-in</span> ExcelAddin_New.crt `</span><br><span class="line">  <span class="literal">-password</span> pass:<span class="variable">$emptyPassword</span></span><br></pre></td></tr></table></figure>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/windows/" rel="tag"># windows</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/11/23/hectorqin-reader/" rel="prev" title="web阅读器：hectorqin-reader">
+                  <i class="fa fa-chevron-left"></i> web阅读器：hectorqin-reader
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
