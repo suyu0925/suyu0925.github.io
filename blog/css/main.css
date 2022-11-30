@@ -2899,3 +2899,6 @@ mark.search-keyword {
     padding: 10px 12px;
   }
 }
+html {
+  filter: grayscale(100%);
+}
