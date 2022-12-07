@@ -2900,5 +2900,5 @@ mark.search-keyword {
   }
 }
 html {
-  filter: grayscale(100%);
+  filter: grayscale(0.85);
 }

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="想用webview2来代替winform开发复杂界面，记录一下碰到的各种问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在vsto中使用webview2">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="想用webview2来代替winform开发复杂界面，记录一下碰到的各种问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/publish.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/application-files-dialog-box.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/compare-include-and-data-file.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/publish-vsto.png">
+<meta property="article:published_time" content="2022-12-06T06:05:07.000Z">
+<meta property="article:modified_time" content="2022-12-07T08:03:28.022Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="excel-add-in">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/publish.png">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/","path":"2022/12/06/webview2-in-vsto/","title":"在vsto中使用webview2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在vsto中使用webview2 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webview2%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0html"><span class="nav-number">1.</span> <span class="nav-text">webview2使用本地html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0html%E6%96%87%E4%BB%B6%E5%88%B0ClickOnce"><span class="nav-number">2.</span> <span class="nav-text">添加html文件到ClickOnce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%BA%94%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">普通应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vsto%E5%BA%94%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">vsto应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E6%97%A7%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE"><span class="nav-number">3.</span> <span class="nav-text">依旧无法访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9AMage"><span class="nav-number">4.</span> <span class="nav-text">附录：Mage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Developer-Prompt"><span class="nav-number">4.1.</span> <span class="nav-text">Visual Studio Developer Prompt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-10-SDK"><span class="nav-number">4.2.</span> <span class="nav-text">Windows 10 SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NET-Framework-SDK"><span class="nav-number">4.3.</span> <span class="nav-text">.NET Framework SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">4.4.</span> <span class="nav-text">真正的解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E5%9C%A8%E5%AE%89%E8%A3%85vsto%E6%97%B6%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">附录：在安装vsto时拷贝文件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">82</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在vsto中使用webview2 | Tasty Pub">
+      <meta itemprop="description" content="想用webview2来代替winform开发复杂界面，记录一下碰到的各种问题。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在vsto中使用webview2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-06 14:05:07" itemprop="dateCreated datePublished" datetime="2022-12-06T14:05:07+08:00">2022-12-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-07 16:03:28" itemprop="dateModified" datetime="2022-12-07T16:03:28+08:00">2022-12-07</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">想用webview2来代替winform开发复杂界面，记录一下碰到的各种问题。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="webview2使用本地html"><a href="#webview2使用本地html" class="headerlink" title="webview2使用本地html"></a>webview2使用本地html</h2><p>为了避免多部署一个web服务器，并且要支持不同版本，将html放在本地最合适不过了。</p>
+<p>在经历了<a target="_blank" rel="noopener" href="https://github.com/MicrosoftEdge/WebView2Feedback/issues/37">一系列讨论</a>后，webview2对访问本地文件的方式最终定稿在了<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/icorewebview2_3?view=webview2-1.0.1462.37#setvirtualhostnametofoldermapping">SetVirtualHostNameToFolderMapping</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/microsoft/microsoft-ui-xaml/issues/1967#issuecomment-893621478">这里</a>有C#的示例代码：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> myWebview.EnsureCoreWebView2Async(); <span class="comment">// ensure the CoreWebView2 is created</span></span><br><span class="line"><span class="keyword">var</span> core_wv2 = myWebview.CoreWebView2;</span><br><span class="line"><span class="keyword">if</span> (core_wv2 != <span class="literal">null</span>)</span><br><span class="line">&#123;</span><br><span class="line">    core_wv2.SetVirtualHostNameToFolderMapping(</span><br><span class="line">        <span class="string">&quot;appassets.example&quot;</span>, <span class="string">&quot;assets&quot;</span>,</span><br><span class="line">        Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);</span><br><span class="line"></span><br><span class="line">    myWebview.Source = <span class="keyword">new</span> Uri(<span class="string">&quot;https://appassets.example/myVideo.mp4&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加html文件到ClickOnce"><a href="#添加html文件到ClickOnce" class="headerlink" title="添加html文件到ClickOnce"></a>添加html文件到ClickOnce</h2><h3 id="普通应用"><a href="#普通应用" class="headerlink" title="普通应用"></a>普通应用</h3><p>这里先拿普通桌面应用举例，vsto比较特别，放在后面再看。</p>
+<p>首先将index.html添加进工程，这里需要修改index.html的两个属性：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://social.technet.microsoft.com/wiki/contents/articles/53248.visual-studio-copying-files-to-debug-or-release-folder.aspx">复制到输出目录</a></li>
+</ul>
+<p>可选值是不复制，始终复制和如果较新则复制。如果选择不复制，只会影响本地调试，并不会影响ClickOnce发布。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/ide/build-actions#build-action-values">生成操作(Build Action)</a></li>
+</ul>
+<p>当选择为“内容”时，vs会自动将文件放至<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/previous-versions/visualstudio/visual-studio-2015/deployment/how-to-specify-which-files-are-published-by-clickonce">应用程序文件</a>。可在工程的发布页点击<code>应用程序文件</code>按钮打开应用程序对话框(Application Files Dialog Box)查看。</p>
+<img src="/blog/2022/12/06/webview2-in-vsto/publish.png" class="" title="发布页">
+
+<p>注意，不要把index.html的发布状态设为<code>数据文件</code>，设为数据文件后index.html就不在安装路径(Installation Path)，导致webview2访问不到。</p>
+<img src="/blog/2022/12/06/webview2-in-vsto/application-files-dialog-box.png" class="" title="应用程序对话框">
+
+<p>下图是index.html分别为<code>数据文件</code>和<code>包括</code>在客户端安装后的文件树对比，ClickOnce应用的安装路径在<code>%LocalAppData%/Apps/2.0/</code>下。</p>
+<img src="/blog/2022/12/06/webview2-in-vsto/compare-include-and-data-file.png" class="" title="客户端的文件树对比">
+
+<h3 id="vsto应用"><a href="#vsto应用" class="headerlink" title="vsto应用"></a>vsto应用</h3><p>vsto应用虽然在发布页没有这个<code>应用程序文件</code>按钮，</p>
+<img src="/blog/2022/12/06/webview2-in-vsto/publish-vsto.png" class="" title="vsto应用的发布页">
+
+<p>但可以手动修改app manifest，再使用<a href="#%E9%99%84%E5%BD%95mage">Mage</a>签名。</p>
+<p>使用方法可参考<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/deployment/how-to-include-a-data-file-in-a-clickonce-application">How to: Include a Data File in a ClickOnce Application</a>，顺便一提，似乎微软的最新文档<a target="_blank" rel="noopener" href="https://github.com/MicrosoftDocs/visualstudio-docs/blob/main/docs/deployment/how-to-include-a-data-file-in-a-clickonce-application.md">在github上有一份</a>，这样更方便查找。</p>
+<p>长求总就是：</p>
+<ol>
+<li>修改app manifest（给<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/deployment/file-element-clickonce-application#elements-and-attributes">file标签</a>添加writeableType&#x3D;”applicationData”属性即为更改文件的发布状态为<code>数据文件</code>）</li>
+<li>重新签名app manifest</li>
+<li>更新deployment manifest并重新签名</li>
+</ol>
+<p>在vsto中，app manifest为<code>Application Files\ExcelAddin_1_0_0_0\ExcelAddin.dll.manifest</code>，deployment manifest为<code>ExcelAddin.vsto</code>。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新签名manifest</span></span><br><span class="line">dotnet mage <span class="literal">-s</span> <span class="string">&quot;Application Files\ExcelAddin_1_0_0_0\ExcelAddin.dll.manifest&quot;</span> <span class="literal">-certfile</span> ExcelAddin_ProdKey.pfx <span class="literal">-pwd</span> yourpassword</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新签名vsto</span></span><br><span class="line">dotnet mage `</span><br><span class="line">  <span class="literal">-update</span> ExcelAddin.vsto `</span><br><span class="line">  <span class="literal">-appmanifest</span> <span class="string">&quot;Application Files\ExcelAddin_1_0_0_0\ExcelAddin.dll.manifest&quot;</span> `</span><br><span class="line">  <span class="literal">-certfile</span> <span class="string">&quot;ExcelAddin_ProdKey.pfx&quot;</span> `</span><br><span class="line">  <span class="literal">-pwd</span> yourpassword</span><br></pre></td></tr></table></figure>
+
+<h2 id="依旧无法访问"><a href="#依旧无法访问" class="headerlink" title="依旧无法访问"></a>依旧无法访问</h2><p>在普通应用中，<code>SetVirtualHostNameToFolderMapping</code>的起始目录就是工程的输出目录。</p>
+<p>但在vsto应用中，这个起始目录不知道在哪。虽然<code>Directory.GetCurrentDirectory()</code>得到的是<code>%UserProfile%\Documents</code>，但把Assets放到Documents下后，webview2仍然无法访问。只能使用绝对路径的<code>file:///</code>。</p>
+<p>在<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/vsto/data-in-office-solutions">Office解决方案中的数据</a>这篇文章中，微软有介绍vsto应用中可用的数据类型，貌似只有xml和数据库文件。</p>
+<p>想把html添加至vsto应用供webview2本地使用的计划似乎破产，只能先放下了，等待机缘。</p>
+<h2 id="附录：Mage"><a href="#附录：Mage" class="headerlink" title="附录：Mage"></a>附录：Mage</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/dotnet/framework/tools/mage-exe-manifest-generation-and-editing-tool">Mage</a>的全写是Manifest Generation and Editing Tool，在我们手动修改Manifest.xml后，需要用它来重新签名。</p>
+<p>官方说Mage内置在VS中，只要打开<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell">Visual Studio Developer Command Prompt or Visual Studio Developer PowerShell</a>就能直接使用。但我打开后却仍然提示找不到Mage命令，找找问题在哪里。</p>
+<h3 id="Visual-Studio-Developer-Prompt"><a href="#Visual-Studio-Developer-Prompt" class="headerlink" title="Visual Studio Developer Prompt"></a>Visual Studio Developer Prompt</h3><p>顺手一提如何在Windows Terminal中使用Visual Studio Developer Prompt。</p>
+<p>Command版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmd.exe /k <span class="string">&quot;C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat&quot;</span> -<span class="built_in">arch</span>=x64 -host_arch=x64</span><br></pre></td></tr></table></figure>
+
+<p>Powershell版本</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe <span class="literal">-NoExit</span> <span class="literal">-Command</span> <span class="string">&quot;&amp;&#123;Import-Module &quot;</span><span class="string">&quot;&quot;</span>C:\Program Files\Microsoft Visual Studio\<span class="number">2022</span>\Community\Common7\Tools\Microsoft.VisualStudio.DevShell.dll<span class="string">&quot;&quot;</span><span class="string">&quot;; Enter-VsDevShell 3f987db8 -SkipAutomaticLocation -DevCmdArguments &quot;</span><span class="string">&quot;&quot;</span><span class="literal">-arch</span>=x64 <span class="literal">-host_arch</span>=x64<span class="string">&quot;&quot;</span><span class="string">&quot;&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows-10-SDK"><a href="#Windows-10-SDK" class="headerlink" title="Windows 10 SDK"></a>Windows 10 SDK</h3><p>在Visual Studio Installer中，我们可以选择安装Windows 10 SDK ($Version)。</p>
+<p>安装完后，它的安装路径是在<code>C:\Program Files (x86)\Windows Kits\10\bin\$Version</code>，这里面有<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/dotnet/framework/tools/certmgr-exe-certificate-manager-tool">certmgr.exe</a>等工具。</p>
+<h3 id="NET-Framework-SDK"><a href="#NET-Framework-SDK" class="headerlink" title=".NET Framework SDK"></a>.NET Framework SDK</h3><p>在Visual Studio Installer中，我们也可以选择安装.NET $Version Framework SDK。</p>
+<p>安装完后，它的安装路径在<code>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\</code>下，Mage.exe就在这里。</p>
+<p>然而$PATH里的却是<code>C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\x64</code>，这里面并没有Mage.exe。</p>
+<p>最简单的解决方法是把Mage.exe和MageUI.exe拷贝过去。</p>
+<h3 id="真正的解决方法"><a href="#真正的解决方法" class="headerlink" title="真正的解决方法"></a>真正的解决方法</h3><p>原来在.net 5及以后的版本里，<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/deployment/clickonce-deployment-dotnet#mageexe">Mage.exe被废弃</a>，改用<a target="_blank" rel="noopener" href="https://github.com/dotnet/deployment-tools/blob/main/Documentation/dotnet-mage/README.md">dotnet-mage</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dotnet tool install --global microsoft.dotnet.mage</span><br><span class="line">dotnet mage -<span class="built_in">help</span> verbose</span><br></pre></td></tr></table></figure>
+
+<h2 id="附录：在安装vsto时拷贝文件"><a href="#附录：在安装vsto时拷贝文件" class="headerlink" title="附录：在安装vsto时拷贝文件"></a>附录：在安装vsto时拷贝文件</h2><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/vsto/deploying-an-office-solution-by-using-clickonce?view=vs-2022&tabs=csharp#Put">这里</a>有一篇如何部署vsto应用的文档，里面有介绍如何在安装和更新vsto时做文件拷贝的操作。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/excel-add-in/" rel="tag"># excel-add-in</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/12/04/common-craft-beer-styles/" rel="prev" title="精酿啤酒简单分类">
+                  <i class="fa fa-chevron-left"></i> 精酿啤酒简单分类
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
