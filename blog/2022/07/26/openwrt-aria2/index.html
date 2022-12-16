@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/26/openwrt-aria2/openwrt-aria2.png">
 <meta property="article:published_time" content="2022-07-26T06:13:48.000Z">
-<meta property="article:modified_time" content="2022-07-26T06:38:25.669Z">
+<meta property="article:modified_time" content="2022-12-16T08:43:25.465Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">启用服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">设置</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">启用服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="nav-number">4.</span> <span class="nav-text">内网穿透</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -236,9 +236,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-07-26 14:13:48 / 修改时间：14:38:25" itemprop="dateCreated datePublished" datetime="2022-07-26T14:13:48+08:00">2022-07-26</time>
+      <time title="创建时间：2022-07-26 14:13:48" itemprop="dateCreated datePublished" datetime="2022-07-26T14:13:48+08:00">2022-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-16 16:43:25" itemprop="dateModified" datetime="2022-12-16T16:43:25+08:00">2022-12-16</time>
     </span>
 
   
@@ -277,6 +283,17 @@
 <h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>在使用aria2下载磁力链接前，先设置初始BitTorrent Trackers。</p>
 <p>使用<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best_ip.txt">trackers_best_ip.txt</a>，注意要将2个换行符替换成<code>,</code>来适配语法。</p>
 
+
+<h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><p>如果想用内网穿透访问AriaNg页面，默认是无法访问的。</p>
+<p>原因是默认的Aria2 RPC地址是<code>http://luci.domain.com:6800/jsonrpc</code>，注意里面的<code>:6800</code>。</p>
+<p>内网穿透一般不支持80或443之外的端口，需要修改两个地方：</p>
+<ol>
+<li><p>frpc<br>在frpc添加</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[ariang]</span></span><br><span class="line"><span class="attr">type</span> = http</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">192.168</span>.<span class="number">8.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">6800</span></span><br><span class="line"><span class="attr">custom_domains</span> = aria2.domain.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>AriaNg<br>在AriaNg的<code>AriaNg设置</code>中，修改RPC的地址为<code>http://aria2.domain.com:80/jsonrpc</code>。</p>
+</li>
+</ol>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 

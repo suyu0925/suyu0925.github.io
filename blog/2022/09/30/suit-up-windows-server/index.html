@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/09/30/suit-up-windows-server/install-nuget-prompt.png">
 <meta property="article:published_time" content="2022-09-30T02:33:19.000Z">
-<meta property="article:modified_time" content="2022-12-16T06:44:55.254Z">
+<meta property="article:modified_time" content="2022-12-16T07:33:47.203Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://suyu0925.github.io/blog/2022/09/30/suit-up-windows-server/install-nuget-prompt.png">
@@ -243,7 +243,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-16 14:44:55" itemprop="dateModified" datetime="2022-12-16T14:44:55+08:00">2022-12-16</time>
+      <time title="修改时间：2022-12-16 15:33:47" itemprop="dateModified" datetime="2022-12-16T15:33:47+08:00">2022-12-16</time>
     </span>
 
   
@@ -344,6 +344,9 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Install-Package</span> <span class="literal">-Name</span> docker <span class="literal">-ProviderName</span> DockerMsftProvider <span class="literal">-Force</span></span><br></pre></td></tr></table></figure>
 
 <p>这一步会比较慢，主要是因为服务器在海外，需要多给点耐心，也许要重试几次。</p>
+<p>安装完成后，<code>C:\Program Files\Docker</code>会被添加进系统Path变量，需要重启后才生效。<br>如果不想重启，我们可以把它<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables#saving-environment-variables-with-setenvironmentvariable">添加到用户Path变量</a></p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$dockerPath</span> = <span class="built_in">Split-Path</span> (<span class="built_in">Get-Command</span> docker).Source</span><br><span class="line"><span class="variable">$userPath</span> = [<span class="type">Environment</span>]::GetEnvironmentVariable(<span class="string">&quot;PATH&quot;</span>, <span class="string">&quot;User&quot;</span>) + [<span class="type">IO.Path</span>]::PathSeparator + <span class="variable">$dockerPath</span></span><br><span class="line">[<span class="type">Environment</span>]::SetEnvironmentVariable(<span class="string">&quot;Path&quot;</span>, <span class="variable">$userPath</span>, <span class="string">&quot;User&quot;</span>)</span><br></pre></td></tr></table></figure>
+
 <h3 id="启动docker服务"><a href="#启动docker服务" class="headerlink" title="启动docker服务"></a>启动docker服务</h3><p>如果<code>Docker Engine</code>服务没有自动启动，手动启动它。</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Start-Service</span> docker</span><br></pre></td></tr></table></figure>
 
