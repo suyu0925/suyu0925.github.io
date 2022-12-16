@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/compare-include-and-data-file.png">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/12/06/webview2-in-vsto/publish-vsto.png">
 <meta property="article:published_time" content="2022-12-06T06:05:07.000Z">
-<meta property="article:modified_time" content="2022-12-07T09:01:27.263Z">
+<meta property="article:modified_time" content="2022-12-13T06:15:33.213Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="excel-add-in">
 <meta name="twitter:card" content="summary">
@@ -148,7 +148,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webview2%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0html"><span class="nav-number">1.</span> <span class="nav-text">webview2使用本地html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0html%E6%96%87%E4%BB%B6%E5%88%B0ClickOnce"><span class="nav-number">2.</span> <span class="nav-text">添加html文件到ClickOnce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%BA%94%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">普通应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vsto%E5%BA%94%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">vsto应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E6%97%A7%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE"><span class="nav-number">3.</span> <span class="nav-text">依旧无法访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9AMage"><span class="nav-number">4.</span> <span class="nav-text">附录：Mage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Developer-Prompt"><span class="nav-number">4.1.</span> <span class="nav-text">Visual Studio Developer Prompt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-10-SDK"><span class="nav-number">4.2.</span> <span class="nav-text">Windows 10 SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NET-Framework-SDK"><span class="nav-number">4.3.</span> <span class="nav-text">.NET Framework SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">4.4.</span> <span class="nav-text">真正的解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E5%9C%A8%E5%AE%89%E8%A3%85vsto%E6%97%B6%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">附录：在安装vsto时拷贝文件</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webview2%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0html"><span class="nav-number">1.</span> <span class="nav-text">webview2使用本地html</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0html%E6%96%87%E4%BB%B6%E5%88%B0ClickOnce"><span class="nav-number">2.</span> <span class="nav-text">添加html文件到ClickOnce</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E5%BA%94%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">普通应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vsto%E5%BA%94%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">vsto应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%9D%E6%97%A7%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE"><span class="nav-number">3.</span> <span class="nav-text">依旧无法访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9AMage"><span class="nav-number">4.</span> <span class="nav-text">附录：Mage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Visual-Studio-Developer-Prompt"><span class="nav-number">4.1.</span> <span class="nav-text">Visual Studio Developer Prompt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-10-SDK"><span class="nav-number">4.2.</span> <span class="nav-text">Windows 10 SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NET-Framework-SDK"><span class="nav-number">4.3.</span> <span class="nav-text">.NET Framework SDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E6%AD%A3%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">4.4.</span> <span class="nav-text">真正的解决方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E5%9C%A8%E5%AE%89%E8%A3%85vsto%E6%97%B6%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">附录：在安装vsto时拷贝文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A%E5%AE%A2%E6%88%B7%E6%9C%BA%E5%AE%89%E8%A3%85webview2%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="nav-number">6.</span> <span class="nav-text">附录：客户机安装webview2运行时</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -247,7 +247,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-07 17:01:27" itemprop="dateModified" datetime="2022-12-07T17:01:27+08:00">2022-12-07</time>
+      <time title="修改时间：2022-12-13 14:15:33" itemprop="dateModified" datetime="2022-12-13T14:15:33+08:00">2022-12-13</time>
     </span>
 
   
@@ -338,6 +338,9 @@
 <li><p>如果<code>postAction</code>抛出异常，vsto会将安装出错的插件卸载，但并不会清除<code>%LocalAppData%/Apps/2.0/</code>下的文件。此时有可能需要手动清除才能恢复正常。</p>
 </li>
 </ol>
+<h2 id="附录：客户机安装webview2运行时"><a href="#附录：客户机安装webview2运行时" class="headerlink" title="附录：客户机安装webview2运行时"></a>附录：客户机安装webview2运行时</h2><p>Webview2运行时的<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution#understanding-the-options-at-the-runtime-download-page">安装方式</a>有3种，分别是在线安装，离线安装和指定版本安装。</p>
+<p>通常使用<a target="_blank" rel="noopener" href="https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/7e516d67-e834-4e72-ae7b-fe18b0ea75bb/MicrosoftEdgeWebView2RuntimeInstallerX64.exe">离线安装包</a>（安装文件存放在自己服务器上防止外网被墙），可使用命令行参数实现<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution#offline-deployment">静默安装</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MicrosoftEdgeWebView2RuntimeInstallerX64.exe /silent /install</span><br></pre></td></tr></table></figure>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 

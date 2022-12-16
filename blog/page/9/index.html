@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">85</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -192,6 +192,97 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2017/04/21/reset-the-trial-period-of-beyond-compare/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Tasty Pub">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/2017/04/21/reset-the-trial-period-of-beyond-compare/" class="post-title-link" itemprop="url">重置beyond compare的试用期</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-21 02:38:40" itemprop="dateCreated datePublished" datetime="2017-04-21T02:38:40+08:00">2017-04-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-03 16:56:54" itemprop="dateModified" datetime="2022-08-03T16:56:54+08:00">2022-08-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>首先声明一点，拒绝使用盗版或破解版，并且也不要过于依赖重置试用期的trick。像这种好用经典又不贵的软件还是入个正版吧。<del>又不是Adobe，BC的标准版才30刀</del></p>
+<h3 id="mac"><a href="#mac" class="headerlink" title="mac"></a>mac</h3><p>删除Library&#x2F;Application Support&#x2F;Beyond Compare&#x2F;registry.dat</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> ~/Library/Application\ Support/Beyond\ Compare/registry.dat</span><br></pre></td></tr></table></figure>
+
+<h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>在注册表中删除<code>HKEY_USERS/&#123;USER_SID&#125;/SOFTWARE/Scooter Software/Beyond Compare 4/CacheID</code>。</p>
+<p>其中<code>USER_SID</code>是用户的<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers">Security Identifier</a>，可以在<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code>中找到。</p>
+<h3 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -rf ~/.beyondcompare</span><br></pre></td></tr></table></figure>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
