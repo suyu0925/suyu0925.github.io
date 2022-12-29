@@ -2902,3 +2902,6 @@ mark.search-keyword {
 html {
   filter: grayscale(0.1);
 }
+.post-body .spoiler.expanded .spoiler-content {
+  max-height: 100000px;
+}
