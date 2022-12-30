@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="在部署服务时，经常需要将docker image拷贝至服务器，使用私有源来管理image会更方便。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署docker私有源">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2022/12/30/deploy-docker-registry/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="在部署服务时，经常需要将docker image拷贝至服务器，使用私有源来管理image会更方便。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-30T02:07:24.000Z">
+<meta property="article:modified_time" content="2022-12-30T07:41:36.157Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="docker">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2022/12/30/deploy-docker-registry/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/12/30/deploy-docker-registry/","path":"2022/12/30/deploy-docker-registry/","title":"部署docker私有源"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>部署docker私有源 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd6b3787165"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9F%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">速览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%A0%E5%B0%84%E6%95%B0%E6%8D%AE%E5%8C%BA"><span class="nav-number">2.</span> <span class="nav-text">映射数据区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%89%B4%E6%9D%83%E7%99%BB%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">鉴权登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E8%AE%BF%E9%97%AE"><span class="nav-number">4.</span> <span class="nav-text">外部访问</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">nginx反向代理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">88</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/12/30/deploy-docker-registry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="部署docker私有源 | Tasty Pub">
+      <meta itemprop="description" content="在部署服务时，经常需要将docker image拷贝至服务器，使用私有源来管理image会更方便。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          部署docker私有源
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-30 10:07:24 / 修改时间：15:41:36" itemprop="dateCreated datePublished" datetime="2022-12-30T10:07:24+08:00">2022-12-30</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">在部署服务时，经常需要将docker image拷贝至服务器，使用私有源来管理image会更方便。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>关于docker私有源也可以参见<a target="_blank" rel="noopener" href="https://docs.docker.com/registry/deploying/">官方文档</a>，这篇文章是我整理的笔记。</p>
+<h2 id="速览"><a href="#速览" class="headerlink" title="速览"></a>速览</h2><p>docker私有源的搭建使用docker官方镜像<a target="_blank" rel="noopener" href="https://hub.docker.com/_/registry">registry</a>来实现，比如一个最简单的本地私有源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000 --restart=always --name registry registry:2</span><br></pre></td></tr></table></figure>
+
+<p>服务跑起来后，就可以使用了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu:16.04</span><br><span class="line">docker tag ubuntu:16.04 localhost:5000/my-ubuntu</span><br><span class="line">docker push localhost:5000/my-ubuntu</span><br><span class="line">docker image remove ubuntu:16.04</span><br><span class="line">docker image remove localhost:5000/my-ubuntu</span><br></pre></td></tr></table></figure>
+
+<p>上面的命令把<code>ubuntu:16.04</code>镜像推送到了<code>localhost:5000/my-ubuntu</code>。<br>注意最后的<code>docker image remove localhost:5000/my-ubuntu</code>并不会删除服务器上的镜像，有点类似<code>git branch -d xxx</code>，只是删除了本地的镜像。<br>还是可以从服务器上拉取镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull localhost:5000/my-ubuntu</span><br></pre></td></tr></table></figure>
+
+<h2 id="映射数据区"><a href="#映射数据区" class="headerlink" title="映射数据区"></a>映射数据区</h2><p>默认情况下，数据会被存储在<a target="_blank" rel="noopener" href="https://docs.docker.com/storage/volumes/">docker卷</a>中。我们可以将registry的<code>/var/lib/registry/</code>映射到本地目录。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir <span class="keyword">data</span></span><br><span class="line">docker run <span class="literal">-d</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">5000</span>:<span class="number">5000</span> `</span><br><span class="line">  <span class="literal">--restart</span>=always `</span><br><span class="line">  <span class="literal">--name</span> registry `</span><br><span class="line">  <span class="literal">-v</span> <span class="string">&quot;<span class="variable">$</span>(pwd)/data:/var/lib/registry&quot;</span> `</span><br><span class="line">  registry:<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>这样我们只要保有<code>data</code>目录，就能重新建起一个源。</p>
+<h2 id="鉴权登录"><a href="#鉴权登录" class="headerlink" title="鉴权登录"></a>鉴权登录</h2><p>私有源肯定得有鉴权登录，否则就成了公有源。虽然也可以通过云服务器的<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/25471.html#h2-url-4">IP白名单</a>来实现这一点，但账号密码的泛用性更强一些。</p>
+<p>首先创建一个密码本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> auth</span><br><span class="line">docker run --<span class="built_in">rm</span> --entrypoint htpasswd httpd:2 -Bbn testuser testpassword &gt; auth/htpasswd</span><br></pre></td></tr></table></figure>
+<p>如果是在windows上，需要指定输出文件的编码格式为Ascii（如指定UTF8，PowerShell中除UTF7之外的所有Unicode编码都是with BOM)。如果不指定，<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_character_encoding#character-encoding-in-windows-powershell">PowerShell默认</a>的编码格式是<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/UTF-16">UTF-16 LE</a>，无法被registry使用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> --entrypoint htpasswd httpd:2 -Bbn testuser testpassword | Set-Content -Encoding ASCII auth/htpasswd</span><br></pre></td></tr></table></figure>
+<p>如果不想使用<code>bcrypt</code>，可以省略<code>-B</code>参数。</p>
+<p>在启动registry时使用密码本</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker run <span class="literal">-d</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">5000</span>:<span class="number">5000</span> `</span><br><span class="line">  <span class="literal">--restart</span>=always `</span><br><span class="line">  <span class="literal">--name</span> registry `</span><br><span class="line">  <span class="literal">-v</span> <span class="string">&quot;<span class="variable">$</span>(pwd)/auth:/auth&quot;</span> `</span><br><span class="line">  <span class="literal">-v</span> <span class="string">&quot;<span class="variable">$</span>(pwd)/data:/var/lib/registry&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;REGISTRY_AUTH=htpasswd&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;REGISTRY_AUTH_HTPASSWD_PATH=/auth/htpasswd&quot;</span> `</span><br><span class="line">  registry:<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>此时再进行push，会提示未鉴权：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker push localhost:5000/my-ubuntu</span><br><span class="line">Using default tag: latest</span><br><span class="line">The push refers to repository [localhost:5000/my-ubuntu]</span><br><span class="line">1251204ef8fc: Preparing</span><br><span class="line">47ef83afae74: Preparing</span><br><span class="line">df54c846128d: Preparing</span><br><span class="line">be96a3f634de: Preparing</span><br><span class="line">no basic auth credentials</span><br></pre></td></tr></table></figure>
+
+<p>需要先<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/login/">登录</a>才能使用源：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker login -u testuser -p testpassword localhost:5000</span><br><span class="line">WARNING! Using --password via the CLI is insecure. Use --password-stdin.</span><br><span class="line">Login Succeeded</span><br></pre></td></tr></table></figure>
+
+<p>再进行push操作就正常了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker push localhost:5000/my-ubuntu</span><br><span class="line">Using default tag: latest</span><br><span class="line">The push refers to repository [localhost:5000/my-ubuntu]</span><br><span class="line">1251204ef8fc: Pushed</span><br><span class="line">47ef83afae74: Pushed</span><br><span class="line">df54c846128d: Pushed</span><br><span class="line">be96a3f634de: Pushed</span><br><span class="line">latest: digest: sha256:a3785f78ab8547ae2710c89e627783cfa7ee7824d3468cae6835c9f4eae23ff7 size: 1150</span><br></pre></td></tr></table></figure>
+
+<h2 id="外部访问"><a href="#外部访问" class="headerlink" title="外部访问"></a>外部访问</h2><p>目前为止我们都是将服务监听在localhost，如果我们要放开给外部使用，最好使用TSL。</p>
+<p>使用SSL域名证书有两种方式，一种是<a target="_blank" rel="noopener" href="https://docs.docker.com/registry/deploying/#get-a-certificate">将证书直接绑到registry</a>服务使用，另一种是<a target="_blank" rel="noopener" href="https://docs.docker.com/registry/recipes/apache/">使用apache</a>或<a target="_blank" rel="noopener" href="https://docs.docker.com/registry/recipes/nginx/">nginx反向代理</a>。</p>
+<p>nginx是最通用的方案，我们选择这个。</p>
+<h3 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h3><p>除了最常规的反向代理设置外，registry还需要以下几个设置：</p>
+<p><strong>header</strong><br>我们需要反向代理这几个http头</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">proxy_set_header  Host              $http_host;   # required for docker client&#x27;s sake</span><br><span class="line">proxy_set_header  X-Real-IP         $remote_addr; # pass on real client&#x27;s IP</span><br><span class="line">proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;</span><br><span class="line">proxy_set_header  X-Forwarded-Proto $scheme;</span><br></pre></td></tr></table></figure>
+
+<p><strong>auth</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location /v2/ &#123;</span><br><span class="line">    # To add basic authentication to v2 use auth_basic setting.</span><br><span class="line">    auth_basic &quot;Registry realm&quot;;</span><br><span class="line">    auth_basic_user_file /etc/nginx/conf.d/nginx.htpasswd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>body size</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  # disable any limits to avoid HTTP 413 for large image uploads</span><br><span class="line">  client_max_body_size 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>完整示例</strong><br>还有一些其它设置，下面是一个完整的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line"></span><br><span class="line">  upstream docker-registry &#123;</span><br><span class="line">    server registry:5000;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ## Set a variable to help us decide if we need to add the</span><br><span class="line">  ## &#x27;Docker-Distribution-Api-Version&#x27; header.</span><br><span class="line">  ## The registry always sets this header.</span><br><span class="line">  ## In the case of nginx performing auth, the header is unset</span><br><span class="line">  ## since nginx is auth-ing before proxying.</span><br><span class="line">  map $upstream_http_docker_distribution_api_version $docker_distribution_api_version &#123;</span><br><span class="line">    &#x27;&#x27; &#x27;registry/2.0&#x27;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  server &#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name myregistrydomain.com;</span><br><span class="line"></span><br><span class="line">    # SSL</span><br><span class="line">    ssl_certificate /etc/nginx/conf.d/domain.crt;</span><br><span class="line">    ssl_certificate_key /etc/nginx/conf.d/domain.key;</span><br><span class="line"></span><br><span class="line">    # Recommendations from https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html</span><br><span class="line">    ssl_protocols TLSv1.1 TLSv1.2;</span><br><span class="line">    ssl_ciphers &#x27;EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH&#x27;;</span><br><span class="line">    ssl_prefer_server_ciphers on;</span><br><span class="line">    ssl_session_cache shared:SSL:10m;</span><br><span class="line"></span><br><span class="line">    # disable any limits to avoid HTTP 413 for large image uploads</span><br><span class="line">    client_max_body_size 0;</span><br><span class="line"></span><br><span class="line">    # required to avoid HTTP 411: see Issue #1486 (https://github.com/moby/moby/issues/1486)</span><br><span class="line">    chunked_transfer_encoding on;</span><br><span class="line"></span><br><span class="line">    location /v2/ &#123;</span><br><span class="line">      # Do not allow connections from docker 1.5 and earlier</span><br><span class="line">      # docker pre-1.6.0 did not properly set the user agent on ping, catch &quot;Go *&quot; user agents</span><br><span class="line">      if ($http_user_agent ~ &quot;^(docker\/1\.(3|4|5(?!\.[0-9]-dev))|Go ).*$&quot; ) &#123;</span><br><span class="line">        return 404;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      # To add basic authentication to v2 use auth_basic setting.</span><br><span class="line">      auth_basic &quot;Registry realm&quot;;</span><br><span class="line">      auth_basic_user_file /etc/nginx/conf.d/nginx.htpasswd;</span><br><span class="line"></span><br><span class="line">      ## If $docker_distribution_api_version is empty, the header is not added.</span><br><span class="line">      ## See the map directive above where this variable is defined.</span><br><span class="line">      add_header &#x27;Docker-Distribution-Api-Version&#x27; $docker_distribution_api_version always;</span><br><span class="line"></span><br><span class="line">      proxy_pass                          http://docker-registry;</span><br><span class="line">      proxy_set_header  Host              $http_host;   # required for docker client&#x27;s sake</span><br><span class="line">      proxy_set_header  X-Real-IP         $remote_addr; # pass on real client&#x27;s IP</span><br><span class="line">      proxy_set_header  X-Forwarded-For   $proxy_add_x_forwarded_for;</span><br><span class="line">      proxy_set_header  X-Forwarded-Proto $scheme;</span><br><span class="line">      proxy_read_timeout                  900;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将上面的conf文件保存至<code>auth/nginx.conf</code>。</p>
+<p>将SSL证书保存至<code>auth/</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> domain.crt auth</span><br><span class="line"><span class="built_in">cp</span> domain.key auth</span><br></pre></td></tr></table></figure>
+
+<p>将下面的内容保存至<code>docker-compose.yml</code>。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nginx:</span></span><br><span class="line">  <span class="comment"># Note : Only nginx:alpine supports bcrypt.</span></span><br><span class="line">  <span class="comment"># If you don&#x27;t need to use bcrypt, you can use a different tag.</span></span><br><span class="line">  <span class="comment"># Ref. https://github.com/nginxinc/docker-nginx/issues/29</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">&quot;nginx:alpine&quot;</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">5043</span><span class="string">:443</span></span><br><span class="line">  <span class="attr">links:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">registry:registry</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./auth:/etc/nginx/conf.d</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./auth/nginx.conf:/etc/nginx/nginx.conf:ro</span></span><br><span class="line"></span><br><span class="line"><span class="attr">registry:</span></span><br><span class="line">  <span class="attr">image:</span> <span class="string">registry:2</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">./data:/var/lib/registry</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>完成</strong><br>跑起来看看结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>看看是不是可以正常使用了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker login -u=testuser -p=testpassword -e=root@example.ch myregistrydomain.com:5043</span><br><span class="line">docker tag ubuntu myregistrydomain.com:5043/test</span><br><span class="line">docker push myregistrydomain.com:5043/test</span><br><span class="line">docker pull myregistrydomain.com:5043/test</span><br></pre></td></tr></table></figure>
+
+<p>如果不想使用docker-compose再运行一个nginx，要注意<code>htpasswd</code>的存放路径，需要放在nginx的用户<code>www-data</code>能读取到的地方，比如<code>/var/www</code>下。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/docker/" rel="tag"># docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2022/12/29/chinese-anime/" rel="prev" title="[转载]国漫发展史">
+                  <i class="fa fa-chevron-left"></i> [转载]国漫发展史
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
