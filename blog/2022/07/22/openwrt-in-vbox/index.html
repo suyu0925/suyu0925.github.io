@@ -28,10 +28,8 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/22/openwrt-in-vbox/Host-Only%20Network.png">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/22/openwrt-in-vbox/ethnet.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/22/openwrt-in-vbox/mount-point.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/22/openwrt-in-vbox/mount-root.png">
 <meta property="article:published_time" content="2022-07-22T01:21:30.000Z">
-<meta property="article:modified_time" content="2023-02-01T09:13:32.761Z">
+<meta property="article:modified_time" content="2023-02-03T08:37:38.256Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -145,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85VirtualBox"><span class="nav-number">1.</span> <span class="nav-text">安装VirtualBox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8vbox%E4%B8%AD%E5%AE%89%E8%A3%85OpenWrt"><span class="nav-number">2.</span> <span class="nav-text">在vbox中安装OpenWrt</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenWrt%E9%95%9C%E5%83%8F%E9%80%89%E6%8B%A9"><span class="nav-number">2.1.</span> <span class="nav-text">OpenWrt镜像选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">2.2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU"><span class="nav-number">2.3.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">2.4.</span> <span class="nav-text">网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenWrt%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E7%AB%99"><span class="nav-number">3.</span> <span class="nav-text">OpenWrt国内镜像站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80"><span class="nav-number">4.</span> <span class="nav-text">语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9"><span class="nav-number">5.</span> <span class="nav-text">扩容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%9A%84OpenWrt%E4%B8%8A%E7%BD%91"><span class="nav-number">7.</span> <span class="nav-text">宿主机使用虚拟机中的OpenWrt上网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">8.</span> <span class="nav-text">开机自启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">9.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%9C%BA%E6%89%A9%E5%AE%B9"><span class="nav-number">9.1.</span> <span class="nav-text">实机扩容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%99%9A%E6%8B%9F%E7%A1%AC%E7%9B%98"><span class="nav-number">9.2.</span> <span class="nav-text">添加虚拟硬盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%92%8C%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">9.3.</span> <span class="nav-text">分区和格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%8C%82%E8%BD%BD"><span class="nav-number">9.4.</span> <span class="nav-text">自动挂载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9root"><span class="nav-number">9.5.</span> <span class="nav-text">扩容root</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85VirtualBox"><span class="nav-number">1.</span> <span class="nav-text">安装VirtualBox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8vbox%E4%B8%AD%E5%AE%89%E8%A3%85OpenWrt"><span class="nav-number">2.</span> <span class="nav-text">在vbox中安装OpenWrt</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenWrt%E9%95%9C%E5%83%8F%E9%80%89%E6%8B%A9"><span class="nav-number">2.1.</span> <span class="nav-text">OpenWrt镜像选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">2.2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU"><span class="nav-number">2.3.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">2.4.</span> <span class="nav-text">网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenWrt%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F%E7%AB%99"><span class="nav-number">3.</span> <span class="nav-text">OpenWrt国内镜像站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80"><span class="nav-number">4.</span> <span class="nav-text">语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9"><span class="nav-number">5.</span> <span class="nav-text">扩容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BD%BF%E7%94%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%9A%84OpenWrt%E4%B8%8A%E7%BD%91"><span class="nav-number">7.</span> <span class="nav-text">宿主机使用虚拟机中的OpenWrt上网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">8.</span> <span class="nav-text">开机自启</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -158,7 +156,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -232,7 +230,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-02-01 17:13:32" itemprop="dateModified" datetime="2023-02-01T17:13:32+08:00">2023-02-01</time>
+      <time title="修改时间：2023-02-03 16:37:38" itemprop="dateModified" datetime="2023-02-03T16:37:38+08:00">2023-02-03</time>
     </span>
 
   
@@ -285,8 +283,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install luci-i18n-base-zh-cn</span><br></pre></td></tr></table></figure>
 
 <h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>官方的镜像文件只有100多M的空间，肯定不够用，我们需要将root扩容。</p>
-<p><a href="#%E5%AE%9E%E6%9C%BA%E6%89%A9%E5%AE%B9">实机扩容</a>root大致可以分两步，先是<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/storage/usb-drives">挂载新硬盘</a>获得新的存储空间，再是<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/additional-software/extroot_configuration">扩容root</a>。</p>
-<p>但在VBox里扩容就变得异常简单。</p>
+<p><a href="#%E5%AE%9E%E6%9C%BA%E6%89%A9%E5%AE%B9">实机扩容</a>root大致可以分两步，先是<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/storage/usb-drives">挂载新硬盘</a>获得新的存储空间，再是<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/additional-software/extroot_configuration">扩容root</a>。可以参见：<a href="/blog/2023/02/02/openwrt-resize-root/" title="OpenWrt扩容">OpenWrt扩容</a>。</p>
+<p>同为虚拟机，VBox里的扩容比Hyper-V要简单得多。</p>
 <p>首先将虚拟机关机；<br>然后在VBox的工具-&gt;介质中，选择我们使用的虚拟磁盘<code>openwrt.vdi</code>，直接将虚拟分配空间的大小改到200G;<br>最后启动虚拟机，完事。</p>
 <h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><ul>
 <li><a href="/blog/2022/07/26/openwrt-aria2/" title="[Openwrt]使用aria2">[OpenWrt]使用aria2</a></li>
@@ -321,84 +319,6 @@
 <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VBoxManage startvm OpenWrt --<span class="built_in">type</span> headless</span><br></pre></td></tr></table></figure>
 
 <p>即可实现开机自启。</p>
-<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="实机扩容"><a href="#实机扩容" class="headerlink" title="实机扩容"></a>实机扩容</h3><div class='spoiler collapsed'>
-    <div class='spoiler-title'>
-        实机扩容
-    </div>
-    <div class='spoiler-content'>
-        <h3 id="添加虚拟硬盘"><a href="#添加虚拟硬盘" class="headerlink" title="添加虚拟硬盘"></a>添加虚拟硬盘</h3><p>在vbox中将OpenWrt关机后，添加一块动态分配存储的硬盘（建议200G）。为了更好的性能，设置为<strong>固态驱动器</strong>。</p>
-<h3 id="分区和格式化"><a href="#分区和格式化" class="headerlink" title="分区和格式化"></a>分区和格式化</h3><ol>
-<li>首先我们找到这块硬盘</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">ls</span> -ltr /dev/sd*</span><br><span class="line">brw-------    1 root     root        8,   0 Jul 22 06:00 /dev/sda</span><br><span class="line">brw-------    1 root     root        8,   1 Jul 22 06:00 /dev/sda1</span><br><span class="line">brw-------    1 root     root      259,   0 Jul 22 06:00 /dev/sda128</span><br><span class="line">brw-------    1 root     root        8,   2 Jul 22 06:00 /dev/sda2</span><br><span class="line">brw-------    1 root     root        8,  16 Jul 22 06:00 /dev/sdb</span><br></pre></td></tr></table></figure>
-
-<p>这里的&#x2F;dev&#x2F;sdb就是新添加的硬盘了。</p>
-<ol start="2">
-<li>使用gdisk工具来进行磁盘分区</li>
-</ol>
-<p>注意opkg package list并不会持久化，所以每次重启后都需要再运行一次<code>opkg update</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install gdisk</span><br><span class="line">gdisk /dev/sdb</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">GPT fdisk (gdisk) version 1.0.6</span><br><span class="line"></span><br><span class="line">Warning: Partition table header claims that the size of partition table</span><br><span class="line">entries is 0 bytes, but this program  supports only 128-byte entries.</span><br><span class="line">Adjusting accordingly, but partition table may be garbage.</span><br><span class="line">Warning: Partition table header claims that the size of partition table</span><br><span class="line">entries is 0 bytes, but this program  supports only 128-byte entries.</span><br><span class="line">Adjusting accordingly, but partition table may be garbage.</span><br><span class="line">Partition table scan:</span><br><span class="line">  MBR: not present</span><br><span class="line">  BSD: not present</span><br><span class="line">  APM: not present</span><br><span class="line">  GPT: not present</span><br><span class="line"></span><br><span class="line">Creating new GPT entries in memory.</span><br><span class="line"></span><br><span class="line">Command (? for help): n</span><br><span class="line">Partition number (1-128, default 1):</span><br><span class="line">First sector (34-419430366, default = 2048) or &#123;+-&#125;size&#123;KMGTP&#125;:</span><br><span class="line">Last sector (2048-419430366, default = 419430366) or &#123;+-&#125;size&#123;KMGTP&#125;:</span><br><span class="line">Current type is 8300 (Linux filesystem)</span><br><span class="line">Hex code or GUID (L to show codes, Enter = 8300):</span><br><span class="line">Changed type of partition to &#x27;Linux filesystem&#x27;</span><br><span class="line"></span><br><span class="line">Command (? for help): w</span><br><span class="line"></span><br><span class="line">Final checks complete. About to write GPT data. THIS WILL OVERWRITE EXISTING</span><br><span class="line">PARTITIONS!!</span><br><span class="line"></span><br><span class="line">Do you want to proceed? (Y/N): y</span><br><span class="line">OK; writing new GUID partition table (GPT) to /dev/sdb.</span><br><span class="line">The operation has completed successfully.</span><br></pre></td></tr></table></figure>
-
-<p>分好区后，我们应该可以看到<code>/dev/sdb1</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">ls</span> -ltr /dev/sd*</span><br><span class="line">brw-------    1 root     root        8,  17 Jul 22 06:17 /dev/sdb1</span><br><span class="line">brw-------    1 root     root        8,  16 Jul 22 06:17 /dev/sdb</span><br><span class="line">brw-------    1 root     root        8,   2 Jul 22 06:17 /dev/sda2</span><br><span class="line">brw-------    1 root     root      259,   0 Jul 22 06:17 /dev/sda128</span><br><span class="line">brw-------    1 root     root        8,   1 Jul 22 06:17 /dev/sda1</span><br><span class="line">brw-------    1 root     root        8,   0 Jul 22 06:17 /dev/sda</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>格式化</li>
-</ol>
-<p>之前我们创建磁盘时已经选择了设置为<strong>固态驱动器</strong>，所以这里我们使用f2fs来代替ext4。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">opkg install f2fs-tools</span><br><span class="line">opkg install kmod-fs-f2fs</span><br><span class="line">mkfs.f2fs /dev/sdb1</span><br></pre></td></tr></table></figure>
-
-<h3 id="自动挂载"><a href="#自动挂载" class="headerlink" title="自动挂载"></a>自动挂载</h3><p>下一步来设置重启后自动挂载sdb1。</p>
-<p><strong>先安装block工具</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opkg install block-mount</span><br></pre></td></tr></table></figure>
-
-<p>安装完后，可以使用<code>block</code>命令，同时在luci的系统菜单下会出现<code>挂载点</code>页面，可以更方便的查看挂载情况。</p>
-<img src="/blog/2022/07/22/openwrt-in-vbox/mount-point.png" class="" title="挂载点">
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$&gt; block detect</span><br><span class="line">config <span class="string">&#x27;global&#x27;</span></span><br><span class="line">        option  anon_swap       <span class="string">&#x27;0&#x27;</span></span><br><span class="line">        option  anon_mount      <span class="string">&#x27;0&#x27;</span></span><br><span class="line">        option  auto_swap       <span class="string">&#x27;1&#x27;</span></span><br><span class="line">        option  auto_mount      <span class="string">&#x27;1&#x27;</span></span><br><span class="line">        option  delay_root      <span class="string">&#x27;5&#x27;</span></span><br><span class="line">        option  check_fs        <span class="string">&#x27;0&#x27;</span></span><br><span class="line"></span><br><span class="line">config <span class="string">&#x27;mount&#x27;</span></span><br><span class="line">        option  target  <span class="string">&#x27;/boot&#x27;</span></span><br><span class="line">        option  uuid    <span class="string">&#x27;FB5E-DCEF&#x27;</span></span><br><span class="line">        option  enabled <span class="string">&#x27;0&#x27;</span></span><br><span class="line"></span><br><span class="line">config <span class="string">&#x27;mount&#x27;</span></span><br><span class="line">        option  target  <span class="string">&#x27;/&#x27;</span></span><br><span class="line">        option  uuid    <span class="string">&#x27;ff313567-e9f1-5a5d-9895-3ba130b4a864&#x27;</span></span><br><span class="line">        option  enabled <span class="string">&#x27;0&#x27;</span></span><br><span class="line"></span><br><span class="line">config <span class="string">&#x27;mount&#x27;</span></span><br><span class="line">        option  target  <span class="string">&#x27;/mnt/sdb1&#x27;</span></span><br><span class="line">        option  uuid    <span class="string">&#x27;fb80a835-f956-4264-8875-09a8e093f13c&#x27;</span></span><br><span class="line">        option  enabled <span class="string">&#x27;0&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>修改fstab</strong></p>
-<p>接下来的操作可以在luci网页上操作，也可以纯用命令行，在这里当然是推荐使用网页。</p>
-<p>在挂载点中选中&#x2F;mnt&#x2F;sdb1，然后点下面的<code>保存&amp;应用</code>。顺便把<code>在挂载前检查文件系统</code>也选中，同样，再次点击<code>保存&amp;应用</code>。</p>
-<p>事实上在网页上的操作就相当于下面的命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">uci <span class="built_in">set</span> fstab.@mount[-1].enabled=<span class="string">&#x27;1&#x27;</span></span><br><span class="line">uci commit fstab</span><br><span class="line"></span><br><span class="line">uci <span class="built_in">set</span> fstab.@global[0].check_fs=<span class="string">&#x27;1&#x27;</span></span><br><span class="line">uci commit fstab</span><br></pre></td></tr></table></figure>
-
-<p>你可以在操作前后使用命令<code>uci show fstab</code>来对比。</p>
-<p><strong>重启检查</strong></p>
-<p>做完这一步可以试着reboot重启，检查自动挂载有没有生效。</p>
-<p>重启后，我们查看磁盘使用情况，sdb1应该会正确的挂载：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">df</span> -h</span><br><span class="line">Filesystem                Size      Used Available Use% Mounted on</span><br><span class="line">/dev/root               102.4M     17.3M     83.0M  17% /</span><br><span class="line">tmpfs                   494.5M     64.0K    494.4M   0% /tmp</span><br><span class="line">/dev/sda1                16.0M      5.3M     10.7M  33% /boot</span><br><span class="line">/dev/sda1                16.0M      5.3M     10.7M  33% /boot</span><br><span class="line">tmpfs                   512.0K         0    512.0K   0% /dev</span><br><span class="line">/dev/sdb1               200.0G      2.4G    197.6G   1% /mnt/sdb1</span><br></pre></td></tr></table></figure>
-
-<h3 id="扩容root"><a href="#扩容root" class="headerlink" title="扩容root"></a>扩容root</h3><p>扩容root有两种方式，一种是使用新磁盘直接替换根目录，另一种是使用overlay。</p>
-<p>为了简便，我们在这里使用前一种，直接替换根目录。</p>
-<ol>
-<li><p>首先卸载掉&#x2F;dev&#x2F;sdb1</p>
-</li>
-<li><p>再次挂载&#x2F;dev&#x2F;sdb1，选择作为根目录使用</p>
-</li>
-</ol>
-<img src="/blog/2022/07/22/openwrt-in-vbox/mount-root.png" class="" title="作为根目录">
-
-<p>保存并应用。</p>
-<p>这一步就相当于下面的命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">uci <span class="built_in">set</span> fstab.@mount[-2].enabled=<span class="string">&#x27;0&#x27;</span></span><br><span class="line"></span><br><span class="line">uci <span class="built_in">set</span> fstab.@mount[-1].target=<span class="string">&#x27;/&#x27;</span></span><br><span class="line">uci <span class="built_in">set</span> fstab.@mount[-1].enabled=<span class="string">&#x27;1&#x27;</span></span><br><span class="line"></span><br><span class="line">uci commit fstab</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>运行命令迁移根目录</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /tmp/introot</span><br><span class="line"><span class="built_in">mkdir</span> -p /tmp/extroot</span><br><span class="line">mount --<span class="built_in">bind</span> / /tmp/introot</span><br><span class="line">mount /dev/sdb1 /tmp/extroot  <span class="comment"># 注意这里要改为/dev/sdb1</span></span><br><span class="line">tar -C /tmp/introot -cvf - . | tar -C /tmp/extroot -xf -</span><br><span class="line">umount /tmp/introot</span><br><span class="line">umount /tmp/extroot</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>重启</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$&gt; <span class="built_in">df</span> -h</span><br><span class="line">Filesystem                Size      Used Available Use% Mounted on</span><br><span class="line">/dev/root               102.4M     17.3M     83.0M  17% /rom</span><br><span class="line">tmpfs                   494.5M    228.0K    494.3M   0% /tmp</span><br><span class="line">/dev/sdb1               200.0G      2.4G    197.6G   1% /</span><br><span class="line">/dev/sda1                16.0M      5.3M     10.7M  33% /boot</span><br><span class="line">/dev/sda1                16.0M      5.3M     10.7M  33% /boot</span><br><span class="line">tmpfs                   512.0K         0    512.0K   0% /dev</span><br></pre></td></tr></table></figure>
-
-<p>重启后可以看到根目录已经在&#x2F;dev&#x2F;sdb1而不是&#x2F;dev&#x2F;root了。</p>
-
-    </div>
-</div>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 

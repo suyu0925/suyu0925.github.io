@@ -19,30 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
-    <meta name="description" content="最近要用Ubuntu，wsl 2里的不适用，就在VBox里跑了一个，结果发现贼卡，研究一下。">
+    <meta name="description" content="使用shell登录服务器后，面对多媒体文件中的各种奇怪字符经常会无从下手，记录一下解法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="VirtualBox在win上特别卡">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2023/02/01/virtualbox-running-slow/index.html">
+<meta property="og:title" content="在sh中操作特殊字符的文件夹">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/02/03/manipulate-files-with-special-characters/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="最近要用Ubuntu，wsl 2里的不适用，就在VBox里跑了一个，结果发现贼卡，研究一下。">
+<meta property="og:description" content="使用shell登录服务器后，面对多媒体文件中的各种奇怪字符经常会无从下手，记录一下解法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/02/01/virtualbox-running-slow/green-turtle.png">
-<meta property="article:published_time" content="2023-02-01T01:09:17.000Z">
-<meta property="article:modified_time" content="2023-02-01T07:37:45.999Z">
+<meta property="article:published_time" content="2023-02-03T08:21:51.000Z">
+<meta property="article:modified_time" content="2023-02-03T08:32:44.004Z">
 <meta property="article:author" content="lckof">
-<meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/02/01/virtualbox-running-slow/green-turtle.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2023/02/01/virtualbox-running-slow/">
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/02/03/manipulate-files-with-special-characters/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/02/01/virtualbox-running-slow/","path":"2023/02/01/virtualbox-running-slow/","title":"VirtualBox在win上特别卡"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/02/03/manipulate-files-with-special-characters/","path":"2023/02/03/manipulate-files-with-special-characters/","title":"在sh中操作特殊字符的文件夹"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>VirtualBox在win上特别卡 | Tasty Pub</title>
+<title>在sh中操作特殊字符的文件夹 | Tasty Pub</title>
   
 
   <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
@@ -129,7 +126,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -142,7 +139,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E8%A7%A3%E7%9A%84%E6%80%A7%E8%83%BD%E5%A4%A7%E5%B9%85%E4%B8%8B%E9%99%8D"><span class="nav-number">1.</span> <span class="nav-text">无解的性能大幅下降</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Hyper-V"><span class="nav-number">2.</span> <span class="nav-text">使用Hyper-V</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubuntu%E9%95%9C%E5%83%8F"><span class="nav-number">2.1.</span> <span class="nav-text">Ubuntu镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hyper-v%E4%B8%8B%E7%9A%84ubuntu%E5%88%86%E8%BE%A8%E7%8E%87%E4%B8%BA%E5%85%A8%E5%B1%8F"><span class="nav-number">2.2.</span> <span class="nav-text">hyper-v下的ubuntu分辨率为全屏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hyper-v%E4%B8%8B%E4%BF%AE%E6%94%B9%E7%A3%81%E7%9B%98%E5%A4%A7%E5%B0%8F"><span class="nav-number">2.3.</span> <span class="nav-text">hyper-v下修改磁盘大小</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -193,7 +189,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/02/01/virtualbox-running-slow/">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/02/03/manipulate-files-with-special-characters/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -206,12 +202,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="VirtualBox在win上特别卡 | Tasty Pub">
-      <meta itemprop="description" content="最近要用Ubuntu，wsl 2里的不适用，就在VBox里跑了一个，结果发现贼卡，研究一下。">
+      <meta itemprop="name" content="在sh中操作特殊字符的文件夹 | Tasty Pub">
+      <meta itemprop="description" content="使用shell登录服务器后，面对多媒体文件中的各种奇怪字符经常会无从下手，记录一下解法。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          VirtualBox在win上特别卡
+          在sh中操作特殊字符的文件夹
         </h1>
 
         <div class="post-meta-container">
@@ -223,7 +219,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-02-01 09:09:17 / 修改时间：15:37:45" itemprop="dateCreated datePublished" datetime="2023-02-01T09:09:17+08:00">2023-02-01</time>
+      <time title="创建时间：2023-02-03 16:21:51 / 修改时间：16:32:44" itemprop="dateCreated datePublished" datetime="2023-02-03T16:21:51+08:00">2023-02-03</time>
     </span>
 
   
@@ -242,15 +238,15 @@
       </span>
       <span class="post-meta-item-text">Changyan：</span>
     
-    <a title="VirtualBox在win上特别卡" href="/blog/2023/02/01/virtualbox-running-slow/#SOHUCS" itemprop="discussionUrl">
-      <span id="sourceId::7970322e64c958ca31ac6d20a3aefd84" class="cy_cmt_count" itemprop="commentCount"></span>
+    <a title="在sh中操作特殊字符的文件夹" href="/blog/2023/02/03/manipulate-files-with-special-characters/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::63865ce45af457d81518fbdd373b1435" class="cy_cmt_count" itemprop="commentCount"></span>
     </a>
   </span>
   
   
 </div>
 
-            <div class="post-description">最近要用Ubuntu，wsl 2里的不适用，就在VBox里跑了一个，结果发现贼卡，研究一下。</div>
+            <div class="post-description">使用shell登录服务器后，面对多媒体文件中的各种奇怪字符经常会无从下手，记录一下解法。</div>
         </div>
       </header>
 
@@ -258,33 +254,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>想在Windows用Ubuntu有很多种方式：</p>
-<ul>
-<li>wsl 2</li>
-<li>docker</li>
-<li>VirtualBox</li>
-<li>Hyper-V</li>
-</ul>
-<p>最简单的当然是wsl 2，但wsl 2不够隔离，很容易影响原系统，不适用玩耍。</p>
-<p>docker虽然方便，但不够完整，更适合用来运行应用。</p>
-<p>剩下的选择就是分别以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/about/">Hyper-V</a>和VirtualBox为代表的第1类和第2类的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Hypervisor">hypervisor</a>。</p>
-<p>为了通用性，当然优先选择第2类的vbox。</p>
-<p>但使用中发现vbox中运行的ubuntu贼卡，怎么给CPU和内存都没用。</p>
-<h2 id="无解的性能大幅下降"><a href="#无解的性能大幅下降" class="headerlink" title="无解的性能大幅下降"></a>无解的性能大幅下降</h2><p>在网上以<code>windows virtualbox slow</code>为关键词搜了下，<a target="_blank" rel="noopener" href="https://www.wintips.org/fix-virtualbox-running-very-slow-in-windows-10-11/">第一个链接</a>就说明了答案：<a target="_blank" rel="noopener" href="https://docs.oracle.com/en/virtualization/virtualbox/6.1/admin/AdvancedTopics.html#hyperv-support">开启Hyper-V会导致VirtualBox性能大幅降低</a>。</p>
-<p>因为要运行以wsl 2为后端的docker，所以打开了hyper-v。虽然VirtualBox能兼容Hyper-V，当半虚拟化接口使用的是Hyper-V时，右下角会出现绿色海龟：</p>
-<img src="/blog/2023/02/01/virtualbox-running-slow/green-turtle.png" class="" title="绿色海龟">
+        <p>最简单的解法就是用<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/awk-command-unixlinux-examples/">awk</a>。</p>
+<p>比如这个例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">live mp4 电视剧 电影 动漫</span><br><span class="line">$ <span class="built_in">ls</span> | awk <span class="string">&#x27;NR==3&#x27;</span></span><br><span class="line">电视剧</span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;`ls | awk &#x27;NR==3&#x27;`&quot;</span></span><br><span class="line">电视剧 $</span><br></pre></td></tr></table></figure>
 
-<p>但此时性能会受到极大影响，并且<a target="_blank" rel="noopener" href="https://forums.virtualbox.org/viewtopic.php?f=1&t=106620#p521271">无法使用嵌套VT-x&#x2F;AMD-V</a>。</p>
-<p>所以当开启Hyper-V时，还是推荐使用<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine">hyper-v的虚拟机</a>。</p>
-<h2 id="使用Hyper-V"><a href="#使用Hyper-V" class="headerlink" title="使用Hyper-V"></a>使用Hyper-V</h2><h3 id="Ubuntu镜像"><a href="#Ubuntu镜像" class="headerlink" title="Ubuntu镜像"></a>Ubuntu镜像</h3><p>推荐使用自行下载Ubuntu镜像作为<code>本地安装源</code>而不是使用<code>快速创建</code>里面的Ubuntu镜像，毕竟可自行灵活下载的网速相比抽风的微软下载站可控得多。</p>
-<h3 id="hyper-v下的ubuntu分辨率为全屏"><a href="#hyper-v下的ubuntu分辨率为全屏" class="headerlink" title="hyper-v下的ubuntu分辨率为全屏"></a>hyper-v下的ubuntu分辨率为全屏</h3><p>使用<code>sudo nano /etc/default/grub</code>将<code>grub</code>中的<code>GRUB_CMDLINE_LINUX_DEFAULT</code>改为</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX_DEFAULT=&quot;quiet splash video=hyperv_fb:1920x1080&quot;</span><br></pre></td></tr></table></figure>
-<p>然后</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
-
-<h3 id="hyper-v下修改磁盘大小"><a href="#hyper-v下修改磁盘大小" class="headerlink" title="hyper-v下修改磁盘大小"></a>hyper-v下修改磁盘大小</h3><p>先将虚拟机关机，然后再编辑硬盘驱动器的虚拟硬盘。</p>
-<p>默认虚拟硬盘会放在<code>C:\ProgramData\Microsoft\Windows\Virtual Hard Disks\</code>，如果C盘空间不够可以挪到其它盘。</p>
-<p>如果有需求一定记得先扩容，否则创建完检查点就不允许编辑了。</p>
+<p>想操作第几个，就用awk截取ls结果。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="string">&quot;`ls | awk &#x27;NR==3&#x27;`&quot;</span></span><br></pre></td></tr></table></figure>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -293,22 +268,16 @@
     
 
     <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/blog/tags/windows/" rel="tag"># windows</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2023/01/30/ai-singer/" rel="prev" title="AI歌手">
-                  <i class="fa fa-chevron-left"></i> AI歌手
+                <a href="/blog/2023/02/03/samba-on-ubuntu/" rel="prev" title="在Ubuntu上安装samba">
+                  <i class="fa fa-chevron-left"></i> 在Ubuntu上安装samba
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2023/02/02/openwrt-in-hyper-v/" rel="next" title="在Hyper-V中安装OpenWrt">
-                  在Hyper-V中安装OpenWrt <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -320,7 +289,7 @@
 
 
 
-    <div class="comments" id="SOHUCS" sid="7970322e64c958ca31ac6d20a3aefd84"></div>
+    <div class="comments" id="SOHUCS" sid="63865ce45af457d81518fbdd373b1435"></div>
 </div>
   </main>
 
