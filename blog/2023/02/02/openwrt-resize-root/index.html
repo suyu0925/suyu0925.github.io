@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="OpenWrt的官方镜像root分区只有80多M剩余空间，不扩容是基本不能用的。实现上有多种方案，这里整合一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenWrt扩容">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/02/02/openwrt-resize-root/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="OpenWrt的官方镜像root分区只有80多M剩余空间，不扩容是基本不能用的。实现上有多种方案，这里整合一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-02T08:58:23.000Z">
+<meta property="article:modified_time" content="2023-02-03T04:05:53.000Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="openwrt">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/02/02/openwrt-resize-root/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/02/02/openwrt-resize-root/","path":"2023/02/02/openwrt-resize-root/","title":"OpenWrt扩容"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>OpenWrt扩容 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenWrt%E5%9B%BA%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">OpenWrt固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9"><span class="nav-number">2.</span> <span class="nav-text">扩容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%90%8E%E6%89%A9%E5%AE%B9"><span class="nav-number">2.1.</span> <span class="nav-text">安装后扩容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E6%89%A9%E5%AE%B9"><span class="nav-number">2.2.</span> <span class="nav-text">安装前扩容</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/02/02/openwrt-resize-root/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="OpenWrt扩容 | Tasty Pub">
+      <meta itemprop="description" content="OpenWrt的官方镜像root分区只有80多M剩余空间，不扩容是基本不能用的。实现上有多种方案，这里整合一下。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          OpenWrt扩容
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-02 16:58:23" itemprop="dateCreated datePublished" datetime="2023-02-02T16:58:23+08:00">2023-02-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:05:53" itemprop="dateModified" datetime="2023-02-03T12:05:53+08:00">2023-02-03</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="OpenWrt扩容" href="/blog/2023/02/02/openwrt-resize-root/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::d61bd7e05628a195d68f8ccae762b117" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">OpenWrt的官方镜像root分区只有80多M剩余空间，不扩容是基本不能用的。实现上有多种方案，这里整合一下。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="OpenWrt固件"><a href="#OpenWrt固件" class="headerlink" title="OpenWrt固件"></a>OpenWrt固件</h2><p>OpenWrt官网提供了<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/installation/openwrt_x86">多个固件下载</a>。国内很贴心的提供了镜像，比如<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/openwrt/releases/22.03.3/targets/x86/64/">清华</a>。</p>
+<p>这些固件的多个版本主要由3个参数组合：</p>
+<ul>
+<li>combined和rootfs<br>rootfs即只有一个分区：<code>/</code>即root，combined则是增加了<code>boot</code>启动引导区。一般人都不会去碰rootfs，启动引导太折腾。</li>
+<li>ext4和squashfs<br>相比ext4，squashfs增加了只读区以提供系统恢复功能，但无法做分区扩容（但可以挂载扩容）。</li>
+<li>efi<br>efi则是增加了<code>bios_grub</code>启动引导区，同时也保留了<code>legacy_boot</code>。</li>
+</ul>
+<p>如果是实机安装，建议使用squashfs-combined-efi；虚拟机则首选ext4-combined。</p>
+<h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>OpenWrt官方的固件只留了几十M的用户空间，正式使用完全不够用。所以官方有提供<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/installation/openwrt_x86#resizing_partitions">扩容文档</a>。</p>
+<p>扩容方案有很多种，最彻底的当然是按照硬件大小直接<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/installation/openwrt_x86#building_your_own_image_with_larger_partition_size">编译自己的固件</a>，但过于硬核。这里提供另外两种，安装后扩容和安装前扩容。</p>
+<h3 id="安装后扩容"><a href="#安装后扩容" class="headerlink" title="安装后扩容"></a>安装后扩容</h3><ol>
+<li>使用<a target="_blank" rel="noopener" href="http://man.cx/parted">parted</a>扩展分区</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install parted</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> fix | parted -l ---pretend-input-tty</span><br><span class="line">parted -s <span class="variable">$&#123;DISK%p&#125;</span> resizepart $((PART+<span class="number">1</span>)) 100%</span><br></pre></td></tr></table></figure>
+
+<p>如果是efi镜像，还需要更新grub</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install lsblk</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">UUID=<span class="string">&quot;<span class="subst">$(lsblk -n -o PARTUUID $&#123;ROOT&#125;)</span>&quot;</span></span><br><span class="line">sed -i -r -e <span class="string">&quot;s|(PARTUUID=)\S+|\1<span class="variable">$&#123;UUID&#125;</span>|g&quot;</span> /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用losetup挂载，然后使用resize2fs扩展</li>
+</ol>
+<p>针对<code>ext4-combined</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install losetup resize2fs</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">LOOP=<span class="string">&quot;<span class="subst">$(losetup -f)</span>&quot;</span></span><br><span class="line">losetup <span class="variable">$&#123;LOOP&#125;</span> <span class="variable">$&#123;ROOT&#125;</span></span><br><span class="line">resize2fs -f <span class="variable">$&#123;LOOP&#125;</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>针对<code>squashfs-combined</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install losetup resize2fs</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">LOOP=<span class="string">&quot;<span class="subst">$(losetup -n -l | sed -n -e <span class="string">&quot;\|\s.*\s<span class="variable">$&#123;ROOT#/dev&#125;</span>\s.*$|&#123;s///p;q&#125;&quot;</span>)</span>&quot;</span></span><br><span class="line">resize2fs -f <span class="variable">$&#123;LOOP&#125;</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>打完收工。</p>
+<h3 id="安装前扩容"><a href="#安装前扩容" class="headerlink" title="安装前扩容"></a>安装前扩容</h3><p>安装前扩容的思路是修改官方固件的.img文件，这样在安装完系统后直接就是正确的容量。</p>
+<p>但坏处是.img文件会暴增到扩容后的大小，只适用于较小容量的扩容，如果要扩容到上百G那这种方式还是不合适，还是要去用官方提供的<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/additional-software/imagebuilder">Image Builder</a>。</p>
+<p><strong>注意</strong><br>下面的操作仅支持ext4-combined.img，不支持efi，也不支持squashfs。</p>
+<ol>
+<li><p>给img映像文件增加4G空间</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=/dev/zero bs=1G count=4 &gt;&gt; openwrt-22.03.3-x86-64-generic-ext4-combined.img</span><br><span class="line"></span><br><span class="line">4+0 records <span class="keyword">in</span></span><br><span class="line">4+0 records out</span><br><span class="line">4294967296 bytes (4.3 GB, 4.0 GiB) copied, 4.09236 s, 1.0 GB/s</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>挂载镜像到loop设备</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo losetup -f openwrt-22.03.3-x86-64-generic-ext4-combined.img</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>使用<a target="_blank" rel="noopener" href="https://linux.die.net/man/8/losetup">losetup</a>查看挂载设备后的名称，这里示例是<code>loop13</code>，在你的机器上可能会是其它数字。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">losetup </span><br><span class="line"></span><br><span class="line">NAME        SIZELIMIT OFFSET AUTOCLEAR RO BACK-FILE                                                                    DIO LOG-SEC</span><br><span class="line">/dev/loop13         0      0         0  0 /home/&lt;username&gt;/sambashare/openwrt-22.03.3-x86-64-generic-ext4-combined.img   0     512</span><br></pre></td></tr></table></figure>
+
+<p>使用<a target="_blank" rel="noopener" href="https://linux.die.net/man/8/lsblk">lsblk</a>查看分区，大小是4.1G</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lsblk</span><br><span class="line"></span><br><span class="line">NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">loop13   7:13   0   4.1G  0 loop</span><br></pre></td></tr></table></figure>
+
+<p>使用partx读取分区信息，然后再次查看分区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo partx -a /dev/loop13</span><br><span class="line"></span><br><span class="line">lsblk </span><br><span class="line">NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT</span><br><span class="line">loop13       7:13   0   4.1G  0 loop</span><br><span class="line">├─loop13p1 259:0    0    16M  0 part</span><br><span class="line">└─loop13p2 259:1    0   104M  0 part</span><br></pre></td></tr></table></figure>
+<p>可以看到loop13有2个分区（boot和root），第2个分区大小为104M，并没有扩展到4G。</p>
+<ol start="3">
+<li>扩展root分区<br>使用<code>fdisk</code>扩展root分区<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk /dev/loop13</span><br><span class="line"></span><br><span class="line">Welcome to fdisk (util-linux 2.37.2).</span><br><span class="line">Changes will remain <span class="keyword">in</span> memory only, until you decide to write them.</span><br><span class="line">Be careful before using the write <span class="built_in">command</span>.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入p查看分区信息，记住/dev/loop0p2分区的开始扇区</span></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): p</span><br><span class="line">Disk /dev/loop13: 4.12 GiB, 4421320704 bytes, 8635392 sectors</span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: dos</span><br><span class="line">Disk identifier: 0xabeae232</span><br><span class="line"></span><br><span class="line">Device        Boot Start    End Sectors  Size Id Type</span><br><span class="line">/dev/loop13p1 *      512  33279   32768   16M 83 Linux</span><br><span class="line">/dev/loop13p2      33792 246783  212992  104M 83 Linux</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除/dev/loop13p2分区，输入d之后输入2(默认)</span></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): d</span><br><span class="line">Partition number (1,2, default 2): 2</span><br><span class="line"></span><br><span class="line">Partition 2 has been deleted.</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入n新建分区</span></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): n</span><br><span class="line">Partition <span class="built_in">type</span></span><br><span class="line">   p   primary (1 primary, 0 extended, 3 free)</span><br><span class="line">   e   extended (container <span class="keyword">for</span> logical partitions)</span><br><span class="line"><span class="comment"># 输入p主分区(默认)</span></span><br><span class="line">Select (default p): p</span><br><span class="line"><span class="comment"># 输入2(默认)</span></span><br><span class="line">Partition number (2-4, default 2): 2</span><br><span class="line"><span class="comment"># 输入分区2的开始扇区，一定要和上面的一样，这里是33792</span></span><br><span class="line">First sector (33280-8635391, default 34816): 33792</span><br><span class="line"><span class="comment"># 输入结束扇区，一定要比33792大，如果直接回车就是全部剩余都将作为第二分区，这里直接回车</span></span><br><span class="line">Last sector, +/-sectors or +/-size&#123;K,M,G,T,P&#125; (33792-8635391, default 8635391):</span><br><span class="line"></span><br><span class="line">Created a new partition 2 of <span class="built_in">type</span> <span class="string">&#x27;Linux&#x27;</span> and of size 4.1 GiB.</span><br><span class="line">Partition <span class="comment">#2 contains a ext4 signature.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示，是否移除分区的签名，这里一定要输入n，不然镜像会出问题</span></span><br><span class="line">Do you want to remove the signature? [Y]es/[N]o: n</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输入w保存我们的更改</span></span><br><span class="line">Command (m <span class="keyword">for</span> <span class="built_in">help</span>): w</span><br><span class="line"></span><br><span class="line"><span class="comment"># 会有警告，这里不用管</span></span><br><span class="line">The partition table has been altered.</span><br><span class="line">Calling ioctl() to re-read partition table.</span><br><span class="line">Re-reading the partition table failed.: Invalid argument</span><br><span class="line"></span><br><span class="line"><span class="comment"># 提示说内核依然会使用旧的分区表，新的分区表需要在下次重启或运行 partprobe(8)或kpartx(8)命令后生效</span></span><br><span class="line">The kernel still uses the old table. The new table will be used at the next reboot or after you run partprobe(8) or kpartx(8).</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>更新分区信息，使用新的分区表。然后再次查看分区。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo partx -u /dev/loop13</span><br><span class="line"></span><br><span class="line">lsblk</span><br><span class="line">NAME       MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS</span><br><span class="line">loop13       7:13   0   4.1G  0 loop</span><br><span class="line">├─loop13p1 259:2    0    16M  0 part</span><br><span class="line">└─loop13p2 259:3    0   4.1G  0 part</span><br></pre></td></tr></table></figure>
+<p>root分区已经扩容到4.1G</p>
+<ol start="4">
+<li><p>同步分区信息</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先使用e2fsck镜像检测，纠错</span></span><br><span class="line">sudo e2fsck -f /dev/loop13p2</span><br><span class="line">e2fsck 1.46.5 (30-Dec-2021)</span><br><span class="line">Pass 1: Checking inodes, blocks, and sizes</span><br><span class="line">Pass 2: Checking directory structure</span><br><span class="line">Pass 3: Checking directory connectivity</span><br><span class="line">Pass 4: Checking reference counts</span><br><span class="line">Pass 5: Checking group summary information</span><br><span class="line">Padding at end of inode bitmap is not <span class="built_in">set</span>. Fix&lt;y&gt;? <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line">rootfs: ***** FILE SYSTEM WAS MODIFIED *****</span><br><span class="line">rootfs: 1445/6656 files (0.0% non-contiguous), 5178/26624 blocks</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开始同步</span></span><br><span class="line">sudo resize2fs /dev/loop13p2</span><br><span class="line">resize2fs 1.46.5 (30-Dec-2021)</span><br><span class="line">Resizing the filesystem on /dev/loop13p2 to 1075200 (4k) blocks.</span><br><span class="line">The filesystem on /dev/loop13p2 is now 1075200 (4k) blocks long.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>卸载<br>卸载系统中的分区</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo partx -d /dev/loop13</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>卸载loop设备</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo losetup -d /dev/loop13</span><br></pre></td></tr></table></figure>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/openwrt/" rel="tag"># openwrt</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/02/02/openwrt-in-hyper-v/" rel="prev" title="在Hyper-V中安装OpenWrt">
+                  <i class="fa fa-chevron-left"></i> 在Hyper-V中安装OpenWrt
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2023/02/03/samba-on-ubuntu/" rel="next" title="在Ubuntu上安装samba">
+                  在Ubuntu上安装samba <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="d61bd7e05628a195d68f8ccae762b117"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
