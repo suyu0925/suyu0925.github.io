@@ -21,13 +21,13 @@
 
     <meta name="description" content="OpenWrt的官方镜像root分区只有80多M剩余空间，不扩容是基本不能用的。实现上有多种方案，这里整合一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenWrt扩容">
+<meta property="og:title" content="[Openwrt]扩容">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2023/02/02/openwrt-resize-root/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="OpenWrt的官方镜像root分区只有80多M剩余空间，不扩容是基本不能用的。实现上有多种方案，这里整合一下。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-02T08:58:23.000Z">
-<meta property="article:modified_time" content="2023-02-03T08:39:13.240Z">
+<meta property="article:modified_time" content="2023-02-07T02:11:15.691Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -37,10 +37,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/02/02/openwrt-resize-root/","path":"2023/02/02/openwrt-resize-root/","title":"OpenWrt扩容"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/02/02/openwrt-resize-root/","path":"2023/02/02/openwrt-resize-root/","title":"[Openwrt]扩容"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>OpenWrt扩容 | Tasty Pub</title>
+<title>[Openwrt]扩容 | Tasty Pub</title>
   
 
   <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
@@ -153,7 +153,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">103</span>
+          <span class="site-state-item-count">104</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -204,12 +204,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="OpenWrt扩容 | Tasty Pub">
+      <meta itemprop="name" content="[Openwrt]扩容 | Tasty Pub">
       <meta itemprop="description" content="OpenWrt的官方镜像root分区只有80多M剩余空间，不扩容是基本不能用的。实现上有多种方案，这里整合一下。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          OpenWrt扩容
+          [Openwrt]扩容
         </h1>
 
         <div class="post-meta-container">
@@ -227,7 +227,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-02-03 16:39:13" itemprop="dateModified" datetime="2023-02-03T16:39:13+08:00">2023-02-03</time>
+      <time title="修改时间：2023-02-07 10:11:15" itemprop="dateModified" datetime="2023-02-07T10:11:15+08:00">2023-02-07</time>
     </span>
 
   
@@ -246,7 +246,7 @@
       </span>
       <span class="post-meta-item-text">Changyan：</span>
     
-    <a title="OpenWrt扩容" href="/blog/2023/02/02/openwrt-resize-root/#SOHUCS" itemprop="discussionUrl">
+    <a title="[Openwrt]扩容" href="/blog/2023/02/02/openwrt-resize-root/#SOHUCS" itemprop="discussionUrl">
       <span id="sourceId::d61bd7e05628a195d68f8ccae762b117" class="cy_cmt_count" itemprop="commentCount"></span>
     </a>
   </span>
@@ -272,22 +272,23 @@
 <p>如果是实机安装，建议使用squashfs-combined-efi；虚拟机则首选ext4-combined。</p>
 <h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>OpenWrt官方的固件只留了几十M的用户空间，正式使用完全不够用。所以官方有提供<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/installation/openwrt_x86#resizing_partitions">扩容文档</a>。</p>
 <p>扩容方案有很多种，最彻底的当然是按照硬件大小直接<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/installation/openwrt_x86#building_your_own_image_with_larger_partition_size">编译自己的固件</a>，但过于硬核。这里提供另外两种，安装后扩容和安装前扩容。</p>
-<h3 id="安装后扩容"><a href="#安装后扩容" class="headerlink" title="安装后扩容"></a>安装后扩容</h3><h4 id="同盘扩展"><a href="#同盘扩展" class="headerlink" title="同盘扩展"></a>同盘扩展</h4><ol>
+<h3 id="安装后扩容"><a href="#安装后扩容" class="headerlink" title="安装后扩容"></a>安装后扩容</h3><h4 id="同盘扩展"><a href="#同盘扩展" class="headerlink" title="同盘扩展"></a>同盘扩展</h4><p><strong>注意</strong>：同盘扩展需要在开机后第一时间做，做完立即重启，不要安装完软件再来做，会有机率搞坏系统无限重启。</p>
+<ol>
 <li>使用<a target="_blank" rel="noopener" href="http://man.cx/parted">parted</a>扩展分区</li>
 </ol>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install parted</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> fix | parted -l ---pretend-input-tty</span><br><span class="line">parted -s <span class="variable">$&#123;DISK%p&#125;</span> resizepart $((PART+<span class="number">1</span>)) 100%</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s_downloads.openwrt.org_mirror.sjtu.edu.cn/openwrt_&#x27;</span> /etc/opkg/distfeeds.conf</span><br><span class="line"></span><br><span class="line">opkg update</span><br><span class="line">opkg install parted</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> fix | parted -l ---pretend-input-tty</span><br><span class="line">parted -s <span class="variable">$&#123;DISK%p&#125;</span> resizepart $((PART+<span class="number">1</span>)) 100%</span><br></pre></td></tr></table></figure>
 
 <p>如果是efi镜像，还需要更新grub</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install lsblk</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">UUID=<span class="string">&quot;<span class="subst">$(lsblk -n -o PARTUUID $&#123;ROOT&#125;)</span>&quot;</span></span><br><span class="line">sed -i -r -e <span class="string">&quot;s|(PARTUUID=)\S+|\1<span class="variable">$&#123;UUID&#125;</span>|g&quot;</span> /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">opkg install lsblk</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">UUID=<span class="string">&quot;<span class="subst">$(lsblk -n -o PARTUUID $&#123;ROOT&#125;)</span>&quot;</span></span><br><span class="line">sed -i -r -e <span class="string">&quot;s|(PARTUUID=)\S+|\1<span class="variable">$&#123;UUID&#125;</span>|g&quot;</span> /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>使用losetup挂载，然后使用resize2fs扩展</li>
 </ol>
 <p>针对<code>ext4-combined</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install losetup resize2fs</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">LOOP=<span class="string">&quot;<span class="subst">$(losetup -f)</span>&quot;</span></span><br><span class="line">losetup <span class="variable">$&#123;LOOP&#125;</span> <span class="variable">$&#123;ROOT&#125;</span></span><br><span class="line">resize2fs -f <span class="variable">$&#123;LOOP&#125;</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">opkg install losetup resize2fs</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">LOOP=<span class="string">&quot;<span class="subst">$(losetup -f)</span>&quot;</span></span><br><span class="line">losetup <span class="variable">$&#123;LOOP&#125;</span> <span class="variable">$&#123;ROOT&#125;</span></span><br><span class="line">resize2fs -f <span class="variable">$&#123;LOOP&#125;</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 
 <p>针对<code>squashfs-combined</code></p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg install losetup resize2fs</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">LOOP=<span class="string">&quot;<span class="subst">$(losetup -n -l | sed -n -e <span class="string">&quot;\|\s.*\s<span class="variable">$&#123;ROOT#/dev&#125;</span>\s.*$|&#123;s///p;q&#125;&quot;</span>)</span>&quot;</span></span><br><span class="line">resize2fs -f <span class="variable">$&#123;LOOP&#125;</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">opkg install losetup resize2fs</span><br><span class="line">BOOT=<span class="string">&quot;<span class="subst">$(sed -n -e <span class="string">&quot;\|\s/boot\s.*$|&#123;s///p;q&#125;&quot;</span> /etc/mtab)</span>&quot;</span></span><br><span class="line">PART=<span class="string">&quot;<span class="variable">$&#123;BOOT##*[^0-9]&#125;</span>&quot;</span></span><br><span class="line">DISK=<span class="string">&quot;<span class="variable">$&#123;BOOT%<span class="variable">$&#123;PART&#125;</span>&#125;</span>&quot;</span></span><br><span class="line">ROOT=<span class="string">&quot;<span class="variable">$&#123;DISK&#125;</span><span class="subst">$((PART+1)</span>)&quot;</span></span><br><span class="line">LOOP=<span class="string">&quot;<span class="subst">$(losetup -n -l | sed -n -e <span class="string">&quot;\|\s.*\s<span class="variable">$&#123;ROOT#/dev&#125;</span>\s.*$|&#123;s///p;q&#125;&quot;</span>)</span>&quot;</span></span><br><span class="line">resize2fs -f <span class="variable">$&#123;LOOP&#125;</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 
 <p>打完收工。</p>
 <h4 id="新盘扩展"><a href="#新盘扩展" class="headerlink" title="新盘扩展"></a>新盘扩展</h4><h5 id="分区和格式化"><a href="#分区和格式化" class="headerlink" title="分区和格式化"></a>分区和格式化</h5><ol>
@@ -409,8 +410,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2023/02/02/openwrt-in-hyper-v/" rel="prev" title="在Hyper-V中安装OpenWrt">
-                  <i class="fa fa-chevron-left"></i> 在Hyper-V中安装OpenWrt
+                <a href="/blog/2023/02/02/openwrt-in-hyper-v/" rel="prev" title="[Openwrt]在Hyper-V中安装OpenWrt">
+                  <i class="fa fa-chevron-left"></i> [Openwrt]在Hyper-V中安装OpenWrt
                 </a>
             </div>
             <div class="post-nav-item">
