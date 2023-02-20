@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="上一篇简单介绍了下stable diffusion，这一篇简单玩玩。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩玩stable diffusion">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/02/20/play-with-stable-diffusion/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="上一篇简单介绍了下stable diffusion，这一篇简单玩玩。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-20T03:04:13.000Z">
+<meta property="article:modified_time" content="2023-02-20T05:28:49.696Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/02/20/play-with-stable-diffusion/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/02/20/play-with-stable-diffusion/","path":"2023/02/20/play-with-stable-diffusion/","title":"玩玩stable diffusion"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>玩玩stable diffusion | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A3%80%E6%9F%A5%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">第三方检查点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.</span> <span class="nav-text">配置字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LoRA%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">LoRA模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#img2img"><span class="nav-number">4.</span> <span class="nav-text">img2img</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/02/20/play-with-stable-diffusion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="玩玩stable diffusion | Tasty Pub">
+      <meta itemprop="description" content="上一篇简单介绍了下stable diffusion，这一篇简单玩玩。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          玩玩stable diffusion
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-02-20 11:04:13 / 修改时间：13:28:49" itemprop="dateCreated datePublished" datetime="2023-02-20T11:04:13+08:00">2023-02-20</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="玩玩stable diffusion" href="/blog/2023/02/20/play-with-stable-diffusion/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::8a6ac193433e20f94409d993abf00da1" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">上一篇简单介绍了下stable diffusion，这一篇简单玩玩。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>上一篇文章介绍了如何使用stable-diffusion-webui自建服务，这一篇我们来简单玩玩。</p>
+<h2 id="第三方检查点"><a href="#第三方检查点" class="headerlink" title="第三方检查点"></a>第三方检查点</h2><p>在<a href="/blog/2023/02/17/intro-stable-diffusion/" title="简单介绍一下stable diffusion">上一篇</a>我们使用了CompVis和Stability AI官方的检查点，但其实还有很多第三方的检查点，比如动漫模型<a target="_blank" rel="noopener" href="https://huggingface.co/Lykon/DreamShaper">DreamShaper</a>和真人模型<a target="_blank" rel="noopener" href="https://huggingface.co/TASUKU2023/Chilloutmix">Chilloutmix</a>，同样可以在HuggingFace上找到。</p>
+<p>在文件和版本页面，我们可以看到这些检查点文件的扩展名是<code>.safetensors</code>，<a target="_blank" rel="noopener" href="https://huggingface.co/docs/safetensors/index">safetensors</a>是HuggingFace发明的一种文件格式，用以安全且快速的存储张量。检查点除了<code>.ckpt</code>也支持<code>.safetensors</code>格式。</p>
+<h2 id="配置字符串"><a href="#配置字符串" class="headerlink" title="配置字符串"></a>配置字符串</h2><p>模型提供者同时会提供一些示范提示语以及配置，让你能生成同样的结果。比如在DreamShaper的<a target="_blank" rel="noopener" href="https://civitai.com/gallery/45544?modelId=4384&modelVersionId=5636&infinite=false&returnUrl=/models/4384/dreamshaper">官方示例</a>：</p>
+
+
+<p>我们点击右下角的<code>Copy Generation Data</code>，会得到这么一个字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">modelshoot style, (extremely detailed CG unity 8k wallpaper), 1girl, slim girl, open mouth, at a university, best quality, (masterpiece:1.1), watched by the others, long brown hair, sitting, tight crop top, school skirt, sunglasses on head, shy, embarrased</span><br><span class="line">Negative prompt: worst quality, (low quality:1.3), bad hands, bad anatomy,  bad_prompt_version2, canvas frame, cartoon, 3d, ((disfigured)), ((bad art)), ((deformed)),((extra limbs)),((close up)),((b&amp;w)), wierd colors, blurry, (((duplicate))), ((morbid)), ((mutilated)), [out of frame], extra fingers, mutated hands, ((poorly drawn hands)), ((poorly drawn face)), (((mutation))), (((deformed))), ((ugly)), blurry, ((bad anatomy)), (((bad proportions))), ((extra limbs)), cloned face, (((disfigured))), out of frame, ugly, extra limbs, (bad anatomy), gross proportions, (malformed limbs), ((missing arms)), ((missing legs)), (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), Photoshop, video game, ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, mutation, mutated, extra limbs, extra legs, extra arms, disfigured, deformed, cross-eye, body out of frame, blurry, bad art, bad anatomy, 3d render</span><br><span class="line">Size: 384x512, Seed: 0, Model: dreamshaper_332BakedVaeClipFix, Steps: 30, Sampler: DPM++ SDE Karras, CFG scale: 10, Clip skip: 2, Model hash: 13dfc9921f, Hires upscale: 2, Hires upscaler: Latent, Denoising strength: 0.7</span><br></pre></td></tr></table></figure>
+<p>这个配置字符串包含了所有产生这张图片需要的信息。有Prompt，Negative prompt，和其它所有配置。</p>
+<p>我们只要把这个字符串粘贴到webui的Prompt区域，然后点击右边的小箭头<code>Read generation parameters from prompt or last generation if prompt is empty into user interface.</code>，就会应用所有配置。</p>
+<h2 id="LoRA模型"><a href="#LoRA模型" class="headerlink" title="LoRA模型"></a>LoRA模型</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA</a>的全写是Low-Rank Adaptation of Large Language Models，是微软为微调(fine-tuning)大型语言模型引入的一项技术，也可以<a target="_blank" rel="noopener" href="https://huggingface.co/blog/lora">用来微调Stable Diffusion</a>。</p>
+<p>这里需要引入一个新网站：<a target="_blank" rel="noopener" href="https://civitai.com/">civiai</a>。<strong>注意：NSFW</strong>。相比更贴近开发者的Hugging Face，它更贴近普通用户。LoRA模型可以在这里下载。</p>
+<p>比如经常搭配chilloutmix使用的亚州女性LoRA模型：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://civitai.com/models/7448/korean-doll-likeness">Korean Doll</a></li>
+<li><a target="_blank" rel="noopener" href="https://civitai.com/models/7716/taiwan-doll-likeness">Taiwan Doll</a></li>
+<li><a target="_blank" rel="noopener" href="https://civitai.com/models/10135/japanese-doll-likeness">Japanese Doll</a></li>
+</ul>
+<p>Lora模型的使用方法与检查点类似，下载后拷至<code>./models/Lora</code>目录，然后在提示语中使用即可。</p>
+<p>比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">best quality, ultra high res, (photorealistic:1.4), 1girl, long sleeve sweater, (full body), (closeup), wide angle, (low angle), (busty), ((huge breasts)), large breasts, (brown long hair:1.3), (looking at viewer),  &lt;lora:japaneseDollLikeness_v10:0.66&gt;</span><br><span class="line">Negative prompt: paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans</span><br><span class="line">Size: 512x768, Seed: 3943162627, Model: chilloutmix_cilloutmixNi, Steps: 28, Sampler: DPM++ SDE Karras, CFG scale: 8, Model hash: 7234b76e42, Hires steps: 20, Hires upscale: 1.75, Hires upscaler: Latent (bicubic antialiased), Denoising strength: 0.5</span><br></pre></td></tr></table></figure>
+<p>中的<code>&lt;lora:japaneseDollLikeness_v10:0.66&gt;</code>即表示使用japanese Doll的Lora，系数0.66。</p>
+<h2 id="img2img"><a href="#img2img" class="headerlink" title="img2img"></a>img2img</h2><p>之前我们一直用的都是文字生成图片，但Stable Diffusion还可以使用图片+文字的形式来生成新的图片。</p>
+<p>img2img有很多种用法，比如：</p>
+<ol>
+<li>当觉得生成的图片方向对了时，可以保持提示语不变，使用img2img将text2img的图片当作新的起点；</li>
+<li>对整体满意，但需要微调时，可使用inpaint；</li>
+<li>对风格满意，想尝试其它主体时，可使用新的提示语；</li>
+</ol>
+<p><code>CFG Scale</code>越大，越贴近描述语。</p>
+<p><code>Denoising strength</code>的值越大，越远离原图。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/02/17/intro-stable-diffusion/" rel="prev" title="简单介绍一下stable diffusion">
+                  <i class="fa fa-chevron-left"></i> 简单介绍一下stable diffusion
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="8a6ac193433e20f94409d993abf00da1"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
