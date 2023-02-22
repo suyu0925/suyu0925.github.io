@@ -27,7 +27,7 @@
 <meta property="og:description" content="上一篇简单介绍了下stable diffusion，这一篇简单玩玩。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-02-20T03:04:13.000Z">
-<meta property="article:modified_time" content="2023-02-20T05:28:49.696Z">
+<meta property="article:modified_time" content="2023-02-22T06:34:42.493Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">109</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -218,9 +218,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-02-20 11:04:13 / 修改时间：13:28:49" itemprop="dateCreated datePublished" datetime="2023-02-20T11:04:13+08:00">2023-02-20</time>
+      <time title="创建时间：2023-02-20 11:04:13" itemprop="dateCreated datePublished" datetime="2023-02-20T11:04:13+08:00">2023-02-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-22 14:34:42" itemprop="dateModified" datetime="2023-02-22T14:34:42+08:00">2023-02-22</time>
     </span>
 
   
@@ -257,7 +263,7 @@
     <div class="post-body" itemprop="articleBody">
         <p>上一篇文章介绍了如何使用stable-diffusion-webui自建服务，这一篇我们来简单玩玩。</p>
 <h2 id="第三方检查点"><a href="#第三方检查点" class="headerlink" title="第三方检查点"></a>第三方检查点</h2><p>在<a href="/blog/2023/02/17/intro-stable-diffusion/" title="简单介绍一下stable diffusion">上一篇</a>我们使用了CompVis和Stability AI官方的检查点，但其实还有很多第三方的检查点，比如动漫模型<a target="_blank" rel="noopener" href="https://huggingface.co/Lykon/DreamShaper">DreamShaper</a>和真人模型<a target="_blank" rel="noopener" href="https://huggingface.co/TASUKU2023/Chilloutmix">Chilloutmix</a>，同样可以在HuggingFace上找到。</p>
-<p>在文件和版本页面，我们可以看到这些检查点文件的扩展名是<code>.safetensors</code>，<a target="_blank" rel="noopener" href="https://huggingface.co/docs/safetensors/index">safetensors</a>是HuggingFace发明的一种文件格式，用以安全且快速的存储张量。检查点除了<code>.ckpt</code>也支持<code>.safetensors</code>格式。</p>
+<p>在文件和版本页面，我们可以看到这些检查点文件的扩展名是<code>.safetensors</code>，<a target="_blank" rel="noopener" href="https://huggingface.co/docs/safetensors/index">safetensors</a>是HuggingFace发明的一种文件格式，用以安全且快速的存储张量。<br>检查点除了<code>.ckpt</code>还支持<code>.safetensors</code>，以及<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference">PyTorch用来保存和加载模型</a>的<code>.pt</code>和<code>.pth</code>。</p>
 <h2 id="配置字符串"><a href="#配置字符串" class="headerlink" title="配置字符串"></a>配置字符串</h2><p>模型提供者同时会提供一些示范提示语以及配置，让你能生成同样的结果。比如在DreamShaper的<a target="_blank" rel="noopener" href="https://civitai.com/gallery/45544?modelId=4384&modelVersionId=5636&infinite=false&returnUrl=/models/4384/dreamshaper">官方示例</a>：</p>
 
 
@@ -266,14 +272,14 @@
 <p>这个配置字符串包含了所有产生这张图片需要的信息。有Prompt，Negative prompt，和其它所有配置。</p>
 <p>我们只要把这个字符串粘贴到webui的Prompt区域，然后点击右边的小箭头<code>Read generation parameters from prompt or last generation if prompt is empty into user interface.</code>，就会应用所有配置。</p>
 <h2 id="LoRA模型"><a href="#LoRA模型" class="headerlink" title="LoRA模型"></a>LoRA模型</h2><p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2106.09685">LoRA</a>的全写是Low-Rank Adaptation of Large Language Models，是微软为微调(fine-tuning)大型语言模型引入的一项技术，也可以<a target="_blank" rel="noopener" href="https://huggingface.co/blog/lora">用来微调Stable Diffusion</a>。</p>
-<p>这里需要引入一个新网站：<a target="_blank" rel="noopener" href="https://civitai.com/">civiai</a>。<strong>注意：NSFW</strong>。相比更贴近开发者的Hugging Face，它更贴近普通用户。LoRA模型可以在这里下载。</p>
+<p>这里需要引入一个新网站：<a target="_blank" rel="noopener" href="https://civitai.com/">civitai</a>。<strong>注意：NSFW</strong>。相比更贴近开发者的Hugging Face，它更贴近普通用户。LoRA模型可以在这里下载。</p>
 <p>比如经常搭配chilloutmix使用的亚州女性LoRA模型：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://civitai.com/models/7448/korean-doll-likeness">Korean Doll</a></li>
 <li><a target="_blank" rel="noopener" href="https://civitai.com/models/7716/taiwan-doll-likeness">Taiwan Doll</a></li>
 <li><a target="_blank" rel="noopener" href="https://civitai.com/models/10135/japanese-doll-likeness">Japanese Doll</a></li>
 </ul>
-<p>Lora模型的使用方法与检查点类似，下载后拷至<code>./models/Lora</code>目录，然后在提示语中使用即可。</p>
+<p>Lora模型的使用方法与检查点类似，下载后拷至<code>./models/Lora</code>目录，然后在提示语中使用即可。用法可以参见<a target="_blank" rel="noopener" href="https://github.com/civitai/civitai/wiki/How-to-use-models#lora">civitai的wiki</a>。</p>
 <p>比如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">best quality, ultra high res, (photorealistic:1.4), 1girl, long sleeve sweater, (full body), (closeup), wide angle, (low angle), (busty), ((huge breasts)), large breasts, (brown long hair:1.3), (looking at viewer),  &lt;lora:japaneseDollLikeness_v10:0.66&gt;</span><br><span class="line">Negative prompt: paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans</span><br><span class="line">Size: 512x768, Seed: 3943162627, Model: chilloutmix_cilloutmixNi, Steps: 28, Sampler: DPM++ SDE Karras, CFG scale: 8, Model hash: 7234b76e42, Hires steps: 20, Hires upscale: 1.75, Hires upscaler: Latent (bicubic antialiased), Denoising strength: 0.5</span><br></pre></td></tr></table></figure>
 <p>中的<code>&lt;lora:japaneseDollLikeness_v10:0.66&gt;</code>即表示使用japanese Doll的Lora，系数0.66。</p>
@@ -281,7 +287,7 @@
 <p>img2img有很多种用法，比如：</p>
 <ol>
 <li>当觉得生成的图片方向对了时，可以保持提示语不变，使用img2img将text2img的图片当作新的起点；</li>
-<li>对整体满意，但需要微调时，可使用inpaint；</li>
+<li>对整体满意，但需要微调时，可使用inpaint局部重绘；</li>
 <li>对风格满意，想尝试其它主体时，可使用新的提示语；</li>
 </ol>
 <p><code>CFG Scale</code>越大，越贴近描述语。</p>
@@ -304,6 +310,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/blog/2023/02/21/stable-diffusion-prompt/" rel="next" title="stable diffusion中的提示语">
+                  stable diffusion中的提示语 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
