@@ -29,8 +29,9 @@
 <meta property="og:image" content="http://suyu0925.github.io/blog/2023/02/17/intro-stable-diffusion/dreamstudio.png">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2023/02/17/intro-stable-diffusion/self-host.png">
 <meta property="article:published_time" content="2023-02-17T03:08:24.000Z">
-<meta property="article:modified_time" content="2023-02-21T06:19:26.929Z">
+<meta property="article:modified_time" content="2023-02-24T07:17:23.223Z">
 <meta property="article:author" content="lckof">
+<meta property="article:tag" content="stable diffusion">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/02/17/intro-stable-diffusion/dreamstudio.png">
 
@@ -155,7 +156,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">111</span>
+          <span class="site-state-item-count">112</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -166,7 +167,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/blog/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -229,7 +230,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-02-21 14:19:26" itemprop="dateModified" datetime="2023-02-21T14:19:26+08:00">2023-02-21</time>
+      <time title="修改时间：2023-02-24 15:17:23" itemprop="dateModified" datetime="2023-02-24T15:17:23+08:00">2023-02-24</time>
     </span>
 
   
@@ -272,7 +273,6 @@
 <h2 id="本机自建"><a href="#本机自建" class="headerlink" title="本机自建"></a>本机自建</h2><p>如果自己的显卡还行的话，可以尝试在本地运行。</p>
 <h3 id="预训练"><a href="#预训练" class="headerlink" title="预训练"></a>预训练</h3><p>不需要完全从头训练，CompVis有将自己训练后的参数以<a target="_blank" rel="noopener" href="https://github.com/CompVis/stable-diffusion#weights">检查点（checkpoint）</a>的形式共享出来，放在了<a target="_blank" rel="noopener" href="https://huggingface.co/CompVis">Hugging Face</a>。Stability AI也同样放出了<a target="_blank" rel="noopener" href="https://huggingface.co/stabilityai">v2的参数</a>。</p>
 <h3 id="ui"><a href="#ui" class="headerlink" title="ui"></a>ui</h3><p>虽然sd(stable diffusion)官方有指导文档，但对新手还是不够友好，可以使用带ui的<a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">stable-diffusion-webui</a>。</p>
-<p>脚本加强版<a target="_blank" rel="noopener" href="https://github.com/kohya-ss/sd-scripts">sd-scripts</a>也有<a target="_blank" rel="noopener" href="https://github.com/bmaltais/kohya_ss">带ui版本</a>。</p>
 <p>使用stable-diffusion-webui，<a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui#installation-and-running">按照教程</a>一步步来，把程序当作黑箱，也可以很轻易的运行起来。<br>全默认设置渲染一张在GTX 1080上需要耗时10秒出头。</p>
 <img src="/blog/2023/02/17/intro-stable-diffusion/self-host.png" class="" title="本机示例">
 
@@ -299,7 +299,19 @@
 <li>运行<code>webui-user.bat</code></li>
 </ol>
 <p>这一步要很久，需要下载安装很多依赖。耐心多等一会。</p>
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<ol start="5">
+<li>[可选]安装<a target="_blank" rel="noopener" href="https://github.com/facebookresearch/xformers">xformers</a>以<a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Xformers">加速图片生成</a></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -U xformers</span><br></pre></td></tr></table></figure>
+
+<p>在启动webui时，需要添加<code>--xformers</code>才能会检查xformers，否则还是会提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Checking Dreambooth requirements...</span><br><span class="line">[+] bitsandbytes version 0.35.0 installed.</span><br><span class="line">[+] diffusers version 0.10.2 installed.</span><br><span class="line">[+] transformers version 4.25.1 installed.</span><br><span class="line">[ ] xformers version N/A installed.</span><br><span class="line">[+] torch version 1.13.1+cu117 installed.</span><br><span class="line">[+] torchvision version 0.14.1+cu117 installed.</span><br></pre></td></tr></table></figure>
+
+<p>可以修改<code>webui-user.bat</code>：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> COMMANDLINE_ARGS=--xformers</span><br></pre></td></tr></table></figure>
+
+<p>再次启动就正常了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Checking Dreambooth requirements...</span><br><span class="line">[+] bitsandbytes version 0.35.0 installed.</span><br><span class="line">[+] diffusers version 0.10.2 installed.</span><br><span class="line">[+] transformers version 4.25.1 installed.</span><br><span class="line">[+] xformers version 0.0.16rc425 installed.</span><br><span class="line">[+] torch version 1.13.1+cu117 installed.</span><br><span class="line">[+] torchvision version 0.14.1+cu117 installed.</span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -307,6 +319,9 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/stable-diffusion/" rel="tag"># stable diffusion</a>
+          </div>
 
         
 
