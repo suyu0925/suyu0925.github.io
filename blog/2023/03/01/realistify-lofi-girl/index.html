@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="记录一次真人化卡通图片的工作流。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="真人化lofi girl练手">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="记录一次真人化卡通图片的工作流。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-ori.jpg">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step1.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step2.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step3.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step4.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/inpaint-sketch.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step5.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/light-mask.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-with-light.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step6.png">
+<meta property="article:published_time" content="2023-03-01T02:36:22.000Z">
+<meta property="article:modified_time" content="2023-03-01T06:49:11.483Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="stable diffusion">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/lofi-girl-ori.jpg">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/","path":"2023/03/01/realistify-lofi-girl/","title":"真人化lofi girl练手"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>真人化lofi girl练手 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-img2img"><span class="nav-number">1.</span> <span class="nav-text">1. img2img</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E9%87%8D%E7%BB%98%E5%B0%8F%E7%8C%AB"><span class="nav-number">2.</span> <span class="nav-text">2. 重绘小猫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E9%87%8D%E7%BB%98%E6%89%8B%E6%8C%87"><span class="nav-number">3.</span> <span class="nav-text">3. 重绘手指</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BC%98%E5%8C%96%E7%BB%86%E8%8A%82"><span class="nav-number">4.</span> <span class="nav-text">4. 优化细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%81%AF%E5%85%89"><span class="nav-number">5.</span> <span class="nav-text">5. 灯光</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%81%AF%E5%85%89%E8%92%99%E6%9D%BF"><span class="nav-number">5.1.</span> <span class="nav-text">使用灯光蒙板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%86%8D%E6%AC%A1%E4%BC%98%E5%8C%96%E7%BB%86%E8%8A%82"><span class="nav-number">6.</span> <span class="nav-text">6. 再次优化细节</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/03/01/realistify-lofi-girl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="真人化lofi girl练手 | Tasty Pub">
+      <meta itemprop="description" content="记录一次真人化卡通图片的工作流。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          真人化lofi girl练手
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-01 10:36:22 / 修改时间：14:49:11" itemprop="dateCreated datePublished" datetime="2023-03-01T10:36:22+08:00">2023-03-01</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="真人化lofi girl练手" href="/blog/2023/03/01/realistify-lofi-girl/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::f3f3a835c613caff4655246caf17dba3" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">记录一次真人化卡通图片的工作流。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://lofigirl.com/">lofi girl</a>是一个法国的<a target="_blank" rel="noopener" href="https://www.youtube.com/channel/UCSJ4gkVC6NrvII8umztf0Ow">油管频道</a>，我们拿它的<a target="_blank" rel="noopener" href="https://www.uhdpaper.com/2020/08/lofi-girl-studying-hip-hop-radio.html">封面图片</a>练手。参考了<a target="_blank" rel="noopener" href="https://www.reddit.com/r/StableDiffusion/comments/11ef0zx/realistic_lofi_girl_v3/">reddit上的一个帖子</a>。</p>
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-ori.jpg" class="" title="原图">
+
+<h2 id="1-img2img"><a href="#1-img2img" class="headerlink" title="1. img2img"></a>1. img2img</h2><p>第一步先直接img2img</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Studying girl, best quality, ultra high res, (photorealistic:1.4), stack of books and brown flower pot on table, brown cat on white window ledge</span><br><span class="line"></span><br><span class="line">Negative prompt: paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans</span><br><span class="line"></span><br><span class="line">Steps: 28, Sampler: DPM++ SDE Karras, CFG scale: 8, Seed: 3242059520, Size: 1024x564, Model hash: fc2511737a, Model: chilloutmix_NiPrunedFp32Fix, Denoising strength: 0.38, Mask blur: 4</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step1.png" class="" title="第一步">
+
+<h2 id="2-重绘小猫"><a href="#2-重绘小猫" class="headerlink" title="2. 重绘小猫"></a>2. 重绘小猫</h2><p>Send to inpaint, 涂图小猫</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">best quality, ultra high res, (photorealistic:1.4), back of a sleeping brown cat</span><br><span class="line"></span><br><span class="line">Negative prompt: paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans</span><br><span class="line"></span><br><span class="line">Steps: 28, Sampler: DPM++ SDE Karras, CFG scale: 8, Seed: 2007546370, Size: 1024x560, Model hash: fc2511737a, Model: chilloutmix_NiPrunedFp32Fix, Denoising strength: 0.38, Mask blur: 4</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step2.png" class="" title="重绘小猫">
+
+<h2 id="3-重绘手指"><a href="#3-重绘手指" class="headerlink" title="3. 重绘手指"></a>3. 重绘手指</h2><p>Send to inpaint，使用control net(candy)重绘手指部分，使用原图作为control net输入。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Studying girl, best quality, ultra high res, (photorealistic:1.4), stack of books and brown flower pot on table, brown cat on white window ledge</span><br><span class="line"></span><br><span class="line">Negative prompt: paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans</span><br><span class="line"></span><br><span class="line">Steps: 28, Sampler: DPM++ SDE Karras, CFG scale: 8, Seed: 2851621146, Size: 1024x560, Model hash: fc2511737a, Model: chilloutmix_NiPrunedFp32Fix, Denoising strength: 0.38, Mask blur: 4, ControlNet Enabled: True, ControlNet Module: canny, ControlNet Model: control_sd15_canny [fef5e48e], ControlNet Weight: 1, ControlNet Guidance Strength: 1</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step3.png" class="" title="重绘手指">
+
+<h2 id="4-优化细节"><a href="#4-优化细节" class="headerlink" title="4. 优化细节"></a>4. 优化细节</h2><p>Send to img2img，使用原图作为control net的输入，使用depth_leres算法优化细节。</p>
+<p>这次需要使用较高的步数40，以及较低的去噪强度0.2。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Studying girl, best quality, ultra high res, (photorealistic:1.4), stack of books and brown flower pot on table, brown cat on white window ledge</span><br><span class="line"></span><br><span class="line">Negative prompt: paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans</span><br><span class="line"></span><br><span class="line">Steps: 40, Sampler: Euler a, CFG scale: 7, Seed: 3439776951, Size: 1024x560, Model hash: fc2511737a, Model: chilloutmix_NiPrunedFp32Fix, Denoising strength: 0.2, Mask blur: 4, ControlNet Enabled: True, ControlNet Module: depth_leres, ControlNet Model: control_depth-fp16 [400750f6], ControlNet Weight: 1, ControlNet Guidance Strength: 1</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step4.png" class="" title="优化细节">
+
+<h2 id="5-灯光"><a href="#5-灯光" class="headerlink" title="5. 灯光"></a>5. 灯光</h2><p>我们使用<a target="_blank" rel="noopener" href="https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features#color-sketch">inpaint sketch</a>在袖子上画一些黄色来模拟灯光，只需要画高亮部分，保留一部分袖子原本的颜色。</p>
+<img src="/blog/2023/03/01/realistify-lofi-girl/inpaint-sketch.png" class="" title="inpaint sketch">
+
+<p>继续使用原图作为control net输入，使用depth_leres算法来控制阴影。把步数设得高一些(60)，去躁强度不要太高（0.6），让颜色慢慢Difussion（扩散）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Studying girl, best quality, ultra high res, (photorealistic:1.4), stack of books and brown flower pot on table, brown cat on white window ledge</span><br><span class="line"></span><br><span class="line">Negative prompt: paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, glans</span><br><span class="line"></span><br><span class="line">Steps: 60, Sampler: Euler a, CFG scale: 8, Seed: 3524037322, Size: 1024x560, Model hash: fc2511737a, Model: chilloutmix_NiPrunedFp32Fix, Denoising strength: 0.6, Mask blur: 4, ControlNet Enabled: True, ControlNet Module: depth_leres, ControlNet Model: control_depth-fp16 [400750f6], ControlNet Weight: 1, ControlNet Guidance Strength: 1</span><br></pre></td></tr></table></figure>
+
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step5.png" class="" title="打光">
+
+<h3 id="使用灯光蒙板"><a href="#使用灯光蒙板" class="headerlink" title="使用灯光蒙板"></a>使用灯光蒙板</h3><p>在上面的打光我们是不希望改动画面，只希望增加灯光。</p>
+<p>但如果是在直接生成时，可以<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=_xHC3bT5GBU">使用灯光蒙板来控制灯光</a>。</p>
+<p>使用img2img，主体为一张灯光蒙板，control net使用lofi girl原图的depth。</p>
+<img src="/blog/2023/03/01/realistify-lofi-girl/light-mask.png" class="" title="灯光蒙板">
+
+<p>效果会是这样：</p>
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-with-light.png" class="" title="带灯光的lofi girl">
+
+<h2 id="6-再次优化细节"><a href="#6-再次优化细节" class="headerlink" title="6. 再次优化细节"></a>6. 再次优化细节</h2><p>模拟完灯光后，高亮边缘会有一些毛糙，需要再次优化。我们完全按照优化的参数，再来一次。</p>
+<img src="/blog/2023/03/01/realistify-lofi-girl/lofi-girl-step6.png" class="" title="再次优化">
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/stable-diffusion/" rel="tag"># stable diffusion</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/03/01/clothing-brand-recommendation/" rel="prev" title="服装品牌推荐（未完成）">
+                  <i class="fa fa-chevron-left"></i> 服装品牌推荐（未完成）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2023/03/02/cancel-in-upload-file-dialog/" rel="next" title="在对html中文件上传对话框中点取消的处理">
+                  在对html中文件上传对话框中点取消的处理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="f3f3a835c613caff4655246caf17dba3"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
