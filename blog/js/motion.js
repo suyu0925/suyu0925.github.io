@@ -51,7 +51,7 @@ NexT.motion.middleWares = {
       });
     }
 
-    pushToSequence('.column');
+    pushToSequence('header.header');
     CONFIG.scheme === 'Mist' && getMistLineSettings('.logo-line');
     CONFIG.scheme === 'Muse' && pushToSequence('.custom-logo-image');
     pushToSequence('.site-title');
@@ -59,16 +59,13 @@ NexT.motion.middleWares = {
     pushToSequence('.site-subtitle');
     (CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini') && pushToSequence('.custom-logo-image');
 
-    const menuItemTransition = CONFIG.motion.transition.menu_item;
-    if (menuItemTransition) {
-      document.querySelectorAll('.menu-item').forEach(targets => {
-        sequence.push({
-          targets,
-          complete: () => targets.classList.add('animated', menuItemTransition),
-          deltaT  : '-=200'
-        });
+    document.querySelectorAll('.menu-item').forEach(targets => {
+      sequence.push({
+        targets,
+        complete: () => targets.classList.add('animated', 'fadeInDown'),
+        deltaT  : '-=200'
       });
-    }
+    });
 
     return sequence;
   },
@@ -87,9 +84,9 @@ NexT.motion.middleWares = {
     const sequence = [];
     const { post_block, post_header, post_body, coll_header } = CONFIG.motion.transition;
 
-    function animate(animation, elements) {
+    function animate(animation, selector) {
       if (!animation) return;
-      elements.forEach(targets => {
+      document.querySelectorAll(selector).forEach(targets => {
         sequence.push({
           targets,
           complete: () => targets.classList.add('animated', animation),
@@ -98,37 +95,25 @@ NexT.motion.middleWares = {
       });
     }
 
-    document.querySelectorAll('.post-block').forEach(targets => {
-      sequence.push({
-        targets,
-        complete: () => targets.classList.add('animated', post_block),
-        deltaT  : '-=100'
-      });
-      animate(coll_header, targets.querySelectorAll('.collection-header'));
-      animate(post_header, targets.querySelectorAll('.post-header'));
-      animate(post_body, targets.querySelectorAll('.post-body'));
-    });
-
-    animate(post_block, document.querySelectorAll('.pagination, .comments'));
+    animate(post_block, '.post-block, .pagination, .comments');
+    animate(coll_header, '.collection-header');
+    animate(post_header, '.post-header');
+    animate(post_body, '.post-body');
 
     return sequence;
   },
 
   sidebar: function() {
-    const sequence = [];
-    const sidebar = document.querySelectorAll('.sidebar-inner');
+    const sidebar = document.querySelector('.sidebar');
     const sidebarTransition = CONFIG.motion.transition.sidebar;
     // Only for Pisces | Gemini.
     if (sidebarTransition && (CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini')) {
-      sidebar.forEach(targets => {
-        sequence.push({
-          targets,
-          complete: () => targets.classList.add('animated', sidebarTransition),
-          deltaT  : '-=100'
-        });
-      });
+      return [{
+        targets : sidebar,
+        complete: () => sidebar.classList.add('animated', sidebarTransition)
+      }];
     }
-    return sequence;
+    return [];
   },
 
   footer: function() {
