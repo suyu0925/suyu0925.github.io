@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="Redis 5.0引入了Stream，解决了Pub&#x2F;Sub的持久化问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis Stream">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/04/13/redis-stream/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="Redis 5.0引入了Stream，解决了Pub&#x2F;Sub的持久化问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-13T03:02:36.000Z">
+<meta property="article:modified_time" content="2023-04-13T07:22:36.035Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/04/13/redis-stream/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/04/13/redis-stream/","path":"2023/04/13/redis-stream/","title":"Redis Stream"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis Stream | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF-Entry"><span class="nav-number">1.</span> <span class="nav-text">消息(Entry)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96"><span class="nav-number">1.2.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8BStream%E4%BF%A1%E6%81%AF"><span class="nav-number">1.3.</span> <span class="nav-text">查看Stream信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E4%BF%AE%E5%89%AA"><span class="nav-number">1.4.</span> <span class="nav-text">消息修剪</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85-Consumer-%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85%E7%BB%84-Consumer-Group"><span class="nav-number">2.</span> <span class="nav-text">消费者(Consumer)与消费者组(Consumer Group)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-1"><span class="nav-number">2.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%B6%88%E8%B4%B9%E8%80%85%E8%AF%BB%E5%8F%96%E6%B6%88%E6%81%AF"><span class="nav-number">2.2.</span> <span class="nav-text">通过消费者读取消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%82%E8%B5%B7-pending"><span class="nav-number">2.3.</span> <span class="nav-text">挂起(pending)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B6%85%E6%97%B6%E5%A4%84%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">超时处理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">122</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/04/13/redis-stream/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis Stream | Tasty Pub">
+      <meta itemprop="description" content="Redis 5.0引入了Stream，解决了Pub/Sub的持久化问题。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis Stream
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-04-13 11:02:36 / 修改时间：15:22:36" itemprop="dateCreated datePublished" datetime="2023-04-13T11:02:36+08:00">2023-04-13</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="Redis Stream" href="/blog/2023/04/13/redis-stream/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::2e2131c0f322a1491fd6e41d427a8429" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">Redis 5.0引入了Stream，解决了Pub/Sub的持久化问题。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Redis支持<a target="_blank" rel="noopener" href="https://redis.io/docs/manual/pubsub/">Pub&#x2F;Sub</a>，但如果发布消息时订阅者没上线，那信息就会丢失。Redis在5.0中引入了<a target="_blank" rel="noopener" href="https://redis.io/docs/data-types/streams/">Stream</a>，提供了消息的持久化和主备复制功能，可以让任何客户端访问任何时刻的数据，并且能记住每一个客户端的访问位置，还能保证消息不丢失。</p>
+<p>Stream在Redis中是一种数据结构，可以简单的理解为一个消息链表。</p>
+<h2 id="消息-Entry"><a href="#消息-Entry" class="headerlink" title="消息(Entry)"></a>消息(Entry)</h2><p>每条消息除了内容外，都有一个唯一的ID。格式为<code>&#123;Unix毫秒时间戳&#125;-&#123;序号&#125;</code>，比如<code>1681365707499-0</code>。</p>
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xadd/">XADD</a>命令向Stream追加一条消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XADD persons * name Jim surname Green</span><br><span class="line">&quot;1681365707499-0&quot;</span><br></pre></td></tr></table></figure>
+<p><code>*</code>代表用户不指定，由redis来生成ID。</p>
+<p>如果目标Stream不存在，会创建一个新的Stream。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; KEYS *</span><br><span class="line"> 1) &quot;persons&quot;</span><br><span class="line">redis&gt; TYPE persons</span><br><span class="line">stream</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h3><p>使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xread/">XREAD</a>来读取消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XREAD STREAMS persons 0</span><br><span class="line">1) 1) &quot;persons&quot;</span><br><span class="line">   2) 1) 1) &quot;1681365707499-0&quot;</span><br><span class="line">         2) 1) &quot;name&quot;</span><br><span class="line">            2) &quot;Jim&quot;</span><br><span class="line">            3) &quot;surname&quot;</span><br><span class="line">            4) &quot;Green&quot;</span><br></pre></td></tr></table></figure>
+<p>XREAD可以指定返回的消息条数，以及消息起始ID。<br>再添加三条数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XADD persons * name Geoffrey surname Hinton</span><br><span class="line">&quot;1681365756516-0&quot;</span><br><span class="line">redis&gt; XADD persons * name Yann surname LeCun</span><br><span class="line">&quot;1681365759975-0&quot;</span><br><span class="line">redis&gt; XADD persons * name Andrew surname Ng</span><br><span class="line">&quot;1681365768735-0&quot;</span><br></pre></td></tr></table></figure>
+<p>然后可以这样读取：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XREAD COUNT 2 STREAMS persons 1681365707499-0</span><br><span class="line">1) 1) &quot;persons&quot;</span><br><span class="line">   2) 1) 1) &quot;1681365756516-0&quot;</span><br><span class="line">         2) 1) &quot;name&quot;</span><br><span class="line">            2) &quot;Geoffrey&quot;</span><br><span class="line">            3) &quot;surname&quot;</span><br><span class="line">            4) &quot;Hinton&quot;</span><br><span class="line">      2) 1) &quot;1681365759975-0&quot;</span><br><span class="line">         2) 1) &quot;name&quot;</span><br><span class="line">            2) &quot;Yann&quot;</span><br><span class="line">            3) &quot;surname&quot;</span><br><span class="line">            4) &quot;LeCun&quot;</span><br></pre></td></tr></table></figure>
+<p><code>COUNT 2</code>代表最多返回2条消息，最后的<code>1681365707499-0</code>代表从这条消息后（不含这条消息）开始读取。</p>
+<p>除了<code>XREAD</code>外，还有<a target="_blank" rel="noopener" href="https://redis.io/commands/xrange/">XRANGE</a>和<a target="_blank" rel="noopener" href="https://redis.io/commands/xrevrange/">XREVRANGE</a>可以读取消息。</p>
+<h3 id="查看Stream信息"><a href="#查看Stream信息" class="headerlink" title="查看Stream信息"></a>查看Stream信息</h3><p>创建后可使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xinfo-stream/">XINFO STREAM</a>查看Stream的信息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XINFO STREAM persons</span><br><span class="line"> 1) &quot;length&quot;</span><br><span class="line"> 2) (integer) 4</span><br><span class="line"> 3) &quot;radix-tree-keys&quot;</span><br><span class="line"> 4) (integer) 1</span><br><span class="line"> 5) &quot;radix-tree-nodes&quot;</span><br><span class="line"> 6) (integer) 2</span><br><span class="line"> 7) &quot;last-generated-id&quot;</span><br><span class="line"> 8) &quot;1681365768735-0&quot;</span><br><span class="line"> 9) &quot;groups&quot;</span><br><span class="line">10) (integer) 0</span><br><span class="line">11) &quot;first-entry&quot;</span><br><span class="line">12) 1) &quot;1681365707499-0&quot;</span><br><span class="line">    2) 1) &quot;name&quot;</span><br><span class="line">       2) &quot;Jim&quot;</span><br><span class="line">       3) &quot;surname&quot;</span><br><span class="line">       4) &quot;Green&quot;</span><br><span class="line">13) &quot;last-entry&quot;</span><br><span class="line">14) 1) &quot;1681365768735-0&quot;</span><br><span class="line">    2) 1) &quot;name&quot;</span><br><span class="line">       2) &quot;Andrew&quot;</span><br><span class="line">       3) &quot;surname&quot;</span><br><span class="line">       4) &quot;Ng&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="消息修剪"><a href="#消息修剪" class="headerlink" title="消息修剪"></a>消息修剪</h3><p>如果堆积的消息过多，会造成内存浪费，我们有两种方式来修剪。</p>
+<ol>
+<li>在添加时指定最大消息条数</li>
+</ol>
+<p>先添加一些测试数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XADD tempstream * message &quot;hello, 1&quot;</span><br><span class="line">&quot;1681369081881-0&quot;</span><br><span class="line">redis&gt; XADD tempstream * message &quot;hello, 2&quot;</span><br><span class="line">&quot;1681369084603-0&quot;</span><br><span class="line">redis&gt; XADD tempstream * message &quot;hello, 3&quot;</span><br><span class="line">&quot;1681369086480-0&quot;</span><br><span class="line">redis&gt; XLEN tempstream</span><br><span class="line">(integer) 3</span><br></pre></td></tr></table></figure>
+
+<p>在添加时指定最大消息条数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XADD tempstream MAXLEN 3 * message &quot;hello, 4&quot;</span><br><span class="line">&quot;1681369112438-0&quot;</span><br><span class="line">redis&gt; XREAD STREAMS tempstream 0</span><br><span class="line">1) 1) &quot;tempstream&quot;</span><br><span class="line">   2) 1) 1) &quot;1681369084603-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 2&quot;</span><br><span class="line">      2) 1) &quot;1681369086480-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 3&quot;</span><br><span class="line">      3) 1) &quot;1681369112438-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 4&quot;</span><br></pre></td></tr></table></figure>
+<p>因为指定了最多保留3条消息，所以最老的第1条消息被修剪。</p>
+<ol start="2">
+<li>使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xtrim/">XTRIM</a>修剪</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XADD tempstream * message &quot;hello, 5&quot;</span><br><span class="line">&quot;1681369225281-0&quot;</span><br><span class="line">redis&gt; XLEN tempstream</span><br><span class="line">(integer) 4</span><br><span class="line">redis&gt; XTRIM tempstream MINID 1681369086480</span><br><span class="line">(integer) 1</span><br><span class="line">redis&gt; XREAD STREAMS tempstream 0</span><br><span class="line">1) 1) &quot;tempstream&quot;</span><br><span class="line">   2) 1) 1) &quot;1681369086480-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 3&quot;</span><br><span class="line">      2) 1) &quot;1681369112438-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 4&quot;</span><br><span class="line">      3) 1) &quot;1681369225281-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 5&quot;</span><br></pre></td></tr></table></figure>
+<p>指定了<code>MINID</code>后，在这条消息之前的消息全部会被修剪。</p>
+<p>同时，<code>XTRIM</code>也可以使用<code>MAXLEN</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XTRIM tempstream MAXLEN ~ 2</span><br><span class="line">(integer) 1</span><br><span class="line">redis&gt; XREAD STREAMS tempstream 0</span><br><span class="line">1) 1) &quot;tempstream&quot;</span><br><span class="line">   2) 1) 1) &quot;1681369086480-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 3&quot;</span><br><span class="line">      2) 1) &quot;1681369112438-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 4&quot;</span><br><span class="line">      3) 1) &quot;1681369225281-0&quot;</span><br><span class="line">         2) 1) &quot;message&quot;</span><br><span class="line">            2) &quot;hello, 5&quot;</span><br></pre></td></tr></table></figure>
+<p>注意那个<code>~</code>号，它会采用更高效的算法来决定修剪多少条，在这里它觉得当前条数已经足够少决定不执行修剪。</p>
+<h2 id="消费者-Consumer-与消费者组-Consumer-Group"><a href="#消费者-Consumer-与消费者组-Consumer-Group" class="headerlink" title="消费者(Consumer)与消费者组(Consumer Group)"></a>消费者(Consumer)与消费者组(Consumer Group)</h2><p>消费者组主要包含一个<code>last_delivered_id</code>，记录了最后一次成功消费的消息ID，用于跟踪消费者组在流中的进度。</p>
+<h3 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h3><p>消费者组可使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xgroup-create/">XGROUP CREATE</a>命令创建。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XGROUP CREATE persons mygroup 0</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>可以使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xinfo-groups/">XINFO GROUPS</a>查看Stream下的消费者组。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XINFO GROUPS persons</span><br><span class="line">1) 1) &quot;name&quot;</span><br><span class="line">   2) &quot;mygroup&quot;</span><br><span class="line">   3) &quot;consumers&quot;</span><br><span class="line">   4) (integer) 0</span><br><span class="line">   5) &quot;pending&quot;</span><br><span class="line">   6) (integer) 0</span><br><span class="line">   7) &quot;last-delivered-id&quot;</span><br><span class="line">   8) &quot;0-0&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在创建消费者组时可以指定<code>last-delivered-id</code>，当然也可以创建完再使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xgroup-setid/">XGROUP SETID</a>修改，效果一样。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XGROUP CREATE persons tempgroup 1681365756516-0</span><br><span class="line">OK</span><br><span class="line">redis&gt; XINFO GROUPS persons</span><br><span class="line">1) ...</span><br><span class="line">2) 1) &quot;name&quot;</span><br><span class="line">   2) &quot;tempgroup&quot;</span><br><span class="line">   3) &quot;consumers&quot;</span><br><span class="line">   4) (integer) 0</span><br><span class="line">   5) &quot;pending&quot;</span><br><span class="line">   6) (integer) 0</span><br><span class="line">   7) &quot;last-delivered-id&quot;</span><br><span class="line">   8) &quot;1681365756516-0&quot;</span><br><span class="line">redis&gt; XGROUP SETID persons tempgroup 1681365759975-0</span><br><span class="line">OK</span><br><span class="line">redis&gt; XINFO GROUPS persons</span><br><span class="line">1) ...</span><br><span class="line">2) 1) &quot;name&quot;</span><br><span class="line">   2) &quot;tempgroup&quot;</span><br><span class="line">   3) &quot;consumers&quot;</span><br><span class="line">   4) (integer) 0</span><br><span class="line">   5) &quot;pending&quot;</span><br><span class="line">   6) (integer) 0</span><br><span class="line">   7) &quot;last-delivered-id&quot;</span><br><span class="line">   8) &quot;1681365759975-0&quot;</span><br><span class="line">redis&gt; XGROUP DESTROY persons tempgroup</span><br><span class="line">(integer) 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过消费者读取消息"><a href="#通过消费者读取消息" class="headerlink" title="通过消费者读取消息"></a>通过消费者读取消息</h3><p>通过消费者组来读取消息需要改用<a target="_blank" rel="noopener" href="https://redis.io/commands/xreadgroup/">XREADGROUP</a>命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XREADGROUP GROUP mygroup myconsumer COUNT 2 STREAMS persons &gt;</span><br><span class="line">1) 1) &quot;persons&quot;</span><br><span class="line">   2) 1) 1) &quot;1681365707499-0&quot;</span><br><span class="line">         2) 1) &quot;name&quot;</span><br><span class="line">            2) &quot;Jim&quot;</span><br><span class="line">            3) &quot;surname&quot;</span><br><span class="line">            4) &quot;Green&quot;</span><br><span class="line">      2) 1) &quot;1681365756516-0&quot;</span><br><span class="line">         2) 1) &quot;name&quot;</span><br><span class="line">            2) &quot;Geoffrey&quot;</span><br><span class="line">            3) &quot;surname&quot;</span><br><span class="line">            4) &quot;Hinton&quot;</span><br></pre></td></tr></table></figure>
+<p>在这里我们使用了消费者<code>myconsumer</code>，<code>XREADGROUP</code>必须指定消费者组以及消费者。如果消费者不存在则会创建。<br>在读取完2条消息后，<code>mygroup</code>的<code>last-delivered-id</code>发生了变化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XINFO GROUPS persons</span><br><span class="line">1) 1) &quot;name&quot;</span><br><span class="line">   2) &quot;mygroup&quot;</span><br><span class="line">   3) &quot;consumers&quot;</span><br><span class="line">   4) (integer) 1</span><br><span class="line">   5) &quot;pending&quot;</span><br><span class="line">   6) (integer) 2</span><br><span class="line">   7) &quot;last-delivered-id&quot;</span><br><span class="line">   8) &quot;1681365756516-0&quot;</span><br></pre></td></tr></table></figure>
+<p>同时，<code>consumers</code>从0变成了1。一个新的消费者<code>myconsumer</code>被创建。我们可以用<a target="_blank" rel="noopener" href="https://redis.io/commands/xinfo-consumers/">XINFO CONSUMERS</a>来查看。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XINFO CONSUMERS persons mygroup</span><br><span class="line">1) 1) &quot;name&quot;</span><br><span class="line">   2) &quot;myconsumer&quot;</span><br><span class="line">   3) &quot;pending&quot;</span><br><span class="line">   4) (integer) 2</span><br><span class="line">   5) &quot;idle&quot;</span><br><span class="line">   6) (integer) 248693</span><br></pre></td></tr></table></figure>
+<p>我们可以注意到，<code>mygroup</code>的<code>pending</code>从0变成了2，<code>myconsumer</code>的<code>pending</code>也等于2。</p>
+<h3 id="挂起-pending"><a href="#挂起-pending" class="headerlink" title="挂起(pending)"></a>挂起(pending)</h3><p><code>pending</code>代表未被处理的消息。<br>在上面的操作中，我们分配给了消费者<code>myconsumer</code>2条消息，<code>myconsumer</code>在处理完后，需要标记这2条消息为确认完成或拒绝完成，这样才能保证消息不丢失。</p>
+<p>可以使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xpending/">XPENDING</a>命令来查看消费者组里挂起的消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XPENDING persons mygroup</span><br><span class="line">1) (integer) 2</span><br><span class="line">2) &quot;1681365707499-0&quot;</span><br><span class="line">3) &quot;1681365756516-0&quot;</span><br><span class="line">4) 1) 1) &quot;myconsumer&quot;</span><br><span class="line">      2) &quot;2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xack/">XACK</a>命令来确认消息处理完毕。被确认的消息会从待确认条目列表（Pending Entries List (PEL)）中移去。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XACK persons mygroup 1681365707499-0</span><br><span class="line">(integer) 1</span><br><span class="line">redis&gt; XPENDING persons mygroup</span><br><span class="line">1) (integer) 1</span><br><span class="line">2) &quot;1681365756516-0&quot;</span><br><span class="line">3) &quot;1681365756516-0&quot;</span><br><span class="line">4) 1) 1) &quot;myconsumer&quot;</span><br><span class="line">      2) &quot;1&quot;</span><br><span class="line">redis&gt; XINFO CONSUMERS persons mygroup</span><br><span class="line">1) 1) &quot;name&quot;</span><br><span class="line">   2) &quot;myconsumer&quot;</span><br><span class="line">   3) &quot;pending&quot;</span><br><span class="line">   4) (integer) 1</span><br><span class="line">   5) &quot;idle&quot;</span><br><span class="line">   6) (integer) 1251414</span><br></pre></td></tr></table></figure>
+
+<p>我们再创建一个消费者，给它也分配2条消息看看。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XGROUP CREATECONSUMER persons mygroup betterconsumer</span><br><span class="line">(integer) 1</span><br><span class="line">redis&gt; XREADGROUP GROUP mygroup betterconsumer COUNT 2 STREAMS persons &gt;</span><br><span class="line">1) 1) &quot;persons&quot;</span><br><span class="line">   2) 1) 1) &quot;1681365759975-0&quot;</span><br><span class="line">         2) 1) &quot;name&quot;</span><br><span class="line">            2) &quot;Yann&quot;</span><br><span class="line">            3) &quot;surname&quot;</span><br><span class="line">            4) &quot;LeCun&quot;</span><br><span class="line">      2) 1) &quot;1681365768735-0&quot;</span><br><span class="line">         2) 1) &quot;name&quot;</span><br><span class="line">            2) &quot;Andrew&quot;</span><br><span class="line">            3) &quot;surname&quot;</span><br><span class="line">            4) &quot;Ng&quot;</span><br><span class="line">redis&gt; XPENDING persons mygroup</span><br><span class="line">1) (integer) 3</span><br><span class="line">2) &quot;1681365756516-0&quot;</span><br><span class="line">3) &quot;1681365768735-0&quot;</span><br><span class="line">4) 1) 1) &quot;betterconsumer&quot;</span><br><span class="line">      2) &quot;2&quot;</span><br><span class="line">   2) 1) &quot;myconsumer&quot;</span><br><span class="line">      2) &quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>标记<code>1681365759975-0</code>完成。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XACK persons mygroup 1681365759975-0</span><br><span class="line">(integer) 1</span><br><span class="line">redis&gt; XPENDING persons mygroup - + 10</span><br><span class="line">1) 1) &quot;1681365756516-0&quot;</span><br><span class="line">   2) &quot;myconsumer&quot;</span><br><span class="line">   3) (integer) 2954839</span><br><span class="line">   4) (integer) 1</span><br><span class="line">2) 1) &quot;1681365768735-0&quot;</span><br><span class="line">   2) &quot;betterconsumer&quot;</span><br><span class="line">   3) (integer) 572468</span><br><span class="line">   4) (integer) 1</span><br></pre></td></tr></table></figure>
+<p><code>2954839</code>和<code>572468</code>代表消费者已经消耗的时间。</p>
+<h3 id="超时处理"><a href="#超时处理" class="headerlink" title="超时处理"></a>超时处理</h3><p>使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xclaim/">XCLAIM</a>命令将超时的消息换人处理。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; XCLAIM persons mygroup betterconsumer 60000 1681365756516-0</span><br><span class="line">1) 1) &quot;1681365756516-0&quot;</span><br><span class="line">   2) 1) &quot;name&quot;</span><br><span class="line">      2) &quot;Geoffrey&quot;</span><br><span class="line">      3) &quot;surname&quot;</span><br><span class="line">      4) &quot;Hinton&quot;</span><br><span class="line">redis&gt; XPENDING persons mygroup</span><br><span class="line">1) (integer) 2</span><br><span class="line">2) &quot;1681365756516-0&quot;</span><br><span class="line">3) &quot;1681365768735-0&quot;</span><br><span class="line">4) 1) 1) &quot;betterconsumer&quot;</span><br><span class="line">      2) &quot;2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>也可使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xautoclaim/">XAUTOCLAIM</a>来指定一个托底的消费者。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/redis/" rel="tag"># redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/04/04/disable-formatting-code-region-in-vscode/" rel="prev" title="在vscode中关掉对一段代码的格式化">
+                  <i class="fa fa-chevron-left"></i> 在vscode中关掉对一段代码的格式化
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="2e2131c0f322a1491fd6e41d427a8429"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
