@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="想快速实现一个API网关？来看看Kong Gateway。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="介绍Kong Gateway">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/04/14/intro-kong-gateway/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="想快速实现一个API网关？来看看Kong Gateway。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-14T08:08:18.000Z">
+<meta property="article:modified_time" content="2023-04-18T02:13:58.514Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/04/14/intro-kong-gateway/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/04/14/intro-kong-gateway/","path":"2023/04/14/intro-kong-gateway/","title":"介绍Kong Gateway"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>介绍Kong Gateway | Tasty Pub</title><meta name="robots" content="noindex">
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">快速上手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%EF%BC%88Services%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">服务（Services）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%EF%BC%88Routes%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">路由（Routes）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E6%B8%B8%EF%BC%88Upstreams%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">上游（Upstreams）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%EF%BC%88plugins%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">插件（plugins）</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">123</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/04/14/intro-kong-gateway/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="介绍Kong Gateway | Tasty Pub">
+      <meta itemprop="description" content="想快速实现一个API网关？来看看Kong Gateway。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          介绍Kong Gateway
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-14 16:08:18" itemprop="dateCreated datePublished" datetime="2023-04-14T16:08:18+08:00">2023-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-04-18 10:13:58" itemprop="dateModified" datetime="2023-04-18T10:13:58+08:00">2023-04-18</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="介绍Kong Gateway" href="/blog/2023/04/14/intro-kong-gateway/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::353ee5b1da5072a11eb1ceb5e9cf8e2a" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">想快速实现一个API网关？来看看Kong Gateway。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/latest/">Kong Gateway</a>是<a target="_blank" rel="noopener" href="https://konghq.com/">Kong公司</a>的云原生API网关产品，搭建于<a target="_blank" rel="noopener" href="https://openresty.org/">OpenResty</a>之上，用于部署、保护和监控API。</p>
+<p>它有<a target="_blank" rel="noopener" href="https://github.com/Kong/kong">开源版</a>和商业版两种，对普通用户来说<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/3.2.x/#features">主要区别</a>也就只是开源版没有Admin GUI。</p>
+<h2 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h2><p>在深入了解它的功能之前，先迅速安装来感受一下。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>最简单的安装方式当然是使用<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/3.2.x/install/docker/">Docker</a>。</p>
+<p>不过Kong网关需要数据库来存放一些配置文件，我们在之前的<a href="/blog/2021/11/05/postgres-on-docker/" title="使用docker上的postgres代替本机安装">使用docker上的postgres代替本机安装</a>文章中，已经在Docker中安装了postgres，这里直接拿来用。</p>
+<ol>
+<li><p>首先手动在postgres中创建一个<code>kong</code>数据库。</p>
+</li>
+<li><p>然后初始化数据库</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run <span class="literal">--rm</span> <span class="literal">--network</span>=postgres12 `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_DATABASE=postgres&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_HOST=pg12&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_DATABASE=kong&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_USER=&#123;your_kong_pg_user&#125;&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_PASSWORD=&#123;your_kong_pg_password&#125;&quot;</span> `</span><br><span class="line"> kong/kong<span class="literal">-gateway</span>:<span class="number">3.2</span>.<span class="number">2.1</span> kong migrations bootstrap</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">docker run <span class="literal">-d</span> <span class="literal">--name</span> kong<span class="literal">-gateway</span> `</span><br><span class="line">  <span class="literal">--network</span>=postgres12 `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_DATABASE=postgres&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_HOST=pg12&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_DATABASE=kong&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_USER=&#123;your_kong_pg_user&#125;&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PG_PASSWORD=&#123;your_kong_pg_password&#125;&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PROXY_ACCESS_LOG=/dev/stdout&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_ADMIN_ACCESS_LOG=/dev/stdout&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_PROXY_ERROR_LOG=/dev/stderr&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_ADMIN_ERROR_LOG=/dev/stderr&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_ADMIN_LISTEN=0.0.0.0:8001&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> <span class="string">&quot;KONG_ADMIN_GUI_URL=http://localhost:8002&quot;</span> `</span><br><span class="line">  <span class="literal">-e</span> KONG_LICENSE_DATA `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8000</span>:<span class="number">8000</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8443</span>:<span class="number">8443</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8001</span>:<span class="number">8001</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8444</span>:<span class="number">8444</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8002</span>:<span class="number">8002</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8445</span>:<span class="number">8445</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8003</span>:<span class="number">8003</span> `</span><br><span class="line">  <span class="literal">-p</span> <span class="number">8004</span>:<span class="number">8004</span> `</span><br><span class="line">  kong/kong<span class="literal">-gateway</span>:<span class="number">3.2</span>.<span class="number">2.1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证安装<br>访问<code>/services</code>端点：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">curl</span> http://localhost:<span class="number">8001</span>/services</span><br></pre></td></tr></table></figure>
+<p>应该能得到<code>200</code>的状态码返回。</p>
+</li>
+</ol>
+<p><strong>控制台</strong><br>在上面的docker run命令中，我们指定了<code>KONG_ADMIN_GUI_URL</code>，虽然没有<code>KONG_LICENSE_DATA</code>，但Kong还是提供了企业版的免费模式让我们体验Admin GUI。</p>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><h3 id="服务（Services）"><a href="#服务（Services）" class="headerlink" title="服务（Services）"></a>服务（<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/3.2.x/key-concepts/services/">Services</a>）</h3><p>在Kong网关里，服务即为在网关后要对接的上游API或者微服务。服务的核心属性是网址。</p>
+<p>Kong网关通过路由（Routes）将服务暴露给客户端。由于客户端始终调用路由，因此对服务进行更改不会影响客户端调用的方式，从而隔离服务与客户端。并且可以针对路由应用不同的策略。</p>
+<p><strong>举例</strong></p>
+<p>假如我们有一个外部客户端和一个内部客户端需要访问<code>hwservice</code>服务，但是外部客户端必须限制查询该服务的频率以确保不会出现拒绝服务的情况。如果为<code>hwservice</code>服务配置了速率限制策略，当内部客户端调用服务时，内部客户端也会受到限制。路由解决了这个问题。</p>
+<p>创建两个路由分别给外部和内部访问，假如<code>/external</code>和<code>/internal</code>，都指向<code>hwservice</code>服务。然后配置一个策略来限制<code>/external</code>路由的访问频率。搞定。</p>
+<h3 id="路由（Routes）"><a href="#路由（Routes）" class="headerlink" title="路由（Routes）"></a>路由（<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/3.2.x/key-concepts/routes/">Routes</a>）</h3><p>Kong网关支持两种路由：<code>traditional_compat</code>和<code>expressions</code>。</p>
+<p><strong>traditional_compat</strong></p>
+<p>在传统兼容模式下，路由会按顺序确定：</p>
+<ol>
+<li>Priority points</li>
+<li>Wildcard hosts</li>
+<li>Header count</li>
+<li>Regular expressions and prefix paths</li>
+</ol>
+<p><strong>expressions</strong></p>
+<p>打开<code>expressions</code>路由需要修改<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/latest/production/kong-conf/">kong.conf</a>，设置<code>router_flavor = expressions</code>，然后重启Kong网关。<br>在打开<code>expressions</code>后，传统的路由对象（比如<code>paths</code>，<code>methods</code>）会失效，需要指定<code>expression</code>项中的表达式。</p>
+<h3 id="上游（Upstreams）"><a href="#上游（Upstreams）" class="headerlink" title="上游（Upstreams）"></a>上游（<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/3.2.x/key-concepts/upstreams/">Upstreams</a>）</h3><p>上游这个概念与Nginx中的<a target="_blank" rel="noopener" href="http://nginx.org/en/docs/http/ngx_http_upstream_module.html#upstream">upstream</a>一样，一个上游可以是多个服务，主要为了<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/3.2.x/get-started/load-balancing/">负载均衡</a>。</p>
+<h3 id="插件（plugins）"><a href="#插件（plugins）" class="headerlink" title="插件（plugins）"></a>插件（<a target="_blank" rel="noopener" href="https://docs.konghq.com/gateway/3.2.x/key-concepts/plugins/">plugins</a>）</h3><!-- flag of hidden posts --><link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="353ee5b1da5072a11eb1ceb5e9cf8e2a"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
