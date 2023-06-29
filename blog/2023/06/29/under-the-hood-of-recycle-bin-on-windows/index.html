@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/$I-struct.png">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/$I-struct-of-folder.png">
 <meta property="article:published_time" content="2023-06-29T06:26:13.000Z">
-<meta property="article:modified_time" content="2023-06-29T07:39:53.871Z">
+<meta property="article:modified_time" content="2023-06-29T07:50:16.823Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/show-or-hide.png">
@@ -145,7 +145,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%88%96%E9%9A%90%E8%97%8F%E5%9B%9E%E6%94%B6%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">显示或隐藏回收站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E8%B4%A8"><span class="nav-number">2.</span> <span class="nav-text">本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%94%A8%E6%88%B7%E5%AD%98%E6%94%BE"><span class="nav-number">3.1.</span> <span class="nav-text">分用户存放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E6%80%A7%E5%8C%96%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.2.</span> <span class="nav-text">个性化文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">被删除的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.4.</span> <span class="nav-text">被删除的文件夹</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%88%96%E9%9A%90%E8%97%8F%E5%9B%9E%E6%94%B6%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">显示或隐藏回收站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E8%B4%A8"><span class="nav-number">2.</span> <span class="nav-text">本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%94%A8%E6%88%B7%E5%AD%98%E6%94%BE"><span class="nav-number">3.1.</span> <span class="nav-text">分用户存放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E6%80%A7%E5%8C%96%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.2.</span> <span class="nav-text">个性化文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">被删除的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.4.</span> <span class="nav-text">被删除的文件夹</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">深入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88windows%E5%9B%9E%E6%94%B6%E7%AB%99%E4%B8%8D%E5%85%81%E8%AE%B8%E5%B1%95%E5%BC%80%E6%96%87%E4%BB%B6%E5%A4%B9%E5%91%A2%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">为什么windows回收站不允许展开文件夹呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#macOS%E7%9A%84%E5%9E%83%E5%9C%BE%E7%AF%93%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E5%90%8C%E5%90%97%EF%BC%9F"><span class="nav-number">4.2.</span> <span class="nav-text">macOS的垃圾篓有什么不同吗？</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -226,7 +226,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-06-29 14:26:13 / 修改时间：15:39:53" itemprop="dateCreated datePublished" datetime="2023-06-29T14:26:13+08:00">2023-06-29</time>
+      <time title="创建时间：2023-06-29 14:26:13 / 修改时间：15:50:16" itemprop="dateCreated datePublished" datetime="2023-06-29T14:26:13+08:00">2023-06-29</time>
     </span>
 
   
@@ -345,6 +345,10 @@
 <li>文件名长度为<code>0x00000009</code>，十进制为9，表示文件名占了9个unicode，即18个字节</li>
 <li>文件名为<code>F:\tmp\a</code>，包含末尾的<code>0x0000</code>，刚好18个字节</li>
 </ul>
+<h2 id="深入"><a href="#深入" class="headerlink" title="深入"></a>深入</h2><h3 id="为什么windows回收站不允许展开文件夹呢？"><a href="#为什么windows回收站不允许展开文件夹呢？" class="headerlink" title="为什么windows回收站不允许展开文件夹呢？"></a>为什么windows回收站不允许展开文件夹呢？</h3><p>我理解不允许展开的原因是删除一整个文件夹是一个可回退的原子操作，所以要还原就还原整个文件夹，不允许还原部分文件。</p>
+<p>而如果允许展开，就很容易给用户一个错觉：允许还原文件夹中的某单个文件。但右键后又发现不能这样操作，容易给用户造成困惑。</p>
+<h3 id="macOS的垃圾篓有什么不同吗？"><a href="#macOS的垃圾篓有什么不同吗？" class="headerlink" title="macOS的垃圾篓有什么不同吗？"></a>macOS的垃圾篓有什么不同吗？</h3><p>macOS的垃圾篓和windows回收站一样也是一个文件夹，位置在<code>~/.trash</code>。</p>
+<p>与windows回收站的一个很大不同是它没有像windows那样将删除的文件更名为<code>$I&#123;id&#125;</code>，而是保持了原名称。所以如果连续删除两个重名文件，后删除的那个会被自动重命名。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
