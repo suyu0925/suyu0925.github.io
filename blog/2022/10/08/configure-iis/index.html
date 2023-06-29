@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/10/08/configure-iis/logging_configure.jpg">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/10/08/configure-iis/logging_file_directory.jpg">
 <meta property="article:published_time" content="2022-10-07T18:39:41.000Z">
-<meta property="article:modified_time" content="2022-11-30T14:22:37.193Z">
+<meta property="article:modified_time" content="2023-05-04T06:11:42.675Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="windows">
 <meta property="article:tag" content="iis">
@@ -148,7 +148,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85IIS"><span class="nav-number">1.</span> <span class="nav-text">安装IIS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">Web平台安装程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-Request-Routing"><span class="nav-number">3.</span> <span class="nav-text">Application Request Routing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">设置反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AFARR%E7%9A%84%E4%BB%A3%E7%90%86%E5%8A%9F%E8%83%BD"><span class="nav-number">4.1.</span> <span class="nav-text">开启ARR的代理功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E9%87%8D%E5%86%99"><span class="nav-number">4.2.</span> <span class="nav-text">URL重写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AFhttps"><span class="nav-number">5.</span> <span class="nav-text">开启https</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85SSL%E8%AF%81%E4%B9%A6"><span class="nav-number">5.1.</span> <span class="nav-text">安装SSL证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A6"><span class="nav-number">5.2.</span> <span class="nav-text">导入证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E8%AF%81%E4%B9%A6"><span class="nav-number">5.3.</span> <span class="nav-text">绑定证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86http%E9%87%8D%E5%AE%9A%E5%90%91%E8%87%B3https"><span class="nav-number">5.4.</span> <span class="nav-text">将http重定向至https</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97"><span class="nav-number">6.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">6.1.</span> <span class="nav-text">更改日志文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8IIS-Log-Cleaner%E5%B7%A5%E5%85%B7"><span class="nav-number">6.2.</span> <span class="nav-text">使用IIS Log Cleaner工具</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85IIS"><span class="nav-number">1.</span> <span class="nav-text">安装IIS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web%E5%B9%B3%E5%8F%B0%E5%AE%89%E8%A3%85%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.</span> <span class="nav-text">Web平台安装程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-Request-Routing"><span class="nav-number">3.</span> <span class="nav-text">Application Request Routing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">设置反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%90%AFARR%E7%9A%84%E4%BB%A3%E7%90%86%E5%8A%9F%E8%83%BD"><span class="nav-number">4.1.</span> <span class="nav-text">开启ARR的代理功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URL%E9%87%8D%E5%86%99"><span class="nav-number">4.2.</span> <span class="nav-text">URL重写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AFhttps"><span class="nav-number">5.</span> <span class="nav-text">开启https</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85SSL%E8%AF%81%E4%B9%A6"><span class="nav-number">5.1.</span> <span class="nav-text">安装SSL证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%AF%81%E4%B9%A6"><span class="nav-number">5.2.</span> <span class="nav-text">导入证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E8%AF%81%E4%B9%A6"><span class="nav-number">5.3.</span> <span class="nav-text">绑定证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86http%E9%87%8D%E5%AE%9A%E5%90%91%E8%87%B3https"><span class="nav-number">5.4.</span> <span class="nav-text">将http重定向至https</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AFIP"><span class="nav-number">6.</span> <span class="nav-text">客户端IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97"><span class="nav-number">7.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">7.1.</span> <span class="nav-text">更改日志文件目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8IIS-Log-Cleaner%E5%B7%A5%E5%85%B7"><span class="nav-number">7.2.</span> <span class="nav-text">使用IIS Log Cleaner工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AE%A2%E6%88%B7%E7%AB%AFIP%E5%88%B0%E6%97%A5%E5%BF%97"><span class="nav-number">7.3.</span> <span class="nav-text">添加客户端IP到日志</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -235,7 +235,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-11-30 22:22:37" itemprop="dateModified" datetime="2022-11-30T22:22:37+08:00">2022-11-30</time>
+      <time title="修改时间：2023-05-04 14:11:42" itemprop="dateModified" datetime="2023-05-04T14:11:42+08:00">2023-05-04</time>
     </span>
 
   
@@ -331,6 +331,9 @@
 </ul>
 <p>不同的客户端对post返回的状态码处理方法有不同，会生产不同的效果。</p>
 <p>比如.Net的HttpClient对307的第二次请求就会去除Authentication信息，而nodejs的axios和postman会带上。</p>
+<h2 id="客户端IP"><a href="#客户端IP" class="headerlink" title="客户端IP"></a>客户端IP</h2><p>在<code>Application Request Routing Cache</code>–&gt;<code>Server Proxy Settings</code>–&gt;<code>Preserve Client IP in the following header</code>设置中，可以指定客户端IP的传递方式。</p>
+<p>默认是保存在<code>X-Forwarded-For</code>中，如果需要保存在其他的header中，可以在这里修改。或者留空，不保存。</p>
+<p>可参阅<a target="_blank" rel="noopener" href="http://technet.microsoft.com/en-us/library/dd443533(v=ws.10).aspx">Application Request Routing Page文档</a>。</p>
 <h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>通常服务器的系统盘容量都不会特别大，如果不做限制，IIS的日志将会成为很大的负担。</p>
 <h3 id="更改日志文件目录"><a href="#更改日志文件目录" class="headerlink" title="更改日志文件目录"></a>更改日志文件目录</h3><p>我们可以从这里进入日志配置。</p>
 <img src="/blog/2022/10/08/configure-iis/logging_configure.jpg" class="" title="日志配置">
@@ -342,6 +345,8 @@
 <h3 id="使用IIS-Log-Cleaner工具"><a href="#使用IIS-Log-Cleaner工具" class="headerlink" title="使用IIS Log Cleaner工具"></a>使用IIS Log Cleaner工具</h3><p>最简单的办法是使用微软自家的<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/iis/manage/provisioning-and-managing-iis/managing-iis-log-file-storage#delete-old-log-files-by-the-iis-log-cleaner-tool">IIS Log Cleaner Tool</a>。</p>
 <p>参见微软文档，下载后直接运行，第一次运行需要先进行设置，之后就会自动清除了。</p>
 <p>需要注意的是，<code>IISLogCleaner.exe</code>并不会注册服务，也就是说重启后需要手动再次启动。所以我们需要把它的快捷方式扔进<code>%appdata%\Microsoft\Windows\Start Menu\Programs\Startup</code>来完成自启。</p>
+<h3 id="添加客户端IP到日志"><a href="#添加客户端IP到日志" class="headerlink" title="添加客户端IP到日志"></a>添加客户端IP到日志</h3><p>在日志页，我们可以添加客户端IP到日志中。</p>
+<p>在日志文件栏的选择字段中，添加Request Header的<code>X-Forward-For</code>自定义字段。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 

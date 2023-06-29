@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="windows回收站我们都用过，本文揭秘它的工作原理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows回收站的工作原理">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="windows回收站我们都用过，本文揭秘它的工作原理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/show-or-hide.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/property.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/recycle-bin.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/$I-struct.png">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/$I-struct-of-folder.png">
+<meta property="article:published_time" content="2023-06-29T06:26:13.000Z">
+<meta property="article:modified_time" content="2023-06-29T07:39:53.871Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/show-or-hide.png">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/","path":"2023/06/29/under-the-hood-of-recycle-bin-on-windows/","title":"windows回收站的工作原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>windows回收站的工作原理 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%88%96%E9%9A%90%E8%97%8F%E5%9B%9E%E6%94%B6%E7%AB%99"><span class="nav-number">1.</span> <span class="nav-text">显示或隐藏回收站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E8%B4%A8"><span class="nav-number">2.</span> <span class="nav-text">本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">目录结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%94%A8%E6%88%B7%E5%AD%98%E6%94%BE"><span class="nav-number">3.1.</span> <span class="nav-text">分用户存放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AA%E6%80%A7%E5%8C%96%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.2.</span> <span class="nav-text">个性化文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E6%96%87%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">被删除的文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A2%AB%E5%88%A0%E9%99%A4%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="nav-number">3.4.</span> <span class="nav-text">被删除的文件夹</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">126</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="windows回收站的工作原理 | Tasty Pub">
+      <meta itemprop="description" content="windows回收站我们都用过，本文揭秘它的工作原理。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          windows回收站的工作原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-06-29 14:26:13 / 修改时间：15:39:53" itemprop="dateCreated datePublished" datetime="2023-06-29T14:26:13+08:00">2023-06-29</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="windows回收站的工作原理" href="/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::c04604dd6b2377d52301fd0f919e2964" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">windows回收站我们都用过，本文揭秘它的工作原理。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>windows上的回收站功能我们应该都用过，只要不是使用<code>Shift+Delete</code>直接删除，删除的文件或文件夹都会先进入回收站，给我们一次反悔的机会。</p>
+<h2 id="显示或隐藏回收站"><a href="#显示或隐藏回收站" class="headerlink" title="显示或隐藏回收站"></a>显示或隐藏回收站</h2><p>如果你发现桌面上没有回收站图标，可以在这里打开：</p>
+<img src="/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/show-or-hide.png" class="" title="显示或隐藏回收站">
+
+<p>如果你使用了Wallpaper Engine之类的桌面，那么可以直接在文件管理器的地址中输入<code>回收站</code>来直接跳转。</p>
+<h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p>回收站本质上就是特殊的文件夹。当我们删除一个文件或文件夹时，系统会将其移动到回收站，而不是直接删除。直到用户彻底删除或清空回收站时，系统才会真正删除。而在那之前，随时可以还原被删除的文件。</p>
+<p>在每个磁盘的根目录都有一个名为<code>$Recycle.bin</code>的文件夹，在<code>回收站 属性</code>中可以设置是否开启，以及它的最大占用空间（默认值为磁盘总大小的5%左右）。</p>
+<img src="/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/property.png" class="" title="回收站 属性">
+
+<p>每个磁盘下的<code>$Recycle.bin</code>各自维护自己的回收站，而在打开回收站应用时，会将所有磁盘的回收站内容合并显示。</p>
+<img src="/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/recycle-bin.png" class="" title="合并显示">
+
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><h3 id="分用户存放"><a href="#分用户存放" class="headerlink" title="分用户存放"></a>分用户存放</h3><p>在<code>$Recycle.bin</code>文件夹下，会分用户来存放被删除的文件。比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:/</span><br><span class="line">└── <span class="variable">$Recycle</span>.bin/</span><br><span class="line">    ├── S-1-5-18</span><br><span class="line">    ├── S-1-5-21-3224713530-1295428985-2222104684-1000</span><br><span class="line">    └── S-1-5-21-3224713530-1295428985-2222104684-1001</span><br></pre></td></tr></table></figure>
+<p>目录名称是用户的<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/security/identity-protection/access-control/security-identifiers">SID</a>，在windows中大量使用，可以在注册表<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList</code>中找到每个用户名对应的SID。</p>
+<h3 id="个性化文件夹"><a href="#个性化文件夹" class="headerlink" title="个性化文件夹"></a>个性化文件夹</h3><p>在每个用户目录下，都会有一个<code>desktop.ini</code>，来描述这个文件夹<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/win32/shell/how-to-customize-folders-with-desktop-ini">如何显示</a>。</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[.ShellClassInfo]</span></span><br><span class="line"><span class="attr">CLSID</span>=&#123;<span class="number">645</span>FF040-<span class="number">5081</span>-<span class="number">101</span>B-<span class="number">9</span>F08-<span class="number">00</span>AA002F954E&#125;</span><br><span class="line"><span class="attr">LocalizedResourceName</span>=@%SystemRoot%\system32\shell32.dll,-<span class="number">8964</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="被删除的文件"><a href="#被删除的文件" class="headerlink" title="被删除的文件"></a>被删除的文件</h3><p>被删除的文件在移动进回收站时，为了避免重名，会被重新命名。生成一个唯一ID后命名为<code>$R&#123;id&#125;.&#123;ext&#125;</code>，扩展名维持原样。然后将元数据存放至<code>$I&#123;id&#125;.&#123;ext&#125;</code>。<br>元数据包括：文件名称，文件原路位置，删除时间，文件大小。基本上就是我们在回收站应用中看到的信息。</p>
+<p>$I文件的结构为：</p>
+<table>
+<thead>
+<tr>
+<th align="right">偏移</th>
+<th align="right">字节</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">0</td>
+<td align="right">4</td>
+<td>$I文件的版本号，win10为2，vista到10之前都为1</td>
+</tr>
+<tr>
+<td align="right">8</td>
+<td align="right">8</td>
+<td>文件的大小</td>
+</tr>
+<tr>
+<td align="right">16</td>
+<td align="right">8</td>
+<td>删除时间</td>
+</tr>
+<tr>
+<td align="right">24</td>
+<td align="right">4</td>
+<td>文件名的长度，版本v2才有这项</td>
+</tr>
+<tr>
+<td align="right">28</td>
+<td align="right">不定长</td>
+<td>文件名</td>
+</tr>
+</tbody></table>
+<p>我们拿<code>BaiduNetdisk_6.8.4.1.exe</code>这个文件来看看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">C:/</span><br><span class="line">└── $Recycle.bin/</span><br><span class="line">    └── S-1-5-21-3224713530-1295428985-2222104684-1001/</span><br><span class="line">        ├── $IAA5WRG.exe</span><br><span class="line">        ├── $RAA5WRG.exe</span><br><span class="line">        └── desktop.ini</span><br></pre></td></tr></table></figure>
+<p>使用十六进制文本编辑器来查看文件，直接可以使用vscode的<a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor">Hex Editor</a>插件，也可以使用<a target="_blank" rel="noopener" href="https://mh-nexus.de/en/hxd/">HxD</a>等工具。推荐使用vscode：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">code <span class="string">&#x27;C:\$Recycle.Bin\S-1-5-21-3224713530-1295428985-2222104684-1001&gt;\$IAA5WRG.exe&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>$IAA5WRG.exe</code>的内容为：</p>
+<img src="/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/$I-struct.png" class="" title="$I文件结构">
+
+<p>按照上面的结构解析：</p>
+<ul>
+<li>版本号为2</li>
+<li>文件大小为<code>0x026688F0</code>，十进制为40274160，与回收站中显示的<code>39,331 KB</code>一致</li>
+<li>删除时间为<code>0x01D9AA55734E8C90</code>，十进制为133324947967610000，使用<code>w32tm.exe /ntte 133324947967610000</code>转换为<code>2023/6/29 14:46:36</code>，与回收站中显示一致</li>
+<li>文件名长度为<code>0x00000036</code>，十进制为54，表示文件名占了54个unicode，即108个字节</li>
+<li>文件名为<code>C:\BaiduNetdiskDownload\记录数据\BaiduNetdisk_6.8.4.1.exe</code>，包含末尾的<code>0x0000</code>，刚好108个字节</li>
+</ul>
+<h3 id="被删除的文件夹"><a href="#被删除的文件夹" class="headerlink" title="被删除的文件夹"></a>被删除的文件夹</h3><p>再来看看文件夹。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">F:/</span><br><span class="line">└── $Recycle.bin/</span><br><span class="line">    └── S-1-5-21-3224713530-1295428985-2222104684-1001/</span><br><span class="line">        ├── $rzg1h6u/</span><br><span class="line">        │   ├── b/</span><br><span class="line">        │   │   └── 1.txt</span><br><span class="line">        │   └── a.txt</span><br><span class="line">        ├── $izg1h6u</span><br><span class="line">        └── desktop.ini</span><br></pre></td></tr></table></figure>
+<p>可以发现，文件夹中的内容原封不动的被移动了过来。</p>
+<p>再看看$I文件。</p>
+<img src="/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/$I-struct-of-folder.png" class="" title="文件夹的$I文件">
+
+<p>按照上面的结构解析：</p>
+<ul>
+<li>版本号为2</li>
+<li>文件大小为<code>0x00000001</code>，十进制为1，与回收站中显示的<code>1 KB</code>一致</li>
+<li>删除时间为<code>0X01D9AA5405E4B630</code>，十进制为133324941836990000，使用<code>w32tm.exe /ntte 133324941836990000</code>转换为<code>2023/6/29 14:36:23</code>，与回收站中显示一致</li>
+<li>文件名长度为<code>0x00000009</code>，十进制为9，表示文件名占了9个unicode，即18个字节</li>
+<li>文件名为<code>F:\tmp\a</code>，包含末尾的<code>0x0000</code>，刚好18个字节</li>
+</ul>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/04/26/intro-kubernetes/" rel="prev" title="浅谈一下kubernetes">
+                  <i class="fa fa-chevron-left"></i> 浅谈一下kubernetes
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="c04604dd6b2377d52301fd0f919e2964"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>

@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/openclash-overview.png">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/use-rule-provider.png">
 <meta property="article:published_time" content="2022-07-25T07:46:56.000Z">
-<meta property="article:modified_time" content="2023-03-28T13:49:28.972Z">
+<meta property="article:modified_time" content="2023-05-30T01:36:33.431Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -158,7 +158,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">124</span>
+          <span class="site-state-item-count">126</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -232,7 +232,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-28 21:49:28" itemprop="dateModified" datetime="2023-03-28T21:49:28+08:00">2023-03-28</time>
+      <time title="修改时间：2023-05-30 09:36:33" itemprop="dateModified" datetime="2023-05-30T09:36:33+08:00">2023-05-30</time>
     </span>
 
   
@@ -332,6 +332,7 @@
 <ul>
 <li>无法ping域名，解析得到的会是内网的Fake IP</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/issues/6">windows会认为没有连接到互联网</a>，需要将<code>\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet</code>下的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/48856675">几个域名</a>添加至覆写设置-&gt;DNS设置-&gt;Fake-IP-Filter。</li>
+<li>windows时间同步的NTP（Network Time Protocol）域名：time.windows.com</li>
 </ul>
 <p>如果对性能不是有很强的要求，还是建议使用Redir-Host模式。</p>
 <h3 id="偶尔有部分网址无法连接"><a href="#偶尔有部分网址无法连接" class="headerlink" title="偶尔有部分网址无法连接"></a>偶尔有部分网址无法连接</h3><p>偶尔有百度无法连接的情况，此时可将代理模式切换至Global模式，再切回Rule，通常药到病除。只是重启OpenClash不行。</p>
