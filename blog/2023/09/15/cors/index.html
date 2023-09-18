@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="在网络开发时，老是会碰到跨域问题，这里整理一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跨域资源共享（CORS）">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/09/15/cors/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="在网络开发时，老是会碰到跨域问题，这里整理一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2023/09/15/cors/cors_is_not_allowed.jpg">
+<meta property="article:published_time" content="2023-09-15T08:16:46.000Z">
+<meta property="article:modified_time" content="2023-09-18T07:03:27.082Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/09/15/cors/cors_is_not_allowed.jpg">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/09/15/cors/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/09/15/cors/","path":"2023/09/15/cors/","title":"跨域资源共享（CORS）"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>跨域资源共享（CORS） | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">什么是跨域请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82%E4%BE%8B%E5%AD%90"><span class="nav-number">2.</span> <span class="nav-text">一个简单的跨域请求例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F%E9%94%99%E8%AF%AF"><span class="nav-number">2.1.</span> <span class="nav-text">跨域错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#no-cors-request-mode"><span class="nav-number">2.2.</span> <span class="nav-text">no-cors request mode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-request%E5%92%8Cpreflight-request"><span class="nav-number">2.3.</span> <span class="nav-text">simple request和preflight request</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%94%99%E8%AF%AF"><span class="nav-number">3.</span> <span class="nav-text">解决跨域错误</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cors%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">cors中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%A9%E5%B1%95"><span class="nav-number">3.2.</span> <span class="nav-text">浏览器扩展</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9A%E8%B7%A8%E5%9F%9FSet-Cookie"><span class="nav-number">4.</span> <span class="nav-text">另一个问题：跨域Set-Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#credentials"><span class="nav-number">4.1.</span> <span class="nav-text">credentials</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E5%9F%9F%E4%BD%BF%E7%94%A8credentials"><span class="nav-number">4.2.</span> <span class="nav-text">跨域使用credentials</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB"><span class="nav-number">4.3.</span> <span class="nav-text">扩展阅读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.4.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">136</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/09/15/cors/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="跨域资源共享（CORS） | Tasty Pub">
+      <meta itemprop="description" content="在网络开发时，老是会碰到跨域问题，这里整理一下。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          跨域资源共享（CORS）
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-09-15 16:16:46" itemprop="dateCreated datePublished" datetime="2023-09-15T16:16:46+08:00">2023-09-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-18 15:03:27" itemprop="dateModified" datetime="2023-09-18T15:03:27+08:00">2023-09-18</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="跨域资源共享（CORS）" href="/blog/2023/09/15/cors/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::3bcb3bc9cbc97af301c4d8161449d438" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">在网络开发时，老是会碰到跨域问题，这里整理一下。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>首先的首先，跨域资源共享（Cross-Origin Resource Sharing，简称<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">CORS</a>）是为浏览器服务的，web api可以无视。</p>
+<p>它赋予了浏览器阻止前端JavaScript代码访问跨域请求的能力。</p>
+<h2 id="什么是跨域请求"><a href="#什么是跨域请求" class="headerlink" title="什么是跨域请求"></a>什么是跨域请求</h2><p>跨域请求是指在浏览器中，通过前端JavaScript代码发送的HTTP请求，目标资源位于当前网页所在的域之外。<br>换句话说，当一个网页尝试从不同的源（域、协议或端口）请求数据或资源时，就会发生跨域请求。</p>
+<p>举个实际的例子：微信防盗图。</p>
+<p>我们随便找一个微信公众号文章，从里面找一张图片，比如上海发布的<a target="_blank" rel="noopener" href="https://mmbiz.qpic.cn/mmbiz_gif/qdWB7wH8tToVOJUFAamQplZiaeSUp5JOK4aicbicMBfRCmnKxwwQicuCEyP48QZadBPicCRhgSiaqFu2b3qIMcaawlYA/640?wx_fmt=gif&wxfrom=5&wx_lazy=1">这张图</a>。</p>
+<p><strong>直接打开</strong><br>直接在浏览器中点击打开，显示正常。</p>
+<p><strong>本地文件</strong><br>但如果我们把这个链接加到一个网页中，比如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>测试微信防盗图<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://mmbiz.qpic.cn/mmbiz_gif/qdWB7wH8tToVOJUFAamQplZiaeSUp5JOK4aicbicMBfRCmnKxwwQicuCEyP48QZadBPicCRhgSiaqFu2b3qIMcaawlYA/640?wx_fmt=gif&amp;wxfrom=5&amp;wx_lazy=1&quot;</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>将它保存为<code>test.html</code>，然后在浏览器中打开，会发现图片显示仍然正常。这是从文件系统中打开的，微信允许这种跨域。</p>
+<p><strong>跨域请求</strong><br>我们在<code>test.html</code>同目录运行一个网络服务，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server 8000</span><br></pre></td></tr></table></figure>
+<p>然后使用这个网址<code>http://localhost:8000/test.html</code>再次打开这个网页，会发现图片显示不正常了。</p>
+<img src="/blog/2023/09/15/cors/cors_is_not_allowed.jpg" class="" title="未经允许不可引用">
+
+<p>这是因为微信判断了请求头中的<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer">Referer</a>，发现它们不是微信的域名，所以返回了错误提示图片。</p>
+<p>在这个例子里，为了更简单，我们使用了图片而不是JavaScript代码。<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin">在默认的情形下</a>，图片的访问并没有使用CORS。但足够我们对CROS有初步的认识。</p>
+<h2 id="一个简单的跨域请求例子"><a href="#一个简单的跨域请求例子" class="headerlink" title="一个简单的跨域请求例子"></a>一个简单的跨域请求例子</h2><p>我们修改一下<code>test.html</code>，使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">fetch</a>来发送一个跨域请求，比如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>测试跨域请求<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;log&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">log</span> = (<span class="params">msg</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;log&quot;</span>).<span class="property">innerHTML</span> += <span class="string">`&lt;p&gt;<span class="subst">$&#123;msg&#125;</span>&lt;/p&gt;`</span>;</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">f</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> request = <span class="keyword">new</span> <span class="title class_">Request</span>(<span class="string">&quot;http://localhost:3000/api/hello&quot;</span>, &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">method</span>: <span class="string">&quot;post&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">fetch</span>(request);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> text = <span class="keyword">await</span> result.<span class="title function_">text</span>();</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">log</span>(text);</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">f</span>().<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">log</span>(err);</span></span><br><span class="line"><span class="language-javascript">      &#125;);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后我们需要运行一个网络服务来提供web api服务，此时python的简单http.server就不够用了，我们换<a target="_blank" rel="noopener" href="https://deno.com/">deno</a>：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @deno-types=&quot;npm:@types/express@4.17.15&quot;</span></span><br><span class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">&quot;npm:express@4.18.2&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/api/hello&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&#x27;Welcome to the Dinosaur API!&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>我们先运行起来这个服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deno run -A ./server.ts</span><br></pre></td></tr></table></figure>
+
+<p>使用<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-webrequest">Invoke-WebRequest</a>来测试一下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PS &gt; Invoke-WebRequest -Method <span class="string">&#x27;POST&#x27;</span> -Uri <span class="string">&#x27;http://localhost:5000/api/hello&#x27;</span></span><br><span class="line">StatusCode        : 200</span><br><span class="line">StatusDescription : OK</span><br><span class="line">Content           : Welcome to the Dinosaur API!</span><br><span class="line">RawContent        : HTTP/1.1 200 OK</span><br><span class="line">                    vary: Accept-Encoding</span><br><span class="line">                    Content-Length: 28</span><br><span class="line">                    Content-Type: text/html; charset=utf-8</span><br><span class="line">                    Date: Mon, 18 Sep 2023 02:45:27 GMT</span><br><span class="line">                    ETag: W/<span class="string">&quot;1c-GX2ZfGSbrWakhyxxP2SDs+BrRUw&quot;</span></span><br><span class="line">                    X-Powered-By: Express...</span><br><span class="line">Forms             : &#123;&#125;</span><br><span class="line">Headers           : &#123;[vary, Accept-Encoding], [Content-Length, 28], [Content-Type, text/html; charset</span><br><span class="line">                    =utf-8], [Date, Mon, 18 Sep 2023 02:45:27 GMT]...&#125;</span><br><span class="line">Images            : &#123;&#125;</span><br><span class="line">InputFields       : &#123;&#125;</span><br><span class="line">Links             : &#123;&#125;</span><br><span class="line">ParsedHtml        : mshtml.HTMLDocumentClass</span><br><span class="line">RawContentLength  : 28</span><br></pre></td></tr></table></figure>
+
+<p>接着我们仍然在<code>test.html</code>同目录使用<code>python -m http.server 8000</code>来运行一个网络服务，然后在浏览器中打开<code>http://localhost:8000/test.html</code>。</p>
+<h3 id="跨域错误"><a href="#跨域错误" class="headerlink" title="跨域错误"></a>跨域错误</h3><p>会发现控制台中有错误：</p>
+<blockquote>
+<p>test.html:1  Access to fetch at ‘<a target="_blank" rel="noopener" href="http://localhost:3000/api/hello">http://localhost:3000/api/hello</a>‘ from origin ‘<a target="_blank" rel="noopener" href="http://localhost:8000/">http://localhost:8000</a>‘ has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource. If an opaque response serves your needs, set the request’s mode to ‘no-cors’ to fetch the resource with CORS disabled.</p>
+</blockquote>
+<p>意思是返回头没有指定包含<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a>，所以浏览器阻止了前端JavaScript代码访问跨域请求的返回内容。</p>
+<p>但这个请求本身是成功的，我们可以在浏览器调试工具的网络窗口中查看到返回头：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">content-length: 28</span><br><span class="line">content-type: text/html; charset=utf-8</span><br><span class="line">etag: W/&quot;1c-GX2ZfGSbrWakhyxxP2SDs+BrRUw&quot;</span><br><span class="line">x-powered-by: Express</span><br><span class="line">vary: Accept-Encoding</span><br><span class="line">date: Mon, 18 Sep 2023 03:13:36 GMT</span><br></pre></td></tr></table></figure>
+<p>只是浏览器阻止了<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">fetch</a>的返回内容并报错。</p>
+<h3 id="no-cors-request-mode"><a href="#no-cors-request-mode" class="headerlink" title="no-cors request mode"></a>no-cors request mode</h3><p>控制台的错误提示有这么一句：</p>
+<blockquote>
+<p>If an opaque response serves your needs, set the request’s mode to ‘no-cors’ to fetch the resource with CORS disabled.</p>
+</blockquote>
+<p>如果我们需要的是不透明的返回，可以设置<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Request/mode">request.mode</a>为<code>no-cors</code>来禁用CORS。</p>
+<p>什么叫不透明的返回呢？意思是只关心调用是否成功，不关心返回内容。</p>
+<p>我们试着修改一下fetch的Request：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="keyword">new</span> <span class="title class_">Request</span>(<span class="string">&quot;http://localhost:3000/api/hello&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">method</span>: <span class="string">&quot;post&quot;</span>,</span><br><span class="line">  <span class="attr">mode</span>: <span class="string">&quot;no-cors&quot;</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>会发现控制台中的错误消失了，但返回内容会为空。所以在绝大多数情况下，<code>no-cors</code>并不是我们需要的。</p>
+<p>在使用Request()构建函数时，<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Request/mode#default_mode">mode的默认值</a>为<code>cors</code>。<br>而在使用嵌入资源时，比如<code>&lt;img&gt;</code>，<code>&lt;iframe&gt;</code>这些标签时，除非设置了<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin">crossorigin属性</a>，否则默认值为<code>no-cors</code>。</p>
+<h3 id="simple-request和preflight-request"><a href="#simple-request和preflight-request" class="headerlink" title="simple request和preflight request"></a>simple request和preflight request</h3><p>在上面的例子中，我们发出的跨域请求属于<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#simple_requests">simple request</a>，不会触发<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Glossary/Preflight_request">preflight request</a>。</p>
+<p>之所以不对所有跨域请求都使用preflight机制，是为了支持表单<code>&lt;form&gt;</code>。简单的表单提交是允许跨域的。</p>
+<p>如果我们修改一下headers中的Content-Type，就会出现preflight请求了：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> request = <span class="keyword">new</span> <span class="title class_">Request</span>(<span class="string">&quot;http://localhost:3000/api/hello&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">method</span>: <span class="string">&quot;post&quot;</span>,</span><br><span class="line">  <span class="attr">headers</span>: &#123;</span><br><span class="line">    <span class="string">&quot;Content-Type&quot;</span>: <span class="string">&quot;text/xml&quot;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="解决跨域错误"><a href="#解决跨域错误" class="headerlink" title="解决跨域错误"></a>解决跨域错误</h2><p>当发生跨域请求时，不管是simple request还是preflight request，浏览器都会在返回头中检查<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a>是否包含当前<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin">Origin</a>。</p>
+<p>浏览器会在请求头中添加Origin属性，比如在打开一个<code>http://localhost:8080</code>上的网页，js脚本使用了fetch访问<code>http://localhost:5000/api</code>，此次fetch的请求头中，Origin会是<code>http://localhost:8080</code>。</p>
+<p>而默认的返回头不包含<code>Access-Control-Allow-Origin</code>，所以检查不通过。</p>
+<p>解决方法也很简单，在服务端返回头中添加<code>Access-Control-Allow-Origin</code>即可。</p>
+<h3 id="cors中间件"><a href="#cors中间件" class="headerlink" title="cors中间件"></a>cors中间件</h3><p>几乎所有网络服务框架都提供了cors中间件，比如express的<a target="_blank" rel="noopener" href="https://github.com/expressjs/cors">cors</a>，fastify的<a target="_blank" rel="noopener" href="https://github.com/fastify/fastify-cors">fastify-cors</a>, koa的<a target="_blank" rel="noopener" href="https://github.com/koajs/cors">@koa&#x2F;cors</a>。</p>
+<p>在默认配置下，cors中间件会在返回头中添加<code>Access-Control-Allow-Origin: *</code>，这样就允许了所有的跨域请求。</p>
+<p>修改后的服务端代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @deno-types=&quot;npm:@types/express@4.17.15&quot;</span></span><br><span class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">&quot;npm:express@4.18.2&quot;</span></span><br><span class="line"><span class="comment">// @deno-types=&quot;npm:@types/cors@2&quot;</span></span><br><span class="line"><span class="keyword">import</span> cors <span class="keyword">from</span> <span class="string">&quot;npm:cors@2.8.5&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cors</span>())</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/api/hello&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res.<span class="title function_">send</span>(<span class="string">&#x27;Welcome to the Dinosaur API!&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="浏览器扩展"><a href="#浏览器扩展" class="headerlink" title="浏览器扩展"></a>浏览器扩展</h3><p>因为阻止跨域请求是由浏览器来做的，所以在无法修改服务器时，也可以使用浏览器扩展来解决。Chrome有很多<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/search/cors">相关扩展</a>，实现原理是在所有返回头中都加上<code>Access-Control-Allow-Origin: *</code>。</p>
+<h2 id="另一个问题：跨域Set-Cookie"><a href="#另一个问题：跨域Set-Cookie" class="headerlink" title="另一个问题：跨域Set-Cookie"></a>另一个问题：跨域Set-Cookie</h2><p>有时我们需要在跨域请求中设置cookie，我们修改一下服务端代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/api/hello&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res</span><br><span class="line">    .<span class="title function_">cookie</span>(<span class="string">&#x27;cors-cookie&#x27;</span>, <span class="string">&#x27;my-ors-cookie&#x27;</span>)</span><br><span class="line">    .<span class="title function_">send</span>(<span class="string">&#x27;Welcome to the Dinosaur API!&#x27;</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到返回头中多了一个<code>Set-Cookie</code>：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: cors-cookie=my-ors-cookie; Path=/</span><br></pre></td></tr></table></figure>
+
+<p>但是在请求完成后，打开浏览器的调试工具查看Cookies，我们会发现cookie并没有被设置。</p>
+<h3 id="credentials"><a href="#credentials" class="headerlink" title="credentials"></a>credentials</h3><p>原因是cookie属于credentials。而<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#requests_with_credentials">credentials在跨域时</a>默认是不被允许的。</p>
+<h3 id="跨域使用credentials"><a href="#跨域使用credentials" class="headerlink" title="跨域使用credentials"></a>跨域使用credentials</h3><p>想要跨域设置cookie，需要满足以下条件：</p>
+<p><strong>响应头</strong><br>如果想跨域设置cookie，需要在响应头中添加这些：</p>
+<ul>
+<li> <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials">Access-Control-Allow-Credentials</a>设置为<code>true</code></li>
+<li>上面提到过的<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">Access-Control-Allow-Origin</a>，要满足当前Origin，<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials">且不能为<code>*</code></a></li>
+</ul>
+<p><strong>浏览器端</strong><br>在浏览器端需要设置<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Request/credentials">Request.credentials</a>为<code>include</code>。</p>
+<p>不同的库有不同的设置方法：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/withCredentials">XMLHttpRequest</a> 用 <code>xhr.withCredentials = true</code></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/fetch#credentials">ES6 fetch()</a> 用 <code>credentials: &#39;include&#39;</code></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/7190487/2237467">jQuery 1.5.1</a> 用 <code>xhrFields: &#123; withCredentials: true &#125;</code></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/a/40543547/2237467">axios</a> 用 <code>withCredentials: true</code></li>
+</ul>
+<h3 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h3><p><strong>响应头</strong></p>
+<ul>
+<li> <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Headers">Access-Control-Allow-Headers</a>设置为<code>Content-Type, *</code></li>
+</ul>
+<p><strong>Set-Cookie</strong></p>
+<ul>
+<li> <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite">SameSite</a>不能被设置为<code>Strict</code></li>
+</ul>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>最后贴一下完整的代码。</p>
+<p>服务端</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @deno-types=&quot;npm:@types/express@4.17.15&quot;</span></span><br><span class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">&quot;npm:express@4.18.2&quot;</span></span><br><span class="line"><span class="comment">// @deno-types=&quot;npm:@types/cors@2&quot;</span></span><br><span class="line"><span class="keyword">import</span> cors <span class="keyword">from</span> <span class="string">&quot;npm:cors@2.8.5&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>()</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">cors</span>(&#123;</span><br><span class="line">  <span class="attr">origin</span>: <span class="string">&#x27;http://localhost:8000&#x27;</span>,</span><br><span class="line">  <span class="attr">credentials</span>: <span class="literal">true</span></span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">post</span>(<span class="string">&#x27;/api/hello&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">  res</span><br><span class="line">    .<span class="title function_">cookie</span>(<span class="string">&#x27;cors-cookie&#x27;</span>, <span class="string">&#x27;my-ors-cookie&#x27;</span>)</span><br><span class="line">    .<span class="title function_">send</span>(<span class="string">&#x27;Welcome to the Dinosaur API!&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Listening on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>客户端</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>测试跨域请求<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;log&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">log</span> = (<span class="params">msg</span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;log&quot;</span>).<span class="property">innerHTML</span> += <span class="string">`&lt;p&gt;<span class="subst">$&#123;msg&#125;</span>&lt;/p&gt;`</span>;</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">const</span> <span class="title function_">f</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> request = <span class="keyword">new</span> <span class="title class_">Request</span>(<span class="string">&quot;http://localhost:3000/api/hello&quot;</span>, &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">method</span>: <span class="string">&quot;post&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">credentials</span>: <span class="string">&quot;include&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> result = <span class="keyword">await</span> <span class="title function_">fetch</span>(request);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> text = <span class="keyword">await</span> result.<span class="title function_">text</span>();</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">log</span>(text);</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">      <span class="title function_">f</span>().<span class="title function_">catch</span>(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">log</span>(err);</span></span><br><span class="line"><span class="language-javascript">      &#125;);</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/08/15/newbie-workout-squat/" rel="prev" title="新手健身·深蹲">
+                  <i class="fa fa-chevron-left"></i> 新手健身·深蹲
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="3bcb3bc9cbc97af301c4d8161449d438"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
