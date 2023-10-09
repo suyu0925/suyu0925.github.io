@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="推荐一款NAS工具：alist，它可以接入各种云盘作为存储，再以文件列表的形式向外提供服务。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="介绍一下alist">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/10/09/alist/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="推荐一款NAS工具：alist，它可以接入各种云盘作为存储，再以文件列表的形式向外提供服务。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-09T06:15:28.000Z">
+<meta property="article:modified_time" content="2023-10-09T06:47:04.775Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="善用佳软">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/10/09/alist/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/10/09/alist/","path":"2023/10/09/alist/","title":"介绍一下alist"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>介绍一下alist | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AD%98%E5%82%A8"><span class="nav-number">3.</span> <span class="nav-text">添加存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5WebDAV"><span class="nav-number">4.</span> <span class="nav-text">连接WebDAV</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#windows%E7%BD%91%E7%BB%9C%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">windows网络位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rclone"><span class="nav-number">4.2.</span> <span class="nav-text">rclone</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/10/09/alist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="介绍一下alist | Tasty Pub">
+      <meta itemprop="description" content="推荐一款NAS工具：alist，它可以接入各种云盘作为存储，再以文件列表的形式向外提供服务。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          介绍一下alist
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-09 14:15:28 / 修改时间：14:47:04" itemprop="dateCreated datePublished" datetime="2023-10-09T14:15:28+08:00">2023-10-09</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="介绍一下alist" href="/blog/2023/10/09/alist/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::d4b2b5f7a90549dc80309880c80f6da6" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">推荐一款NAS工具：alist，它可以接入各种云盘作为存储，再以文件列表的形式向外提供服务。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/">AList</a>是一款<a target="_blank" rel="noopener" href="https://github.com/alist-org/alist">开源</a>工具，它的官方介绍是：🗂️ 一个支持多存储的文件列表&#x2F;WebDAV程序，使用 Gin 和 Solidjs。</p>
+<p>它的作用是，接入各种存储（如本地存储、阿里云盘、115、OneDrive等），再以文件列表的形式向外提供服务（包括http和WebDAV）。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>最简单的安装方式仍然是<a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/guide/install/docker.html">使用docker</a>：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">    <span class="attr">alist:</span></span><br><span class="line">        <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">        <span class="attr">volumes:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;./alist:/opt/alist/data&#x27;</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">&#x27;127.0.0.1:5244:5244&#x27;</span></span><br><span class="line">        <span class="attr">environment:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">PUID=0</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">PGID=0</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">UMASK=022</span></span><br><span class="line">        <span class="attr">container_name:</span> <span class="string">alist</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">&#x27;xhofe/alist:latest&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>注意在这个例子中指定了<code>127.0.0.1:5244</code>，将使用权限限制在了本地。</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>直接使用docker compose启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker compose up -d</span><br></pre></td></tr></table></figure>
+
+<p>然后打开url：<a target="_blank" rel="noopener" href="http://localhost:5244/%EF%BC%8C%E5%B0%B1%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0alist%E7%9A%84%E7%95%8C%E9%9D%A2%E4%BA%86%E3%80%82">http://localhost:5244/，就可以看到alist的界面了。</a></p>
+<p>默认管理员账号为<code>admin</code>，密码需要<a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/guide/install/docker.html#%E6%9F%A5%E7%9C%8B%E7%AE%A1%E7%90%86%E5%91%98%E4%BF%A1%E6%81%AF">在命令行中重置或设置</a>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker <span class="built_in">exec</span> -it alist ./alist admin random</span><br><span class="line">INFO[2023-10-09 06:22:43] reading config file: data/config.json</span><br><span class="line">INFO[2023-10-09 06:22:43] load config from <span class="built_in">env</span> with prefix: ALIST_</span><br><span class="line">INFO[2023-10-09 06:22:43] init logrus...</span><br><span class="line">INFO[2023-10-09 06:22:43] admin user has been updated:</span><br><span class="line">INFO[2023-10-09 06:22:43] username: admin</span><br><span class="line">INFO[2023-10-09 06:22:43] password: RcbIZl5k</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加存储"><a href="#添加存储" class="headerlink" title="添加存储"></a>添加存储</h2><p>添加存储的方式有很多，比如：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/guide/drivers/local.html">本地存储</a></li>
+<li><a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/guide/drivers/aliyundrive_open.html">阿里云盘Open</a></li>
+<li><a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/guide/drivers/onedrive.html">OneDrive</a></li>
+<li><a target="_blank" rel="noopener" href="https://alist.nn.ci/zh/guide/drivers/115.html">115网盘</a></li>
+</ul>
+<p>按照对应的文档说明添加即可。</p>
+<h2 id="连接WebDAV"><a href="#连接WebDAV" class="headerlink" title="连接WebDAV"></a>连接WebDAV</h2><h3 id="windows网络位置"><a href="#windows网络位置" class="headerlink" title="windows网络位置"></a>windows网络位置</h3><p>windows内置了webdav支持。</p>
+<p>访问webdav方法：</p>
+<ul>
+<li>右键<code>此电脑</code></li>
+<li>选择<code>添加一个网络位置</code></li>
+<li>一路下一步，在<code>你想在哪儿创建这个网络位置？</code>提问时，<code>选择自定义网络位置</code></li>
+<li>在<code>Internet 地址或网络地址(A):</code>填写alist的webdav网址：<code>http://localhost:5244/dav</code></li>
+<li>输入账号admin和密码</li>
+<li>命名该网络位置，如alist</li>
+<li>完成，可在<code>此电脑</code>里的<code>网络位置</code>分栏访问alist文件夹</li>
+</ul>
+<p><strong>打开http支持</strong></p>
+<p><strong>注意</strong>，windows默认只支持https协议下的WebDAV。所以上面的操作会在填写alist的webdav地址后报错，提示<code>输入的文件夹似乎无效，请选择另一个</code>。</p>
+<p>这时需要打开http的支持。</p>
+<p>配置在注册表中，修改<code>\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WebClient\Parameters</code>中的<code>BasicAuthLevel</code>，将值从<code>1</code>改为<code>2</code>。</p>
+<p>修改完后，在<code>services.msc</code>服务中重新启动<code>WebClient</code>来让新配置生效。</p>
+<h3 id="rclone"><a href="#rclone" class="headerlink" title="rclone"></a>rclone</h3><p>也可使用<a target="_blank" rel="noopener" href="https://rclone.org/">rclone</a>，这里有介绍：<a href="/blog/2023/10/09/rclone/" title="介绍一下rclone">介绍一下rclone</a>。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/" rel="tag"># 善用佳软</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/09/28/personal-photos-management/" rel="prev" title="个人照片管理">
+                  <i class="fa fa-chevron-left"></i> 个人照片管理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2023/10/09/rclone/" rel="next" title="介绍一下rclone">
+                  介绍一下rclone <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="d4b2b5f7a90549dc80309880c80f6da6"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
