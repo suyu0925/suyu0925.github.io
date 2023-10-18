@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="一个javascript相关的技术博文合集，讲的很有意思，也有深度，值得一看。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="how javascript works">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/10/18/how-javascript-works/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="一个javascript相关的技术博文合集，讲的很有意思，也有深度，值得一看。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-18T06:13:10.000Z">
+<meta property="article:modified_time" content="2023-10-18T07:06:01.705Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/10/18/how-javascript-works/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/10/18/how-javascript-works/","path":"2023/10/18/how-javascript-works/","title":"how javascript works"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>how javascript works | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/10/18/how-javascript-works/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="how javascript works | Tasty Pub">
+      <meta itemprop="description" content="一个javascript相关的技术博文合集，讲的很有意思，也有深度，值得一看。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          how javascript works
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-18 14:13:10 / 修改时间：15:06:01" itemprop="dateCreated datePublished" datetime="2023-10-18T14:13:10+08:00">2023-10-18</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="how javascript works" href="/blog/2023/10/18/how-javascript-works/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::396bd118c62562eb27c278ce84c8fec0" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">一个javascript相关的技术博文合集，讲的很有意思，也有深度，值得一看。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>这系列文章的开创者是<a target="_blank" rel="noopener" href="https://sessionstack.com/">SessionStack</a>的创始人Alexander Zlatkov，最开始应该发布在SessionStack网站的<a target="_blank" rel="noopener" href="https://blog.sessionstack.com/tagged/tutorial">博客</a>上，为他公司引流。</p>
+<p>后面SessionStack网站改版，在公司博客里找不到了，但还有继续发布在Medium上。第27篇之前发布在<a target="_blank" rel="noopener" href="https://medium.com/@zlatkov">个人频道</a>，从第27篇开始就发布在公司频道<a target="_blank" rel="noopener" href="https://medium.com/sessionstack-blog/how-javascript-works/home">sessionstack-blog</a>下。此时作者已经不再是Alexander Zlatkov，是很多其他人，估计是公司开发团队成员。</p>
+<p>国内有人翻译了这系列文章的一部分（截止本文撰写时间，翻译了29篇），放在Github上，<a target="_blank" rel="noopener" href="https://github.com/Troland/how-javascript-works">how-javascript-works</a>。</p>
+<p>这个系列一直在更新，截止至目前，已经有75篇。最后一篇#76发布于今年5月。</p>
+<p>已完成的文章目录：</p>
+<ol>
+<li>An overview of the engine, the runtime, and the call stack</li>
+<li>Inside Google’s V8 engine + 5 tips on how to write optimized code</li>
+<li>Memory management + how to handle 4 common memory leaks</li>
+<li>The event loop and the rise of Async programming + 5 ways to better coding with async&#x2F;await</li>
+<li>Deep dive into WebSockets and HTTP&#x2F;2 with SSE + how to pick the right path</li>
+<li>A comparison with WebAssembly + why in certain cases it’s better to use it over JavaScript</li>
+<li>The building blocks of Web Workers + 5 cases when you should use them</li>
+<li>Service Workers, their life-cycle, and use cases</li>
+<li>The mechanics of Web Push Notifications</li>
+<li>Tracking changes in the DOM using MutationObserver</li>
+<li>The rendering engine and tips to optimize its performance</li>
+<li>Inside the Networking Layer + How to Optimize Its Performance and Security</li>
+<li>Under the hood of CSS and JS animations + how to optimize their performance</li>
+<li>Parsing, Abstract Syntax Trees (ASTs) + 5 tips on how to minimize parse time</li>
+<li>The internals of classes and inheritance + transpiling in Babel and TypeScript</li>
+<li>Storage engines + how to choose the proper storage API</li>
+<li>The internals of Shadow DOM + how to build self-contained components</li>
+<li>WebRTC and the mechanics of peer to peer networking</li>
+<li>Under the hood of custom elements + Best practices on building reusable components</li>
+<li>exceptions + best practices for synchronous and asynchronous code</li>
+<li>5 types of XSS attacks + tips on preventing them</li>
+<li>CSRF attacks + 7 mitigation strategies</li>
+<li>iterators + tips on gaining advanced control over generators</li>
+<li>Cryptography + how to deal with man-in-the-middle (MITM) attacks</li>
+<li>Functional style and how it compares to other approaches</li>
+<li>Three types of polymorphism</li>
+<li>Regular expressions (RegExp)</li>
+<li>Introduction to Deno</li>
+<li>Creational, Structural, and Behavioural design patterns + 4 best practices</li>
+<li>Modularity and reusability with MVC</li>
+<li>Cross-browser testing + tips for prerelease browsers</li>
+<li>The “this” variable and the execution contextf</li>
+<li>High-performing code + 8 optimization tips</li>
+<li>Debugging overview + 4 tips for async code</li>
+<li>Deep dive into call, apply, and bind</li>
+<li>The evolution of graphics</li>
+<li>Dockerizing a Node.js application</li>
+<li>A deep dive into decorators</li>
+<li>Best practices for data compliance</li>
+<li>Arrays vs Hash Tables</li>
+<li>Proxy and Reflect</li>
+<li>SVG and its use cases (part 1)</li>
+<li>Class static blocks + 6 proposed semantics</li>
+<li>Introduction to Graphs and Trees</li>
+<li>Introduction to PM2, Strongloop, and Forever + 4 tips for Production Process Managers</li>
+<li>Аdvanced SVG capabilities (part 2)</li>
+<li>Тhe publisher-subscriber pattern</li>
+<li>Stacks and Queues + tips for efficient implementation</li>
+<li>Lists vs Blockchain + implementation practices</li>
+<li>The module pattern + comparing CommonJS, AMD, UMD, and ES6 Modules</li>
+<li>The different types of conditional statements + 3 best practices</li>
+<li>The different ways of declaring a function + 5 best practices</li>
+<li>The factory design pattern + 4 use cases</li>
+<li>A guide to build tools + exploring Webpack, Parcel, Rollup, ES Build, and Snowpack</li>
+<li>Building a child process in Node.js</li>
+<li>Streams and their use cases</li>
+<li>understanding Maps and their use cases + 4 advantages compared to Objects</li>
+<li>A deep dive into Webpack</li>
+<li>Recursion in JavaScript, What It Is, and How it is used</li>
+<li>Implementation of gRPC in a Nodejs application</li>
+<li>A deep dive into Vite</li>
+<li>A deep dive into esbuild</li>
+<li>Database Indexing. The Good and Bad Parts</li>
+<li>understanding Snowpack, the next generation JavaScript bundler</li>
+<li>parallelism vs concurrency in JavaScript, what’s the difference?</li>
+<li>Optional chaining and BigInt, new game-changer features for data analysts.</li>
+<li>A complete guide to Events And Event Listeners in JavaScript</li>
+<li>Why you need a CLI and How to build a CLI with JavaScript</li>
+<li>Nodejs Performance And Thread Pool Management</li>
+<li>Understanding modular and functional programming with JavaScript and Firebase…</li>
+<li>A complete guide to asynchronous JavaScript</li>
+<li>Understanding WebSockets in Nodejs with Socket.io</li>
+<li>Deploying a Nodejs application with Kubernetes</li>
+<li>JavaScript Location Object And How Protocols Work</li>
+<li></li>
+<li>hat are Task Runners + Introduction to Gulp</li>
+</ol>
+<p>关于JS顺便推一下另一本书，<a target="_blank" rel="noopener" href="https://github.com/getify/You-Dont-Know-JS">《You Dont Know JS》</a>。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/10/12/home-decoration-handbook/" rel="prev" title="装修宝典">
+                  <i class="fa fa-chevron-left"></i> 装修宝典
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2023/10/18/restorative-workout-plan/" rel="next" title="恢复性训练计划">
+                  恢复性训练计划 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="396bd118c62562eb27c278ce84c8fec0"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>
