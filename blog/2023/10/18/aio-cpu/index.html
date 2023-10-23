@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
-    <meta name="description" content="想组个NAS存照片，先来看一下适合做AIO（All In One）的CPU选择。">
+    <meta name="description" content="先来看一下适合做AIO的CPU。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AIO：CPU选择">
+<meta property="og:title" content="[AIO]选择合适的CPU">
 <meta property="og:url" content="http://suyu0925.github.io/blog/2023/10/18/aio-cpu/index.html">
 <meta property="og:site_name" content="Tasty Pub">
-<meta property="og:description" content="想组个NAS存照片，先来看一下适合做AIO（All In One）的CPU选择。">
+<meta property="og:description" content="先来看一下适合做AIO的CPU。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-18T08:36:42.000Z">
-<meta property="article:modified_time" content="2023-10-18T08:57:31.382Z">
+<meta property="article:modified_time" content="2023-10-19T07:14:41.766Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
@@ -36,10 +36,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/10/18/aio-cpu/","path":"2023/10/18/aio-cpu/","title":"AIO：CPU选择"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/10/18/aio-cpu/","path":"2023/10/18/aio-cpu/","title":"[AIO]选择合适的CPU"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>AIO：CPU选择 | Tasty Pub</title>
+<title>[AIO]选择合适的CPU | Tasty Pub</title>
   
 
   <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
@@ -139,7 +139,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%91%E9%80%89%E6%A0%87%E5%87%86"><span class="nav-number">1.</span> <span class="nav-text">挑选标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8E%E5%8A%9F%E8%80%97CPU"><span class="nav-number">2.</span> <span class="nav-text">低功耗CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%8A%9F%E8%80%97CPU"><span class="nav-number">3.</span> <span class="nav-text">中功耗CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">147</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -203,12 +203,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="AIO：CPU选择 | Tasty Pub">
-      <meta itemprop="description" content="想组个NAS存照片，先来看一下适合做AIO（All In One）的CPU选择。">
+      <meta itemprop="name" content="[AIO]选择合适的CPU | Tasty Pub">
+      <meta itemprop="description" content="先来看一下适合做AIO的CPU。">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          AIO：CPU选择
+          [AIO]选择合适的CPU
         </h1>
 
         <div class="post-meta-container">
@@ -218,9 +218,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-10-18 16:36:42 / 修改时间：16:57:31" itemprop="dateCreated datePublished" datetime="2023-10-18T16:36:42+08:00">2023-10-18</time>
+      <time title="创建时间：2023-10-18 16:36:42" itemprop="dateCreated datePublished" datetime="2023-10-18T16:36:42+08:00">2023-10-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-19 15:14:41" itemprop="dateModified" datetime="2023-10-19T15:14:41+08:00">2023-10-19</time>
     </span>
 
   
@@ -239,7 +245,7 @@
       </span>
       <span class="post-meta-item-text">Changyan：</span>
     
-    <a title="AIO：CPU选择" href="/blog/2023/10/18/aio-cpu/#SOHUCS" itemprop="discussionUrl">
+    <a title="[AIO]选择合适的CPU" href="/blog/2023/10/18/aio-cpu/#SOHUCS" itemprop="discussionUrl">
       <span id="sourceId::2d79ee6be0997e5ff8e131ab6983b3ab" class="cy_cmt_count" itemprop="commentCount"></span>
     </a>
   </span>
@@ -247,7 +253,7 @@
   
 </div>
 
-            <div class="post-description">想组个NAS存照片，先来看一下适合做AIO（All In One）的CPU选择。</div>
+            <div class="post-description">先来看一下适合做AIO的CPU。</div>
         </div>
       </header>
 
@@ -255,12 +261,28 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>先看一下目前市面上流行的低功耗CPU对比：</p>
+        <h2 id="挑选标准"><a href="#挑选标准" class="headerlink" title="挑选标准"></a>挑选标准</h2><p>什么样的CPU才符合AIO的要求呢？大概有下面这些。</p>
+<ul>
+<li>支持虚拟化</li>
+</ul>
+<p>虚拟化是必须的，不然别说ESXi，PVE，unRaid这些虚拟机，连docker都用不了。</p>
+<ul>
+<li><p>性能过关<br>首先必须得满足基本性能要求，毕竟是AIO，不是简单的存个文件，还会承担虚拟机、解码转码、图像处理，甚至编译等工作。</p>
+</li>
+<li><p>低功耗<br>AIO是24小时开机的，功耗就等于白花花的银子。</p>
+</li>
+<li><p>内存支持<br>最大支持内存尽量上16G，8G跑虚拟机不太够。支持双通道为佳，没有关系也不大。</p>
+</li>
+<li><p>硬解码<br>虽然现在网络速度越来越快，完全可以直接传输源视频，但不能要求客户端全部都支持解码。所以最好的播放方式还是在AIO上解码，传输已经解码的视频流。</p>
+</li>
+</ul>
+<h2 id="低功耗CPU"><a href="#低功耗CPU" class="headerlink" title="低功耗CPU"></a>低功耗CPU</h2><p>先看一下目前市面上流行的低功耗且支持虚拟化技术的CPU对比：</p>
 <table>
 <thead>
 <tr>
 <th align="right"></th>
-<th align="right">J4125</th>
+<th align="right">J1900</th>
+<th>J4125</th>
 <th>N5105</th>
 <th>J6412</th>
 <th>N100</th>
@@ -269,15 +291,17 @@
 </thead>
 <tbody><tr>
 <td align="right">核心数</td>
-<td align="right">4CT4T</td>
-<td>4CT4T</td>
-<td>4CT4T</td>
-<td>4CT4T</td>
-<td>8CT8T</td>
+<td align="right">4C4T</td>
+<td>4C4T</td>
+<td>4C4T</td>
+<td>4C4T</td>
+<td>4C4T</td>
+<td>8C8T</td>
 </tr>
 <tr>
 <td align="right">主频&#x2F;睿频</td>
-<td align="right">2.0&#x2F;2.7GHz</td>
+<td align="right">2.0&#x2F;2.42GHz</td>
+<td>2.0&#x2F;2.7GHz</td>
 <td>2.0&#x2F;2.9GHz</td>
 <td>2.0&#x2F;2.7GHz</td>
 <td>0.8&#x2F;3.4GHz</td>
@@ -285,7 +309,8 @@
 </tr>
 <tr>
 <td align="right">制程</td>
-<td align="right">10nm</td>
+<td align="right">22nm</td>
+<td>14nm</td>
 <td>10nm</td>
 <td>10nm</td>
 <td>7nm</td>
@@ -296,12 +321,14 @@
 <td align="right">10W</td>
 <td>10W</td>
 <td>10W</td>
+<td>10W</td>
 <td>6W</td>
 <td>15W</td>
 </tr>
 <tr>
 <td align="right">核显</td>
-<td align="right">UHD 600</td>
+<td align="right">Z3700</td>
+<td>UHD 600</td>
 <td>24EU</td>
 <td>16EU</td>
 <td>24EU</td>
@@ -309,7 +336,8 @@
 </tr>
 <tr>
 <td align="right">黑群晖硬解</td>
-<td align="right">✔️</td>
+<td align="right">❎</td>
+<td>✔️</td>
 <td>✔️</td>
 <td>✔️</td>
 <td>❎</td>
@@ -318,6 +346,7 @@
 <tr>
 <td align="right">最大支持内存</td>
 <td align="right">8GB&#x2F;双</td>
+<td>8GB&#x2F;双</td>
 <td>32GB&#x2F;双</td>
 <td>32GB&#x2F;双</td>
 <td>16GB&#x2F;单</td>
@@ -325,7 +354,8 @@
 </tr>
 <tr>
 <td align="right">CPU-Z单核跑分</td>
-<td align="right">213</td>
+<td align="right">92</td>
+<td>213</td>
 <td>255</td>
 <td>240</td>
 <td>380</td>
@@ -333,7 +363,8 @@
 </tr>
 <tr>
 <td align="right">CPU-Z多核跑分</td>
-<td align="right">807</td>
+<td align="right">367</td>
+<td>807</td>
 <td>994</td>
 <td>950</td>
 <td>1298</td>
@@ -341,14 +372,18 @@
 </tr>
 <tr>
 <td align="right">发布时间</td>
-<td align="right">2019Q4</td>
+<td align="right">2013Q4</td>
+<td>2019Q4</td>
 <td>2021Q1</td>
 <td>2021Q1</td>
 <td>2023Q1</td>
 <td>2023Q1</td>
 </tr>
 </tbody></table>
+<p>CPU的spec可以上<a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/overview.html">intel官网</a>搜索查看，cpu-z分数可谷歌<code>cpu-z benchmark &#123;cpu型号&#125;</code>在<a target="_blank" rel="noopener" href="https://valid.x86.fr/">cpu-z validator</a>查看。</p>
 <p>目前主流仍是N5015和J6412，但第12代U已经开始逐步发力。比如<a target="_blank" rel="noopener" href="https://mall.jd.com/index-10253706.html">畅网微控</a>就在主推。</p>
+<h2 id="中功耗CPU"><a href="#中功耗CPU" class="headerlink" title="中功耗CPU"></a>中功耗CPU</h2><p>如果对AIO的性能要求比较高，还是有一些中功耗的CPU可以考虑。</p>
+<p>TODO:</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li>什么值得买上<a target="_blank" rel="noopener" href="https://zhiyou.smzdm.com/member/7188731034/">冥冰薇</a>的<a target="_blank" rel="noopener" href="https://post.smzdm.com/xilie/98415/">玩转NAS</a>系列和<a target="_blank" rel="noopener" href="https://post.smzdm.com/xilie/102537/">AIO从入门到如土</a>系列</li>
 </ul>
@@ -365,11 +400,14 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2023/10/18/restorative-workout-plan/" rel="prev" title="恢复性训练计划">
-                  <i class="fa fa-chevron-left"></i> 恢复性训练计划
+                <a href="/blog/2023/10/18/try-aio/" rel="prev" title="[AIO]开个新坑，尝试弄个AIO">
+                  <i class="fa fa-chevron-left"></i> [AIO]开个新坑，尝试弄个AIO
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/blog/2023/10/23/open-music-player/" rel="next" title="介绍几款开源音乐播放器">
+                  介绍几款开源音乐播放器 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
