@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="看完CPU我们再来看一下接口。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[AIO]接口">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/10/27/aio-ports/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="看完CPU我们再来看一下接口。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-27T01:45:56.000Z">
+<meta property="article:modified_time" content="2023-10-27T06:28:58.047Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/10/27/aio-ports/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/10/27/aio-ports/","path":"2023/10/27/aio-ports/","title":"[AIO]接口"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[AIO]接口 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%B5%E6%BA%90%E8%BE%93%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">电源输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E8%BE%93%E5%87%BA"><span class="nav-number">2.</span> <span class="nav-text">视频输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#USB"><span class="nav-number">3.</span> <span class="nav-text">USB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E5%AD%98%E5%82%A8"><span class="nav-number">4.</span> <span class="nav-text">内部存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C"><span class="nav-number">5.</span> <span class="nav-text">网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91"><span class="nav-number">6.</span> <span class="nav-text">音频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#COM"><span class="nav-number">7.</span> <span class="nav-text">COM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E4%B8%BB%E6%9C%BA%E7%9A%84%E6%8E%A5%E5%8F%A3%E4%B8%BE%E4%BE%8B"><span class="nav-number">8.</span> <span class="nav-text">小主机的接口举例</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/10/27/aio-ports/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[AIO]接口 | Tasty Pub">
+      <meta itemprop="description" content="看完CPU我们再来看一下接口。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [AIO]接口
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-10-27 09:45:56 / 修改时间：14:28:58" itemprop="dateCreated datePublished" datetime="2023-10-27T09:45:56+08:00">2023-10-27</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="[AIO]接口" href="/blog/2023/10/27/aio-ports/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::6aa49162cb793afac828d4b1ca7ffe39" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+            <div class="post-description">看完CPU我们再来看一下接口。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>电脑的接口可以分成这么几类：</p>
+<ul>
+<li>电源输入</li>
+<li>显示输出</li>
+<li>USB</li>
+<li>内部存储</li>
+<li>网络</li>
+<li>COM</li>
+<li>音频</li>
+</ul>
+<p>其中，有一些接口需要使用PCIe通道，包括：</p>
+<ul>
+<li>网卡</li>
+<li>USB 3.2（包括全功能Type-C）</li>
+<li>M.2 NVMe</li>
+</ul>
+<p>我们一个个来看。</p>
+<h2 id="电源输入"><a href="#电源输入" class="headerlink" title="电源输入"></a>电源输入</h2><p>AIO因为是24小时开机，所以功率不高。电源输入有2种形式，DC和Type-C。</p>
+<p>相比DC，Type-C要方便得多，可以接显示器的Type-C输出电源，也可以接手机的充电器，甚至是移动电源。</p>
+<p>有一些迷你主机厂商会把充电口做成磁吸式，但磁吸式的安全性不如插入式，因为不像笔记本有内置电池，所以反而是减分项。</p>
+<h2 id="视频输出"><a href="#视频输出" class="headerlink" title="视频输出"></a>视频输出</h2><p>视频输出有3种可用接口：</p>
+<ul>
+<li>HDMI</li>
+<li>DP</li>
+<li>USB Type-C</li>
+</ul>
+<p>注意，虽然接口一样，但最终效果可能差别很大。</p>
+<ul>
+<li>一方面使用的协议不同，最大传输带宽就不同；</li>
+<li>另一方面即使是相同的传输带宽，在整机输出选择高分辨率，还是高刷新率，还是HDR支持上，也可能有差别。</li>
+</ul>
+<p>所以在描述一款主机的视频输出时，我们要在说明接口的同时，带上最终的显示效果，比如<code>HDMI 4K 60Hz</code>、<code>DP 4K 120Hz/8K 60Hz</code>。</p>
+<p>至于是HDMI 2.0&#x2F;2.1，DP 1.4&#x2F;2.0，其实反倒没那么重要，看最终效果就好了，光接口支持没用（点名小米）。</p>
+<h2 id="USB"><a href="#USB" class="headerlink" title="USB"></a>USB</h2><p>首先传统的USB接口和Type-C接口都属于USB，前者叫做USB-A，后者叫做USB-C。</p>
+<p>不同的USB接口可以使用相同的USB协议，而有些USB协议只能走USB-C口。</p>
+<p>具体可参见<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/USB">USB的维基</a>。</p>
+<p><strong>多功能</strong><br>USB-C有着最丰富的spec，共24针脚。做为对比，USB-A有4针，Micro-A有5针，苹果的Lightning有8针。<br>所以同一个USB-C口，可以做到多个功能：</p>
+<ul>
+<li>传输数据</li>
+<li><a target="_blank" rel="noopener" href="https://www.benq.com/en-me/knowledge-center/knowledge/usb-c-introduction-what-is-dp-alt-mode.html">视频输出</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.usb.org/usb-charger-pd">充电</a><br>同时拥有全部功能的USB-C接口又被叫做全功能Type-C。</li>
+</ul>
+<p><strong>PCIe通道</strong><br>USB的超大带宽也需要PCIe通道的支持。比如USB3.2 Gen2、USB4.0、雷电3等。</p>
+<h2 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h2><p>内部存储的接口就2种：SATA和M.2。mSATA（Mini-Serial ATA）很少见，而传统的IDE（Integrated Drive Electronics）接口早就被淘汰了。</p>
+<p><strong>M.2</strong><br>注意<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/M.2">M.2</a>只是一种接口，并不是传输协议，后面接的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/NVM_Express">NVMe</a>才是传输协议。实际上也有M.2 SATA SSD。</p>
+<p>同时M.2还有多种尺寸，从最短的2230和最长的22110，最常见的是2280和2242。</p>
+<ul>
+<li>22表示M.2插槽的宽度，可以看出插槽是一致的</li>
+<li>30、80、110表示长度，不同的长度需要在主板上有不同位置的固定螺丝孔。</li>
+</ul>
+<p><strong>PCIe通道</strong><br>其中，SATA可以走主板接口，也可以走PCIe通道。NVMe则必须走PCIe通道。</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/PCI_Express">PCIe通道</a>有两个参数，版本和通道数量（lane）。</p>
+<ul>
+<li>常见的PCIe的版本有3.0和4.0。4.0的最大传输带宽是3.0的2倍。</li>
+<li>通道数量可以配1根，也可以配4根。每根3.0的通道带宽约为945MB&#x2F;s。<br>组合起来就像是：<code>PCIe 3.0x1</code>、<code>PCIe 4.0x4</code>。</li>
+</ul>
+<p>通常来说，M.2 NVMe SSD（Solid-State Drive）的性能会分为3档：</p>
+<ul>
+<li>1500MB&#x2F;s：PCIe 3.0x2 &#x2F; PCIe 4.0x1</li>
+<li>3500MB&#x2F;s：PCIe 3.0x4 &#x2F; PCIe 4.0x2</li>
+<li>7000MB&#x2F;s：PCIe 4.0x4</li>
+</ul>
+<p>AIO对存储速度要求没那么高，不需要<code>PCIe 4.4x4</code>的7000MB&#x2F;s极限速度，对多个硬盘组RAID的需求更大一些。所以一般会将多个PCIe通道分成多个M.2插槽，而不是集中在一个插槽上。<br>如果要胜任NAS功能，那么最少需要2根PCIe通道做为NVMe存储使用。</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p>网络接口分为有线和无线。</p>
+<p>有线网口需要高传输速度，所以需要使用1根PCIe通道。做为AIO，如果不要当做旁路由而是主路由使用，2个有线网口是必须的。</p>
+<p>而2.5G网口一般不是必须，因为需要全屋配套都升级才有意义。</p>
+<p>AIO需要稳定的网络接入，无线网卡比较鸡肋，通常是挂在显示器背后的迷你主机才用得上。所以一般不作为标配，想要的话可以拿1根PCIe通道来转。</p>
+<h2 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h2><p>音频接口有2种，3.5mm和Type-C。</p>
+<p>Type-C通常是移动设备上才用，PC没那么缺空间。</p>
+<p>但小主机也不像普通PC那样富裕，所以为了节省空间，通常使用的都是结合了麦克风的二合一3.5mm接口。</p>
+<h2 id="COM"><a href="#COM" class="headerlink" title="COM"></a>COM</h2><p>COM口一般出现在工控机上，做为家庭AIO使用的主机很少配这个口了。</p>
+<h2 id="小主机的接口举例"><a href="#小主机的接口举例" class="headerlink" title="小主机的接口举例"></a>小主机的接口举例</h2><p>拿几款N100的小主机来举例，看看它们的接口配置。</p>
+<p>为节省篇幅，视频输出默认4K 60Hz。如有不同会标出。</p>
+<table>
+<thead>
+<tr>
+<th align="right"></th>
+<th align="right"><a target="_blank" rel="noopener" href="https://item.jd.com/10071528654407.html">畅网N100先锋</a></th>
+<th><a target="_blank" rel="noopener" href="https://item.jd.com/10071133271986.html">零刻EQ12</a></th>
+<th><a target="_blank" rel="noopener" href="https://item.jd.com/10078126275015.html">摩方M6S</a></th>
+<th><a target="_blank" rel="noopener" href="https://item.jd.com/10074234612876.html">铭凡UN100C</a></th>
+<th><a target="_blank" rel="noopener" href="https://item.jd.com/10082105446515.html">超迷M1</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">有线网口</td>
+<td align="right">4 * i225-V(2.5G)</td>
+<td>2 * i225-V(2.5G)</td>
+<td>1 * 千兆</td>
+<td>2 * 千兆</td>
+<td>4 * i226-V(2.5G)</td>
+</tr>
+<tr>
+<td align="right">WiFi</td>
+<td align="right">M.2 KEY-E(支持WiFi6，蓝牙)</td>
+<td>WiFi6，蓝牙5.2</td>
+<td>WiFi，蓝牙</td>
+<td>&#x2F;</td>
+<td>&#x2F;</td>
+</tr>
+<tr>
+<td align="right">M.2存储</td>
+<td align="right">M.2 NVMe x4</td>
+<td>M.2 2280 PCIe3.0x1</td>
+<td>M.2 2242 PCIe&#x2F;SATA</td>
+<td>M.2 2280 SATA</td>
+<td>M.2 2242 PCIe3.0x1</td>
+</tr>
+<tr>
+<td align="right">SATA存储</td>
+<td align="right"><em>需转接板</em></td>
+<td>2.5寸7mm SATA</td>
+<td><em>与M.2共用</em></td>
+<td>2.5寸7mm SATA 3.0</td>
+<td>&#x2F;</td>
+</tr>
+<tr>
+<td align="right">视频输出</td>
+<td align="right">HDMI2.1, DP1.4</td>
+<td>2 * HDMI2.0, USB-C</td>
+<td>2 * HDMI2.0</td>
+<td>2 * HDMI, USB-C</td>
+<td>HDMI, USB-C</td>
+</tr>
+<tr>
+<td align="right">USB-A</td>
+<td align="right">4 * USB2.0</td>
+<td>3 * USB3.2 Gen2</td>
+<td>3 * USB3.2</td>
+<td>2 * USB3.2 Gen1, 2 * USB3.2 Gen2</td>
+<td>2 * USB3.0</td>
+</tr>
+<tr>
+<td align="right">USB-C</td>
+<td align="right">&#x2F;</td>
+<td>数据+视频</td>
+<td>数据+充电</td>
+<td>数据+视频+充电</td>
+<td>数据+视频</td>
+</tr>
+<tr>
+<td align="right">电源</td>
+<td align="right">DC 12V</td>
+<td>DC 12V&#x2F;3A</td>
+<td>DC 12V&#x2F;3A，PD</td>
+<td>DC 12V</td>
+<td>DC 12-19V，PD 55W以上</td>
+</tr>
+</tbody></table>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/10/25/download-icloud-photos/" rel="prev" title="下载iCloud相册">
+                  <i class="fa fa-chevron-left"></i> 下载iCloud相册
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="6aa49162cb793afac828d4b1ca7ffe39"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cywtiyNzF","appkey":"f5ee7f31d8d9dc6a319884d0bab14dd5","count":true}</script>
+<script src="/blog/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>

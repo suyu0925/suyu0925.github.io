@@ -27,7 +27,7 @@
 <meta property="og:description" content="先来看一下适合做AIO的CPU。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-18T08:36:42.000Z">
-<meta property="article:modified_time" content="2023-10-19T07:14:41.766Z">
+<meta property="article:modified_time" content="2023-10-26T07:02:03.910Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
@@ -139,7 +139,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%91%E9%80%89%E6%A0%87%E5%87%86"><span class="nav-number">1.</span> <span class="nav-text">挑选标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8E%E5%8A%9F%E8%80%97CPU"><span class="nav-number">2.</span> <span class="nav-text">低功耗CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%8A%9F%E8%80%97CPU"><span class="nav-number">3.</span> <span class="nav-text">中功耗CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">4.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%91%E9%80%89%E6%A0%87%E5%87%86"><span class="nav-number">1.</span> <span class="nav-text">挑选标准</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8E%E5%8A%9F%E8%80%97CPU"><span class="nav-number">2.</span> <span class="nav-text">低功耗CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%AD%E5%8A%9F%E8%80%97CPU"><span class="nav-number">3.</span> <span class="nav-text">中功耗CPU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-count">153</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -226,7 +226,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-19 15:14:41" itemprop="dateModified" datetime="2023-10-19T15:14:41+08:00">2023-10-19</time>
+      <time title="修改时间：2023-10-26 15:02:03" itemprop="dateModified" datetime="2023-10-26T15:02:03+08:00">2023-10-26</time>
     </span>
 
   
@@ -276,7 +276,7 @@
 <li><p>硬解码<br>虽然现在网络速度越来越快，完全可以直接传输源视频，但不能要求客户端全部都支持解码。所以最好的播放方式还是在AIO上解码，传输已经解码的视频流。</p>
 </li>
 </ul>
-<h2 id="低功耗CPU"><a href="#低功耗CPU" class="headerlink" title="低功耗CPU"></a>低功耗CPU</h2><p>先看一下目前市面上流行的低功耗且支持虚拟化技术的CPU对比：</p>
+<h2 id="低功耗CPU"><a href="#低功耗CPU" class="headerlink" title="低功耗CPU"></a>低功耗CPU</h2><p>先看一下目前市面上流行的低功耗且支持虚拟化技术的CPU对比，基本全是Intel赛扬，以及今年新出的N系列。</p>
 <table>
 <thead>
 <tr>
@@ -371,6 +371,15 @@
 <td>2734</td>
 </tr>
 <tr>
+<td align="right">PCI-E通道数&#x2F;代数</td>
+<td align="right">4&#x2F;2</td>
+<td>6&#x2F;2</td>
+<td>8&#x2F;3</td>
+<td>8&#x2F;3</td>
+<td>9&#x2F;3</td>
+<td>9&#x2F;3</td>
+</tr>
+<tr>
 <td align="right">发布时间</td>
 <td align="right">2013Q4</td>
 <td>2019Q4</td>
@@ -381,9 +390,35 @@
 </tr>
 </tbody></table>
 <p>CPU的spec可以上<a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/overview.html">intel官网</a>搜索查看，cpu-z分数可谷歌<code>cpu-z benchmark &#123;cpu型号&#125;</code>在<a target="_blank" rel="noopener" href="https://valid.x86.fr/">cpu-z validator</a>查看。</p>
-<p>目前主流仍是N5015和J6412，但第12代U已经开始逐步发力。比如<a target="_blank" rel="noopener" href="https://mall.jd.com/index-10253706.html">畅网微控</a>就在主推。</p>
+<p>目前主流已经从N5015和J6412逐步过渡到N100和N305，不论是工控机厂商，还是迷你主机厂商都在推出13代产品。</p>
+<p>工控机厂商：<a target="_blank" rel="noopener" href="https://mall.jd.com/index-10253706.html">畅网微控</a>、<a target="_blank" rel="noopener" href="https://mall.jd.com/index-656484.html">康耐信&#x2F;幻网</a>、<a target="_blank" rel="noopener" href="https://mall.jd.com/index-939666.html">倍控</a>.</p>
+<p>迷你主机厂商：<a target="_blank" rel="noopener" href="https://www.bee-link.com.cn/computer-73493777">零刻</a>、<a target="_blank" rel="noopener" href="https://mall.jd.com/index-124764.html">天钡</a>、<a target="_blank" rel="noopener" href="https://mall.jd.com/index-10871263.html">铭凡</a>、<a target="_blank" rel="noopener" href="https://mall.jd.com/index-12593391.html">极摩客</a>，<a target="_blank" rel="noopener" href="https://mall.jd.com/index-12811467.html">超迷</a>。</p>
+<p>传统电脑厂商也早就开启战火，但主要集中在中功耗主机上，以<a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/products/details/nuc.html">Intel NUC</a>和<a target="_blank" rel="noopener" href="https://www.apple.com.cn/mac-mini/">Mac mini</a>为代表。后面有了<a target="_blank" rel="noopener" href="https://www.mi.com/computer-mini">小米迷你主机</a>、<a target="_blank" rel="noopener" href="https://tw-store.msi.com/collections/dt-cubi%E7%B3%BB%E5%88%97">微星Cubi</a>、华硕的<a target="_blank" rel="noopener" href="https://www.asus.com.cn/displays-desktops/mini-pcs/all-series/">mini系列</a>和<a target="_blank" rel="noopener" href="https://www.asus.com.cn/displays-desktops/nucs/nuc-mini-pcs/">NUC</a>。</p>
 <h2 id="中功耗CPU"><a href="#中功耗CPU" class="headerlink" title="中功耗CPU"></a>中功耗CPU</h2><p>如果对AIO的性能要求比较高，还是有一些中功耗的CPU可以考虑。</p>
-<p>TODO:</p>
+<p>Intel<br>Intel的CPU主要分为酷睿（旗舰）、赛扬（低功耗）、至强（服务器）、奔腾（办公）、1字母+3数字（新产品线，如N100），命名规则可跳转官网<a target="_blank" rel="noopener" href="https://www.intel.cn/content/www/cn/zh/processors/processor-numbers.html">英特尔® 处理器名称和编号</a>查看。</p>
+<ul>
+<li>第9代Intel CPU比较特别，它是最后一代可以装Win7的CPU，所以存在溢价。</li>
+<li>第11代Intel CPU制程落后，卡在10和12之间，定位尴尬。</li>
+<li>Intel家主要选择8、10、12和13代。</li>
+<li>垃圾佬最爱的至强E3（我就曾经有过一块1230，陪了我11年）性价比不高，新的E5系列也不考虑。</li>
+<li>ES版（Engineering Sample工程样品，又称ES不显版）和QS版（Quality Sample品质样品，又称ES正显版）不考虑。</li>
+</ul>
+<p>AMD<br>AMD的CPU和Intel的I3, I5, I7, I9一样，也分为R3、R5、R7和R9。代数名称是<a target="_blank" rel="noopener" href="https://www.amd.com/en/support/kb/release-notes/rn-rad-win-ryzen-mobile-4000">4000</a>、5000、6000、7000。<br><a target="_blank" rel="noopener" href="https://www.amd.com/en/processors/ryzen-processors-laptop">笔记本CPU</a>的后缀从低功耗到高功耗排序是U - HS - H - HX。</p>
+<p>在中功耗CPU中（低功耗没得选，AMD就没有）AMD与Intel的区别在于，花相同的钱，</p>
+<ul>
+<li>AMD买到的核显游戏性能更好（Radeon M系列核显），CPU频率更高，能耗比也更好。</li>
+<li>Intel的强项在于更丰富的视频硬解码（比如<a target="_blank" rel="noopener" href="https://www.intel.cn/content/www/cn/zh/architecture-and-technology/quick-sync-video/quick-sync-video-general.html">Quick Sync Vedio</a>, <a target="_blank" rel="noopener" href="https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/1-1/overview.html">AV1</a>），虚拟化兼容性更强（比如Hyper-V，硬件直通）。</li>
+</ul>
+<p>几个热门的选择有：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.amd.com/en/products/apu/amd-ryzen-7-4800h">R5 4800H</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amd.com/en/products/apu/amd-ryzen-7-5800h">R7 5800H</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amd.com/en/products/apu/amd-ryzen-9-6900hx">R9 6900HX</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.amd.com/en/products/apu/amd-ryzen-7-7840hs">R9 7840HS</a></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>玩AIO，CPU应该要N5105起步，J4125有点不够。</p>
+<p>如果没什么重型任务，那么N100就够。但如果16G内存不够用需要32G，就只能选N5105。</p>
+<p>如果需要接显示器做为娱乐机使用，那么可以选4800H。再往上就没必要选AIO了。</p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li>什么值得买上<a target="_blank" rel="noopener" href="https://zhiyou.smzdm.com/member/7188731034/">冥冰薇</a>的<a target="_blank" rel="noopener" href="https://post.smzdm.com/xilie/98415/">玩转NAS</a>系列和<a target="_blank" rel="noopener" href="https://post.smzdm.com/xilie/102537/">AIO从入门到如土</a>系列</li>
 </ul>
