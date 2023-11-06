@@ -27,7 +27,7 @@
 <meta property="og:description" content="之前有介绍过怎么导出Google相册，而iCloud相册的导出官方没有额外支持，只能使用iTunes同步。这里介绍一种使用程序自动同步iCloud相册的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-25T08:15:13.000Z">
-<meta property="article:modified_time" content="2023-10-25T09:23:09.953Z">
+<meta property="article:modified_time" content="2023-11-03T08:10:46.538Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="生活">
 <meta name="twitter:card" content="summary">
@@ -153,7 +153,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">160</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -219,9 +219,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-10-25 16:15:13 / 修改时间：17:23:09" itemprop="dateCreated datePublished" datetime="2023-10-25T16:15:13+08:00">2023-10-25</time>
+      <time title="创建时间：2023-10-25 16:15:13" itemprop="dateCreated datePublished" datetime="2023-10-25T16:15:13+08:00">2023-10-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-03 16:10:46" itemprop="dateModified" datetime="2023-11-03T16:10:46+08:00">2023-11-03</time>
     </span>
 
   
@@ -248,12 +254,14 @@
 
 <p>然后创建两个文件夹，config和icloud，分别用于存放配置文件和同步下来的相册。</p>
 <p>如果有多个账号需要同步，可以启动多个容器，每个容器使用不同的config和icloud文件夹。<br>假如用户名为alice，文件夹可以设为config_alice和icloud_alice，之后都以alice为例。</p>
-<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run `</span><br><span class="line">   <span class="literal">--name</span> icloudpd_alice `</span><br><span class="line">   <span class="literal">--hostname</span> icloudpd_alice `</span><br><span class="line">   <span class="literal">--network</span> icloudpd_bridge `</span><br><span class="line">   <span class="literal">--restart</span>=always `</span><br><span class="line">   <span class="literal">--env</span> TZ=Asia/Shanghai `</span><br><span class="line">   <span class="literal">--volume</span> <span class="string">&quot;<span class="variable">$</span>&#123;pwd&#125;/config_alice:/config&quot;</span> `</span><br><span class="line">   <span class="literal">--volume</span> <span class="string">&quot;<span class="variable">$</span>&#123;pwd&#125;/icloud_alice:/home/alice/iCloud&quot;</span> `</span><br><span class="line">   boredazfcuk/icloudpd</span><br></pre></td></tr></table></figure>
+<h2 id="运行容器"><a href="#运行容器" class="headerlink" title="运行容器"></a>运行容器</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run `</span><br><span class="line">   <span class="literal">--name</span> icloudpd_alice `</span><br><span class="line">   <span class="literal">--hostname</span> icloudpd_alice `</span><br><span class="line">   <span class="literal">--network</span> icloudpd_bridge `</span><br><span class="line">   <span class="literal">--restart</span>=always `</span><br><span class="line">   <span class="literal">--env</span> TZ=Asia/Shanghai `</span><br><span class="line">   <span class="literal">--volume</span> <span class="string">&quot;<span class="variable">$</span>(pwd)/config_alice:/config&quot;</span> `</span><br><span class="line">   <span class="literal">--volume</span> <span class="string">&quot;<span class="variable">$</span>(pwd)/icloud_alice:/home/alice/iCloud&quot;</span> `</span><br><span class="line">   boredazfcuk/icloudpd</span><br></pre></td></tr></table></figure>
 
 <p>这里直接指定了环境变量<code>TZ</code>，<code>TZ</code>的取值可以在<a target="_blank" rel="noopener" href="https://nodatime.org/TimeZones">https://nodatime.org/TimeZones</a>查看。</p>
-<p>容器中的<code>/config</code>目录为配置目录，<code>/home/$&#123;user&#125;/iCloud</code>目录为下载目录，<code>$&#123;user&#125;</code>取值为<code>/config/config.cnf</code>中的<code>user</code>。</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>在运行容器后，会因为没有设置<code>apple_id</code>而挂起。此时在<code>$&#123;pwd&#125;/config_alice/</code>目录下会产生<code>config.cnf</code>配置文件，我们需要先修改配置。</p>
-<p><strong>user</strong>: 将<code>user</code>改为alice。</p>
+<p>容器中的<code>/config</code>目录为配置目录，<code>/home/$(user)/iCloud</code>目录为下载目录，<code>$(user)</code>取值为<code>/config/config.cnf</code>配置中的<code>user</code>项。</p>
+<p><strong>注意</strong>，<code>user</code>要有访问<code>$(pwd)/icloud_alice</code>和<code>$(pwd)/icloud_alice</code>的权限。</p>
+<p>比如在linux下，不要挂载到<code>/root/</code>目录下，容易出现权限问题。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>在运行容器后，会因为没有设置<code>apple_id</code>而挂起。此时在<code>$(pwd)/config_alice/</code>目录下会产生<code>config.cnf</code>配置文件，我们需要先修改配置。</p>
+<p><strong>user</strong>: 将<code>user</code>改为alice。注意默认的<code>user_id</code>和<code>group_id</code>都为1000：第一个普通用户。</p>
 <p><strong>apple_id</strong>: 将<code>apple_id</code>改为你的Apple ID。</p>
 <p><strong>icloud_china</strong>: 如果使用国内网络，需要设为true，使用<code>icloud.com.cn</code>，不然苹果会将<code>icloud.com</code>重定义到<code>icloud.com.cn</code>引起混乱。<br><strong>auth_china</strong>: 如果使用国内网络，需要设为true，使用<code>icloud.com.cn</code>，不然苹果会将<code>icloud.com</code>重定义到<code>icloud.com.cn</code>引起混乱。</p>
 <p>其余配置参见<a target="_blank" rel="noopener" href="https://github.com/boredazfcuk/docker-icloudpd/blob/master/CONFIGURATION.md">文档</a>。</p>
@@ -261,9 +269,9 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it icloudpd_alice sync-icloud.sh --Initialise</span><br></pre></td></tr></table></figure>
 
 <p>根据命令行显示的提示，输入登录密码和<strong>2次</strong>两步认证码。输完第1次验证码后，点确认将框取消，准备</p>
-<h2 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h2><p>此时容器会自动开始同步，可以通过<code>docker logs icloudpd_alice -n 10</code>查看同步进度。</p>
+<h2 id="完成"><a href="#完成" class="headerlink" title="完成"></a>完成</h2><p>此时容器会自动开始同步，可以通过<code>docker logs icloudpd_alice -n 10 -f</code>查看同步进度。</p>
 <p>默认同步周期为每24小时同步一次，这个时间间隔不要配置成小于12小时，会触发苹果限流。</p>
-<h2 id="登录过期"><a href="#登录过期" class="headerlink" title="登录过期"></a>登录过期</h2><p>保持的登录信息有效期是90天，可以在<code>$&#123;pwd&#125;/config_alice/DAYS_REMAINING</code>文件查看剩余天数。</p>
+<h2 id="登录过期"><a href="#登录过期" class="headerlink" title="登录过期"></a>登录过期</h2><p>保持的登录信息有效期是90天，可以在<code>$(pwd)/config_alice/DAYS_REMAINING</code>文件查看剩余天数。</p>
 <p>默认提前7天会每天发通知，需要在配置文件里设置通知<code>notification_type</code>类型。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
