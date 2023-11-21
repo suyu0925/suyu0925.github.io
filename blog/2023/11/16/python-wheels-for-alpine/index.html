@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="最近在写一个docker映像，基于python:alpine，在安装依赖时出错。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在python:alpine的docker映像中安装依赖出错">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2023/11/16/python-wheels-for-alpine/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="最近在写一个docker映像，基于python:alpine，在安装依赖时出错。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-11-16T06:48:22.000Z">
+<meta property="article:modified_time" content="2023-11-21T14:00:30.447Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2023/11/16/python-wheels-for-alpine/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/11/16/python-wheels-for-alpine/","path":"2023/11/16/python-wheels-for-alpine/","title":"在python:alpine的docker映像中安装依赖出错"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在python:alpine的docker映像中安装依赖出错 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/11/16/python-wheels-for-alpine/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在python:alpine的docker映像中安装依赖出错 | Tasty Pub">
+      <meta itemprop="description" content="最近在写一个docker映像，基于python:alpine，在安装依赖时出错。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在python:alpine的docker映像中安装依赖出错
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-16 14:48:22" itemprop="dateCreated datePublished" datetime="2023-11-16T14:48:22+08:00">2023-11-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-21 22:00:30" itemprop="dateModified" datetime="2023-11-21T22:00:30+08:00">2023-11-21</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">最近在写一个docker映像，基于python:alpine，在安装依赖时出错。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><a target="_blank" rel="noopener" href="https://www.alpinelinux.org/">alpine</a>是linux家族中的一个超小发行版，在docker生态中很受欢迎，毕竟体积足够小，基本功能也满足需求。所以有很多基于alpine的docker映像，比如<a target="_blank" rel="noopener" href="https://github.com/docker-library/python/blob/402b993af9ca7a5ee22d8ecccaa6197bfb957bc5/3.12/alpine3.18/Dockerfile">python:alpine</a>。</p>
+<p>最近基于<code>python:alpine</code>写了一个项目，要使用<a target="_blank" rel="noopener" href="https://github.com/LeoHsiao1/pyexiv2">pyexiv2</a>包。但发现怎么装都是装的老版本<a target="_blank" rel="noopener" href="https://github.com/LeoHsiao1/pyexiv2/releases/tag/v2.5.0">2.5.0</a>而不是最新的<a target="_blank" rel="noopener" href="https://github.com/LeoHsiao1/pyexiv2/releases/tag/v2.8.3">2.8.3</a>。</p>
+<p>在pyexiv2的issue中搜了下，发现出现<a target="_blank" rel="noopener" href="https://github.com/Exiv2/exiv2/issues/2173">相同问题</a>的都是arm64的mac，而我的docker环境是最常见的x86_64。</p>
+<p>使用<code>pip intsall -vvv pyexiv2</code>查看安装过程，发现所有的wheels都没匹配上。</p>
+<p>对比2.5.0和2.8.3的sheels，终于发现区别：2.5.0的linux wheels是<code>manylinux1_x86_64</code>，而2.8.3则是<code>manylinux2014_x86_64</code>。</p>
+<p>查了下<a target="_blank" rel="noopener" href="https://github.com/pypa/manylinux">manylinux</a>，发现是一个标准，用于解决linux下的二进制兼容性问题。</p>
+<p>目前有这些版本：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0513/">PEP 513</a> manylinux1</li>
+<li><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0571/">PEP 571</a> manylinux2010</li>
+<li><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0599/">PEP 599</a> manylinux2014</li>
+<li><a target="_blank" rel="noopener" href="https://peps.python.org/pep-0600/">PEP 600</a> manylinux_x_y</li>
+</ul>
+<p>pyexiv2 v2.5.0使用的manylinux1支持musl（alpine使用的libc库），manylinux2014不支持musl，所以无法匹配alpine。</p>
+<p>已经有人提了<a target="_blank" rel="noopener" href="https://discuss.python.org/t/pep-656-platform-tag-for-linux-distributions-using-musl/7165">pre-PEP</a>，要重新支持在容器中大热的alpine，形成了<a target="_blank" rel="noopener" href="https://peps.python.org/pep-0656/">PEP 656 – Platform Tag for Linux Distributions Using Musl</a>，目前<a target="_blank" rel="noopener" href="https://github.com/pypa/manylinux/commit/e184e460f3cef8ca2eae6e5f29bf6e1905216a0a">已经完成</a>。</p>
+<p>但要各个包开发者都从<code>manylinux2014</code>切换过来还需要一段时间，所以目前还是使用<a target="_blank" rel="noopener" href="https://hub.docker.com/_/python/tags?page=1&name=slim">python:slim</a>镜像吧。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/11/13/download-videos-from-bilibili/" rel="prev" title="从B站（哔哩毕哩）下载视频">
+                  <i class="fa fa-chevron-left"></i> 从B站（哔哩毕哩）下载视频
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2023/11/21/install-magisk-on-pixel/" rel="next" title="在pixel手机上安装magisk">
+                  在pixel手机上安装magisk <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lckof</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
