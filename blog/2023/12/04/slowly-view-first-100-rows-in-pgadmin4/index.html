@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="在pgadmin4中，发现查询某一个表的前100行或后100行都执行得很慢，但其它表却正常。">
 <meta property="og:type" content="article">
@@ -50,9 +50,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -153,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -241,8 +239,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>先看<a target="_blank" rel="noopener" href="https://www.pgadmin.org/">pgAdmin</a>中，查看前 100 行时生成的 sql 代码：</p>
+    <div class="post-body" itemprop="articleBody"><p>先看<a target="_blank" rel="noopener" href="https://www.pgadmin.org/">pgAdmin</a>中，查看前 100 行时生成的 sql 代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> data_item</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> &quot;time&quot; <span class="keyword">ASC</span>, data_def_id <span class="keyword">ASC</span> LIMIT <span class="number">100</span></span><br></pre></td></tr></table></figure>
 
 <p>而<code>data_item</code>表的定义为：</p>
@@ -294,12 +291,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2023/11/21/install-magisk-on-pixel/" rel="prev" title="在pixel手机上安装magisk">
-                  <i class="fa fa-chevron-left"></i> 在pixel手机上安装magisk
+                  <i class="fa fa-angle-left"></i> 在pixel手机上安装magisk
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2023/12/21/css-flex-layout/" rel="next" title="css中的flex布局">
-                  css中的flex布局 <i class="fa fa-chevron-right"></i>
+                  css中的flex布局 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -319,15 +316,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -369,6 +365,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

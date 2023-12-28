@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="随手记录一下在开发钉钉H5微应用时遇到的一些坑。">
 <meta property="og:type" content="article">
@@ -49,9 +49,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -152,7 +150,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -240,8 +238,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="微应用调试工具"><a href="#微应用调试工具" class="headerlink" title="微应用调试工具"></a>微应用调试工具</h2><p>类似微信开发者工具中的公众号网页调试，我们在开发时需要一个能看到调试信息的类浏览器环境。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="微应用调试工具"><a href="#微应用调试工具" class="headerlink" title="微应用调试工具"></a>微应用调试工具</h2><p>类似微信开发者工具中的公众号网页调试，我们在开发时需要一个能看到调试信息的类浏览器环境。</p>
 <h3 id="钉钉RC版"><a href="#钉钉RC版" class="headerlink" title="钉钉RC版"></a>钉钉RC版</h3><p><a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/resourcedownload/h5-debug">钉钉RC版</a>是钉钉开放平台推出的用于调试钉钉微应用的调试工具，仅支持安卓和win。</p>
 <p>与钉钉Desktop版长的基本一样，在微应用界面可以按下<code>F2</code>或<code>F12</code>打开开发者工具。</p>
 <h3 id="dingtalk-design-cli"><a href="#dingtalk-design-cli" class="headerlink" title="dingtalk-design-cli"></a>dingtalk-design-cli</h3><p><a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/resourcedownload/local-development-tools-for-microapplications">dingtalk-design-cli</a>是钉钉开放平台新推出的H5微应用本地开发工具，开发者通过这个工具可以做到在Web浏览器中调试H5微应用和JSAPI，像开发一个普通H5应用一样开发钉钉H5微应用。</p>
@@ -252,7 +249,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx react-scripts start</span><br></pre></td></tr></table></figure>
 
 <p>在网页目录下新建<a target="_blank" rel="noopener" href="https://open.dingtalk.com/document/resourcedownload/configuration-description"><code>ding.config.json</code></a></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;h5&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;typescript&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;base&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;h5&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;typescript&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;base&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>最后以指定targetH5Url模式运行ding</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ding dev web --targetH5Url http://127.0.0.1:3000</span><br></pre></td></tr></table></figure>
@@ -274,12 +271,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2022/06/21/google-search-behind-a-proxy/" rel="prev" title="使用日本代理后谷歌搜索结果一堆日文">
-                  <i class="fa fa-chevron-left"></i> 使用日本代理后谷歌搜索结果一堆日文
+                  <i class="fa fa-angle-left"></i> 使用日本代理后谷歌搜索结果一堆日文
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2022/07/04/qinghai-gansu-trip-plan/" rel="next" title="2022年青甘大环线出行计划">
-                  2022年青甘大环线出行计划 <i class="fa fa-chevron-right"></i>
+                  2022年青甘大环线出行计划 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -299,15 +296,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -349,6 +345,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="在vs里编译和使用命令行dotnet build经常得到不同的结果，记录一下。">
 <meta property="og:type" content="article">
@@ -50,9 +50,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -153,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -241,8 +239,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>最近在开发vsto的excel插件，在vs里可以正常编译，但使用<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build">dotnet build</a>会报下面这个错：</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>最近在开发vsto的excel插件，在vs里可以正常编译，但使用<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build">dotnet build</a>会报下面这个错：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MSBuild version 17.4.0+18d5aef85 for .NET</span><br><span class="line">  正在确定要还原的项目…</span><br><span class="line">  所有项目均是最新的，无法还原。</span><br><span class="line">F:\ExcelAddin.csproj(333,3): error MSB4019: 找不到导入的项目“C:\Program Files\dotnet\sdk\7.0.100\Microsoft\VisualStudio\v17.0\OfficeTools\Microsoft.</span><br><span class="line">VisualStudio.Tools.Office.targets”。请确认 Import 声明“C:\Program Files\dotnet\sdk\7.0.100\Microsoft\VisualStudio\v17.0\OfficeTools\Microsoft.VisualStudio.Tools.Office.targets”中的表达式正确，且文件位于磁盘上 。</span><br><span class="line"></span><br><span class="line">生成失败。</span><br><span class="line"></span><br><span class="line">F:\ExcelAddin.csproj(333,3): error MSB4019: 找不到导入的项目“C:\Program Files\dotnet\sdk\7.0.100\Microsoft\VisualStudio\v17.0\OfficeTools\Microsoft.</span><br><span class="line">VisualStudio.Tools.Office.targets”。请确认 Import 声明“C:\Program Files\dotnet\sdk\7.0.100\Microsoft\VisualStudio\v17.0\OfficeTools\Microsoft.VisualStudio.Tools.Office.targets”中的表达式正确，且文件位于磁盘上 。</span><br><span class="line">    0 个警告</span><br><span class="line">    1 个错误</span><br><span class="line"></span><br><span class="line">已用时间 00:00:00.77</span><br></pre></td></tr></table></figure>
 
 <h2 id="猜想"><a href="#猜想" class="headerlink" title="猜想"></a>猜想</h2><p>检查了下csproj，发现这么一段：</p>
@@ -271,7 +268,7 @@
 <p>在Visual Studio环境下，这些包都内置了。而在dotnet build环境下，找不到这些包。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>开发vsto这种特异性的应用没办法使用通用的dotnet工具，老老实实的用msbuild吧。这里有<a target="_blank" rel="noopener" href="https://github.com/CZEMacLeod/MSBuild.SDK.SystemWeb/issues/1#issuecomment-809105083">另一个例子</a>。</p>
 <p>另外，如果想使用vscode写代码，也需要特别配置一下C#插件：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;omnisharp.useModernNet&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;omnisharp.useModernNet&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>否则<a target="_blank" rel="noopener" href="https://github.com/OmniSharp/omnisharp-roslyn">OmniSharp server</a>会使用dotnet环境，导致无法正常工作。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
@@ -290,12 +287,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2022/12/06/webview2-in-vsto/" rel="prev" title="在vsto中使用webview2">
-                  <i class="fa fa-chevron-left"></i> 在vsto中使用webview2
+                  <i class="fa fa-angle-left"></i> 在vsto中使用webview2
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2022/12/13/strict-mode-in-react-18/" rel="next" title="react 18中的严格模式">
-                  react 18中的严格模式 <i class="fa fa-chevron-right"></i>
+                  react 18中的严格模式 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -315,15 +312,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -365,6 +361,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

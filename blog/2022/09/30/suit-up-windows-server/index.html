@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="最近想升级一下Windows Server版本，记录一下装机必备。">
 <meta property="og:type" content="article">
@@ -51,9 +51,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -154,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -248,8 +246,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h1 id="以往可以通过Microsoft-Store安装的App"><a href="#以往可以通过Microsoft-Store安装的App" class="headerlink" title="以往可以通过Microsoft Store安装的App"></a>以往可以通过Microsoft Store安装的App</h1><p>首先一个很大的区别是<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/msix/msix-server-2019#considerations">Server没有Microsoft Store</a>，所以很多App只能通过命令行的形式来安装。</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="以往可以通过Microsoft-Store安装的App"><a href="#以往可以通过Microsoft-Store安装的App" class="headerlink" title="以往可以通过Microsoft Store安装的App"></a>以往可以通过Microsoft Store安装的App</h1><p>首先一个很大的区别是<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows/msix/msix-server-2019#considerations">Server没有Microsoft Store</a>，所以很多App只能通过命令行的形式来安装。</p>
 <p>比如巨好用的<a target="_blank" rel="noopener" href="https://github.com/microsoft/terminal">Windows Terminal</a>，以及很顺手的包管理器<a target="_blank" rel="noopener" href="https://github.com/microsoft/winget-cli">winget</a>，甚至是<a target="_blank" rel="noopener" href="https://www.microsoft.com/store/apps/9PN20MSR04DW">Ubuntu 22.04.1 LTS</a>。</p>
 <h1 id="无脑攻略"><a href="#无脑攻略" class="headerlink" title="无脑攻略"></a>无脑攻略</h1><h2 id="VC-v14-Desktop-Framework-Package"><a href="#VC-v14-Desktop-Framework-Package" class="headerlink" title="VC++ v14 Desktop Framework Package"></a>VC++ v14 Desktop Framework Package</h2><p>很多App都依赖<a target="_blank" rel="noopener" href="https://docs.microsoft.com/troubleshoot/cpp/c-runtime-packages-desktop-bridge#how-to-install-and-update-desktop-framework-packages">VC++ v14 Desktop Framework Package</a>，比如<code>Windows Terminal</code>和<code>winget</code>，所以第一步先安装它。</p>
 <p>下载<a target="_blank" rel="noopener" href="https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx">Microsoft.VCLibs.x64.14.00.Desktop.appx</a>，然后使用命令行安装：</p>
@@ -351,12 +348,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2022/08/04/limit-wsl2-memory/" rel="prev" title="限制wsl2的最大使用内存">
-                  <i class="fa fa-chevron-left"></i> 限制wsl2的最大使用内存
+                  <i class="fa fa-angle-left"></i> 限制wsl2的最大使用内存
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2022/10/01/install-openwrt-on-soft-router/" rel="next" title="[OpenWrt]给软路由安装openwrt">
-                  [OpenWrt]给软路由安装openwrt <i class="fa fa-chevron-right"></i>
+                  [OpenWrt]给软路由安装openwrt <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -376,15 +373,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -426,6 +422,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

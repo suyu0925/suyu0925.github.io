@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="如何应对并发(4)">
 <meta property="og:type" content="article">
@@ -50,9 +50,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -140,7 +138,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E5%B9%B6%E5%8F%91-4-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E5%8F%8D%E8%8C%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">如何应对并发(4) - 分布式数据库及反范式设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93-amp-%E6%8B%86%E8%A1%A8%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">分库&amp;拆表方案</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BA%94%E5%AF%B9%E5%B9%B6%E5%8F%91-4-%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E5%8F%8D%E8%8C%83%E5%BC%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">如何应对并发(4) - 分布式数据库及反范式设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93-%E6%8B%86%E8%A1%A8%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">分库&amp;拆表方案</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -153,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -256,13 +254,12 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>本文引自<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&mid=400516974&idx=1&sn=66a65b0900a8a410b7268d4b9c7bbddb&scene=21#wechat_redirect">caoz的梦呓的同名文章</a></p>
+    <div class="post-body" itemprop="articleBody"><p>本文引自<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI0MjA1Mjg2Ng==&mid=400516974&idx=1&sn=66a65b0900a8a410b7268d4b9c7bbddb&scene=21#wechat_redirect">caoz的梦呓的同名文章</a></p>
 <h2 id="如何应对并发-4-分布式数据库及反范式设计"><a href="#如何应对并发-4-分布式数据库及反范式设计" class="headerlink" title="如何应对并发(4) - 分布式数据库及反范式设计"></a>如何应对并发(4) - 分布式数据库及反范式设计</h2><p>分布式数据库及反范式设计</p>
 <p>当数据容量非常大，请求频次非常高，索引优化，异步更新，合并操作，需求裁剪这些都做到位了，你发现系统依然存在严重的瓶颈，需要扩展，这时候，我们再来谈分布式方案。</p>
 <p>这个课题我四年前在Qcon架构师大会分享过，当场我看记录，好评数还可以，但事后有高手吐槽说我讲的玩意根本不算什么分布式数据库，可能他们看中硬核的东西，不过我这种野路子，关心的是实战中，中小型互联网公司遇到的数据库压力问题如何高效解决，简单有效是第一宗旨，您要是问一线的，比如淘宝怎么解决数据库压力，别问我，我不会。</p>
 <p>今天偷懒了，我把以前文档的内容贴出来。 不过这也是原创哦，四年前的原创。</p>
-<h2 id="分库-amp-拆表方案"><a href="#分库-amp-拆表方案" class="headerlink" title="分库&amp;拆表方案"></a>分库&amp;拆表方案</h2><ul>
+<h2 id="分库-拆表方案"><a href="#分库-拆表方案" class="headerlink" title="分库&amp;拆表方案"></a>分库&amp;拆表方案</h2><ul>
 <li><p>基本认识</p>
 <ul>
 <li><p>用分库&amp;拆表是解决数据库容量问题的唯一途径。</p>
@@ -482,12 +479,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2019/06/04/caoz-concurrent-3/" rel="prev" title="如何应对并发(3) - 需求裁剪">
-                  <i class="fa fa-chevron-left"></i> 如何应对并发(3) - 需求裁剪
+                  <i class="fa fa-angle-left"></i> 如何应对并发(3) - 需求裁剪
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2019/06/04/caoz-concurrent-5/" rel="next" title="如何应对并发(5) - 关键的关键，是认识负载">
-                  如何应对并发(5) - 关键的关键，是认识负载 <i class="fa fa-chevron-right"></i>
+                  如何应对并发(5) - 关键的关键，是认识负载 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -507,15 +504,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -557,6 +553,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="夏天来了，感觉网络开始不稳，猜测是路由器温度过高。默认OpenWrt没有显示CPU温度，研究一下。">
 <meta property="og:type" content="article">
@@ -53,9 +53,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -156,7 +154,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -244,8 +242,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="luci-app-statistics"><a href="#luci-app-statistics" class="headerlink" title="luci_app_statistics"></a>luci_app_statistics</h2><p>OpenWrt官方提供了<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/luci/luci_app_statistics">luci_app_statistics</a>来收集和统计系统信息。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="luci-app-statistics"><a href="#luci-app-statistics" class="headerlink" title="luci_app_statistics"></a>luci_app_statistics</h2><p>OpenWrt官方提供了<a target="_blank" rel="noopener" href="https://openwrt.org/docs/guide-user/luci/luci_app_statistics">luci_app_statistics</a>来收集和统计系统信息。</p>
 <p>它使用了插件机制，默认安装以下插件：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; opkg install luci-app-statistics</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">Configuring librrd1.</span><br><span class="line">Configuring rrdtool1.</span><br><span class="line">Configuring collectd-mod-rrdtool.</span><br><span class="line">Configuring collectd-mod-iwinfo.</span><br><span class="line">Configuring collectd-mod-cpu.</span><br><span class="line">Configuring collectd-mod-memory.</span><br><span class="line">Configuring collectd-mod-interface.</span><br><span class="line">Configuring collectd-mod-load.</span><br><span class="line">Configuring collectd-mod-network.</span><br><span class="line">Configuring luci-app-statistics.</span><br></pre></td></tr></table></figure>
 
@@ -276,12 +273,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2023/08/03/swimming-1/" rel="prev" title="第一节游泳课">
-                  <i class="fa fa-chevron-left"></i> 第一节游泳课
+                  <i class="fa fa-angle-left"></i> 第一节游泳课
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2023/08/07/ad-blocking-in-openwrt/" rel="next" title="[Openwrt]拦截广告">
-                  [Openwrt]拦截广告 <i class="fa fa-chevron-right"></i>
+                  [Openwrt]拦截广告 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -301,15 +298,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -351,6 +347,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="上一篇简单介绍了下stable diffusion，这一篇简单玩玩。">
 <meta property="og:type" content="article">
@@ -50,9 +50,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -153,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -247,8 +245,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>上一篇文章介绍了如何使用stable-diffusion-webui自建服务，这一篇我们来简单玩玩。</p>
+    <div class="post-body" itemprop="articleBody"><p>上一篇文章介绍了如何使用stable-diffusion-webui自建服务，这一篇我们来简单玩玩。</p>
 <h2 id="第三方检查点"><a href="#第三方检查点" class="headerlink" title="第三方检查点"></a>第三方检查点</h2><p>在<a href="/blog/2023/02/17/intro-stable-diffusion/" title="简单介绍一下stable diffusion">上一篇</a>我们使用了CompVis和Stability AI官方的检查点，但其实还有很多第三方的检查点，比如动漫模型<a target="_blank" rel="noopener" href="https://huggingface.co/Lykon/DreamShaper">DreamShaper</a>和真人模型<a target="_blank" rel="noopener" href="https://huggingface.co/TASUKU2023/Chilloutmix">Chilloutmix</a>，同样可以在HuggingFace上找到。</p>
 <p>在文件和版本页面，我们可以看到这些检查点文件的扩展名是<code>.safetensors</code>，<a target="_blank" rel="noopener" href="https://huggingface.co/docs/safetensors/index">safetensors</a>是HuggingFace发明的一种文件格式，用以安全且快速的存储张量。<br>检查点除了<code>.ckpt</code>还支持<code>.safetensors</code>，以及<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference">PyTorch用来保存和加载模型</a>的<code>.pt</code>和<code>.pth</code>。</p>
 <h2 id="配置字符串"><a href="#配置字符串" class="headerlink" title="配置字符串"></a>配置字符串</h2><p>模型提供者同时会提供一些示范提示语以及配置，让你能生成同样的结果。比如在DreamShaper的<a target="_blank" rel="noopener" href="https://civitai.com/gallery/45544?modelId=4384&modelVersionId=5636&infinite=false&returnUrl=/models/4384/dreamshaper">官方示例</a>：</p>
@@ -296,12 +293,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2023/02/17/intro-stable-diffusion/" rel="prev" title="简单介绍一下stable diffusion">
-                  <i class="fa fa-chevron-left"></i> 简单介绍一下stable diffusion
+                  <i class="fa fa-angle-left"></i> 简单介绍一下stable diffusion
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2023/02/21/stable-diffusion-prompt/" rel="next" title="stable diffusion中的提示语">
-                  stable diffusion中的提示语 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/2023/02/21/stable-diffusion-prompt/" rel="next" title="[Stable Diffusion]提示语">
+                  [Stable Diffusion]提示语 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -321,15 +318,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -371,6 +367,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

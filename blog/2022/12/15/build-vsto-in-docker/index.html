@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="excel插件写完了，现在想把它的编译放到docker里去，做了一系列尝试……">
 <meta property="og:type" content="article">
@@ -50,9 +50,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -153,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -247,8 +245,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h2 id="限定windows容器"><a href="#限定windows容器" class="headerlink" title="限定windows容器"></a>限定windows容器</h2><p>首先，正如<a href="/blog/2022/12/09/dotnet-build-vs-msbuild/" title="dotnet build和msbuild的区别">这里</a>所验证的，vsto的编译与调试需要使用Visual Studio的<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/vs/features/office-tools/">Office build tools</a>。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="限定windows容器"><a href="#限定windows容器" class="headerlink" title="限定windows容器"></a>限定windows容器</h2><p>首先，正如<a href="/blog/2022/12/09/dotnet-build-vs-msbuild/" title="dotnet build和msbuild的区别">这里</a>所验证的，vsto的编译与调试需要使用Visual Studio的<a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/vs/features/office-tools/">Office build tools</a>。</p>
 <p>而且<a target="_blank" rel="noopener" href="https://developercommunity.visualstudio.com/t/please-port-visual-studio-tools-for-office-vsto-to/757925#T-N1439688">微软表示</a>由于COM宿主（在这里是Office）<a target="_blank" rel="noopener" href="https://github.com/dotnet/runtime/issues/12018#issuecomment-551214265">只能支持一个.NET版本</a>（.NET Framework 4.8），所以为了兼容以前的插件，将<a target="_blank" rel="noopener" href="https://github.com/dotnet/core/issues/5156#issuecomment-853430132">不会更新vsto至支持.net 5+</a>，建议大家使用跨平台的<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/office/dev/add-ins/overview/office-add-ins">Javascript APIs</a>。虽然大家<a target="_blank" rel="noopener" href="https://developercommunity.visualstudio.com/t/please-port-visual-studio-tools-for-office-vsto-to/757925#T-N1440449">纷纷表示</a>Javascript APIs就是一陀屎，但也只能被迫接受<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/vsto/getting-started-programming-vsto-add-ins">这个现实</a>：vsto不支持跨平台的.net core。</p>
 <p>综上，虽然我们可以用<a target="_blank" rel="noopener" href="https://www.winehq.org/">wine</a>来支持msbuild(比如<a target="_blank" rel="noopener" href="https://github.com/RektInator/msbuild-docker">msbuild-docker</a>)，但想要编译vsto应用，只能够在windows容器中。</p>
 <h2 id="极其不愿意的使用windows容器"><a href="#极其不愿意的使用windows容器" class="headerlink" title="极其不愿意的使用windows容器"></a>极其不愿意的使用windows容器</h2><p>微软有官文档指导如何<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/visualstudio/install/build-tools-container">在windows容器上安装编译工具</a>。</p>
@@ -298,12 +295,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2022/12/13/strict-mode-in-react-18/" rel="prev" title="react 18中的严格模式">
-                  <i class="fa fa-chevron-left"></i> react 18中的严格模式
+                  <i class="fa fa-angle-left"></i> react 18中的严格模式
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2022/12/28/customize-keyboard/" rel="next" title="客制化键盘">
-                  客制化键盘 <i class="fa fa-chevron-right"></i>
+                  客制化键盘 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -323,15 +320,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -373,6 +369,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 

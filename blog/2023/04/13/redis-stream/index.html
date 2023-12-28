@@ -15,9 +15,9 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="Redis 5.0引入了Stream，解决了Pub&#x2F;Sub的持久化问题。">
 <meta property="og:type" content="article">
@@ -50,9 +50,7 @@
 
 
 
-  <script async defer data-website-id="" src=""></script>
 
-  <script defer data-domain="" src=""></script>
 
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
@@ -153,7 +151,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -241,8 +239,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <p>Redis支持<a target="_blank" rel="noopener" href="https://redis.io/docs/manual/pubsub/">Pub&#x2F;Sub</a>，但如果发布消息时订阅者没上线，那信息就会丢失。Redis在5.0中引入了<a target="_blank" rel="noopener" href="https://redis.io/docs/data-types/streams/">Stream</a>，提供了消息的持久化和主备复制功能，可以让任何客户端访问任何时刻的数据，并且能记住每一个客户端的访问位置，还能保证消息不丢失。</p>
+    <div class="post-body" itemprop="articleBody"><p>Redis支持<a target="_blank" rel="noopener" href="https://redis.io/docs/manual/pubsub/">Pub&#x2F;Sub</a>，但如果发布消息时订阅者没上线，那信息就会丢失。Redis在5.0中引入了<a target="_blank" rel="noopener" href="https://redis.io/docs/data-types/streams/">Stream</a>，提供了消息的持久化和主备复制功能，可以让任何客户端访问任何时刻的数据，并且能记住每一个客户端的访问位置，还能保证消息不丢失。</p>
 <p>Stream在Redis中是一种数据结构，可以简单的理解为一个消息链表。</p>
 <h2 id="消息-Entry"><a href="#消息-Entry" class="headerlink" title="消息(Entry)"></a>消息(Entry)</h2><p>每条消息除了内容外，都有一个唯一的ID。格式为<code>&#123;Unix毫秒时间戳&#125;-&#123;序号&#125;</code>，比如<code>1681365707499-0</code>。</p>
 <h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>使用<a target="_blank" rel="noopener" href="https://redis.io/commands/xadd/">XADD</a>命令向Stream追加一条消息。</p>
@@ -331,12 +328,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/blog/2023/04/04/disable-formatting-code-region-in-vscode/" rel="prev" title="在vscode中关掉对一段代码的格式化">
-                  <i class="fa fa-chevron-left"></i> 在vscode中关掉对一段代码的格式化
+                  <i class="fa fa-angle-left"></i> 在vscode中关掉对一段代码的格式化
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/blog/2023/04/17/troubleshooting-keychain-issues-in-vscode/" rel="next" title="vscode的登录状态问题">
-                  vscode的登录状态问题 <i class="fa fa-chevron-right"></i>
+                  vscode的登录状态问题 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -356,15 +353,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">lckof</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
 <div class="busuanzi-count">
     <span class="post-meta-item" id="busuanzi_container_site_uv">
       <span class="post-meta-item-icon">
@@ -406,6 +402,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
+
+
 
 
 
