@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="阻碍AI绘画商用的最大障碍就是可控制性，AnyText又将AI绘画的商用推进了一步。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AnyText：AI绘图在可控制性上的又一突破">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2024/01/05/meet-any-text/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="阻碍AI绘画商用的最大障碍就是可控制性，AnyText又将AI绘画的商用推进了一步。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://suyu0925.github.io/blog/2024/01/05/meet-any-text/framework.jpg">
+<meta property="article:published_time" content="2024-01-05T02:34:54.000Z">
+<meta property="article:modified_time" content="2024-01-05T03:04:24.036Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="stable diffusion">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://suyu0925.github.io/blog/2024/01/05/meet-any-text/framework.jpg">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2024/01/05/meet-any-text/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2024/01/05/meet-any-text/","path":"2024/01/05/meet-any-text/","title":"AnyText：AI绘图在可控制性上的又一突破"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AnyText：AI绘图在可控制性上的又一突破 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%8F%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">意义</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2024/01/05/meet-any-text/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AnyText：AI绘图在可控制性上的又一突破 | Tasty Pub">
+      <meta itemprop="description" content="阻碍AI绘画商用的最大障碍就是可控制性，AnyText又将AI绘画的商用推进了一步。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AnyText：AI绘图在可控制性上的又一突破
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-01-05 10:34:54 / 修改时间：11:04:24" itemprop="dateCreated datePublished" datetime="2024-01-05T10:34:54+08:00">2024-01-05</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">阻碍AI绘画商用的最大障碍就是可控制性，AnyText又将AI绘画的商用推进了一步。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
+<p>AnyText是一种基于扩散的多语言视觉文本生成和编辑模型，专注于在图像中渲染准确且连贯的文本。该项目由阿里巴巴开发，支持在图像中生成和编辑多种语言的文本，使其与背景无缝融合。</p>
+<p>该模型解决了合成文本中模糊、不可读或错误字符的问题。AnyText 可以与现有的扩散模型集成，用于准确渲染或编辑文本。</p>
+</blockquote>
+<p>效果演示图比较大，点<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/tyxsspa/AnyText/main/docs/gallery.png">这里</a>看大图。</p>
+<p>这个项目挺新的，贴一段官方的时间线：</p>
+<ul>
+<li>[2024.01.04] - 上线<a target="_blank" rel="noopener" href="https://huggingface.co/spaces/modelscope/AnyText">HuggingFace（抱脸）在线演示</a>。</li>
+<li>[2023.12.28] - 上线<a target="_blank" rel="noopener" href="https://modelscope.cn/studios/damo/studio_anytext/summary">ModalScope（创空间）在线演示</a>。</li>
+<li>[2023.12-27] - 发布<a target="_blank" rel="noopener" href="https://modelscope.cn/models/damo/cv_anytext_text_generation_editing/summary">模型和推理代码</a>。</li>
+<li>[2023.12.05] - 上线<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2311.03054">论文</a>。</li>
+</ul>
+<p>路线图：</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 发布模型和推理代码</li>
+<li><input checked="" disabled="" type="checkbox"> 提供可公开访问的演示</li>
+<li><input disabled="" type="checkbox"> 提供一个免费字体文件(🤔)</li>
+<li><input disabled="" type="checkbox"> 提供从公开模型和LoRAs中合并权重的工具</li>
+<li><input disabled="" type="checkbox"> 提供stable-diffusion-webui插件(🤔)</li>
+<li><input disabled="" type="checkbox"> 发布AnyText-benchmark数据集和评估代码</li>
+<li><input disabled="" type="checkbox"> 发布AnyWord-3M数据集和训练代码</li>
+</ul>
+<p>可以看到还处在较为前期的阶段。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>AnyText包含一个具有两个主要元素的扩散管线：辅助潜在模块和词嵌入模块。<br>前者使用文本字形、位置和蒙版图像等输入来生成用于文本生成或编辑的潜在特征。<br>后者采用OCR模型将笔划数据编辑为嵌入，与标记生成器中的图像标题嵌入混合，生成与背景无缝集成的文本。<br>采用文本控制扩散损失和文本感知损失进行训练，以进一步提高书写准确性。</p>
+<img src="/blog/2024/01/05/meet-any-text/framework.jpg" class="" title="框架">
+
+<h2 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h2><p>有了准确的文字，就能更精准的传达信息，省去最后的添加文字环节。不管是商用（广告）还是娱乐（表情包），都能得到极大的提升。</p>
+<p>对AI商用感兴趣的同学可以抓紧上手研究，趁它的热度还没起来。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/stable-diffusion/" rel="tag"># stable diffusion</a>
+              <a href="/blog/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2023/12/28/stylize-images-using-stable-diffusion/" rel="prev" title="[Stable Diffusion]风格化">
+                  <i class="fa fa-angle-left"></i> [Stable Diffusion]风格化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/2024/01/05/intro-type-challenges/" rel="next" title="工作累了吗，来点类型体操放松一下吧">
+                  工作累了吗，来点类型体操放松一下吧 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
