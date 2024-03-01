@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="工作电脑有公网IP，用windows管理端口很难受，想起家里还有个吃灰的ac68u，拿来废物利用一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华硕RT-AC68U路由器烧机">
+<meta property="og:url" content="http://suyu0925.github.io/blog/2024/03/01/rt-ac68u/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="工作电脑有公网IP，用windows管理端口很难受，想起家里还有个吃灰的ac68u，拿来废物利用一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-01T06:19:14.000Z">
+<meta property="article:modified_time" content="2024-03-01T07:39:10.986Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://suyu0925.github.io/blog/2024/03/01/rt-ac68u/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2024/03/01/rt-ac68u/","path":"2024/03/01/rt-ac68u/","title":"华硕RT-AC68U路由器烧机"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>华硕RT-AC68U路由器烧机 | Tasty Pub</title>
+  
+
+  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B7%E6%9C%BA%E7%9A%84%E5%85%B4%E8%B5%B7%E4%B8%8E%E8%A1%B0%E8%90%BD"><span class="nav-number">1.</span> <span class="nav-text">刷机的兴起与衰落</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BA%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">固件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B7%E6%9C%BA"><span class="nav-number">3.</span> <span class="nav-text">刷机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%B8%AD%E5%BF%83"><span class="nav-number">4.</span> <span class="nav-text">软件中心</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91"><span class="nav-number">5.</span> <span class="nav-text">科学上网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E9%99%A4%E9%99%90%E5%88%B6"><span class="nav-number">6.</span> <span class="nav-text">解除限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">7.</span> <span class="nav-text">安装</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2024/03/01/rt-ac68u/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="华硕RT-AC68U路由器烧机 | Tasty Pub">
+      <meta itemprop="description" content="工作电脑有公网IP，用windows管理端口很难受，想起家里还有个吃灰的ac68u，拿来废物利用一下。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          华硕RT-AC68U路由器烧机
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-03-01 14:19:14 / 修改时间：15:39:10" itemprop="dateCreated datePublished" datetime="2024-03-01T14:19:14+08:00">2024-03-01</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">工作电脑有公网IP，用windows管理端口很难受，想起家里还有个吃灰的ac68u，拿来废物利用一下。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这台<a target="_blank" rel="noopener" href="https://www.asus.com.cn/networking-iot-servers/wifi-routers/asus-wifi-routers/rtac68u/">RT-AC68U</a>路由器是 2016 年买的。那会<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Wireless_mesh_network">mesh 组网</a>和<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Wi-Fi_6">Wi-Fi 6</a>还没流行，大家都还在使用单台路由，我又属于小米智能家居的尝鲜者，家里 Wi-Fi 设备巨多，普通的路由器完全不够用，所以入了这台。但随着 mesh 组网和 Wi-Fi6 的普及，这台路由器也就退休闲置了。</p>
+<h2 id="刷机的兴起与衰落"><a href="#刷机的兴起与衰落" class="headerlink" title="刷机的兴起与衰落"></a>刷机的兴起与衰落</h2><p>那时路由器刷机挺流行，一方面是原厂固件的功能太少，不能满足用户需求；另一方面大家手上也没啥钱，买个性能好的路由器总想着能把性能全用上，不想额外再花钱配软路由或 NAS。</p>
+<p>随着时光流逝，原厂固件的功能越来越强，开箱即用，完全不需要再去折腾。另外软路由或 NAS 也很普及，不再需要把路由器当成万能工具。</p>
+<h2 id="固件"><a href="#固件" class="headerlink" title="固件"></a>固件</h2><p>首先得感谢华硕，华硕开源了他家路由的官方固件<a target="_blank" rel="noopener" href="https://routerkb.asuscomm.com/?page_id=9&lang=en">Asuswrt</a>；</p>
+<p>然后梅林基于华硕的固件开发了<a target="_blank" rel="noopener" href="https://www.asuswrt-merlin.net/">梅林固件</a>；</p>
+<p>再是国内的<a target="_blank" rel="noopener" href="https://github.com/koolshare">koolshare</a>基于华硕和梅林，加入了软件中心功能，开发了<a target="_blank" rel="noopener" href="https://www.koolcenter.com/fw">koolshare 官改和梅林改版固件</a>。</p>
+<p>随着刷机的衰落，大量人员离去，原<a target="_blank" rel="noopener" href="https://koolshare.cn/">koolshare 社区</a>已经停止关闭，一部分人做了<a target="_blank" rel="noopener" href="https://www.koolcenter.com/posts/1">kool center</a>，做点<a target="_blank" rel="noopener" href="https://www.koolcenter.com/category/announce">团购</a>和卖点<a target="_blank" rel="noopener" href="https://www.linkease.com/about">设备与服务</a>维持运营。</p>
+<h2 id="刷机"><a href="#刷机" class="headerlink" title="刷机"></a>刷机</h2><p>RT-AC68U 还在梅林官方的<a target="_blank" rel="noopener" href="https://www.asuswrt-merlin.net/about">支持目录</a>中，目前最新版本是<code>386.12_6</code>。</p>
+<p>koolcenter 已停止维护，最后一个版本是<a target="_blank" rel="noopener" href="https://www.koolcenter.com/posts/38">386.3_2</a>。</p>
+<p>看了一下我以前刷的版本是<code>380.63_X7.2</code>，编译代码是<code>Fri Nov 11 11:01:59 UTC 2016 sadoneli@96b5432</code>，应该出自<a target="_blank" rel="noopener" href="https://github.com/sadoneli">sadoneli</a>。</p>
+<h2 id="软件中心"><a href="#软件中心" class="headerlink" title="软件中心"></a>软件中心</h2><p>koolshare 不同的固件对应不同的软件中心，具体区别可以看<a target="_blank" rel="noopener" href="https://github.com/koolshare/armsoft?tab=readme-ov-file#koolshare%E5%87%A0%E4%B8%AA%E7%89%88%E6%9C%AC%E7%9A%84%E8%BD%AF%E4%BB%B6%E4%B8%AD%E5%BF%83%E5%8C%BA%E5%88%AB">这里</a>。</p>
+<p>我的 AC68U 使用的是<code>arm380软件中心</code>。</p>
+<p>因为科学上网有法律风险，所以软件中心里不会列出科学上网插件，需要自行下载离线安装。</p>
+<h2 id="科学上网"><a href="#科学上网" class="headerlink" title="科学上网"></a>科学上网</h2><p>科学上网使用的是<a target="_blank" rel="noopener" href="https://github.com/hq450/fancyss">开源</a>的<a target="_blank" rel="noopener" href="https://hq450.github.io/fancyss/">fancyss</a>插件。</p>
+<p>我的 AC68U 使用的是<code>梅林380改版</code>，对应<a target="_blank" rel="noopener" href="https://hq450.github.io/fancyss/#fancyss_arm%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4">fancyss_arm</a>。</p>
+<p>注意 fancyss_arm 仅支持版本号 ≥X7.2 的固件，订阅功能需要版本号 ≥X7.7（最新版本固件为 X7.9.1）。</p>
+<p><strong><a target="_blank" rel="noopener" href="https://github.com/hq450/fancyss?tab=readme-ov-file#%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9">full or lite</a></strong></p>
+<p>在干净的条件下，AC68U 的<code>/tmp</code>目录有<code>124M</code>剩余，<a target="_blank" rel="noopener" href="https://github.com/RMerl/asuswrt-merlin.ng/wiki/JFFS">jffs</a>剩余空间有<code>52M</code>，足够安装<code>36M</code>的 full 版本。</p>
+<h2 id="解除限制"><a href="#解除限制" class="headerlink" title="解除限制"></a>解除限制</h2><p>离线安装时会提示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">【2024年03月01日 15:03:12】: =======================================================</span><br><span class="line">【2024年03月01日 15:03:12】: 检测到离线安装包：fancyss_arm_full_3.3.0.tar.gz 含非法关键词！！！</span><br><span class="line">【2024年03月01日 15:03:12】: 根据法律规定，koolshare软件中心将不会安装此插件！！！</span><br><span class="line">【2024年03月01日 15:03:12】: 删除相关文件并退出...</span><br><span class="line">【2024年03月01日 15:03:12】: =======================================================</span><br></pre></td></tr></table></figure>
+
+<p>需要开启路由器上的 ssh，登录上去运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i &#x27;s/\tdetect_package/\t# detect_package/g&#x27; /koolshare/scripts/ks_tar_install.sh</span><br></pre></td></tr></table></figure>
+
+<p>来取消限制。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在<a target="_blank" rel="noopener" href="https://github.com/hq450/fancyss_history_package/tree/master/fancyss_arm">fancyss_arm 的下载页</a>下载了<code>fancyss_arm_full_3.3.0.tar.gz</code>，发现无法离线安装。原因是缺少<a target="_blank" rel="noopener" href="https://github.com/hq450/fancyss/blob/3.0/fancyss/install.sh#L46">&#x2F;koolshare&#x2F;bin&#x2F;httpdb</a>文件。</p>
+<p>看来需要更新固件才能安装，但 koolshare 社区已经关闭，很多帖子找不到，包括<a target="_blank" rel="noopener" href="https://koolshare.cn/thread-164857-1-2.html">384 改版梅林固件发布帖</a>，暂且搁置。</p>
+<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/2024/02/23/voicemeeter/" rel="prev" title="voicemeeter">
+                  <i class="fa fa-angle-left"></i> voicemeeter
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/blog/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
