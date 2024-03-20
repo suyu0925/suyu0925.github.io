@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/openclash-overview.png">
 <meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/use-rule-provider.png">
 <meta property="article:published_time" content="2022-07-25T07:46:56.000Z">
-<meta property="article:modified_time" content="2023-10-16T03:26:17.750Z">
+<meta property="article:modified_time" content="2024-03-20T01:22:23.230Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -151,7 +151,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8"><span class="nav-number">3.1.</span> <span class="nav-text">内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E9%98%85"><span class="nav-number">3.2.</span> <span class="nav-text">订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%AA%E8%A1%A8%E7%9B%98"><span class="nav-number">3.3.</span> <span class="nav-text">仪表盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fake-IP%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">Fake IP模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%B6%E5%B0%94%E6%9C%89%E9%83%A8%E5%88%86%E7%BD%91%E5%9D%80%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.5.</span> <span class="nav-text">偶尔有部分网址无法连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%84%E5%88%99%E9%9B%86"><span class="nav-number">3.6.</span> <span class="nav-text">自定义规则集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#geo%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%A2%E9%98%85"><span class="nav-number">3.7.</span> <span class="nav-text">geo数据库订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E8%87%AA%E8%BA%AB%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86"><span class="nav-number">3.8.</span> <span class="nav-text">路由器自身使用代理</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8"><span class="nav-number">3.1.</span> <span class="nav-text">内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E9%98%85"><span class="nav-number">3.2.</span> <span class="nav-text">订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%AA%E8%A1%A8%E7%9B%98"><span class="nav-number">3.3.</span> <span class="nav-text">仪表盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fake-IP-%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.4.</span> <span class="nav-text">Fake IP 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%B6%E5%B0%94%E6%9C%89%E9%83%A8%E5%88%86%E7%BD%91%E5%9D%80%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5"><span class="nav-number">3.5.</span> <span class="nav-text">偶尔有部分网址无法连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%84%E5%88%99%E9%9B%86"><span class="nav-number">3.6.</span> <span class="nav-text">自定义规则集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#geo-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%A2%E9%98%85"><span class="nav-number">3.7.</span> <span class="nav-text">geo 数据库订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E8%87%AA%E8%BA%AB%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86"><span class="nav-number">3.8.</span> <span class="nav-text">路由器自身使用代理</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -164,7 +164,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-count">186</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -238,7 +238,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-16 11:26:17" itemprop="dateModified" datetime="2023-10-16T11:26:17+08:00">2023-10-16</time>
+      <time title="修改时间：2024-03-20 09:22:23" itemprop="dateModified" datetime="2024-03-20T09:22:23+08:00">2024-03-20</time>
     </span>
 
   
@@ -259,36 +259,36 @@
     
     
     <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash">OpenClash</a>几乎支持了所有协议，并且配置也很全面。</p>
-<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>首先手动下载<code>.ipk</code>包文件。截止这篇文章，最新版本为<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/v0.45.141-beta">v0.45.141-beta</a>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O luci-app-openclash.ipk https://github.com/vernesong/OpenClash/releases/download/v0.45.141-beta/luci-app-openclash_0.45.141-beta_all.ipk</span><br></pre></td></tr></table></figure>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>首先手动下载<code>.ipk</code>包文件。截止这篇文章，最新版本为<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/v0.46.003-beta">v0.46.003-beta</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O luci-app-openclash.ipk https://github.com/vernesong/OpenClash/releases/download/v0.46.003-beta/luci-app-openclash_0.46.003-beta_all.ipk</span><br></pre></td></tr></table></figure>
 
-<p>如果在OpenWrt中无法下载，那么可在宿主机通过代理下载后再拷贝上去。</p>
+<p>如果在 OpenWrt 中无法下载，那么可在宿主机通过代理下载后再拷贝上去。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ./luci-app-openclash.ipk root@192.168.88.1:/root/</span><br></pre></td></tr></table></figure>
 
-<p>再下载一个<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/Clash">v1.11.0-7-g5497ada版本的Dev内核</a>备用。</p>
+<p>再下载一个<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/Clash">v1.11.0-7-g5497ada 版本的 Dev 内核</a>备用。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O https://github.com/vernesong/OpenClash/releases/download/Clash/clash-linux-amd64.tar.gz clash-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>注意要先<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/wiki/%E5%AE%89%E8%A3%85">安装依赖</a>。</p>
-<p><code>luci-app-openclash.ipk</code>中并没有包含全部依赖，如果缺少依赖会导致各种问题，比如OpenClash自身无法使用代理上网。</p>
+<p><code>luci-app-openclash.ipk</code>中并没有包含全部依赖，如果缺少依赖会导致各种问题，比如 OpenClash 自身无法使用代理上网。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg remove dnsmasq</span><br><span class="line">opkg install luci-compat</span><br><span class="line">opkg install ./luci-app-openclash.ipk</span><br></pre></td></tr></table></figure>
 
-<p>openclash使用了dnsmasq-full，为了避免冲突，需要先卸载dnsmasq。<br>同时，openclash也依赖luci的cbi模块，需要先安装luci-compat。</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>OpenClash使用的是<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash">Clash项目</a>，会自动定期编译。</p>
+<p>openclash 使用了 dnsmasq-full，为了避免冲突，需要先卸载 dnsmasq。<br>同时，openclash 也依赖 luci 的 cbi 模块，需要先安装 luci-compat。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>OpenClash 使用的 dev 内核是已经跑路的<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash">Clash 项目</a>，会<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/actions">自动定期编译</a>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -trimpath -ldflags <span class="string">&#x27;-X &quot;github.com/Dreamacro/clash/constant.Version=v1.17.0-5-ge1ec0d2&quot; -X &quot;github.com/Dreamacro/clash/constant.BuildTime=Sat Jul 29 19:08:17 UTC 2023&quot; -w -s -buildid=&#x27;</span> -o bin/clash</span><br></pre></td></tr></table></figure>
 
-<p>编译好的内核文件没有放在<code>ipk</code>包中，初次使用时需要根据Openwrt系统自助下载内核。<br>如果是arm路由器比如使用aarch64_cortex-a53的<a target="_blank" rel="noopener" href="https://doc.linkease.com/zh/guide/easepi/">EasyPi ARS2</a>，则需要编译对应的版本，比如AUK9527做的<a target="_blank" rel="noopener" href="https://github.com/AUK9527/Are-u-ok/tree/main/apps">iStore扩展插件包</a>。</p>
+<p>编译好的内核文件没有放在<code>ipk</code>包中，初次使用时需要根据 Openwrt 系统自助下载内核。<br>如果是 arm 路由器比如使用 aarch64_cortex-a53 的<a target="_blank" rel="noopener" href="https://doc.linkease.com/zh/guide/easepi/">EasyPi ARS2</a>，则需要编译对应的版本，比如 AUK9527 做的<a target="_blank" rel="noopener" href="https://github.com/AUK9527/Are-u-ok/tree/main/apps">iStore 扩展插件包</a>。</p>
 <img src="/blog/2022/07/25/openwrt-openclash/openclash-core-config.png" class="" title="内核">
 
-<p>内核的下载地址是github仓库，github会间歇性的抽风，当抽风时无法在控制台下载。</p>
+<p>内核的下载地址是 github 仓库，github 会间歇性的抽风，当抽风时无法在控制台下载。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2022-07-25 07:26:34 【Dev】版本内核更新失败，请确认设备闪存空间足够后再试！</span><br><span class="line">2022-07-25 07:26:34 【Dev】版本内核下载成功，开始更新...</span><br><span class="line">2022-07-25 07:26:04 【Dev】版本内核正在下载，如下载失败请尝试手动下载并上传...</span><br><span class="line">2022-07-25 07:23:56 警告：OpenClash 目前处于未启用状态，请从插件页面启动本插件，脚本退出...</span><br></pre></td></tr></table></figure>
 
 <p>不要被日志中的<code>请确认设备闪存空间足够后再试</code>骗了，其实是网络错误而不是闪存空间不足。</p>
-<p>这时需要像下载<code>ipk</code>那样，手动下载再上传到OpenWrt上。</p>
+<p>这时需要像下载<code>ipk</code>那样，手动下载再上传到 OpenWrt 上。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O clash-linux-amd64.tar.gz https://github.com/vernesong/OpenClash/releases/download/Clash/clash-linux-amd64.tar.gz</span><br><span class="line">scp clash-linux-amd64.tar.gz root@192.168.88.1:/etc/openclash/core</span><br></pre></td></tr></table></figure>
 
 <p>内核下载地址</p>
 <ul>
-<li>老的Release页面<ul>
+<li>老的 Release 页面<ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/Clash">Dev 内核</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/TUN-Premium">Tun 内核</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/TUN">Tun 游戏内核</a></li>
@@ -303,9 +303,9 @@
 </ul>
 <p>注意：</p>
 <blockquote>
-<p>新的内核只支持fake-ip，如果使用了<strong>在线订阅模板</strong>，最好使用老的内核。<br>否则会出现<code>invalid mode： redir-host</code>的错误，可参见这个<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/issues/2559">issue</a>。</p>
+<p>新的内核只支持 fake-ip，如果使用了<strong>在线订阅模板</strong>，最好使用老的内核。<br>否则会出现<code>invalid mode： redir-host</code>的错误，可参见这个<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/issues/2559">issue</a>。</p>
 </blockquote>
-<p>上传到OpenWrt<code>/etc/openclash/core</code>下的对应位置。</p>
+<p>上传到 OpenWrt<code>/etc/openclash/core</code>下的对应位置。</p>
 <ul>
 <li>Dev 内核: clash</li>
 <li>Tun 内核: clash_tun</li>
@@ -313,13 +313,13 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/openclash/core</span><br><span class="line">tar -zxvf clash-linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">rm</span> clash-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
-<p><code>clash</code>内核的权限应该为<code>nobody:nogroup</code>，可以手动修改权限，也可以让openclash自行修改。</p>
+<p><code>clash</code>内核的权限应该为<code>nobody:nogroup</code>，可以手动修改权限，也可以让 openclash 自行修改。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> nobody:nogroup /etc/openclash/core/* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
 
-<p>下载Dev内核并应用后，就可以配置好代理，之后使用控制台来更新内核了。</p>
+<p>下载 Dev 内核并应用后，就可以配置好代理，之后使用控制台来更新内核了。</p>
 <p><strong>UDP</strong></p>
-<p>如果要玩游戏，需要UDP连接，必须切换至TUN或混合模式。</p>
-<p>比如原神就需要UDP连接，如果使用增强模式会进入游戏后会白屏然后连接超时，需要切换到TUN或混合模式以支持UDP连接。</p>
+<p>如果要玩游戏，需要 UDP 连接，必须切换至 TUN 或混合模式。</p>
+<p>比如原神就需要 UDP 连接，如果使用增强模式会进入游戏后会白屏然后连接超时，需要切换到 TUN 或混合模式以支持 UDP 连接。</p>
 <h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><p>如果使用的是<a target="_blank" rel="noopener" href="https://justmysocks5.net/">justmysocks</a>机场的订阅链接，必须使用订阅转换服务，否则将不能识别订阅配置。使用默认的<code>api.dler.io(默认)</code>即可。</p>
 <img src="/blog/2022/07/25/openwrt-openclash/openclash-subscribe.png" class="" title="订阅转换">
 
@@ -334,49 +334,49 @@
 <p><a target="_blank" rel="noopener" href="https://sub.tsutsu.one/">https://sub.tsutsu.one/</a></p>
 </li>
 </ul>
-<p>如果使用的是<a target="_blank" rel="noopener" href="https://aff01.fyb-aff01.com/">飞鸟机场</a>，也必须使用订阅转换服务，否则在redir-host模式下无法解析域名，只能使用Fake-IP模式。<br>可能是因为没有dns段：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dns:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ipv6:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">listen:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:7874</span></span><br><span class="line">  <span class="attr">enhanced-mode:</span> <span class="string">fake-ip</span></span><br><span class="line">  <span class="attr">default-nameserver:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">119.29</span><span class="number">.29</span><span class="number">.29</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">119.28</span><span class="number">.28</span><span class="number">.28</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">1.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">208.67</span><span class="number">.222</span><span class="number">.222</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">1.2</span><span class="number">.4</span><span class="number">.8</span></span><br><span class="line">  <span class="attr">nameserver:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">https://dns.alidns.com/dns-query</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">https://1.1.1.1/dns-query</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">tls://dns.adguard.com:853</span></span><br><span class="line">  <span class="attr">fake-ip-range:</span> <span class="number">198.18</span><span class="number">.0</span><span class="number">.1</span><span class="string">/16</span></span><br><span class="line">  <span class="attr">fake-ip-filter:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">&quot;+.*&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果使用的是<a target="_blank" rel="noopener" href="https://aff01.fyb-aff01.com/">飞鸟机场</a>，也必须使用订阅转换服务，否则在 redir-host 模式下无法解析域名，只能使用 Fake-IP 模式。<br>可能是因为没有 dns 段：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dns:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ipv6:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">listen:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:7874</span></span><br><span class="line">  <span class="attr">enhanced-mode:</span> <span class="string">fake-ip</span></span><br><span class="line">  <span class="attr">default-nameserver:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">119.29</span><span class="number">.29</span><span class="number">.29</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">119.28</span><span class="number">.28</span><span class="number">.28</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">1.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">208.67</span><span class="number">.222</span><span class="number">.222</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">1.2</span><span class="number">.4</span><span class="number">.8</span></span><br><span class="line">  <span class="attr">nameserver:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">https://dns.alidns.com/dns-query</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">https://1.1.1.1/dns-query</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">tls://dns.adguard.com:853</span></span><br><span class="line">  <span class="attr">fake-ip-range:</span> <span class="number">198.18</span><span class="number">.0</span><span class="number">.1</span><span class="string">/16</span></span><br><span class="line">  <span class="attr">fake-ip-filter:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;+.*&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="仪表盘"><a href="#仪表盘" class="headerlink" title="仪表盘"></a>仪表盘</h3><p>如果订阅链接没有问题，此时应该一切正常。</p>
 <img src="/blog/2022/07/25/openwrt-openclash/openclash-overview.png" class="" title="仪表盘">
 
 <p>可以打开<code>Dashboard控制面板</code>去仪表盘进行策略配置了。</p>
-<h3 id="Fake-IP模式"><a href="#Fake-IP模式" class="headerlink" title="Fake IP模式"></a>Fake IP模式</h3><p>OpenClash支持Redir-Host和Fake-IP两种模式，默认为Redir-Host模式。</p>
-<p>Fake IP出自<a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc3089">RFC3089</a>，这个RFC定义了一种新的将TCP连接封装成SOCKS协议的方法。<a target="_blank" rel="noopener" href="https://blog.skk.moe/post/what-happend-to-dns-in-proxy/#Zai-redir-x2F-tun2socks-Zhong-Shi-Yong-Fake-IP">这里</a>有篇文章介绍的比较详细。</p>
-<p>它与Redir-Host模式的最主要区别是：</p>
+<h3 id="Fake-IP-模式"><a href="#Fake-IP-模式" class="headerlink" title="Fake IP 模式"></a>Fake IP 模式</h3><p>OpenClash 支持 Redir-Host 和 Fake-IP 两种模式，默认为 Redir-Host 模式。</p>
+<p>Fake IP 出自<a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc3089">RFC3089</a>，这个 RFC 定义了一种新的将 TCP 连接封装成 SOCKS 协议的方法。<a target="_blank" rel="noopener" href="https://blog.skk.moe/post/what-happend-to-dns-in-proxy/#Zai-redir-x2F-tun2socks-Zhong-Shi-Yong-Fake-IP">这里</a>有篇文章介绍的比较详细。</p>
+<p>它与 Redir-Host 模式的最主要区别是：</p>
 <ol>
-<li>客户端发出的DNS解析请求会被代理端捕获，然后立即从Fake IP池子里取一个IP建立映射返回。</li>
-<li>客户端发起对这个Fake IP的TCP连接，又被代理端截获，再返查出域名。</li>
-<li>代理端使用SOCKS协议封装TCP连接和域名。<br>整个过程都无需解析DNS，因此速度会更快。</li>
+<li>客户端发出的 DNS 解析请求会被代理端捕获，然后立即从 Fake IP 池子里取一个 IP 建立映射返回。</li>
+<li>客户端发起对这个 Fake IP 的 TCP 连接，又被代理端截获，再返查出域名。</li>
+<li>代理端使用 SOCKS 协议封装 TCP 连接和域名。<br>整个过程都无需解析 DNS，因此速度会更快。</li>
 </ol>
 <p>但它也有几个问题：</p>
 <ul>
-<li>无法ping域名，解析得到的会是内网的Fake IP</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/issues/6">windows会认为没有连接到互联网</a>，需要将<code>\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet</code>下的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/48856675">几个域名</a>添加至覆写设置-&gt;DNS设置-&gt;Fake-IP-Filter。</li>
-<li>windows时间同步的NTP（Network Time Protocol）域名：time.windows.com</li>
+<li>无法 ping 域名，解析得到的会是内网的 Fake IP</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/issues/6">windows 会认为没有连接到互联网</a>，需要将<code>\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NlaSvc\Parameters\Internet</code>下的<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/48856675">几个域名</a>添加至覆写设置-&gt;DNS 设置-&gt;Fake-IP-Filter。</li>
+<li>windows 时间同步的 NTP（Network Time Protocol）域名：time.windows.com</li>
 </ul>
-<p>如果对性能不是有很强的要求，还是建议使用Redir-Host模式。</p>
-<h3 id="偶尔有部分网址无法连接"><a href="#偶尔有部分网址无法连接" class="headerlink" title="偶尔有部分网址无法连接"></a>偶尔有部分网址无法连接</h3><p>偶尔有百度无法连接的情况，此时可将代理模式切换至Global模式，再切回Rule，通常药到病除。只是重启OpenClash不行。</p>
+<p>如果对性能不是有很强的要求，还是建议使用 Redir-Host 模式。</p>
+<h3 id="偶尔有部分网址无法连接"><a href="#偶尔有部分网址无法连接" class="headerlink" title="偶尔有部分网址无法连接"></a>偶尔有部分网址无法连接</h3><p>偶尔有百度无法连接的情况，此时可将代理模式切换至 Global 模式，再切回 Rule，通常药到病除。只是重启 OpenClash 不行。</p>
 <p>可参看这个<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/issues/31">Issue</a>。</p>
 <h3 id="自定义规则集"><a href="#自定义规则集" class="headerlink" title="自定义规则集"></a>自定义规则集</h3><p>规则集英文是<a target="_blank" rel="noopener" href="https://lancellc.gitbook.io/clash/clash-config-file/rule-provider">Rule Provider</a>，它可以在<code>config.yml</code>之外补充一些规则。</p>
-<p>比如最近大陆把微软OneDrive墙了，那么我们可以在<code>配置文件管理</code>中，新增一个类型为classic的本地规则：</p>
+<p>比如最近大陆把微软 OneDrive 墙了，那么我们可以在<code>配置文件管理</code>中，新增一个类型为 classic 的本地规则：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">payload:</span><br><span class="line">  # &gt; OneDrive</span><br><span class="line">  - DOMAIN-SUFFIX,onedrive.live.com</span><br></pre></td></tr></table></figure>
 
 <p>然后在<code>规则集与策略组管理</code>中的<code>自定义规则集与策略组管理</code>中使用它：</p>
 <img src="/blog/2022/07/25/openwrt-openclash/use-rule-provider.png" class="" title="使用自定义规则集">
 
 <p>这样当访问后缀为<code>onedrive.live.com</code>的网站时，就会使用代理了。</p>
-<h3 id="geo数据库订阅"><a href="#geo数据库订阅" class="headerlink" title="geo数据库订阅"></a>geo数据库订阅</h3><p>如果在更新geo数据库时出错，可能会导致geo文件缺乏，openclash无法启动。此时需要手动下载并上传geo数据库的文件。</p>
-<p>geo数据库的文件有好几个，<code>Country.mmdb</code>，<code>GeoSite.dat</code>，<code>GeoIP.dat</code>都在<code>/etc/openclash/</code>下。</p>
+<h3 id="geo-数据库订阅"><a href="#geo-数据库订阅" class="headerlink" title="geo 数据库订阅"></a>geo 数据库订阅</h3><p>如果在更新 geo 数据库时出错，可能会导致 geo 文件缺乏，openclash 无法启动。此时需要手动下载并上传 geo 数据库的文件。</p>
+<p>geo 数据库的文件有好几个，<code>Country.mmdb</code>，<code>GeoSite.dat</code>，<code>GeoIP.dat</code>都在<code>/etc/openclash/</code>下。</p>
 <p>我们可以在<code>/usr/share/openclash/</code>目录下找到对应的更新脚本：<code>openclash_ipdb.sh</code>，<code>openclash_geosite.sh</code>，<code>openclash_geoip.sh</code>，</p>
 <p>再在更新脚本中找到下载地址：<code>https://raw.githubusercontent.com/alecthw/mmdb_china_ip_list/release/lite/Country.mmdb</code>，<code>https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat</code>，<code>https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat</code>。</p>
-<p>在本地下载后，再上传至openwrt的<code>/etc/openclash/</code>。</p>
+<p>在本地下载后，再上传至 openwrt 的<code>/etc/openclash/</code>。</p>
 <h3 id="路由器自身使用代理"><a href="#路由器自身使用代理" class="headerlink" title="路由器自身使用代理"></a>路由器自身使用代理</h3><p>如果路由器自身不能翻墙，很多更新都会失败。</p>
-<p>如果出现路由器自身不能翻墙的问题，多半是依赖没有安装。可去到<code>插件设置</code>-&gt;<code>调试日志</code>中生成日志。查看是否有依赖未安装。<br>安装完依赖后，重启OpenClash应该就能正常使用了。</p>
-<p>比如下面这个日志，就缺少iptables相关依赖导致openwrt自身无法使用代理。</p>
+<p>如果出现路由器自身不能翻墙的问题，多半是依赖没有安装。可去到<code>插件设置</code>-&gt;<code>调试日志</code>中生成日志。查看是否有依赖未安装。<br>安装完依赖后，重启 OpenClash 应该就能正常使用了。</p>
+<p>比如下面这个日志，就缺少<code>iptables</code>相关依赖导致 openwrt 自身无法使用代理。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#===================== 依赖检查 =====================#</span></span><br><span class="line"></span><br><span class="line">dnsmasq-full: 已安装</span><br><span class="line">coreutils: 已安装</span><br><span class="line">coreutils-nohup: 已安装</span><br><span class="line">bash: 已安装</span><br><span class="line">curl: 已安装</span><br><span class="line">ca-certificates: 已安装</span><br><span class="line">ipset: 已安装</span><br><span class="line">ip-full: 已安装</span><br><span class="line">libcap: 已安装</span><br><span class="line">libcap-bin: 已安装</span><br><span class="line">ruby: 已安装</span><br><span class="line">ruby-yaml: 已安装</span><br><span class="line">ruby-psych: 已安装</span><br><span class="line">ruby-pstore: 已安装</span><br><span class="line">kmod-tun(TUN模式): 已安装</span><br><span class="line">luci-compat(Luci &gt;= 19.07): 已安装</span><br><span class="line">kmod-inet-diag(PROCESS-NAME): 未安装</span><br><span class="line">unzip: 已安装</span><br><span class="line">iptables-mod-tproxy: 未安装</span><br><span class="line">kmod-ipt-tproxy: 未安装</span><br><span class="line">iptables-mod-extra: 未安装</span><br><span class="line">kmod-ipt-extra: 未安装</span><br><span class="line">kmod-ipt-nat: 已安装</span><br></pre></td></tr></table></figure>
 
-<p>关于Clash作为透明代理，在<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash">clash项目</a>中有过<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/issues/158">讨论</a>。</p>
+<p>关于 Clash 作为透明代理，在<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash">clash 项目</a>中有过<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/issues/158">讨论</a>。</p>
 <link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
