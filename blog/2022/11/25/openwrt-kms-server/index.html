@@ -27,7 +27,7 @@
 <meta property="og:description" content="虽然绑定windows账号后，windows本体点击就送，但Office还是需要购买正版。如果不高兴每年续费Microsft 365，又不信任网上那些激活工具，那么可以折腾一下kms。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-11-25T08:34:42.000Z">
-<meta property="article:modified_time" content="2023-02-14T07:16:50.992Z">
+<meta property="article:modified_time" content="2024-03-21T06:47:10.625Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -146,7 +146,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85vlmcsd"><span class="nav-number">1.</span> <span class="nav-text">安装vlmcsd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#luci-app-vlmcsd"><span class="nav-number">2.</span> <span class="nav-text">luci-app-vlmcsd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">3.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">4.</span> <span class="nav-text">客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Office-2016"><span class="nav-number">4.1.</span> <span class="nav-text">安装Office 2016</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BBOffice"><span class="nav-number">4.2.</span> <span class="nav-text">激活Office</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%89%8D"><span class="nav-number">1.</span> <span class="nav-text">写在最前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85vlmcsd"><span class="nav-number">2.</span> <span class="nav-text">安装vlmcsd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#luci-app-vlmcsd"><span class="nav-number">3.</span> <span class="nav-text">luci-app-vlmcsd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">4.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">5.</span> <span class="nav-text">客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Office-2016"><span class="nav-number">5.1.</span> <span class="nav-text">安装Office 2016</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BF%80%E6%B4%BBOffice"><span class="nav-number">5.2.</span> <span class="nav-text">激活Office</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -233,7 +233,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-02-14 15:16:50" itemprop="dateModified" datetime="2023-02-14T15:16:50+08:00">2023-02-14</time>
+      <time title="修改时间：2024-03-21 14:47:10" itemprop="dateModified" datetime="2024-03-21T14:47:10+08:00">2024-03-21</time>
     </span>
 
   
@@ -253,7 +253,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="安装vlmcsd"><a href="#安装vlmcsd" class="headerlink" title="安装vlmcsd"></a>安装vlmcsd</h2><p>首先需要安装openwrt上的kms服务端：<a target="_blank" rel="noopener" href="https://github.com/cokebar/openwrt-vlmcsd">openwrt-vlmcsd</a>。</p>
+    <div class="post-body" itemprop="articleBody"><h2 id="写在最前"><a href="#写在最前" class="headerlink" title="写在最前"></a>写在最前</h2><p>已经不再需要使用kms激活windows啦，参见<a href="/blog/2023/11/06/microsoft-activation/" title="微软家产品的激活">微软家产品的激活</a>，只要一行命令，即可实现微软家产品的激活。</p>
+<h2 id="安装vlmcsd"><a href="#安装vlmcsd" class="headerlink" title="安装vlmcsd"></a>安装vlmcsd</h2><p>首先需要安装openwrt上的kms服务端：<a target="_blank" rel="noopener" href="https://github.com/cokebar/openwrt-vlmcsd">openwrt-vlmcsd</a>。</p>
 <p>vlmcsd很久没有更新了，但不要看着最近更新时间是2018年就害怕，它不更新是因为没必要更新，大敢的用吧。</p>
 <p>可以直接下载预编译的ipk，最新的版本是<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/cokebar/openwrt-vlmcsd/gh-pages/vlmcsd_svn1113-1_x86_64.ipk">svn1113-1</a>。</p>
 <h2 id="luci-app-vlmcsd"><a href="#luci-app-vlmcsd" class="headerlink" title="luci-app-vlmcsd"></a>luci-app-vlmcsd</h2><p>如果不想敲命令行，下一步可以安装<a target="_blank" rel="noopener" href="https://github.com/cokebar/luci-app-vlmcsd">luci-app-vlmcsd</a>。</p>
