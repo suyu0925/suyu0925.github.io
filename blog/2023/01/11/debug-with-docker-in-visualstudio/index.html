@@ -6,48 +6,48 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="在Visual Studio 2022中内置了对docker的支持，可以很方便的调试与发布至docker源。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Visual Studio中使用docker调试与发布">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/index.html">
+<meta property="og:url" content="https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="在Visual Studio 2022中内置了对docker的支持，可以很方便的调试与发布至docker源。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/enable-docker.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/select-docker-registry.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/publish-to-docker-registry.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/enable-docker.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/select-docker-registry.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/publish-to-docker-registry.png">
 <meta property="article:published_time" content="2023-01-11T07:39:24.000Z">
-<meta property="article:modified_time" content="2023-01-31T12:22:06.944Z">
+<meta property="article:modified_time" content="2023-01-11T08:52:43.304Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/enable-docker.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/enable-docker.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/">
+<link rel="canonical" href="https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/","path":"2023/01/11/debug-with-docker-in-visualstudio/","title":"在Visual Studio中使用docker调试与发布"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/","path":"2023/01/11/debug-with-docker-in-visualstudio/","title":"在Visual Studio中使用docker调试与发布"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>在Visual Studio中使用docker调试与发布 | Tasty Pub</title>
   
 
-  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
   <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
 
 
@@ -57,7 +57,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/blog/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start -->
 <script type="text/javascript">
@@ -82,7 +82,7 @@
 
   <div class="site-meta">
 
-    <a href="/blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
@@ -162,18 +162,18 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/blog/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/blog/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/blog/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -201,10 +201,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/01/11/debug-with-docker-in-visualstudio/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2023/01/11/debug-with-docker-in-visualstudio/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="lckof">
     </span>
 
@@ -229,15 +229,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-01-11 15:39:24" itemprop="dateCreated datePublished" datetime="2023-01-11T15:39:24+08:00">2023-01-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-31 20:22:06" itemprop="dateModified" datetime="2023-01-31T20:22:06+08:00">2023-01-31</time>
+      <time title="创建时间：2023-01-11 15:39:24 / 修改时间：16:52:43" itemprop="dateCreated datePublished" datetime="2023-01-11T15:39:24+08:00">2023-01-11</time>
     </span>
 
   
@@ -258,7 +252,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><h2 id="启用docker"><a href="#启用docker" class="headerlink" title="启用docker"></a>启用docker</h2><p>在创建Visual Studio工程时，可以选择<code>启用docker</code>。</p>
-<img src="/blog/2023/01/11/debug-with-docker-in-visualstudio/enable-docker.png" class="" title="启用docker">
+<img src="/2023/01/11/debug-with-docker-in-visualstudio/enable-docker.png" class="" title="启用docker">
 
 <p>在这里可以选择使用linux或windows容器，后续也可以修改，配置在fsproj中的<code>&lt;DockerDefaultTargetOS&gt;Windows&lt;/DockerDefaultTargetOS&gt;</code>。<br>可以使用命令<code>DockerCli.exe -SwitchDaemon</code>来切换linux和windows容器。</p>
 <p>在打开工程时，会在<code>容器工具</code>中预热容器，这里展示的是切换至windows容器后首次的显示内容：</p>
@@ -271,18 +265,18 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$target</span> = (<span class="string">&quot;vsdbg-&quot;</span> + <span class="variable">$VersionNumber</span>).Replace(<span class="string">&#x27;.&#x27;</span>,<span class="string">&#x27;-&#x27;</span>) + <span class="string">&quot;/vsdbg-&quot;</span> + <span class="variable">$RuntimeID</span> + <span class="string">&quot;.zip&quot;</span></span><br><span class="line"><span class="variable">$url</span> = <span class="string">&quot;https://vsdebugger.azureedge.net/&quot;</span> + <span class="variable">$target</span></span><br><span class="line"></span><br><span class="line">DownloadAndExtract <span class="variable">$url</span> <span class="variable">$InstallPath</span></span><br><span class="line"></span><br><span class="line">WriteSuccessInfo <span class="variable">$InstallPath</span> <span class="variable">$RuntimeID</span> <span class="variable">$VersionNumber</span></span><br><span class="line"><span class="built_in">Write-Host</span> <span class="string">&quot;Info: Successfully installed vsdbg at &#x27;<span class="variable">$InstallPath</span>&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>我们把<code>$url</code>拼凑出来，得到<code>https://vsdebugger.azureedge.net/vsdbg-17-4-11209-2/vsdbg-linux-musl-x64.zip</code>。</p>
 <p>直接使用Edge下载，发现这个压缩包的大小为60兆左右，下载速度在50K，大约需要20分钟。<br>看来直接放着不管，等半小时就能解决卡住的问题了。</p>
-<p>但谁叫咱们是急性子呢，使用<a href="/blog/2022/07/07/neat-download-manager/" title="下载软件idm的替代品：ndm">Neat Download Manager</a>下载，2分钟搞定。<br>下载完后把它解压缩到<code>$InstallPath</code>，即<code>C:\Users\username\vsdbg\vs2017u5\linux-musl-x64</code>。强行关闭visual studio，再次启动调试就正常了。</p>
+<p>但谁叫咱们是急性子呢，使用<a href="/2022/07/07/neat-download-manager/" title="下载软件idm的替代品：ndm">Neat Download Manager</a>下载，2分钟搞定。<br>下载完后把它解压缩到<code>$InstallPath</code>，即<code>C:\Users\username\vsdbg\vs2017u5\linux-musl-x64</code>。强行关闭visual studio，再次启动调试就正常了。</p>
 <h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>如果要发布到docker registry，可以在发布时，选择发布到<code>Docker容器注册表</code>。</p>
 <p>VS内置了两个Docker源：Azure和Docker Hub。</p>
-<img src="/blog/2023/01/11/debug-with-docker-in-visualstudio/select-docker-registry.png" class="" title="选择容器注册表">
+<img src="/2023/01/11/debug-with-docker-in-visualstudio/select-docker-registry.png" class="" title="选择容器注册表">
 
-<p>我们选择<a href="/blog/2022/12/30/deploy-docker-registry/" title="部署docker私有源">自建docker源</a>：</p>
-<img src="/blog/2023/01/11/debug-with-docker-in-visualstudio/publish-to-docker-registry.png" class="" title="自建docker源">
+<p>我们选择<a href="/2022/12/30/deploy-docker-registry/" title="部署docker私有源">自建docker源</a>：</p>
+<img src="/2023/01/11/debug-with-docker-in-visualstudio/publish-to-docker-registry.png" class="" title="自建docker源">
 
 <p>注意，这里填的url不要含<code>http</code>头，VS会添加<code>https</code>头来强制使用ssl确保安全性。因为<a target="_blank" rel="noopener" href="https://docs.docker.com/registry/insecure/">使用账号密码的鉴权方式不支持http</a>。<br>发布源的配置保存在工程目录的<code>Properties\PublishProfiles\</code>子目录下。</p>
 <p>只需轻轻点击发布即可推送到docker私有源。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line">已启动生成...</span><br><span class="line">1&gt;------ 已启动生成: 项目: aspnetcore-starter, 配置: Release Any CPU ------</span><br><span class="line">1&gt;aspnetcore-starter -&gt; C:\aspnetcore-starter\bin\Release\net6.0\aspnetcore-starter.dll</span><br><span class="line">2&gt;------ 已启动发布: 项目: aspnetcore-starter, 配置: Release Any CPU ------</span><br><span class="line">aspnetcore-starter -&gt; C:\aspnetcore-starter\bin\Release\net6.0\aspnetcore-starter.dll</span><br><span class="line">aspnetcore-starter -&gt; C:\aspnetcore-starter\obj\Docker\publish\</span><br><span class="line">Docker version 20.10.21, build baeda1f</span><br><span class="line">docker build -f &quot;C:\aspnetcore-starter\Dockerfile&quot; --force-rm -t aspnetcorestarter  --label &quot;com.microsoft.created-by=visual-studio&quot; --label &quot;com.microsoft.visual-studio.project-name=aspnetcore-starter&quot; &quot;C:&quot; </span><br><span class="line">#1 [internal] load build definition from Dockerfile</span><br><span class="line">#1 sha256:8baf9fe9cc57b6cf0dd45cec9ac8f026f414e73ab07bc3ccd5d42b5e310f458f</span><br><span class="line">#1 transferring dockerfile: 1.06kB done</span><br><span class="line">#1 DONE 0.0s</span><br><span class="line"></span><br><span class="line">#2 [internal] load .dockerignore</span><br><span class="line">#2 sha256:f5805a506c9a1d0feb2b7cfc779db1395c7c998c1b106fd6a488baef30c69bb0</span><br><span class="line">#2 transferring context: 382B done</span><br><span class="line">#2 DONE 0.0s</span><br><span class="line"></span><br><span class="line">#3 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:6.0</span><br><span class="line">#3 sha256:9eb4f6c3944cfcbfe18b9f1a753c769fc35341309a8d4a21f8937f47e94c712b</span><br><span class="line">#3 ...</span><br><span class="line"></span><br><span class="line">#4 [internal] load metadata for mcr.microsoft.com/dotnet/aspnet:6.0</span><br><span class="line">#4 sha256:ac4494cbca04ddb415c76edcbcc7688784c2a6ea65dd656286c013738aa3b75f</span><br><span class="line">#4 DONE 0.0s</span><br><span class="line"></span><br><span class="line">#3 [internal] load metadata for mcr.microsoft.com/dotnet/sdk:6.0</span><br><span class="line">#3 sha256:9eb4f6c3944cfcbfe18b9f1a753c769fc35341309a8d4a21f8937f47e94c712b</span><br><span class="line">#3 DONE 0.3s</span><br><span class="line"></span><br><span class="line">#8 [build 1/7] FROM mcr.microsoft.com/dotnet/sdk:6.0@sha256:23abf93a047e6f1bf1659bd0ff787facd6c80dcbf3421dd655f10bac209d1fde</span><br><span class="line">#8 sha256:c96c19e06e8ccfaae43656f0e9f3762d271a5c005dd95681e629f08302587e53</span><br><span class="line">#8 DONE 0.0s</span><br><span class="line"></span><br><span class="line">#5 [base 1/2] FROM mcr.microsoft.com/dotnet/aspnet:6.0</span><br><span class="line">#5 sha256:50f1ddc10932c4a74c7af5704e931a9489c710faea4f2381fe2380827a900e00</span><br><span class="line">#5 DONE 0.0s</span><br><span class="line"></span><br><span class="line">#10 [internal] load build context</span><br><span class="line">#10 sha256:b6a38a1e45714a79432c6ecbdb652fff543e4059d3b34c5c5f999be364f37248</span><br><span class="line">#10 transferring context: 5.54kB 0.0s done</span><br><span class="line">#10 DONE 0.1s</span><br><span class="line"></span><br><span class="line">#9 [build 2/7] WORKDIR /src</span><br><span class="line">#9 sha256:9c9fa3968f5b4f2cff4aa864a4ce235a22a6c7305e5220f516bc00d86d30e575</span><br><span class="line">#9 CACHED</span><br><span class="line"></span><br><span class="line">#11 [build 3/7] COPY [aspnetcore-starter/aspnetcore-starter.fsproj, aspnetcore-starter/]</span><br><span class="line">#11 sha256:6d9a5e2943840ea676fb7090c9d6650d8649bdc9e91b8706b67bed5fcb44eeb1</span><br><span class="line">#11 DONE 0.0s</span><br><span class="line"></span><br><span class="line">#12 [build 4/7] RUN dotnet restore &quot;aspnetcore-starter/aspnetcore-starter.fsproj&quot;</span><br><span class="line">#12 sha256:f7fe82b3aa75010301a204a04d87b86cd4f5d4b0cfbd462708e9cb6662812373</span><br><span class="line">#12 1.017   Determining projects to restore...</span><br><span class="line">#12 3.569   Restored /src/aspnetcore-starter/aspnetcore-starter.fsproj (in 2.24 sec).</span><br><span class="line">#12 DONE 3.7s</span><br><span class="line"></span><br><span class="line">#13 [build 5/7] COPY . .</span><br><span class="line">#13 sha256:acc19d075613d47507d57b0daabf4ff169fac8c1dff88b4e77e6a0e99f8590cb</span><br><span class="line">#13 DONE 0.1s</span><br><span class="line"></span><br><span class="line">#14 [build 6/7] WORKDIR /src/aspnetcore-starter</span><br><span class="line">#14 sha256:7dd55bf8c94ee5fd1995b4194fc59971f4e3417b237b62f6b73f3276752134f5</span><br><span class="line">#14 DONE 0.1s</span><br><span class="line"></span><br><span class="line">#15 [build 7/7] RUN dotnet build &quot;aspnetcore-starter.fsproj&quot; -c Release -o /app/build</span><br><span class="line">#15 sha256:27ea67d1d5032e19f58a61b48b66488f25899abd04ab77761897c04b8c72c0ad</span><br><span class="line">#15 0.506 MSBuild version 17.3.2+561848881 for .NET</span><br><span class="line">#15 1.183   Determining projects to restore...</span><br><span class="line">#15 1.645   All projects are up-to-date for restore.</span><br><span class="line">#15 5.471   aspnetcore-starter -&gt; /app/build/aspnetcore-starter.dll</span><br><span class="line">#15 5.486 </span><br><span class="line">#15 5.486 Build succeeded.</span><br><span class="line">#15 5.486     0 Warning(s)</span><br><span class="line">#15 5.486     0 Error(s)</span><br><span class="line">#15 5.486 </span><br><span class="line">#15 5.486 Time Elapsed 00:00:04.89</span><br><span class="line">#15 DONE 5.5s</span><br><span class="line"></span><br><span class="line">#16 [publish 1/1] RUN dotnet publish &quot;aspnetcore-starter.fsproj&quot; -c Release -o /app/publish /p:UseAppHost=false</span><br><span class="line">#16 sha256:32f4298e51c853156a2f81bb365b8f4b12eda0127896fc52e6a8e94186a256f7</span><br><span class="line">#16 0.511 MSBuild version 17.3.2+561848881 for .NET</span><br><span class="line">#16 1.113   Determining projects to restore...</span><br><span class="line">#16 1.499   All projects are up-to-date for restore.</span><br><span class="line">#16 2.305   aspnetcore-starter -&gt; /src/aspnetcore-starter/bin/Release/net6.0/aspnetcore-starter.dll</span><br><span class="line">#16 2.365   aspnetcore-starter -&gt; /app/publish/</span><br><span class="line">#16 DONE 2.4s</span><br><span class="line"></span><br><span class="line">#6 [base 2/2] WORKDIR /app</span><br><span class="line">#6 sha256:bc3cf6c390e5fe0e66017b4845c8fcf3e56c7adac9f514a00c2c986024f377a4</span><br><span class="line">#6 CACHED</span><br><span class="line"></span><br><span class="line">#7 [final 1/2] WORKDIR /app</span><br><span class="line">#7 sha256:3baba3edbb555769ad9a49e827de88d7dcc4f72ad6e2b42e576964e4a30eac96</span><br><span class="line">#7 CACHED</span><br><span class="line"></span><br><span class="line">#17 [final 2/2] COPY --from=publish /app/publish .</span><br><span class="line">#17 sha256:888b07e32e65ef8e188f006eaa973588bbffde456c17a1a5be7ff18d2cf0f3d3</span><br><span class="line">#17 DONE 0.1s</span><br><span class="line"></span><br><span class="line">#18 exporting to image</span><br><span class="line">#18 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00</span><br><span class="line">#18 exporting layers 0.1s done</span><br><span class="line">#18 writing image sha256:d666433c2e744951f78bf298a82a05d62da163cac2fb335ba215cc707f60fcce done</span><br><span class="line">#18 naming to docker.io/library/aspnetcorestarter done</span><br><span class="line">#18 DONE 0.1s</span><br><span class="line">========== 版本: 1 成功，0 失败，0 更新，0 跳过 ==========</span><br><span class="line">========== 占用时间 00:17.813 ==========</span><br><span class="line">========== 发布: 1 个成功，0 个失败，0 个已跳过 ==========</span><br><span class="line">========== 占用时间 00:17.813 ==========</span><br><span class="line">The push refers to repository [your_docker_registry.com:443/aspnetcorestarter]</span><br><span class="line">bb0e8b5691c1: Preparing</span><br><span class="line">5f70bf18a086: Preparing</span><br><span class="line">756d414086ee: Preparing</span><br><span class="line">7e963e684504: Preparing</span><br><span class="line">579f2f220e9d: Preparing</span><br><span class="line">3484e444e9cf: Preparing</span><br><span class="line">95a1c56e8ba5: Preparing</span><br><span class="line">67a4178b7d47: Preparing</span><br><span class="line">3484e444e9cf: Waiting</span><br><span class="line">95a1c56e8ba5: Waiting</span><br><span class="line">67a4178b7d47: Waiting</span><br><span class="line">756d414086ee: Layer already exists</span><br><span class="line">5f70bf18a086: Layer already exists</span><br><span class="line">579f2f220e9d: Layer already exists</span><br><span class="line">7e963e684504: Layer already exists</span><br><span class="line">95a1c56e8ba5: Layer already exists</span><br><span class="line">3484e444e9cf: Layer already exists</span><br><span class="line">67a4178b7d47: Layer already exists</span><br><span class="line">bb0e8b5691c1: Pushed</span><br><span class="line">latest: digest: sha256:32dd47b9da184b1462566f6a37f80875fefbe29a3b46f030cf4519573dccc170 size: 1995</span><br><span class="line">已成功推送带标记“latest”的 Docker 映像</span><br></pre></td></tr></table></figure>
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -291,19 +285,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/docker/" rel="tag"># docker</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2023/01/10/deploy-docker-volume/" rel="prev" title="部署docker数据卷">
+                <a href="/2023/01/10/deploy-docker-volume/" rel="prev" title="部署docker数据卷">
                   <i class="fa fa-angle-left"></i> 部署docker数据卷
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2023/01/13/reading-list-for-quants/" rel="next" title="宽客书单">
+                <a href="/2023/01/13/reading-list-for-quants/" rel="next" title="宽客书单">
                   宽客书单 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
@@ -369,10 +363,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/blog/js/third-party/search/local-search.js"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -387,7 +381,7 @@
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/blog/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

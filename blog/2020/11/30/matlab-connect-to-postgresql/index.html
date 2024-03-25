@@ -6,51 +6,51 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="matlab用的不多，记录备忘。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="matlab连接postgresql">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/index.html">
+<meta property="og:url" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="matlab用的不多，记录备忘。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-app.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-1.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-2.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-3.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-4.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-5.png">
+<meta property="og:image" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/matlab-app.png">
+<meta property="og:image" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-1.png">
+<meta property="og:image" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-2.png">
+<meta property="og:image" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-3.png">
+<meta property="og:image" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-4.png">
+<meta property="og:image" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-5.png">
 <meta property="article:published_time" content="2020-11-30T01:30:09.000Z">
-<meta property="article:modified_time" content="2023-03-22T16:38:51.490Z">
+<meta property="article:modified_time" content="2023-03-17T07:14:00.628Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="sql">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/matlab-app.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/matlab-app.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/">
+<link rel="canonical" href="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/","path":"2020/11/30/matlab-connect-to-postgresql/","title":"matlab连接postgresql"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/","path":"2020/11/30/matlab-connect-to-postgresql/","title":"matlab连接postgresql"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>matlab连接postgresql | Tasty Pub</title>
   
 
-  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
   <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
 
 
@@ -60,7 +60,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/blog/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start -->
 <script type="text/javascript">
@@ -85,7 +85,7 @@
 
   <div class="site-meta">
 
-    <a href="/blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
@@ -165,18 +165,18 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/blog/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/blog/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/blog/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -204,10 +204,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2020/11/30/matlab-connect-to-postgresql/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2020/11/30/matlab-connect-to-postgresql/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="lckof">
     </span>
 
@@ -240,7 +240,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-23 00:38:51" itemprop="dateModified" datetime="2023-03-23T00:38:51+08:00">2023-03-23</time>
+      <time title="修改时间：2023-03-17 15:14:00" itemprop="dateModified" datetime="2023-03-17T15:14:00+08:00">2023-03-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -248,7 +248,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/blog/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
+          <a href="/categories/computer-science/" itemprop="url" rel="index"><span itemprop="name">computer science</span></a>
         </span>
     </span>
 
@@ -288,23 +288,23 @@
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">%% Make connection to database</span></span><br><span class="line">conn = database(<span class="string">&#x27;database-name&#x27;</span>,<span class="string">&#x27;username&#x27;</span>,<span class="string">&#x27;password&#x27;</span>,<span class="string">&#x27;Vendor&#x27;</span>,<span class="string">&#x27;POSTGRESQL&#x27;</span>,<span class="string">&#x27;Server&#x27;</span>,<span class="string">&#x27;server-host&#x27;</span>,<span class="string">&#x27;PortNumber&#x27;</span>,port-number);</span><br><span class="line"></span><br><span class="line"><span class="comment">%% Execute query and fetch results</span></span><br><span class="line">data = fetch(conn,[<span class="string">&#x27;SELECT * &#x27;</span> ...</span><br><span class="line">    <span class="string">&#x27;FROM schema.table&#x27;</span>]);</span><br><span class="line"><span class="comment">%% Close connection to database</span></span><br><span class="line">close(conn)</span><br></pre></td></tr></table></figure>
 
 <h2 id="使用matlab内置的Database-Explorer来查看数据"><a href="#使用matlab内置的Database-Explorer来查看数据" class="headerlink" title="使用matlab内置的Database Explorer来查看数据"></a>使用matlab内置的Database Explorer来查看数据</h2><p>打开app标签下的Database Exploerer：</p>
-<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-app.png" class="" title="matlab app">
+<img src="/2020/11/30/matlab-connect-to-postgresql/matlab-app.png" class="" title="matlab app">
 
 <p>配置JDBC数据源：</p>
-<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-1.png" class="" title="matlab app">
+<img src="/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-1.png" class="" title="matlab app">
 
 <p>添加PostgreSQL JDBC数据源：</p>
-<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-2.png" class="" title="matlab app">
+<img src="/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-2.png" class="" title="matlab app">
 
 <p>创建查询：</p>
-<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-3.png" class="" title="matlab app">
+<img src="/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-3.png" class="" title="matlab app">
 
 <p>选择刚才添加的数据源：</p>
-<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-4.png" class="" title="matlab app">
+<img src="/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-4.png" class="" title="matlab app">
 
 <p>输入账号密码即可连接预览：</p>
-<img src="/blog/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-5.png" class="" title="matlab app">
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<img src="/2020/11/30/matlab-connect-to-postgresql/matlab-database-explorer-5.png" class="" title="matlab app">
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -313,19 +313,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/sql/" rel="tag"># sql</a>
+              <a href="/tags/sql/" rel="tag"># sql</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2020/10/29/privilege-on-psql/" rel="prev" title="PostgreSQL中的用户权限">
+                <a href="/2020/10/29/privilege-on-psql/" rel="prev" title="PostgreSQL中的用户权限">
                   <i class="fa fa-angle-left"></i> PostgreSQL中的用户权限
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2020/12/02/fixed-listed-disclosure/" rel="next" title="上市公司信息披露查询">
+                <a href="/2020/12/02/fixed-listed-disclosure/" rel="next" title="上市公司信息披露查询">
                   上市公司信息披露查询 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
@@ -391,10 +391,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/blog/js/third-party/search/local-search.js"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -409,7 +409,7 @@
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/blog/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

@@ -6,47 +6,47 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="最近想重新看下go，结果windows安全中心疯狂报毒。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go语言的一个问题：病毒">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2023/08/11/golang-virus-problem/index.html">
+<meta property="og:url" content="https://blog.lckof.com/2023/08/11/golang-virus-problem/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="最近想重新看下go，结果windows安全中心疯狂报毒。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/08/11/golang-virus-problem/virustotal-go1.21.0.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/08/11/golang-virus-problem/virustotal-go1.20.1.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/08/11/golang-virus-problem/virustotal-go1.21.0.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/08/11/golang-virus-problem/virustotal-go1.20.1.png">
 <meta property="article:published_time" content="2023-08-11T05:45:21.000Z">
-<meta property="article:modified_time" content="2023-08-16T16:00:30.378Z">
+<meta property="article:modified_time" content="2023-08-11T06:47:02.299Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/08/11/golang-virus-problem/virustotal-go1.21.0.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2023/08/11/golang-virus-problem/virustotal-go1.21.0.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2023/08/11/golang-virus-problem/">
+<link rel="canonical" href="https://blog.lckof.com/2023/08/11/golang-virus-problem/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/08/11/golang-virus-problem/","path":"2023/08/11/golang-virus-problem/","title":"go语言的一个问题：病毒"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2023/08/11/golang-virus-problem/","path":"2023/08/11/golang-virus-problem/","title":"go语言的一个问题：病毒"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>go语言的一个问题：病毒 | Tasty Pub</title>
   
 
-  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
   <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
 
 
@@ -56,7 +56,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/blog/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start -->
 <script type="text/javascript">
@@ -81,7 +81,7 @@
 
   <div class="site-meta">
 
-    <a href="/blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
@@ -161,18 +161,18 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/blog/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/blog/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/blog/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -200,10 +200,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/08/11/golang-virus-problem/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2023/08/11/golang-virus-problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="lckof">
     </span>
 
@@ -228,15 +228,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-08-11 13:45:21" itemprop="dateCreated datePublished" datetime="2023-08-11T13:45:21+08:00">2023-08-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-08-17 00:00:30" itemprop="dateModified" datetime="2023-08-17T00:00:30+08:00">2023-08-17</time>
+      <time title="创建时间：2023-08-11 13:45:21 / 修改时间：14:47:02" itemprop="dateCreated datePublished" datetime="2023-08-11T13:45:21+08:00">2023-08-11</time>
     </span>
 
   
@@ -266,17 +260,17 @@
 <p>它可以让用户上传文件，然后给出各个杀毒软件的检测结果。扫描结果以文件的checksum作为id，向公众共享。</p>
 <p>Go的<a target="_blank" rel="noopener" href="https://go.dev/dl/">下载页面</a>有列出每个版本的发行包的checksum，我们只需要拿着checksum去virustotal，就可以看到各个杀毒软件的检测结果了。</p>
 <p>比如截止本文撰写时，最新的go版本是<code>1.21.0</code>，它的windows压缩包发行版<code>go1.21.0.windows-amd64.zip</code>的checksum是<code>732121e64e0ecb07c77fdf6cc1bc5ce7b242c2d40d4ac29021ad4c64a08731f6</code>，我们将它组装成一个网址<code>https://www.virustotal.com/gui/file/732121e64e0ecb07c77fdf6cc1bc5ce7b242c2d40d4ac29021ad4c64a08731f6</code>，打开后就可以看到各家杀毒软件对它的扫描情况。</p>
-<img src="/blog/2023/08/11/golang-virus-problem/virustotal-go1.21.0.png" class="" title="virustotal-go1.21.0">
+<img src="/2023/08/11/golang-virus-problem/virustotal-go1.21.0.png" class="" title="virustotal-go1.21.0">
 
 <p>可以看到<code>go@1.21.0</code>的检测结果相当不妙。</p>
 <p>通过寻找，发现<code>go@1.20.1</code>的结果要好不少，虽然还是有报毒和匹配到恶意软件规则，但从<code>1.4</code>开始有1款杀软报毒（江民），<code>1.5</code>全面崩掉，<code>1.20.1</code>的检测结果已经算可接受。</p>
-<img src="/blog/2023/08/11/golang-virus-problem/virustotal-go1.20.1.png" class="" title="virustotal-go1.20.1">
+<img src="/2023/08/11/golang-virus-problem/virustotal-go1.20.1.png" class="" title="virustotal-go1.20.1">
 
 <p>尝试安装<code>go@1.20.1</code>，果然不再报毒。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scoop install go@1.20.1</span><br><span class="line">scoop hold go</span><br></pre></td></tr></table></figure>
 
 <p>结合最近更新<code>Docker Desktop 4.22.0 (117440)</code>后无法启动，导致原本运行的好好的container和volume全部挂件的事件，看来以后升级软件版本要谨慎一些，得先让子弹飞一会。</p>
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -285,19 +279,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/go/" rel="tag"># go</a>
+              <a href="/tags/go/" rel="tag"># go</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2023/08/10/swimming-course/" rel="prev" title="游泳课">
+                <a href="/2023/08/10/swimming-course/" rel="prev" title="游泳课">
                   <i class="fa fa-angle-left"></i> 游泳课
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2023/08/15/newbie-workout-squat/" rel="next" title="新手健身·深蹲">
+                <a href="/2023/08/15/newbie-workout-squat/" rel="next" title="新手健身·深蹲">
                   新手健身·深蹲 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
@@ -363,10 +357,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/blog/js/third-party/search/local-search.js"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -381,7 +375,7 @@
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/blog/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

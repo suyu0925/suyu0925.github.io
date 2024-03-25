@@ -6,51 +6,51 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="现在Kubernetes已经没有了实际意义上的竞争对手，它的地位就如同Linux一样，成为了事实上的云原生操作系统，是构建现代应用的基石。还不快了解一下。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈一下kubernetes">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/index.html">
+<meta property="og:url" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="现在Kubernetes已经没有了实际意义上的竞争对手，它的地位就如同Linux一样，成为了事实上的云原生操作系统，是构建现代应用的基石。还不快了解一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/container_vs_vm.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/cloud-operation-system.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/api-resources.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/kubernetes-control-plane.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/pod.webp">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/job-yaml.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/cronjob-yaml.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/container_vs_vm.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/cloud-operation-system.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/api-resources.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/kubernetes-control-plane.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/pod.webp">
+<meta property="og:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/job-yaml.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/cronjob-yaml.png">
 <meta property="article:published_time" content="2023-04-26T06:28:15.000Z">
-<meta property="article:modified_time" content="2023-06-29T14:36:38.781Z">
+<meta property="article:modified_time" content="2023-04-28T05:38:59.385Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/container_vs_vm.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2023/04/26/intro-kubernetes/container_vs_vm.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/">
+<link rel="canonical" href="https://blog.lckof.com/2023/04/26/intro-kubernetes/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/","path":"2023/04/26/intro-kubernetes/","title":"浅谈一下kubernetes"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2023/04/26/intro-kubernetes/","path":"2023/04/26/intro-kubernetes/","title":"浅谈一下kubernetes"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>浅谈一下kubernetes | Tasty Pub</title>
   
 
-  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
   <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
 
 
@@ -60,7 +60,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/blog/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start -->
 <script type="text/javascript">
@@ -85,7 +85,7 @@
 
   <div class="site-meta">
 
-    <a href="/blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
@@ -165,18 +165,18 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/blog/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/blog/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/blog/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -204,10 +204,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/04/26/intro-kubernetes/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2023/04/26/intro-kubernetes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="lckof">
     </span>
 
@@ -240,7 +240,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-29 22:36:38" itemprop="dateModified" datetime="2023-06-29T22:36:38+08:00">2023-06-29</time>
+      <time title="修改时间：2023-04-28 13:38:59" itemprop="dateModified" datetime="2023-04-28T13:38:59+08:00">2023-04-28</time>
     </span>
 
   
@@ -268,7 +268,7 @@
 <li>从上面看，容器是在应用程序层面上的一个抽象，它将应用程序及其依赖项打包在一起，以便可以在不同的计算环境中快速而一致地运行。</li>
 </ul>
 <h3 id="vs虚拟机"><a href="#vs虚拟机" class="headerlink" title="vs虚拟机"></a>vs虚拟机</h3><p>虽然都是虚拟化技术，但它和虚拟机是完全不同的。从<a target="_blank" rel="noopener" href="https://www.docker.com/resources/what-container/">Docker官网</a>借一张对比图。</p>
-<img src="/blog/2023/04/26/intro-kubernetes/container_vs_vm.png" class="" title="容器vs比虚拟机">
+<img src="/2023/04/26/intro-kubernetes/container_vs_vm.png" class="" title="容器vs比虚拟机">
 
 <ul>
 <li>容器是应用程序层的抽象，容器之间共享操作系统内核，每个容器作为隔离的进程在用户空间中运行。容器占用的空间比虚拟机少，可以处理更多的应用程序。</li>
@@ -293,7 +293,7 @@
 
 <p>操作系统的一个重要功能就是抽象，从繁琐的底层事务中抽象出一些简洁的概念，然后基于这些概念去管理系统资源。</p>
 <p>Kubernetes也是这样，它的管理目标是大规模的集群和应用，必须要能够把系统抽象到足够高的层次，分解出一些松耦合的对象，才能简化系统模型，减轻用户的心智负担。</p>
-<h3 id="集群架构"><a href="#集群架构" class="headerlink" title="集群架构"></a>集群架构</h3><img src="/blog/2023/04/26/intro-kubernetes/cloud-operation-system.png" class="" title="k8s-cluster.webp 集群架构">
+<h3 id="集群架构"><a href="#集群架构" class="headerlink" title="集群架构"></a>集群架构</h3><img src="/2023/04/26/intro-kubernetes/cloud-operation-system.png" class="" title="k8s-cluster.webp 集群架构">
 
 <p>Kubernetes采用了现今流行的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Control_plane"><strong>控制面&#x2F;数据面</strong>（Control Plane&#x2F;Data Plane）架构</a>，集群里的计算机被称为<strong>节点</strong>（Node），少量的节点用作控制面来执行集群的管理维护工作，其他的大部分节点都被划归数据面，用来跑业务应用。</p>
 <p>节点内部也具有复杂的结构，可分为核心的<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/overview/components/">组件</a>和锦上添花的<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/cluster-administration/addons/">插件</a>。</p>
@@ -325,13 +325,13 @@
 <h4 id="API对象"><a href="#API对象" class="headerlink" title="API对象"></a>API对象</h4><p>YAML语言只相当于“语法”，要与Kubernetes对话，我们还必须有足够的“词汇”来表示“语义”。</p>
 <p>作为一个集群操作系统，Kubernetes 归纳总结了 Google 多年的经验，在理论层面抽象出了很多个概念，用来描述系统的管理运维工作，这些概念就叫做“API 对象”。说到这个名字，你也许会联想到上次课里讲到的 Kubernetes 组件 apiserver。没错，它正是来源于此。</p>
 <p>因为 apiserver 是 Kubernetes 系统的唯一入口，外部用户和内部组件都必须和它通信，而它采用了 HTTP 协议的 URL 资源理念，API 风格也用 RESTful 的 GET&#x2F;POST&#x2F;DELETE 等等，所以，这些概念很自然地就被称为是“API 对象”了。</p>
-<img src="/blog/2023/04/26/intro-kubernetes/api-resources.png" class="" title="API对象">
+<img src="/2023/04/26/intro-kubernetes/api-resources.png" class="" title="API对象">
 
 <h3 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h3><p>Kubernetes的<strong>Master&#x2F;Node架构</strong>是它具有自动化运维能力的关键，再用另一张参考架构图来简略说明一下它的运行机制。</p>
-<img src="/blog/2023/04/26/intro-kubernetes/kubernetes-control-plane.png" class="" title="Master&#x2F;Node架构">
+<img src="/2023/04/26/intro-kubernetes/kubernetes-control-plane.png" class="" title="Master&#x2F;Node架构">
 
 <h3 id="工作负荷（Workload）"><a href="#工作负荷（Workload）" class="headerlink" title="工作负荷（Workload）"></a>工作负荷（Workload）</h3><p>工作负荷就是在k8s中运行的应用。而<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/workloads/pods/">pods</a>是k8s管理应用的最小单位，所有的工作负荷都是从pod扩展出来的。</p>
-<img src="/blog/2023/04/26/intro-kubernetes/pod.webp" class="" title="pod">
+<img src="/2023/04/26/intro-kubernetes/pod.webp" class="" title="pod">
 
 <h4 id="Pod"><a href="#Pod" class="headerlink" title="Pod"></a>Pod</h4><p>一个容器中只运行一个进程或应用。Pod可以解决联合运行的需求，但作为一个整体它又足够轻量。类似Docker中的compose project。</p>
 <p>一个简单的pod：</p>
@@ -344,16 +344,16 @@
 <p><strong>job</strong></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Job</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">echo-job</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">OnFailure</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">        <span class="attr">name:</span> <span class="string">echo-job</span></span><br><span class="line">        <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">        <span class="attr">command:</span> [<span class="string">&quot;/bin/echo&quot;</span>]</span><br><span class="line">        <span class="attr">args:</span> [<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>]</span><br></pre></td></tr></table></figure>
 
-<img src="/blog/2023/04/26/intro-kubernetes/job-yaml.png" class="" title="job">
+<img src="/2023/04/26/intro-kubernetes/job-yaml.png" class="" title="job">
 
 <p>从这里可以感受到api对象的魅力。</p>
 <p><strong>cronjob</strong></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">batch/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">CronJob</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">echo-cj</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">schedule:</span> <span class="string">&#x27;*/1 * * * *&#x27;</span></span><br><span class="line">  <span class="attr">jobTemplate:</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">template:</span></span><br><span class="line">        <span class="attr">spec:</span></span><br><span class="line">          <span class="attr">restartPolicy:</span> <span class="string">OnFailure</span></span><br><span class="line">          <span class="attr">containers:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">busybox</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">echo-cj</span></span><br><span class="line">            <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">            <span class="attr">command:</span> [<span class="string">&quot;/bin/echo&quot;</span>]</span><br><span class="line">            <span class="attr">args:</span> [<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>]</span><br></pre></td></tr></table></figure>
 
-<img src="/blog/2023/04/26/intro-kubernetes/cronjob-yaml.png" class="" title="cronjob">
+<img src="/2023/04/26/intro-kubernetes/cronjob-yaml.png" class="" title="cronjob">
 
 <h4 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h4><h4 id="Daemonset"><a href="#Daemonset" class="headerlink" title="Daemonset"></a>Daemonset</h4><h4 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h4><h3 id="服务与网络"><a href="#服务与网络" class="headerlink" title="服务与网络"></a>服务与网络</h3><h4 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h4><h4 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h4><h3 id="配置与存储"><a href="#配置与存储" class="headerlink" title="配置与存储"></a>配置与存储</h3><h4 id="ConfigMap-Secret"><a href="#ConfigMap-Secret" class="headerlink" title="ConfigMap&#x2F;Secret"></a>ConfigMap&#x2F;Secret</h4><h4 id="PersistentVolume"><a href="#PersistentVolume" class="headerlink" title="PersistentVolume"></a>PersistentVolume</h4><h4 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a>资源限制</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ngx-pod-resources</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">nginx:alpine</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">ngx</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">resources:</span></span><br><span class="line">      <span class="attr">requests:</span></span><br><span class="line">        <span class="attr">cpu:</span> <span class="string">10m</span></span><br><span class="line">        <span class="attr">memory:</span> <span class="string">100Mi</span></span><br><span class="line">      <span class="attr">limits:</span></span><br><span class="line">        <span class="attr">cpu:</span> <span class="string">20m</span></span><br><span class="line">        <span class="attr">memory:</span> <span class="string">200Mi</span></span><br></pre></td></tr></table></figure>
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -366,12 +366,12 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2023/04/20/use-ubuntu-on-hyper-v/" rel="prev" title="在Hyper-V上使用Ubuntu">
+                <a href="/2023/04/20/use-ubuntu-on-hyper-v/" rel="prev" title="在Hyper-V上使用Ubuntu">
                   <i class="fa fa-angle-left"></i> 在Hyper-V上使用Ubuntu
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2023/06/29/under-the-hood-of-recycle-bin-on-windows/" rel="next" title="windows回收站的工作原理">
+                <a href="/2023/06/29/under-the-hood-of-recycle-bin-on-windows/" rel="next" title="windows回收站的工作原理">
                   windows回收站的工作原理 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
@@ -437,10 +437,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/blog/js/third-party/search/local-search.js"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -455,7 +455,7 @@
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/blog/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

@@ -6,49 +6,49 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="可以说软路由最重要的作用就是科学上网了，在OpenWrt的科学上网工具中，最喜欢的还是OpenClash。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[OpenWrt]使用OpenClash科学上网">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/index.html">
+<meta property="og:url" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="可以说软路由最重要的作用就是科学上网了，在OpenWrt的科学上网工具中，最喜欢的还是OpenClash。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/openclash-core-config.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/openclash-subscribe.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/openclash-overview.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/use-rule-provider.png">
+<meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-core-config.png">
+<meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-subscribe.png">
+<meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-overview.png">
+<meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/use-rule-provider.png">
 <meta property="article:published_time" content="2022-07-25T07:46:56.000Z">
-<meta property="article:modified_time" content="2024-03-24T18:14:18.659Z">
+<meta property="article:modified_time" content="2024-03-20T01:22:23.230Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/openclash-core-config.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-core-config.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/">
+<link rel="canonical" href="https://blog.lckof.com/2022/07/25/openwrt-openclash/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/","path":"2022/07/25/openwrt-openclash/","title":"[OpenWrt]使用OpenClash科学上网"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2022/07/25/openwrt-openclash/","path":"2022/07/25/openwrt-openclash/","title":"[OpenWrt]使用OpenClash科学上网"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>[OpenWrt]使用OpenClash科学上网 | Tasty Pub</title>
   
 
-  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
   <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
 
 
@@ -58,7 +58,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/blog/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start -->
 <script type="text/javascript">
@@ -83,7 +83,7 @@
 
   <div class="site-meta">
 
-    <a href="/blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
@@ -163,18 +163,18 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/blog/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/blog/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/blog/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -202,10 +202,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/07/25/openwrt-openclash/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2022/07/25/openwrt-openclash/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="lckof">
     </span>
 
@@ -238,7 +238,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-25 02:14:18" itemprop="dateModified" datetime="2024-03-25T02:14:18+08:00">2024-03-25</time>
+      <time title="修改时间：2024-03-20 09:22:23" itemprop="dateModified" datetime="2024-03-20T09:22:23+08:00">2024-03-20</time>
     </span>
 
   
@@ -277,7 +277,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -trimpath -ldflags <span class="string">&#x27;-X &quot;github.com/Dreamacro/clash/constant.Version=v1.17.0-5-ge1ec0d2&quot; -X &quot;github.com/Dreamacro/clash/constant.BuildTime=Sat Jul 29 19:08:17 UTC 2023&quot; -w -s -buildid=&#x27;</span> -o bin/clash</span><br></pre></td></tr></table></figure>
 
 <p>编译好的内核文件没有放在<code>ipk</code>包中，初次使用时需要根据 Openwrt 系统自助下载内核。<br>如果是 arm 路由器比如使用 aarch64_cortex-a53 的<a target="_blank" rel="noopener" href="https://doc.linkease.com/zh/guide/easepi/">EasyPi ARS2</a>，则需要编译对应的版本，比如 AUK9527 做的<a target="_blank" rel="noopener" href="https://github.com/AUK9527/Are-u-ok/tree/main/apps">iStore 扩展插件包</a>。</p>
-<img src="/blog/2022/07/25/openwrt-openclash/openclash-core-config.png" class="" title="内核">
+<img src="/2022/07/25/openwrt-openclash/openclash-core-config.png" class="" title="内核">
 
 <p>内核的下载地址是 github 仓库，github 会间歇性的抽风，当抽风时无法在控制台下载。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2022-07-25 07:26:34 【Dev】版本内核更新失败，请确认设备闪存空间足够后再试！</span><br><span class="line">2022-07-25 07:26:34 【Dev】版本内核下载成功，开始更新...</span><br><span class="line">2022-07-25 07:26:04 【Dev】版本内核正在下载，如下载失败请尝试手动下载并上传...</span><br><span class="line">2022-07-25 07:23:56 警告：OpenClash 目前处于未启用状态，请从插件页面启动本插件，脚本退出...</span><br></pre></td></tr></table></figure>
@@ -321,7 +321,7 @@
 <p>如果要玩游戏，需要 UDP 连接，必须切换至 TUN 或混合模式。</p>
 <p>比如原神就需要 UDP 连接，如果使用增强模式会进入游戏后会白屏然后连接超时，需要切换到 TUN 或混合模式以支持 UDP 连接。</p>
 <h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><p>如果使用的是<a target="_blank" rel="noopener" href="https://justmysocks5.net/">justmysocks</a>机场的订阅链接，必须使用订阅转换服务，否则将不能识别订阅配置。使用默认的<code>api.dler.io(默认)</code>即可。</p>
-<img src="/blog/2022/07/25/openwrt-openclash/openclash-subscribe.png" class="" title="订阅转换">
+<img src="/2022/07/25/openwrt-openclash/openclash-subscribe.png" class="" title="订阅转换">
 
 <p>有时候订阅服务器会出问题，可以试着使用其它备用订阅转换网站的转换网址。</p>
 <ul>
@@ -338,7 +338,7 @@
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">dns:</span></span><br><span class="line">  <span class="attr">enable:</span> <span class="literal">true</span></span><br><span class="line">  <span class="attr">ipv6:</span> <span class="literal">false</span></span><br><span class="line">  <span class="attr">listen:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:7874</span></span><br><span class="line">  <span class="attr">enhanced-mode:</span> <span class="string">fake-ip</span></span><br><span class="line">  <span class="attr">default-nameserver:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">119.29</span><span class="number">.29</span><span class="number">.29</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">119.28</span><span class="number">.28</span><span class="number">.28</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">1.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">208.67</span><span class="number">.222</span><span class="number">.222</span></span><br><span class="line">    <span class="bullet">-</span> <span class="number">1.2</span><span class="number">.4</span><span class="number">.8</span></span><br><span class="line">  <span class="attr">nameserver:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">https://dns.alidns.com/dns-query</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">https://1.1.1.1/dns-query</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">tls://dns.adguard.com:853</span></span><br><span class="line">  <span class="attr">fake-ip-range:</span> <span class="number">198.18</span><span class="number">.0</span><span class="number">.1</span><span class="string">/16</span></span><br><span class="line">  <span class="attr">fake-ip-filter:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&quot;+.*&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="仪表盘"><a href="#仪表盘" class="headerlink" title="仪表盘"></a>仪表盘</h3><p>如果订阅链接没有问题，此时应该一切正常。</p>
-<img src="/blog/2022/07/25/openwrt-openclash/openclash-overview.png" class="" title="仪表盘">
+<img src="/2022/07/25/openwrt-openclash/openclash-overview.png" class="" title="仪表盘">
 
 <p>可以打开<code>Dashboard控制面板</code>去仪表盘进行策略配置了。</p>
 <h3 id="Fake-IP-模式"><a href="#Fake-IP-模式" class="headerlink" title="Fake IP 模式"></a>Fake IP 模式</h3><p>OpenClash 支持 Redir-Host 和 Fake-IP 两种模式，默认为 Redir-Host 模式。</p>
@@ -363,7 +363,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">payload:</span><br><span class="line">  # &gt; OneDrive</span><br><span class="line">  - DOMAIN-SUFFIX,onedrive.live.com</span><br></pre></td></tr></table></figure>
 
 <p>然后在<code>规则集与策略组管理</code>中的<code>自定义规则集与策略组管理</code>中使用它：</p>
-<img src="/blog/2022/07/25/openwrt-openclash/use-rule-provider.png" class="" title="使用自定义规则集">
+<img src="/2022/07/25/openwrt-openclash/use-rule-provider.png" class="" title="使用自定义规则集">
 
 <p>这样当访问后缀为<code>onedrive.live.com</code>的网站时，就会使用代理了。</p>
 <h3 id="geo-数据库订阅"><a href="#geo-数据库订阅" class="headerlink" title="geo 数据库订阅"></a>geo 数据库订阅</h3><p>如果在更新 geo 数据库时出错，可能会导致 geo 文件缺乏，openclash 无法启动。此时需要手动下载并上传 geo 数据库的文件。</p>
@@ -377,7 +377,7 @@
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#===================== 依赖检查 =====================#</span></span><br><span class="line"></span><br><span class="line">dnsmasq-full: 已安装</span><br><span class="line">coreutils: 已安装</span><br><span class="line">coreutils-nohup: 已安装</span><br><span class="line">bash: 已安装</span><br><span class="line">curl: 已安装</span><br><span class="line">ca-certificates: 已安装</span><br><span class="line">ipset: 已安装</span><br><span class="line">ip-full: 已安装</span><br><span class="line">libcap: 已安装</span><br><span class="line">libcap-bin: 已安装</span><br><span class="line">ruby: 已安装</span><br><span class="line">ruby-yaml: 已安装</span><br><span class="line">ruby-psych: 已安装</span><br><span class="line">ruby-pstore: 已安装</span><br><span class="line">kmod-tun(TUN模式): 已安装</span><br><span class="line">luci-compat(Luci &gt;= 19.07): 已安装</span><br><span class="line">kmod-inet-diag(PROCESS-NAME): 未安装</span><br><span class="line">unzip: 已安装</span><br><span class="line">iptables-mod-tproxy: 未安装</span><br><span class="line">kmod-ipt-tproxy: 未安装</span><br><span class="line">iptables-mod-extra: 未安装</span><br><span class="line">kmod-ipt-extra: 未安装</span><br><span class="line">kmod-ipt-nat: 已安装</span><br></pre></td></tr></table></figure>
 
 <p>关于 Clash 作为透明代理，在<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash">clash 项目</a>中有过<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/issues/158">讨论</a>。</p>
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -386,19 +386,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/openwrt/" rel="tag"># openwrt</a>
+              <a href="/tags/openwrt/" rel="tag"># openwrt</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2022/07/25/openwrt-docker/" rel="prev" title="[Openwrt]使用docker">
+                <a href="/2022/07/25/openwrt-docker/" rel="prev" title="[Openwrt]使用docker">
                   <i class="fa fa-angle-left"></i> [Openwrt]使用docker
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2022/07/26/openwrt-aria2/" rel="next" title="[Openwrt]使用aria2">
+                <a href="/2022/07/26/openwrt-aria2/" rel="next" title="[Openwrt]使用aria2">
                   [Openwrt]使用aria2 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
@@ -464,10 +464,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/blog/js/third-party/search/local-search.js"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -482,7 +482,7 @@
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/blog/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

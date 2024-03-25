@@ -6,46 +6,46 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="之前用office.js开发excel插件失败了，回退到了vsto，记录一下开发中踩到的坑。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vsto开发随笔">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2022/12/01/vsto-dev/index.html">
+<meta property="og:url" content="https://blog.lckof.com/2022/12/01/vsto-dev/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="之前用office.js开发excel插件失败了，回退到了vsto，记录一下开发中踩到的坑。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2022/12/01/vsto-dev/VSTOInstall-error.png">
+<meta property="og:image" content="https://blog.lckof.com/2022/12/01/vsto-dev/VSTOInstall-error.png">
 <meta property="article:published_time" content="2022-12-01T07:12:33.000Z">
-<meta property="article:modified_time" content="2022-12-03T18:12:13.865Z">
+<meta property="article:modified_time" content="2022-12-02T06:01:31.438Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="excel-add-in">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2022/12/01/vsto-dev/VSTOInstall-error.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2022/12/01/vsto-dev/VSTOInstall-error.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2022/12/01/vsto-dev/">
+<link rel="canonical" href="https://blog.lckof.com/2022/12/01/vsto-dev/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2022/12/01/vsto-dev/","path":"2022/12/01/vsto-dev/","title":"vsto开发随笔"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2022/12/01/vsto-dev/","path":"2022/12/01/vsto-dev/","title":"vsto开发随笔"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>vsto开发随笔 | Tasty Pub</title>
   
 
-  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
   <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
 
 
@@ -55,7 +55,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/blog/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start -->
 <script type="text/javascript">
@@ -80,7 +80,7 @@
 
   <div class="site-meta">
 
-    <a href="/blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
@@ -160,18 +160,18 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/blog/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/blog/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/blog/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -199,10 +199,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2022/12/01/vsto-dev/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2022/12/01/vsto-dev/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="lckof">
     </span>
 
@@ -235,7 +235,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-04 02:12:13" itemprop="dateModified" datetime="2022-12-04T02:12:13+08:00">2022-12-04</time>
+      <time title="修改时间：2022-12-02 14:01:31" itemprop="dateModified" datetime="2022-12-02T14:01:31+08:00">2022-12-02</time>
     </span>
 
   
@@ -265,7 +265,7 @@
 <p>它的位置默认在<code>%commonprogramfiles%\microsoft shared\VSTO\10.0\VSTOInstaller.exe</code>。</p>
 <p><strong>注意</strong>，是<code>%commonprogramfiles%</code>，不是<code>%commonprogramfiles(x86)%</code>。</p>
 <p>如果错误的使用了<code>%commonprogramfiles(x86)%</code>，会提示错误：</p>
-<img src="/blog/2022/12/01/vsto-dev/VSTOInstall-error.png" class="" title="VSTOInstaller运行错误">
+<img src="/2022/12/01/vsto-dev/VSTOInstall-error.png" class="" title="VSTOInstaller运行错误">
 
 <p>其实换回<code>%commonprogramfiles%</code>就可以了，但已经花了时间去查找解决方案就还是记录一下。</p>
 <p>安装<a target="_blank" rel="noopener" href="https://www.microsoft.com/en-us/download/details.aspx?id=48217">vstor_redist.exe</a>就可正常运行<code>%commonprogramfiles(x86)%</code>下的VSTOInstaller。使用命令<code>.\vstor_redist.exe /q /norestart</code>可静默安装。</p>
@@ -282,7 +282,7 @@
 
 <h3 id="添加签名到受信任"><a href="#添加签名到受信任" class="headerlink" title="添加签名到受信任"></a>添加签名到受信任</h3><p>将应用签名证书的公钥给用户，让用户添加至受信任区域。</p>
 <p>这个方案比上面的打开信任提示要好，打开提示后用户还是需要每次都点一下确认，而信任签名后所有操作都可以是静默无感的。</p>
-<p>操作方式可参考<a href="/blog/2022/11/25/windows-certificate/#certmgr-exe（证书管理器工具）">certmgr.exe（证书管理器工具）</a>。</p>
+<p>操作方式可参考<a href="/2022/11/25/windows-certificate/#certmgr-exe（证书管理器工具）">certmgr.exe（证书管理器工具）</a>。</p>
 <h2 id="自更新"><a href="#自更新" class="headerlink" title="自更新"></a>自更新</h2><p>自更新也有两种方式，</p>
 <ul>
 <li>ClickOnce自带的更新</li>
@@ -299,7 +299,7 @@
 <p>然而试下并没有什么卵用，该false还是false。</p>
 <p>终于找到一个<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39619047/updating-clickonce-vsto-addin-from-within-the-office-itself-does-not-update-the">相同问题的提问</a>，里面的最佳回复指向了微软的<a target="_blank" rel="noopener" href="https://social.msdn.microsoft.com/Forums/vstudio/en-US/5370eb94-1ed0-457c-8a39-40ff6d871c12/vsto-clickonce-and-auto-update">一个问答</a>与<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/archive/blogs/krimakey/click-once-forced-updates-in-vsto-some-things-we-dont-recommend-using-that-you-might-consider-anyway">博客</a>。</p>
 <p>长求总就是，不要在程序中使用ClickOnce Api比如<code>ApplicationDeployment.UpdateAsync</code>来进行程序中更新，但可以使用<code>VSTOInstaller.exe</code>。参见<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/archive/blogs/krimakey/click-once-forced-updates-in-vsto-ii-a-fuller-solution">这篇博客</a>。</p>
-<link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -308,19 +308,19 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/excel-add-in/" rel="tag"># excel-add-in</a>
+              <a href="/tags/excel-add-in/" rel="tag"># excel-add-in</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/2022/11/25/openwrt-kms-server/" rel="prev" title="[OpenWrt]充当kms激活服务器">
+                <a href="/2022/11/25/openwrt-kms-server/" rel="prev" title="[OpenWrt]充当kms激活服务器">
                   <i class="fa fa-angle-left"></i> [OpenWrt]充当kms激活服务器
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/blog/2022/12/04/common-craft-beer-styles/" rel="next" title="精酿啤酒简单分类">
+                <a href="/2022/12/04/common-craft-beer-styles/" rel="next" title="精酿啤酒简单分类">
                   精酿啤酒简单分类 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
@@ -386,10 +386,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/blog/js/third-party/search/local-search.js"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -404,7 +404,7 @@
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/blog/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>

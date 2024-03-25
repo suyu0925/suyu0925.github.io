@@ -6,48 +6,48 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/blog/css/main.css">
+<link rel="stylesheet" href="/css/main.css">
 
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"suyu0925.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="在安装ubuntu时，总是会被分区搞得头疼，这里总结一下适合ubuntu的分区方式。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu适合的分区方式">
-<meta property="og:url" content="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/index.html">
+<meta property="og:url" content="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/index.html">
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="在安装ubuntu时，总是会被分区搞得头疼，这里总结一下适合ubuntu的分区方式。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/installation-type.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/default-partitions-gparted.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/partition-use-as.png">
-<meta property="og:image" content="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/mount-points.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/installation-type.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/default-partitions-gparted.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/partition-use-as.png">
+<meta property="og:image" content="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/mount-points.png">
 <meta property="article:published_time" content="2023-11-06T02:53:09.000Z">
-<meta property="article:modified_time" content="2023-11-21T14:00:30.428Z">
+<meta property="article:modified_time" content="2023-11-07T07:26:15.502Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/installation-type.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/installation-type.png">
 
 
-<link rel="canonical" href="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/">
+<link rel="canonical" href="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/","path":"2023/11/06/partitions-for-ubuntu/","title":"ubuntu适合的分区方式"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/","path":"2023/11/06/partitions-for-ubuntu/","title":"ubuntu适合的分区方式"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>ubuntu适合的分区方式 | Tasty Pub</title><meta name="robots" content="noindex">
   
 
-  <script src="/blog/js/third-party/analytics/baidu-analytics.js"></script>
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
   <script async src="https://hm.baidu.com/hm.js?938fb9e05ea06e2cf4201fd61b3787165"></script>
 
 
@@ -57,7 +57,7 @@
 
 
   <noscript>
-    <link rel="stylesheet" href="/blog/css/noscript.css">
+    <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start -->
 <script type="text/javascript">
@@ -82,7 +82,7 @@
 
   <div class="site-meta">
 
-    <a href="/blog/" class="brand" rel="start">
+    <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
       <p class="site-title">Tasty Pub</p>
       <i class="logo-line"></i>
@@ -162,18 +162,18 @@
 <div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        <a href="/blog/archives/">
+        <a href="/archives/">
           <span class="site-state-item-count">190</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-          <a href="/blog/categories/">
+          <a href="/categories/">
         <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
-          <a href="/blog/tags/">
+          <a href="/tags/">
         <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
@@ -201,10 +201,10 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://suyu0925.github.io/blog/2023/11/06/partitions-for-ubuntu/">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2023/11/06/partitions-for-ubuntu/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="lckof">
     </span>
 
@@ -237,7 +237,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-21 22:00:30" itemprop="dateModified" datetime="2023-11-21T22:00:30+08:00">2023-11-21</time>
+      <time title="修改时间：2023-11-07 15:26:15" itemprop="dateModified" datetime="2023-11-07T15:26:15+08:00">2023-11-07</time>
     </span>
 
   
@@ -258,13 +258,13 @@
     
     
     <div class="post-body" itemprop="articleBody"><h2 id="ubuntu默认分区方式"><a href="#ubuntu默认分区方式" class="headerlink" title="ubuntu默认分区方式"></a>ubuntu默认分区方式</h2><p>我们先看一看，如果在安装ubuntu时，选择擦除磁盘并默认安装，系统会给出什么样的分区方式。</p>
-<img src="/blog/2023/11/06/partitions-for-ubuntu/installation-type.png" class="" title="擦除磁盘并安装">
+<img src="/2023/11/06/partitions-for-ubuntu/installation-type.png" class="" title="擦除磁盘并安装">
 
 <p>在系统安装完成后，我们可以通过<code>sudo fdisk -l</code>查看分区情况：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Disk /dev/sda: 127 GiB, 136365211648 bytes, 266338304 sectors</span><br><span class="line">Disk model: Virtual Disk    </span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 4096 bytes</span><br><span class="line">I/O size (minimum/optimal): 4096 bytes / 4096 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: gpt</span><br><span class="line">Disk identifier: EDDE80EF-DD8B-4A91-A2CE-E7CC8B4490CD</span><br><span class="line"></span><br><span class="line">Device       Start       End   Sectors   Size Type</span><br><span class="line">/dev/sda1     2048      4095      2048     1M BIOS boot</span><br><span class="line">/dev/sda2     4096   1054719   1050624   513M EFI System</span><br><span class="line">/dev/sda3  1054720 266336255 265281536 126.5G Linux filesystem</span><br></pre></td></tr></table></figure>
 
 <p>用gparted看得更直观一些：</p>
-<img src="/blog/2023/11/06/partitions-for-ubuntu/default-partitions-gparted.png" class="" title="default gparted">
+<img src="/2023/11/06/partitions-for-ubuntu/default-partitions-gparted.png" class="" title="default gparted">
 
 <p>可以看到，系统默认分了三个分区，分别是：</p>
 <ul>
@@ -275,12 +275,12 @@
 <p>再用<code>df -h</code>看看挂载点情况</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">tmpfs           391M  1.7M  390M   1% /run</span><br><span class="line">/dev/sda3       124G   12G  107G  10% /</span><br><span class="line">tmpfs           2.0G     0  2.0G   0% /dev/shm</span><br><span class="line">tmpfs           5.0M     0  5.0M   0% /run/lock</span><br><span class="line">/dev/sda2       512M  6.1M  506M   2% /boot/efi</span><br><span class="line">tmpfs           391M   76K  391M   1% /run/user/128</span><br><span class="line">tmpfs           391M   92K  391M   1% /run/user/1000</span><br></pre></td></tr></table></figure>
 
-<h2 id="分区用途"><a href="#分区用途" class="headerlink" title="分区用途"></a>分区用途</h2><img src="/blog/2023/11/06/partitions-for-ubuntu/partition-use-as.png" class="" title="分区用途">
+<h2 id="分区用途"><a href="#分区用途" class="headerlink" title="分区用途"></a>分区用途</h2><img src="/2023/11/06/partitions-for-ubuntu/partition-use-as.png" class="" title="分区用途">
 
 <h3 id="swap交换区"><a href="#swap交换区" class="headerlink" title="swap交换区"></a>swap交换区</h3><p>ubuntu官方有一篇介绍swap分区的<a target="_blank" rel="noopener" href="https://help.ubuntu.com/community/SwapFaq">faq</a>。</p>
 <h2 id="系统挂载点"><a href="#系统挂载点" class="headerlink" title="系统挂载点"></a>系统挂载点</h2><p>我们先看一看在安装ubuntu时，系统给出的挂载点选择，对ubuntu有个大体的认识。</p>
-<img src="/blog/2023/11/06/partitions-for-ubuntu/mount-points.png" class="" title="系统挂载点">
-<!-- flag of hidden posts --><link rel="stylesheet" href="/blog/css/spoiler.css" type="text/css"><script src="/blog/js/spoiler.js" type="text/javascript" async></script>
+<img src="/2023/11/06/partitions-for-ubuntu/mount-points.png" class="" title="系统挂载点">
+<!-- flag of hidden posts --><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
     
@@ -352,10 +352,10 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
-<script src="/blog/js/third-party/search/local-search.js"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
@@ -370,7 +370,7 @@
 
 
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
-<script src="/blog/js/third-party/comments/utterances.js"></script>
+<script src="/js/third-party/comments/utterances.js"></script>
 
 </body>
 </html>
