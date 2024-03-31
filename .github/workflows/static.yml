@@ -34,7 +34,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: copy to blog/blog
-        run: 
+        run: |
           mkdir ./blog_dist
           cp -r ./blog/* ./blog_dist/
           cp -r ./blog ./blog_dist/
