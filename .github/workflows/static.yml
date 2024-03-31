@@ -35,8 +35,9 @@ jobs:
         uses: actions/configure-pages@v4
       - name: copy to blog/blog
         run: 
-          cp ./blog ./blog_dist
-          cp ./blog ./blog_dist/
+          mkdir ./blog_dist
+          cp -r ./blog/* ./blog_dist/
+          cp -r ./blog ./blog_dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
