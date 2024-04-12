@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="每次久等电梯不来，都会骂一通电梯调度算法，那么真的如果让我们来设计一套算法会是怎么样的呢？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电梯调度">
+<meta property="og:url" content="https://blog.lckof.com/2024/04/12/elevator-scheduling/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="每次久等电梯不来，都会骂一通电梯调度算法，那么真的如果让我们来设计一套算法会是怎么样的呢？">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-12T05:04:05.000Z">
+<meta property="article:modified_time" content="2024-04-12T07:58:57.127Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.lckof.com/2024/04/12/elevator-scheduling/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2024/04/12/elevator-scheduling/","path":"2024/04/12/elevator-scheduling/","title":"电梯调度"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>电梯调度 | Tasty Pub</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lbt0m726h2");
+</script>
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E7%94%B5%E6%A2%AF%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">最简单的电梯调度算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">先来先服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E4%BC%98%E5%85%88"><span class="nav-number">3.</span> <span class="nav-text">最短路径优先</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E5%90%88%E4%B8%80%EF%BC%9ALOOK-%E7%AE%97%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">三合一：LOOK 算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%A2%AF"><span class="nav-number">5.</span> <span class="nav-text">多梯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%B7%A5%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">实际工程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E6%A2%AF%E5%8F%B0%E6%95%B0"><span class="nav-number">6.1.</span> <span class="nav-text">电梯台数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%85%E6%9C%BA%E6%A5%BC%E5%B1%82"><span class="nav-number">6.2.</span> <span class="nav-text">待机楼层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E7%94%B5%E6%A2%AF"><span class="nav-number">6.3.</span> <span class="nav-text">分区电梯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%B5%8B%E4%BA%BA%E6%B5%81%E5%8A%A8%E7%BA%BF"><span class="nav-number">6.4.</span> <span class="nav-text">预测人流动线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E7%9B%AE%E7%9A%84%E5%9C%B0"><span class="nav-number">6.5.</span> <span class="nav-text">取消目的地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B5%E6%A2%AF%E5%A4%96%E8%BE%93%E5%85%A5%E7%9B%AE%E7%9A%84%E5%9C%B0"><span class="nav-number">6.6.</span> <span class="nav-text">电梯外输入目的地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AI"><span class="nav-number">6.7.</span> <span class="nav-text">AI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%84%E5%BD%95%EF%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">附录：</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">194</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2024/04/12/elevator-scheduling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="电梯调度 | Tasty Pub">
+      <meta itemprop="description" content="每次久等电梯不来，都会骂一通电梯调度算法，那么真的如果让我们来设计一套算法会是怎么样的呢？">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          电梯调度
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-12 13:04:05 / 修改时间：15:58:57" itemprop="dateCreated datePublished" datetime="2024-04-12T13:04:05+08:00">2024-04-12</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">每次久等电梯不来，都会骂一通电梯调度算法，那么真的如果让我们来设计一套算法会是怎么样的呢？</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>电梯调度在现实中是很复杂的，并不是一个简单的算法就能解决。它还需要考虑：满载、多梯联动、取消目的地、高峰期、上梯前输入目的地等等因素。</p>
+<h2 id="最简单的电梯调度算法"><a href="#最简单的电梯调度算法" class="headerlink" title="最简单的电梯调度算法"></a>最简单的电梯调度算法</h2><p>我们先从单梯且无满载和取消目的地的简单情况上手。</p>
+<p>在去除所有复杂因素后，电梯调度会与磁盘调度算法有一些相似。磁头的移动就像电梯的上下，磁盘的读写就像乘客的上下。磁盘调度就是要尽可能减少磁头的移动，提高读写效率。</p>
+<p>比如磁盘调度的<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/scan-elevator-disk-scheduling-algorithms/">SCAN 算法</a>就又称为电梯算法：</p>
+<p>电梯从最低楼层到最高楼层，然后再从最高楼层到最低楼层，如此循环。有点类似公交车或地铁，并不知道有没有人要上车，只是按照固定的路线行驶。</p>
+<p>电梯和磁头的运动在反向运动时有一个减速再加速的过程，会严重影响效率，所以要尽可能减少反向运动。</p>
+<p>这种电梯调度算法只是用来当作引子，并没有实际应用价值。</p>
+<h2 id="先来先服务"><a href="#先来先服务" class="headerlink" title="先来先服务"></a>先来先服务</h2><p>但电梯调度算法是知道哪一层有人要上下的：</p>
+<ul>
+<li>在电梯外往上往下的按钮代表要上电梯</li>
+<li>在电梯内按具体楼层按钮代表要在哪一层下</li>
+<li>一些新电梯调度系统可以允许乘客在电梯外输入目的地</li>
+</ul>
+<p>我们把乘客记为 G，电梯记为 E()，乘客要从第 i 层到第 j 层记为 i -&gt; j，那我们可以用一个队列来表示，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">E(): 1</span><br><span class="line">G1: 1 -&gt; 5</span><br><span class="line">G2: 2 -&gt; 3</span><br><span class="line">G3: 4 -&gt; 6</span><br></pre></td></tr></table></figure>
+
+<p>电梯先去 1 层接到乘客 G1，然后到 5 层；再去 2 层接乘客 G2，然后到 3 层；最后去 4 层接乘客 G3，然后到 6 层。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">E(): 1  |  ↑ G1</span><br><span class="line">E(G1): 1 -&gt; 5 | G1 ↓</span><br><span class="line">E(): 5 -&gt; 2 |  ↑ G2</span><br><span class="line">E(G2): 2 -&gt; 3 | G2 ↓</span><br><span class="line">E(): 3 -&gt; 4 | ↑ G3</span><br><span class="line">E(G3): 4 -&gt; 6 | G3 ↓</span><br></pre></td></tr></table></figure>
+
+<p>这种算法同样会浪费大量运力，比如在送乘客 G1 的过程中，完全可以把乘客 G2 也顺路接上，在到达 5 层之前，在 3 层把乘客 G2 先放下。</p>
+<h2 id="最短路径优先"><a href="#最短路径优先" class="headerlink" title="最短路径优先"></a>最短路径优先</h2><p>那我们换一种思路，以电梯外乘客的起点，以及电梯内乘客的终点为节点，判断电梯距离哪个节点最近，就先去哪个节点，还是用上面的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">E(): 1</span><br><span class="line">G1: 1 -&gt; 5</span><br><span class="line">G2: 2 -&gt; 3</span><br><span class="line">G3: 4 -&gt; 6</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">E(): 1  |  ↑ G1</span><br><span class="line">E(G1): 1 -&gt; 2 | ↑ G2</span><br><span class="line">E(G1, G2): 2 -&gt; 3 | G2 ↓</span><br><span class="line">E(G1): 3 -&gt; 4 | ↑ G3</span><br><span class="line">E(G1, G3): 3 -&gt; 5 | G1 ↓</span><br><span class="line">E(G3): 5 -&gt; 6 | G3 ↓</span><br><span class="line">E(): 6</span><br></pre></td></tr></table></figure>
+
+<p>粗看是不是觉得这种算法还挺好，那我们再来一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">E(): 1</span><br><span class="line">G1: 5 -&gt; 1</span><br><span class="line">G2: 4 -&gt; 5，G4: 1 -&gt; 5</span><br><span class="line">G3: 3 -&gt; 4</span><br></pre></td></tr></table></figure>
+
+<p>如果按照最短路径优先，那么电梯会这样运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">E(): 1 -&gt; 5  |  ↑ G1</span><br><span class="line">E(G1): 5 -&gt; 4 | ↑ G2</span><br><span class="line">E(G1, G2): 4 -&gt; 5 | G2 ↓ // 注意，这里相比G1的目的地1层，电梯离G2的目的地5层更近</span><br><span class="line">E(G1): 5 -&gt; 3 | ↑ G3</span><br><span class="line">E(G1, G3): 3 -&gt; 4 | G3 ↓ // 注意，这里相比G1的目的地1层，电梯离G3的目的地4层更近</span><br><span class="line">E(G1): 4 -&gt; 1 | G1 ↓, ↑ G4</span><br><span class="line">E(G4): 1 -&gt; 5 | G4 ↓</span><br></pre></td></tr></table></figure>
+
+<p>如果我们是乘客 G4，肯定已经开骂了。因为只要不断有人要上下电梯附近的楼层，那么电梯将永远不会去到更远的楼层。</p>
+<p>乘客 G1 也会开骂，我只是想从 5 层到 1 层，为什么要带着我在电梯上一直绕，能不能让我下电梯我走楼梯去 1 层？</p>
+<h2 id="三合一：LOOK-算法"><a href="#三合一：LOOK-算法" class="headerlink" title="三合一：LOOK 算法"></a>三合一：LOOK 算法</h2><p>上面三种算法都有各自的优缺点，那么我们能不能把它们结合起来呢？当然可以，<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/look-disk-scheduling-algorithm/">LOOK 算法</a>就是这样一个算法。</p>
+<p>相当于：顺向接反向不接 + 先来先服务 + 最短路径优先。</p>
+<p>我们再看一下上面的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">E(): 1</span><br><span class="line">G1: 5 -&gt; 1</span><br><span class="line">G2: 4 -&gt; 5，G4: 1 -&gt; 5</span><br><span class="line">G3: 3 -&gt; 4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">E(): 1 -&gt; 5  |  ↑ G1</span><br><span class="line">E(G1): 5 -&gt; 1 | G1 ↓, ↑ G4</span><br><span class="line">E(G4): 1 -&gt; 3 | ↑ G3</span><br><span class="line">E(G4, G3): 3 -&gt; 4 | G3 ↓</span><br><span class="line">E(G3): 4 -&gt; 5 | G4 ↓</span><br></pre></td></tr></table></figure>
+
+<p>是不是已经很像我们日常乘坐电梯的体验了？</p>
+<p>但日常电梯几乎不太可能是单梯，我们扩展到多梯。</p>
+<h2 id="多梯"><a href="#多梯" class="headerlink" title="多梯"></a>多梯</h2><p>多梯与单梯的最显著的区别是多梯可以联动，遵循顺向接反向不接、就近接人的原则。</p>
+<p>依然以上面的例子为为例，但这次我们有两台电梯。</p>
+<p>我们再看一下上面的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">E1(): 1</span><br><span class="line">E2(): 1</span><br><span class="line">G1: 5 -&gt; 1</span><br><span class="line">G2: 4 -&gt; 5，G4: 1 -&gt; 5</span><br><span class="line">G3: 3 -&gt; 4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">E1(): 1 -&gt; 5  |  ↑ G1</span><br><span class="line">E2(): 1 | ↑ G4</span><br><span class="line">E1(): 5 -&gt; 3 | ↑ G3</span><br><span class="line">E2(G4): 1 -&gt; 4 | ↑ G2</span><br><span class="line">E1(G3): 3 -&gt; 4 | G3 ↓</span><br><span class="line">E2(G4, G2): 4 -&gt; 5 | G2 ↓</span><br><span class="line">E2(G4): 5 | G4 ↓</span><br></pre></td></tr></table></figure>
+
+<h2 id="实际工程"><a href="#实际工程" class="headerlink" title="实际工程"></a>实际工程</h2><p>实际工程要比上面的例子复杂得多，需要结合场景来调整电梯调度算法。可以大概浏览一下专门研究电梯调度的公司<a target="_blank" rel="noopener" href="https://peters-research.com/">Peters Research</a>发的一些<a target="_blank" rel="noopener" href="https://peters-research.com/index.php/papers/">研究论文</a>，看看目前的研究方向。</p>
+<h3 id="电梯台数"><a href="#电梯台数" class="headerlink" title="电梯台数"></a>电梯台数</h3><p>设计师会根据建筑的高度、人流量、电梯的速度、用途等因素来预估需要的电梯台数。比如五星级酒店考虑的就是如何让客人在一分钟内坐到电梯。</p>
+<p>而国家在<a target="_blank" rel="noopener" href="https://www.mohurd.gov.cn/gongkai/zhengce/zhengcefilelib/201905/20190530_240715.html">《民用建筑设计统一标准》</a>的<code>6.9 电梯、自动拊梯和自动人行道</code>章节中也有最低电梯台数的规定。</p>
+<h3 id="待机楼层"><a href="#待机楼层" class="headerlink" title="待机楼层"></a>待机楼层</h3><p>在闲时，电梯并不会原地待机，会停在1层和中间楼层，以便更快地接到高层乘客。</p>
+<h3 id="分区电梯"><a href="#分区电梯" class="headerlink" title="分区电梯"></a>分区电梯</h3><p>在高层建筑中，电梯需要一个很高加速度来到达极速，但又要考虑频繁加减速对人的影响。</p>
+<p>所以在高层建筑中电梯都会分区，比如 1-20 层是一个区，21-40 层是一个区，41-60 层是一个区。电梯会以一个相对高的速度直接上到 41 层，然后再以一个正常的速度在 41-60 层运行。</p>
+<h3 id="预测人流动线"><a href="#预测人流动线" class="headerlink" title="预测人流动线"></a>预测人流动线</h3><p>电梯在不同时间段的人流动线是不一样的。比如早上上班时间，电梯会有很多人要去上班，那么电梯就要提前到达高峰楼层等待。</p>
+<h3 id="取消目的地"><a href="#取消目的地" class="headerlink" title="取消目的地"></a>取消目的地</h3><p>有时候乘客会在电梯内变更目的地，这时候电梯就要重新调度。</p>
+<h3 id="电梯外输入目的地"><a href="#电梯外输入目的地" class="headerlink" title="电梯外输入目的地"></a>电梯外输入目的地</h3><p>相比电梯外只能确定乘客乘坐方向，在电梯外直接输入目的地可以有效的增加调度效率，无需接到乘客后才能在电梯内确定具体目的地，还能知道正在电梯外等待的具体人数。</p>
+<h3 id="AI"><a href="#AI" class="headerlink" title="AI"></a>AI</h3><p>使用 AI 来实现电梯集群的调度会是下一代电梯调度的方向。</p>
+<p>比如使用强化学习的<a target="_blank" rel="noopener" href="https://www.diva-portal.org/smash/get/diva2:811308/FULLTEXT01.pdf">Elevator Control Using Reinforcement Learning to Select Strategy</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2208.08948">Transformer Networks for Predictive Group Elevator Control</a>甚至已经用上了 transformer 网络。</p>
+<h2 id="附录："><a href="#附录：" class="headerlink" title="附录："></a>附录：</h2><p>分析电梯使用情况用到的参数</p>
+<ul>
+<li>AI(INT): 平均运行间隔时间</li>
+<li>AWT: 平均等候时间</li>
+<li>AJT: 平均旅行时间</li>
+<li>ATTD: 用户从进入电梯厅到完全到达目的楼层的时间</li>
+<li>HC5: 5 分钟运载能力</li>
+<li>CC: 轿厢负载率</li>
+</ul>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/04/theater-db/" rel="prev" title="影院数据库">
+                  <i class="fa fa-angle-left"></i> 影院数据库
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
