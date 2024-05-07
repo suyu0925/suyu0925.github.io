@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在网上看到一份非常精简但实用的Web界面开发指南，翻译了一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【翻译】Web界面开发指南">
+<meta property="og:url" content="https://blog.lckof.com/2024/05/07/web-interface-guidelines/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="在网上看到一份非常精简但实用的Web界面开发指南，翻译了一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-07T02:39:04.000Z">
+<meta property="article:modified_time" content="2024-05-07T06:37:23.964Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.lckof.com/2024/05/07/web-interface-guidelines/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2024/05/07/web-interface-guidelines/","path":"2024/05/07/web-interface-guidelines/","title":"【翻译】Web界面开发指南"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>【翻译】Web界面开发指南 | Tasty Pub</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lbt0m726h2");
+</script>
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%92%E5%8A%A8%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">互动性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E6%8E%92%E7%89%88"><span class="nav-number">3.</span> <span class="nav-text">字体排版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E7%94%BB"><span class="nav-number">4.</span> <span class="nav-text">动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A6%E6%91%B8"><span class="nav-number">5.</span> <span class="nav-text">触摸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%AE%BF%E9%97%AE%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">可访问性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1"><span class="nav-number">8.</span> <span class="nav-text">设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">9.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">196</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2024/05/07/web-interface-guidelines/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="【翻译】Web界面开发指南 | Tasty Pub">
+      <meta itemprop="description" content="在网上看到一份非常精简但实用的Web界面开发指南，翻译了一下。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【翻译】Web界面开发指南
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-05-07 10:39:04 / 修改时间：14:37:23" itemprop="dateCreated datePublished" datetime="2024-05-07T10:39:04+08:00">2024-05-07</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">在网上看到一份非常精简但实用的Web界面开发指南，翻译了一下。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>文章源自<a target="_blank" rel="noopener" href="https://interfaces.rauno.me/">interfaces.rauno.me</a>，托管在<a target="_blank" rel="noopener" href="https://github.com/raunofreiberg/interfaces">github</a>上。以下为翻译。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这份文档列出了一些使我们的（Web）界面更好的细节处理方式，这个列表并不是完整全面的，但它会基于经验持续不断更新。其中有些实现可能是偏于主观性的，但大多数适用于所有网站。</p>
+<p>为了避免重复，文档中没有包含<a target="_blank" rel="noopener" href="https://www.w3.org/TR/wai-aria-1.1/">WAI-ARIA</a>规范的细节。不过，可能会提及一些关于可访问性的准则。我们欢迎您的贡献！您可以编辑<a target="_blank" rel="noopener" href="https://github.com/raunofreiberg/interfaces/blob/main/README.md">此文件</a>并提交拉取请求。</p>
+<h2 id="互动性"><a href="#互动性" class="headerlink" title="互动性"></a>互动性</h2><ul>
+<li>点击<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label">输入标签</a>应该聚焦输入框</li>
+<li>输入应使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form"><code>&lt;form&gt;</code></a>包装，以便通过按<code>Enter</code>键提交</li>
+<li>输入应具有适当的<code>type</code>，比如<code>password</code>、<code>email</code>等</li>
+<li>大多数情况下，输入应禁用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/spellcheck">spellcheck</a>和<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete">autocomplete</a>属性</li>
+<li>输入应该在适当的时候通过使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/required">required</a>属性来利用 HTML 表单验证</li>
+<li>输入框前缀和后缀的装饰，例如图标，应该显示在文本输入框上层，并使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/padding">padding</a>而不是并列排版，并触发输入框的焦点。</li>
+<li><code>Toggle</code>切换组件应该立即生效，不需要二次确认</li>
+<li>提交表单后应禁用按钮，以避免重复的网络请求</li>
+<li>交互式元素应禁用内部内容的<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/user-select">user-select</a></li>
+<li>装饰元素（发光、渐变）应禁用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events">pointer-events</a>以避免劫持事件</li>
+<li>在垂直或水平列表中，交互元素之间不应该留有空白区域，取而代之的是，应该增加它们的<code>padding</code>。</li>
+</ul>
+<h2 id="字体排版"><a href="#字体排版" class="headerlink" title="字体排版"></a>字体排版</h2><ul>
+<li>为了更好的可读性，字体应该设置以下样式<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-smooth">-webkit-font-smoothing: antialiased</a>（针对 WebKit 内核浏览器，例如 Safari）</li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering">text-rendering: optimizeLegibility</a></li>
+</ul>
+</li>
+<li>根据内容、字母表或相关语言来裁剪字体 (subset fonts)</li>
+<li>为了防止布局错位，字体粗细不应该在悬停或选中状态发生变化</li>
+<li>字重不应该使用 400 以下的字体粗细</li>
+<li>中等大小的标题通常使用 500-600 之间的字体粗细看起来最佳</li>
+<li>对于标题的字体大小，可以使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/clamp">CSS clamp()</a>函数实现根据视口大小流畅调整字体的功能。例如，我们可以使用<code>clamp(48px, 5vw, 72px)</code>来设定标题的字体大小。</li>
+<li>在表格中或是不希望布局发生变化的地方（比如计时器），如果可用，应该使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-variant-numeric#numeric-spacing-values">font-variant-numeric: tabular-nums</a>来启用表格数字 (tabular figures)。</li>
+<li>使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust">-webkit-text-size-adjust: 100%</a>防止 iOS 设备在横屏模式下文本意外缩放</li>
+</ul>
+<h2 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h2><ul>
+<li>切换主题时不应触发元素上的过渡和动画<a href="#refer-anchor-1"><sup>[1]</sup></a></li>
+<li>动画持续时间不应超过 200ms，使交互感觉即时没有延迟</li>
+<li>动画的数值应与触发器大小成比例：<ul>
+<li>不要使用 0 -&gt; 1 的缩放动画来显示对话框，而是使用淡入淡出的透明度和缩放（大约从 0.8 开始）</li>
+<li>按下按钮时，不要 1 -&gt; 0.8，而是<del>0.96、</del>0.9 左右</li>
+</ul>
+</li>
+<li>频繁且新奇较低的动作应避免无关的动画：<a href="#refer-anchor-2"><sup>[2]</sup></a><ul>
+<li>打开右键单击菜单</li>
+<li>从列表中删除或添加项目</li>
+<li>悬停琐碎的按钮</li>
+</ul>
+</li>
+<li>循环动画在屏幕上不可见时应该暂停，以减轻 CPU 和 GPU 的使用量</li>
+<li>对于在页面内导航到锚点，请使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior#smooth">scroll-behavior: smooth</a>属性，并设置适当的偏移量</li>
+</ul>
+<h2 id="触摸"><a href="#触摸" class="headerlink" title="触摸"></a>触摸</h2><ul>
+<li>悬停状态不应在触摸按下时可见，使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/hover#hover">@media (hover: hover)</a><a href="#refer-anchor-3"><sup>[3]</sup></a></li>
+<li>输入的字体大小不应小于 16px，以防止 iOS 缩放焦点</li>
+<li>触摸设备上的输入框不应该自动聚焦，因为这会导致键盘弹出并遮挡住屏幕，影响用户体验</li>
+<li>应用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#muted">muted</a>和<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#playsinline">playsinline</a>到<code>&lt;video /&gt;</code>标签以在 iOS 上自动播放</li>
+<li>对于实现平移和缩放手势的自定义组件禁用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/touch-action">touch-action</a>，以防止缩放和滚动等本机行为的干扰</li>
+<li>使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color">-webkit-tap-highlight-color: rgba(0,0,0,0)</a>禁用 iOS 的默认轻触高亮效果</li>
+</ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/blur">blur()</a>和<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">filter</a>的<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter">backdrop-filter</a>值过大可能会导致速度变慢</li>
+<li>在触摸设备上缩放和模糊填充矩形会导致条带出现，为了避免这种情况，应该使用径向渐变取代</li>
+<li>对于性能不佳的动画，我们可以通过设置<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateZ">transform: translateZ(0)</a>来尝试启用 GPU 渲染进行优化，但是应当谨慎使用。</li>
+<li>针对性能不佳的滚动动画，我们可以通过临时启用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/will-change">will-change</a>属性来进行优化<a href="#refer-anchor-4"><sup>[4]</sup></a></li>
+<li>在 iOS 上自动播放过多视频会使设备变卡，应该暂停或卸载屏幕外的视频。</li>
+<li>使用 refs 绕过 React 的渲染生命周期，实时值可以直接提交到 DOM<a href="#refer-anchor-5"><sup>[5]</sup></a></li>
+<li>检测并适应用户设备的硬件和网络能力</li>
+</ul>
+<h2 id="可访问性"><a href="#可访问性" class="headerlink" title="可访问性"></a>可访问性</h2><ul>
+<li>禁用的按钮不应该有 tooltips，因为它们是不可访问的<a href="#refer-anchor-6"><sup>[6]</sup></a></li>
+<li>使用阴影（<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow">box-shadow</a>）来创建焦点环，而不是轮廓（<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/outline">outline</a>），后者无法遵循圆角样式<a href="#refer-anchor-7"><sup>[7]</sup></a></li>
+<li>顺序列表中的可聚焦元素应该可以使用<code>↑ 和 ↓</code>键导航。</li>
+<li>顺序列表中的可聚焦元素应该可以使用<code>⌘ + Backspace</code>删除。</li>
+<li>下拉菜单为了立即打开，应该在按下鼠标 (mousedown) 时触发，而不是点击 (click) 时触发</li>
+<li>使用带有样式标签的 svg favicon，该样式标签遵循基于 prefers-color-scheme 的系统主题</li>
+<li>仅图标交互元素应定义明确的 aria-label</li>
+<li>由悬停触发的工具提示不应包含交互式内容</li>
+<li>图像应始终使用<code>&lt;img&gt;</code>渲染，以供屏幕阅读器使用并方便右键菜单复制</li>
+<li>使用 HTML 构建的插图应该有一个明确的 aria-label，而不是向使用屏幕阅读器的人宣布原始的 DOM 树结构</li>
+<li>渐变文本应在<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/::selection">::selection</a>状态下取消设置渐变</li>
+<li>使用嵌套菜单时，请使用<a target="_blank" rel="noopener" href="https://bjk5.com/post/44698559168/breaking-down-amazons-mega-dropdown">预测锥（prediction cone）</a>来防止指针在移动到其他元素时意外关闭菜单</li>
+</ul>
+<h2 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h2><ul>
+<li>本地乐观更新数据，服务器错误时回滚并提供反馈</li>
+<li>鉴权重定向应该在服务器端完成，客户端加载之前执行，避免跳动的 URL 变化</li>
+<li>使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/CSS/::selection">::selection</a>伪类样式美化文本选中状态</li>
+<li>显示与其触发器相关的反馈：<ul>
+<li>复制成功时显示临时嵌入式勾选标记，而非通知</li>
+<li>表单错误时高亮显示相关输入框</li>
+</ul>
+</li>
+<li>空状态应该提示创建新项目，并可提供可选模板</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><span id="refer-anchor-1">在切换深色模式或浅色模式时，原本用于明确交互的元素 (例如悬停效果) 上的过渡动画也会被触发，这可能会影响用户体验。我们可以通过<a target="_blank" rel="noopener" href="https://paco.me/writing/disable-theme-transitions">临时禁用过渡动画</a>来解决这个问题。对于 Next.js 应用, 可以使用<a target="_blank" rel="noopener" href="https://github.com/pacocoursey/next-themes">next-themes</a>库，它可以开箱即用地防止切换主题时出现过渡动画。</span></li>
+<li><span id="refer-anchor-2">审美因人而异，不过有些交互界面确实去掉了动画会更好。例如，出于频繁使用考虑， macOS 自带的右键点击菜单仅在消失时有动画效果，出现时则没有。</span></li>
+<li><span id="refer-anchor-3">大多数触控设备在按下时会短暂地显示悬停状态，除非明确仅为使用鼠标等指针设备定义了悬停状态，可以通过媒体查询<code>@media (hover: hover)</code>实现。</span></li>
+<li><span id="refer-anchor-4">只有在迫不得已的情况下才使用 will-change 来提升性能。为了追求性能而预先将它应用于元素上可能会产生相反的效果。</span></li>
+<li><span id="refer-anchor-5">这句话可能会引起争议，但是有时直接操作 DOM 是有益的。例如，与其依赖 React 在每次滚动事件时都重新渲染，我们可以在 ref 中跟踪滚动量 (delta)，然后直接在回调函数中更新相关元素。</span></li>
+<li><span id="refer-anchor-6">在 DOM 中，禁用按钮不会出现在标签顺序里，因此对于键盘使用者来说，辅助功能永远不会宣读这些按钮的悬浮提示信息。 他们也无法得知按钮被禁用的原因。</span></li>
+<li><span id="refer-anchor-7">截至 2023 年，Safari 浏览器在定义自定义轮廓样式时，不会遵循元素的圆角属性。虽然<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/safari-release-notes/safari-16_4-release-notes">Safari 16.4</a>版本已经加入了支持圆角轮廓的功能，但是请注意并非所有人都及时更新了操作系统。</span></li>
+</ol>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/25/log-into-websites-using-dingtalk/" rel="prev" title="使用钉钉登录自己的网站">
+                  <i class="fa fa-angle-left"></i> 使用钉钉登录自己的网站
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
