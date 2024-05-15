@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="上一篇文章介绍了微信聊天记录的备份，这篇文章详情介绍一下安卓。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="备份微信聊天记录-android篇">
+<meta property="og:url" content="https://blog.lckof.com/2024/05/14/bakcup-weixin-chat-history-on-android/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="上一篇文章介绍了微信聊天记录的备份，这篇文章详情介绍一下安卓。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-14T06:38:55.000Z">
+<meta property="article:modified_time" content="2024-05-15T06:23:45.726Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="weixin">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.lckof.com/2024/05/14/bakcup-weixin-chat-history-on-android/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2024/05/14/bakcup-weixin-chat-history-on-android/","path":"2024/05/14/bakcup-weixin-chat-history-on-android/","title":"备份微信聊天记录-android篇"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>备份微信聊天记录-android篇 | Tasty Pub</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lbt0m726h2");
+</script>
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%A3%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">数据库解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86%E5%90%8E%E6%9F%A5%E7%9C%8B"><span class="nav-number">3.</span> <span class="nav-text">解密后查看</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">201</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2024/05/14/bakcup-weixin-chat-history-on-android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="备份微信聊天记录-android篇 | Tasty Pub">
+      <meta itemprop="description" content="上一篇文章介绍了微信聊天记录的备份，这篇文章详情介绍一下安卓。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          备份微信聊天记录-android篇
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-14 14:38:55" itemprop="dateCreated datePublished" datetime="2024-05-14T14:38:55+08:00">2024-05-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-15 14:23:45" itemprop="dateModified" datetime="2024-05-15T14:23:45+08:00">2024-05-15</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">上一篇文章介绍了微信聊天记录的备份，这篇文章详情介绍一下安卓。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p><strong>多用户</strong></p>
+<p><code>uin</code>是微信对账号生成的一个 id，存储在<code>/data/data/com.tencent.mm/shared_prefs/auth_info_key_prefs.xml</code>中的<code>_auth_uin</code>。</p>
+<p><strong>聊天记录</strong></p>
+<p>聊天记录放在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/EnMicroMsg.db</code>数据库中。</p>
+<p><strong>图片</strong></p>
+<p>图片存放在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/image2</code>目录下。</p>
+<p>图片存放路径是两级目录，比如<code>cd/6c/th_cd6cd62684419459895117183a26978b</code>，看上去像是 hash 后的两次索引。可能是因为图片太多，为了提高查找速度。</p>
+<p>微信收到一张别人发过来的图片后，会有 3 种形式：</p>
+<ol>
+<li>缩略图，不管有没有查看，都会存一份，体积最小最模糊；</li>
+<li>大图，点开查看才会开始下载，超时就打不开了；</li>
+<li>原图，要手动点击查看原图才会下载。</li>
+</ol>
+<p><strong>视频</strong></p>
+<p>视频存放在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/video</code>目录下。</p>
+<p>多半是因为视频不像图片那么多，所以没有像图片那样分路径，全部一股脑的存放在这个目录下。</p>
+<p>文件命名规则是<code>yyMMddHHmmss</code>再加 4 位数字，比如<code>2405141411232641</code>。扩展名为<code>.mp4</code>。</p>
+<p>微信收到一个别人发过来的视频后，也会有 3 种形式：</p>
+<ol>
+<li>视频预览缩略图<code>&#123;file_id&#125;.jpg</code>，不管有没有查看，只要收到就会存一份，体积很小；</li>
+<li>点击查看后，会下载<code>&#123;file_id&#125;.mp4</code>视频文件；</li>
+<li>点击查看原视频后，会下载原视频<code>&#123;file_id&#125;origin.mp4</code>。</li>
+</ol>
+<p><strong>语音</strong></p>
+<p>语音存放在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/voice2</code>目录下。</p>
+<p>语音也像图片那样，做了索引，存放在两级目录下。扩展名是<code>.amr</code>。比如<code>e4/26/msg_13141905142479bebcac2e0102.amr</code>。</p>
+<p>虽然扩展名是<code>.amr</code>，但实际上却使用了skype同款编码格式<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SILK">SILK</a>，一般的播放器都不支持，所以需要使用<a target="_blank" rel="noopener" href="https://github.com/kn007/silk-v3-decoder">silk-v3-decoder</a>进行转码。</p>
+<p><strong>文件</strong></p>
+<p>文件索引数据库在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/WxFileIndex.db</code>。索引到 Download 文件夹。</p>
+<p><strong>Download</strong></p>
+<p>Download 文件夹与其它目录不同，它在所有应用可访问的<code>sdcard</code>区，而不是微信私有的<code>/data/data/com.tencent.mm</code>区。</p>
+<p>在<code>/sdcard/Android/data/com.tencent.mm/MicroMsg/Download</code>。存放着当前手机上所有微信聊天时发送的文件，这里文件例如：文档，安装包、压缩包等。</p>
+<h2 id="数据库解密"><a href="#数据库解密" class="headerlink" title="数据库解密"></a>数据库解密</h2><p>移动端的解密则相对简单。</p>
+<p>先拿到上面说过的<code>uin</code>值，然后在<code>uin</code>前面贴上<code>IMEI</code>，再将这个字符串做<code>md5</code>，将得到的<code>md5</code>值前<code>7</code>位转成小写就是解密使用的密钥。<br>用代码来表示类似<code>md5(imei + uin).substring(0, 7).toLowerCase()</code>。</p>
+<p>这段操作可以在使用<a target="_blank" rel="noopener" href="https://github.com/iBotPeaches/Apktool">ApkTool</a>反编译微信apk包后的smali代码中搜索<code>Lcom/tencent/mm/storagebase/IMEISave;-&gt;a()Ljava/util/Collection;</code>查到。<br>有兴趣的同学可以自行逆向分析一下。</p>
+<p>微信使用的<code>IMEI</code>在<code>com.tencent.mm.storagebase.IMEISave</code>类中读取，如果<code>IMEI</code>读取失败，默认值是<code>1234567890ABCDEF</code>。</p>
+<p><code>IMEI</code>在手机上可以通过拔号<code>*#06#</code>获得，或者进入<code>设置</code>下的<code>关于手机</code>查看。</p>
+<p>可以参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.greycode.top/posts/android-wechat-bak/">解密安卓微信聊天信息存储</a>。</p>
+<h2 id="解密后查看"><a href="#解密后查看" class="headerlink" title="解密后查看"></a>解密后查看</h2><p>可以使用非官方的 docker 镜像来查看：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> --entrypoint /bin/bash -v <span class="variable">$&#123;pwd&#125;</span>/EnMicroMsg.db:/encrypted.db yspreen/sqlcipher</span><br><span class="line">sqlcipher /encrypted.db</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PRAGMA key = &#x27;2592bdf&#x27;;</span><br><span class="line">ok</span><br><span class="line"></span><br><span class="line">PRAGMA cipher_compatibility = 1;</span><br><span class="line"></span><br><span class="line">PRAGMA cipher_use_hmac = off;</span><br><span class="line">PRAGMA kdf_iter = 4000;</span><br><span class="line">PRAGMA cipher_page_size = 1024;</span><br><span class="line">PRAGMA cipher_hmac_algorithm = HMAC_SHA1;</span><br><span class="line">PRAGMA cipher_kdf_algorithm = PBKDF2_HMAC_SHA1;</span><br><span class="line"></span><br><span class="line">ATTACH DATABASE &#x27;plaintext.db&#x27; AS plaintext KEY &#x27;&#x27;;</span><br><span class="line">SELECT sqlcipher_export(&#x27;plaintext&#x27;);</span><br><span class="line">DETACH DATABASE plaintext;</span><br></pre></td></tr></table></figure>
+
+<p>虽然<a target="_blank" rel="noopener" href="https://sqlitebrowser.org/">sqlitebrowser</a>从<a target="_blank" rel="noopener" href="https://github.com/sqlitebrowser/sqlitebrowser/releases/tag/v3.9.0">3.9.0</a>开始就支持了 sqlcipher，但不能用来查看 android 导出的微信数据库，因为微信使用的 sqlcipher 配置不是标准的。</p>
+<p>微信使用的 sqlcipher 配置是：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">SQLiteCipherSpec</span> <span class="variable">l</span> <span class="operator">=</span> (<span class="keyword">new</span> <span class="title class_">SQLiteCipherSpec</span>()).setPageSize(<span class="number">1024</span>).setSQLCipherVersion(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p><code>SQLiteCipherSpec</code>的<a target="_blank" rel="noopener" href="https://github.com/Tencent/wcdb/blob/9d26c39475d4294204e467e139e3bbf8f7e3ea58/src/java/compat/src/main/java/com/tencent/wcdb/compat/SQLiteCipherSpec.java#L193">代码片断</a>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> SQLiteCipherSpec <span class="title function_">setSQLCipherVersion</span><span class="params">(<span class="type">int</span> version)</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (version) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      cipherVersion = <span class="number">1</span>;</span><br><span class="line">      hmacEnabled = <span class="literal">false</span>;</span><br><span class="line">      kdfIteration = <span class="number">4000</span>;</span><br><span class="line">      hmacAlgorithm = HMAC_SHA1;</span><br><span class="line">      kdfAlgorithm = HMAC_SHA1;</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/weixin/" rel="tag"># weixin</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/13/backup-weixin-chat-history/" rel="prev" title="备份微信聊天记录">
+                  <i class="fa fa-angle-left"></i> 备份微信聊天记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/15/use-mumu-emulator-for-android-development/" rel="next" title="使用MuMu模拟器进行android开发">
+                  使用MuMu模拟器进行android开发 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

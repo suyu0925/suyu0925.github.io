@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="随着时间推移，微信聊天记录占用空间越来越夸张，而且在可预计的将来，仍然会持续膨胀。虽说可以备份到电脑或云，但还是要全量拉回本地才能使用，并不能节省本地空间。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="备份微信聊天记录">
+<meta property="og:url" content="https://blog.lckof.com/2024/05/13/backup-weixin-chat-history/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="随着时间推移，微信聊天记录占用空间越来越夸张，而且在可预计的将来，仍然会持续膨胀。虽说可以备份到电脑或云，但还是要全量拉回本地才能使用，并不能节省本地空间。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-13T06:21:17.000Z">
+<meta property="article:modified_time" content="2024-05-14T07:13:50.759Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="weixin">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.lckof.com/2024/05/13/backup-weixin-chat-history/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2024/05/13/backup-weixin-chat-history/","path":"2024/05/13/backup-weixin-chat-history/","title":"备份微信聊天记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>备份微信聊天记录 | Tasty Pub</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lbt0m726h2");
+</script>
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E7%8A%B6"><span class="nav-number">1.</span> <span class="nav-text">现状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E6%80%9D"><span class="nav-number">2.</span> <span class="nav-text">构思</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">上传下载</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">上传方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B9%B3%E6%9D%BF%E7%AB%AF"><span class="nav-number">3.2.</span> <span class="nav-text">使用平板端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">数据解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86"><span class="nav-number">4.1.</span> <span class="nav-text">解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A1%8C%E9%9D%A2%E7%AB%AF%E8%A7%A3%E5%AF%86"><span class="nav-number">4.2.</span> <span class="nav-text">桌面端解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%A3%E5%AF%86"><span class="nav-number">4.3.</span> <span class="nav-text">移动端解密</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">201</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2024/05/13/backup-weixin-chat-history/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="备份微信聊天记录 | Tasty Pub">
+      <meta itemprop="description" content="随着时间推移，微信聊天记录占用空间越来越夸张，而且在可预计的将来，仍然会持续膨胀。虽说可以备份到电脑或云，但还是要全量拉回本地才能使用，并不能节省本地空间。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          备份微信聊天记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-13 14:21:17" itemprop="dateCreated datePublished" datetime="2024-05-13T14:21:17+08:00">2024-05-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-14 15:13:50" itemprop="dateModified" datetime="2024-05-14T15:13:50+08:00">2024-05-14</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">随着时间推移，微信聊天记录占用空间越来越夸张，而且在可预计的将来，仍然会持续膨胀。虽说可以备份到电脑或云，但还是要全量拉回本地才能使用，并不能节省本地空间。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="现状"><a href="#现状" class="headerlink" title="现状"></a>现状</h2><p>随着时间推移，微信聊天记录占用空间越来越夸张。微信上除了家人和密友，还有了各式各样的群，比如工作群、爱好群。随着手机性能的提升（相机性能导致照片视频变大，运算性能导致可解码的文档变大），聊天记录也突破百 G 并绝尘而去。</p>
+<p>虽然近几年手机的存储空间越来越便宜，拿容量当金子卖的苹果也过滤到 128G 起，但不是每个人都有换机计划。</p>
+<p>最好的解决方案当然是微信官方出一个云聊天记录的服务，但自从 2021 年传过一次<a target="_blank" rel="noopener" href="https://cn.chinadaily.com.cn/a/202109/04/WS6132f530a3101e7ce9761ec5.html">微信拟推出聊天记录付费云存储服务</a>之后，就再无消息。</p>
+<p>不能坐以待毙，思考一下目前我们能做些什么。</p>
+<h2 id="构思"><a href="#构思" class="headerlink" title="构思"></a>构思</h2><p>最佳设计肯定是<a target="_blank" rel="noopener" href="https://vip.qq.com/freedom/freedom_chatmsg.html">像 QQ 那样</a>，聊天记录全设备无感漫游。但很显然除了微信官方，谁都做不到。</p>
+<p>退而求其次，仅实现手动聊天记录上云，一共需要这么几个功能：</p>
+<ul>
+<li>上传，用户手动上传微信聊天记录上云；</li>
+<li>下载，用户手动下载微信聊天记录到手机；</li>
+<li>查看，用户可以非常灵活的搜索，查看云端聊天记录。<blockquote>
+<p>比如，查看时间为 2021 年 8 月份，对象是所有人，包含关键字“家长会”的聊天记录。<br>又比如，查看时间为 2020 年暑假，视频时间超过 1 分钟 的视频。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="上传下载"><a href="#上传下载" class="headerlink" title="上传下载"></a>上传下载</h2><p>微信将上传下载功能划分为了两类：</p>
+<ul>
+<li>备份（Backup）与恢复（Restore）。备份和恢复是全量的、替换的。</li>
+<li>迁移（Migrate）。迁移是增量的、合并的。</li>
+</ul>
+<p>而在我们的设计里，因为云端要尽量保持完整数据，所以完全不需要全量替换，只要增量迁移。</p>
+<h3 id="上传方式"><a href="#上传方式" class="headerlink" title="上传方式"></a>上传方式</h3><p>微信官方提供了三种上传方式：</p>
+<ul>
+<li>从手机备份到电脑</li>
+<li>从手机迁移到电脑</li>
+<li>从手机迁移到另一台手机或平板</li>
+</ul>
+<h3 id="使用平板端"><a href="#使用平板端" class="headerlink" title="使用平板端"></a>使用平板端</h3><p>微信支持<a target="_blank" rel="noopener" href="https://open.work.weixin.qq.com/help2/pc/19125">三端登录</a>，对普通的上班族来说，使用的优先级应该是手机 &gt; 电脑 &gt; 平板，其中平板很可能从来不用。那么我们就可以利用这点，将平板做为同步的中转站。</p>
+<p>推荐使用<a target="_blank" rel="noopener" href="https://mumu.163.com/help/20231102/35048_1118204.html">mumu 模拟器</a>，支持使用平板端的微信。</p>
+<p>mumu 内置的 adb 等工具在<code>c:\Program Files\NetEase\MuMu Player 12\shell\</code>。</p>
+<h2 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h2><p>微信管理的用户数据大概有这么几类：</p>
+<ul>
+<li>聊天记录</li>
+<li>图片</li>
+<li>视频</li>
+<li>语音</li>
+<li>文件</li>
+</ul>
+<p>根据平台不同，分别存放在不同位置。</p>
+<h3 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h3><p>微信聊天记录使用了微信自研的数据库框架<a target="_blank" rel="noopener" href="https://github.com/Tencent/wcdb">wcdb</a>，特性是使用了<a target="_blank" rel="noopener" href="https://www.zetetic.net/sqlcipher/">sqlcipher</a>对 sqlite 数据库进行加密，并支持了多种语言环境。</p>
+<h3 id="桌面端解密"><a href="#桌面端解密" class="headerlink" title="桌面端解密"></a>桌面端解密</h3><p>桌面端的解密可以参考<a target="_blank" rel="noopener" href="https://github.com/xaoyaoo/PyWxDump">PyWxDump</a>开源项目，项目作者将原理写成了<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIwOTI2OTg1MA==&mid=2247483846&idx=1&sn=2aaae5d6e2a7b89b2090c8fbdc5d1085&chksm=977724f3a000ade51e43447c9e6ab88438205f1236c385e9cd1ef4724bba4a5a4aa557f26953&cur_album_id=3240368262438404097&scene=189#wechat_redirect">公众号系列文章</a>。</p>
+<h3 id="移动端解密"><a href="#移动端解密" class="headerlink" title="移动端解密"></a>移动端解密</h3><p>android参见文章<a href="/2024/05/14/bakcup-weixin-chat-history-on-android/" title="备份微信聊天记录-android篇">备份微信聊天记录-android篇</a>。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/weixin/" rel="tag"># weixin</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/08/hack-weibotop/" rel="prev" title="破解微博热搜时光机">
+                  <i class="fa fa-angle-left"></i> 破解微博热搜时光机
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/14/bakcup-weixin-chat-history-on-android/" rel="next" title="备份微信聊天记录-android篇">
+                  备份微信聊天记录-android篇 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
