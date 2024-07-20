@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500,"threshold":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="官方 winpe 不能直接运行 physdiskwrite ，还是要定制一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="定制 winpe">
+<meta property="og:url" content="https://blog.lckof.com/2024/07/19/customize-winpe/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="官方 winpe 不能直接运行 physdiskwrite ，还是要定制一下。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-19T05:58:43.000Z">
+<meta property="article:modified_time" content="2024-07-20T06:05:43.738Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.lckof.com/2024/07/19/customize-winpe/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2024/07/19/customize-winpe/","path":"2024/07/19/customize-winpe/","title":"定制 winpe"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>定制 winpe | Tasty Pub</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<!-- ms clarity -->    
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lbt0m726h2");
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-34Y9Q8PYBQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-34Y9Q8PYBQ');
+</script>
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前期准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ADK"><span class="nav-number">1.1.</span> <span class="nav-text">ADK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA-WinPE"><span class="nav-number">1.2.</span> <span class="nav-text">导出 WinPE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%98%A0%E5%83%8F%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">生成映像文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">定制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%98%A0%E5%83%8F%E4%BF%A1%E6%81%AF"><span class="nav-number">2.1.</span> <span class="nav-text">查看映像信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD"><span class="nav-number">2.2.</span> <span class="nav-text">挂载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%B7%B2%E5%AE%89%E8%A3%85%E7%9A%84%E5%8C%85"><span class="nav-number">2.3.</span> <span class="nav-text">查看已安装的包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B8%E8%BD%BD"><span class="nav-number">2.4.</span> <span class="nav-text">卸载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">添加包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%A7%8B%E5%B0%9D%E8%AF%95"><span class="nav-number">4.</span> <span class="nav-text">开始尝试</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">211</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2024/07/19/customize-winpe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="定制 winpe | Tasty Pub">
+      <meta itemprop="description" content="官方 winpe 不能直接运行 physdiskwrite ，还是要定制一下。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          定制 winpe
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-19 13:58:43" itemprop="dateCreated datePublished" datetime="2024-07-19T13:58:43+08:00">2024-07-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-20 14:05:43" itemprop="dateModified" datetime="2024-07-20T14:05:43+08:00">2024-07-20</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">官方 winpe 不能直接运行 physdiskwrite ，还是要定制一下。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/winpe-intro">WinPE</a>是一个小型操作系统，用于安装、部署和修复 Windows。</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><h3 id="ADK"><a href="#ADK" class="headerlink" title="ADK"></a>ADK</h3><p>第一步先安装 ADK 和加载项。</p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/winpe-intro?view=windows-11#download-winpe">从 Win10 1809 开始</a>，官方 WinPE 包含在<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-hardware/get-started/adk-install">ADK</a>的<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-hardware/get-started/adk-install#download-the-adk-for-windows-11-version-22h2">加载项</a>里。</p>
+<h3 id="导出-WinPE"><a href="#导出-WinPE" class="headerlink" title="导出 WinPE"></a>导出 WinPE</h3><p>以管理员身份启动<strong>部署和映像工具环境</strong>（在开始菜单的程序栏 Windows Kits 下）运行以下脚本，之后的脚本也都是使用这个环境。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copype amd64 C:\WinPE_amd64</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成映像文件"><a href="#生成映像文件" class="headerlink" title="生成映像文件"></a>生成映像文件</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MakeWinPEMedia /ISO C:\WinPE_amd64 C:\WinPE_amd64\WinPE_amd64.iso</span><br></pre></td></tr></table></figure>
+
+<h2 id="定制"><a href="#定制" class="headerlink" title="定制"></a>定制</h2><h3 id="查看映像信息"><a href="#查看映像信息" class="headerlink" title="查看映像信息"></a>查看映像信息</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt; Dism /Get-ImageInfo /ImageFile:C:\WinPE_amd64\media\sources\boot.wim</span><br><span class="line">部署映像服务和管理工具</span><br><span class="line">版本: 10.0.26100.1</span><br><span class="line"></span><br><span class="line">映像详细信息: C:\WinPE_amd64\media\sources\boot.wim</span><br><span class="line"></span><br><span class="line">索引: 1</span><br><span class="line">名称: Microsoft Windows PE (amd64)</span><br><span class="line">描述: Microsoft Windows PE (amd64)</span><br><span class="line">大小: 2,009,251,937 字节</span><br><span class="line"></span><br><span class="line">操作成功完成。</span><br></pre></td></tr></table></figure>
+
+<h3 id="挂载"><a href="#挂载" class="headerlink" title="挂载"></a>挂载</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dism /Mount-Image /ImageFile:<span class="string">&quot;C:\WinPE_amd64\media\sources\boot.wim&quot;</span> /index:1 /MountDir:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>完成挂载后，在<code>C:\WinPE_amd64\mount</code>的修改就对应着 WinPE 中的<code>X:\</code>。</p>
+<p>避免忘记挂载的目标目录在哪，可以使用下面的命令查看已经挂载的映像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dism /Get-MountedWimInfo</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看已安装的包"><a href="#查看已安装的包" class="headerlink" title="查看已安装的包"></a>查看已安装的包</h3><p>使用<code>Dism /Get-Packages /Image:&quot;C:\WinPE_amd64\mount&quot;</code>可以查看已经安装的包。</p>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><p>卸载时可以选择提交（&#x2F;commit）或丢弃修改（&#x2F;discard）。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dism /Unmount-Image /MountDir:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span> /commit</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加包"><a href="#添加包" class="headerlink" title="添加包"></a>添加包</h2><p>WinPE 的可选组件可以在<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/winpe-add-packages--optional-components-reference">这里</a>查看。</p>
+<p>这些可选包在本地的<code>c:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\</code>目录下。</p>
+<p>暂时不知道 physdiskwrite 依赖哪个包，一个个试吧。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy %USERPROFILE%\Downloads\physdiskwrite-0.5.3\physdiskwrite.exe C:\WinPE_amd64\mount\Windows\System32\</span><br></pre></td></tr></table></figure>
+
+<h2 id="开始尝试"><a href="#开始尝试" class="headerlink" title="开始尝试"></a>开始尝试</h2><ol start="0">
+<li>首先试了 chatgpt 说的 vc_redist，想多了，无法安装 exe</li>
+</ol>
+<p>首先从<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist">Microsoft Visual C++ Redistributable</a>页面下载最新的<a target="_blank" rel="noopener" href="https://aka.ms/vs/17/release/vc_redist.x64.exe">vc_redist.x64.exe</a>。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">copy %USERPROFILE%\Downloads\vc_redist.x64.exe C:\WinPE_amd64\mount\Windows\Temp\</span><br><span class="line">dism /Image:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span> /Add-Package /PackagePath:<span class="string">&quot;C:\WinPE_amd64\mount\Windows\Temp\vc_redist.x64.exe&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>第一次尝试，先试<code>WinPE-Setup</code>+<code>WinPE-Setup-Client</code>。</li>
+</ol>
+<p>这俩包不是，进入 WinPE 后就进入驱动安装界面了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dism /Image:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span> /Add-Package /PackagePath:<span class="string">&quot;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-Setup.cab&quot;</span></span><br><span class="line">Dism /Image:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span> /Add-Package /PackagePath:<span class="string">&quot;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-Setup-Client.cab&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>第二次尝试，重置映像，试试<code>Microsoft .NET/WinPE-NetFx</code>。</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dism /Image:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span> /Add-Package /PackagePath:<span class="string">&quot;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-NetFx.cab&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>并不行。</p>
+<ol start="3">
+<li>第三次尝试，试试<code>WinPE-WMI</code>+<code>WinPE-Scripting</code>。</li>
+</ol>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dism /Image:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span> /Add-Package /PackagePath:<span class="string">&quot;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-WMI.cab&quot;</span></span><br><span class="line">Dism /Image:<span class="string">&quot;C:\WinPE_amd64\mount&quot;</span> /Add-Package /PackagePath:<span class="string">&quot;C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-Scripting.cab&quot;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>查询<code>physdiskwrite</code>依赖</li>
+</ol>
+<p>先下载<a target="_blank" rel="noopener" href="https://github.com/lucasg/Dependencies">Dependencies</a>工具，查看到<code>physdiskwrite</code>依赖为<code>C:\Windows\SysWOW64\kernel32.dll</code>。</p>
+<p>这个文件是在 64 位系统下运行 32 位程序用的。</p>
+<p>而 Windows 在 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-hardware/manufacture/desktop/winpe-intro#limitations">WinPE 的限制</a>提到：</p>
+<blockquote>
+<p>Windows PE 不支持以下任一操作：</p>
+<ul>
+<li>在不同的体系结构上运行针对某一种体系结构编译的应用程序，例如，在 64 位版本的 Windows PE 上运行 32 位应用程序，或者在 Arm64 版本的 WinPE 上运行 Amd64 应用程序。</li>
+</ul>
+</blockquote>
+<ol start="5">
+<li>破解</li>
+</ol>
+<p>搜索了下，有不少文章指向 reboot.pro 这个网站，比如<a target="_blank" rel="noopener" href="https://msfn.org/board/topic/167983-how-to-add-wow64-to-simple-win8pe">msfn 上的这篇</a>，和<a target="_blank" rel="noopener" href="https://superuser.com/questions/1532946/how-to-add-syswow64-support-to-the-windows-10-preinstallation-environment-vers">superuser 上的这篇</a>。但 reboot.pro 这个网站不能访问。</p>
+<p>后来在国内的<a target="_blank" rel="noopener" href="http://bbs.wuyou.net/">无忧论坛</a>上看到<a target="_blank" rel="noopener" href="http://bbs.wuyou.net/forum.php?mod=viewthread&tid=371490">[分享] (更新支持虚拟化程序)Win10X64 中运行 32 位程序的临时办法</a>，但也没讲原理。</p>
+<p>多数论坛都会发展出自己的工具，比如<a target="_blank" rel="noopener" href="https://www.tenforums.com/">Ten Forums</a>上的<a target="_blank" rel="noopener" href="https://www.tenforums.com/software-apps/182581-win10xpe-build-your-own-rescue-media-2-a.html">Win10XPE</a>、<a target="_blank" rel="noopener" href="https://old.theoven.org/index-2.html">the oven</a>上的<a target="_blank" rel="noopener" href="https://old.theoven.org/index36c8.html?topic=1336.0">Win10PE SE</a>、无忧论坛上的<a target="_blank" rel="noopener" href="http://bbs.wuyou.net/forum.php?mod=viewthread&tid=371490">setwow64</a>。</p>
+<p>使用第三方工具就不如直接用第三方 WinPE 比如<a target="_blank" rel="noopener" href="https://www.itsk.com/thread/431283">优启通</a>了，反正都是黑盒。</p>
+<p>还是想找到最原始的方法，我的叙求也就是运行一个 physdiskwrite 而已。</p>
+<ol start="6">
+<li>未完待续</li>
+</ol>
+<p>…</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/17/sms-activate/" rel="prev" title="全球虚拟手机号码接码平台">
+                  <i class="fa fa-angle-left"></i> 全球虚拟手机号码接码平台
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>
