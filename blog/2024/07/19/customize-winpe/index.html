@@ -27,7 +27,7 @@
 <meta property="og:description" content="官方 winpe 不能直接运行 physdiskwrite ，还是要定制一下。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-19T05:58:43.000Z">
-<meta property="article:modified_time" content="2024-07-20T06:05:43.738Z">
+<meta property="article:modified_time" content="2024-07-22T03:25:27.232Z">
 <meta property="article:author" content="lckof">
 <meta name="twitter:card" content="summary">
 
@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">211</span>
+          <span class="site-state-item-count">212</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -241,7 +241,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-20 14:05:43" itemprop="dateModified" datetime="2024-07-20T14:05:43+08:00">2024-07-20</time>
+      <time title="修改时间：2024-07-22 11:25:27" itemprop="dateModified" datetime="2024-07-22T11:25:27+08:00">2024-07-22</time>
     </span>
 
   
@@ -330,9 +330,19 @@
 <p>使用第三方工具就不如直接用第三方 WinPE 比如<a target="_blank" rel="noopener" href="https://www.itsk.com/thread/431283">优启通</a>了，反正都是黑盒。</p>
 <p>还是想找到最原始的方法，我的叙求也就是运行一个 physdiskwrite 而已。</p>
 <ol start="6">
-<li>未完待续</li>
+<li>尝试自行破解</li>
 </ol>
-<p>…</p>
+<p>首先，复制<code>C:\Windows\System32</code>下的<code>wow64*</code>文件到winpe。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy C:\Windows\System32\wow64*.dll C:\WinPE_amd64\mount\Windows\System32\</span><br></pre></td></tr></table></figure>
+
+<p>然后，复制SysWOW64目录。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcopy C:\Windows\SysWOW64 C:\WinPE_amd64\mount\Windows\SysWOW64 /s /e</span><br></pre></td></tr></table></figure>
+
+<p>最后，修改注册表。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">reg load HKLM\WinPE_SysWOW64 C:\WinPE_amd64\mount\Windows\SysWOW64\config\SYSTEM</span><br><span class="line">reg add <span class="string">&quot;HKLM\WinPE_SysWOW64\ControlSet001\Control\Session Manager\Environment&quot;</span> /v PROCESSOR_ARCHITECTURE /t REG_SZ /d AMD64 /f</span><br><span class="line">reg unload HKLM\WinPE_SysWOW64</span><br></pre></td></tr></table></figure>
+
+<p>失败。</p>
+<p>找到一篇文章：<a target="_blank" rel="noopener" href="http://mistyprojects.co.uk/documents/winpe_tweaks/readme.files/WoW64_WinPE10.htm">WoW64 - Windows 10.0.*****</a>，写的更详细了些。</p>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
@@ -351,6 +361,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2024/07/22/liqi/" rel="next" title="利器">
+                  利器 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
