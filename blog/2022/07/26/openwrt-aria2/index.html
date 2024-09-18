@@ -27,8 +27,9 @@
 <meta property="og:description" content="OpenWrt除了路由功能外，因为它24小时开着，所以用来下载也不错。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.lckof.com/2022/07/26/openwrt-aria2/openwrt-aria2.png">
+<meta property="og:image" content="https://blog.lckof.com/2022/07/26/openwrt-aria2/openwrt-aria2-bt-trackers.png">
 <meta property="article:published_time" content="2022-07-26T06:13:48.000Z">
-<meta property="article:modified_time" content="2023-02-20T13:27:01.889Z">
+<meta property="article:modified_time" content="2024-09-17T17:30:10.196Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
@@ -170,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">217</span>
+          <span class="site-state-item-count">218</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -244,7 +245,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-02-20 21:27:01" itemprop="dateModified" datetime="2023-02-20T21:27:01+08:00">2023-02-20</time>
+      <time title="修改时间：2024-09-18 01:30:10" itemprop="dateModified" datetime="2024-09-18T01:30:10+08:00">2024-09-18</time>
     </span>
 
   
@@ -283,8 +284,9 @@
 <p><a target="_blank" rel="noopener" href="https://forum.openwrt.org/t/persistent-var/119427/2">openwrt的&#x2F;var目录是指向&#x2F;tmp的一个符号链接</a>，<a target="_blank" rel="noopener" href="https://forum.openwrt.org/t/permanent-var-directory-will-i-be-safe/37071/4">不要直接把&#x2F;var指向永久目录</a>。</p>
 <h2 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h2><p>在使用aria2下载磁力链接前，先设置初始BitTorrent Trackers。</p>
 <p>使用<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best_ip.txt">trackers_best_ip.txt</a>，注意要将2个换行符替换成<code>,</code>来适配语法。</p>
+<img src="/2022/07/26/openwrt-aria2/openwrt-aria2-bt-trackers.png" class="" title="BitTorrent Trackers">
 
-
+<p>国内可以使用<a target="_blank" rel="noopener" href="https://github.com/XIU2/TrackersListCollection">trackerslist.com</a>的<a target="_blank" rel="noopener" href="https://cf.trackerslist.com/best.txt">best.txt</a>。</p>
 <h2 id="内网穿透"><a href="#内网穿透" class="headerlink" title="内网穿透"></a>内网穿透</h2><p>如果想用内网穿透访问AriaNg页面，默认是无法访问的。</p>
 <p>原因是默认的Aria2 RPC地址是<code>http://luci.domain.com:6800/jsonrpc</code>，注意里面的<code>:6800</code>。</p>
 <p>内网穿透一般不支持80或443之外的端口，需要修改两个地方：</p>
