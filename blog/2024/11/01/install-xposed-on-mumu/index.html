@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500,"threshold":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="xposed是个好东西，探讨一下怎么在mumu模拟器上安装。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在mumu模拟器上安装Xposed">
+<meta property="og:url" content="https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="xposed是个好东西，探讨一下怎么在mumu模拟器上安装。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/lsposed_clarification.png">
+<meta property="article:published_time" content="2024-11-01T03:05:53.000Z">
+<meta property="article:modified_time" content="2024-11-01T05:04:45.401Z">
+<meta property="article:author" content="lckof">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/lsposed_clarification.png">
+
+
+<link rel="canonical" href="https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/","path":"2024/11/01/install-xposed-on-mumu/","title":"在mumu模拟器上安装Xposed"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在mumu模拟器上安装Xposed | Tasty Pub</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<!-- ms clarity -->    
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lbt0m726h2");
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-34Y9Q8PYBQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-34Y9Q8PYBQ');
+</script>
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#xposed-%E5%8F%91%E5%B1%95%E5%8F%B2"><span class="nav-number">1.</span> <span class="nav-text">xposed 发展史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#magisk"><span class="nav-number">2.1.</span> <span class="nav-text">magisk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zygisk"><span class="nav-number">2.2.</span> <span class="nav-text">zygisk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lsposed"><span class="nav-number">2.3.</span> <span class="nav-text">lsposed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shamiko"><span class="nav-number">2.4.</span> <span class="nav-text">shamiko</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xposed-%E6%A8%A1%E5%9D%97"><span class="nav-number">2.5.</span> <span class="nav-text">xposed 模块</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">224</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在mumu模拟器上安装Xposed | Tasty Pub">
+      <meta itemprop="description" content="xposed是个好东西，探讨一下怎么在mumu模拟器上安装。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在mumu模拟器上安装Xposed
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-11-01 11:05:53 / 修改时间：13:04:45" itemprop="dateCreated datePublished" datetime="2024-11-01T11:05:53+08:00">2024-11-01</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">xposed是个好东西，探讨一下怎么在mumu模拟器上安装。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="xposed-发展史"><a href="#xposed-发展史" class="headerlink" title="xposed 发展史"></a>xposed 发展史</h2><p>rovo89 大佬于 2012 年在<a target="_blank" rel="noopener" href="https://xdaforums.com/">xda</a>发布了<a target="_blank" rel="noopener" href="https://xdaforums.com/t/xposed-general-info-versions-changelog.2714053/">Xposed</a>框架，它会在<a target="_blank" rel="noopener" href="https://source.android.com/docs/core/runtime/zygote?hl=zh-cn">Zygote</a>进程启动时加载，修改 Dalvik&#x2F;ART 虚拟机的运行时行为，通过 hook 技术，实现对应用的修改。</p>
+<p>社区基于 xposed 的 hook 功能，开发出了很多强大的模块，比如<a target="_blank" rel="noopener" href="https://github.com/Xposed-Modules-Repo/com.fkzhang.wechatxposed">微 X 模块</a>、<a target="_blank" rel="noopener" href="https://github.com/Xposed-Modules-Repo/Hook.JiuWu.Xp">HookVip</a>等等。</p>
+<p>由于 android 系统越来越严格的安全限制，原版 xposed 也越来越难继续使用，rovo89 于 2023 年<a target="_blank" rel="noopener" href="https://github.com/rovo89/Xposed">放弃维护</a>。</p>
+<hr>
+<p>继任者有基于<a target="_blank" rel="noopener" href="https://github.com/RikkaApps/Riru">Riru</a>的<a target="_blank" rel="noopener" href="https://github.com/ElderDrivers/EdXposed">EdXposed</a>和兼容 Riru 和 Zygisk 的<a target="_blank" rel="noopener" href="https://github.com/LSPosed/LSPosed">LSposed</a>。Riru 和 Zygisk 都是<a target="_blank" rel="noopener" href="https://github.com/topjohnwu/Magisk">magisk</a>的组件，各自使用了不同的方式来完成 Zygote 注入，从而实现对应用的 hook。目前 Zygisk 已经基本取代了 Riru。</p>
+<p>中间还出现过一段时间非主流的免 root 类 xposed 框架，支持 android 5.0 ~ 10.0，比如<a target="_blank" rel="noopener" href="https://vxposed.com/">vxposed</a>、<a target="_blank" rel="noopener" href="https://github.com/tbone825/TaiChi">太极</a>。它的工作原理是在虚拟环境中运行要 hook 的应用。</p>
+<hr>
+<p>由于网络上出现各种对开发者的恶意攻击，<a target="_blank" rel="noopener" href="https://github.com/RikkaApps/Riru">Riru</a>、<a target="_blank" rel="noopener" href="https://github.com/LSPosed/LSPosed">LSposed</a>、<a target="_blank" rel="noopener" href="https://github.com/Dr-TSNG/ZygiskNext">Zygisk Next</a>、<a target="_blank" rel="noopener" href="https://github.com/tiann/KernelSU">KernelSU</a>、<a target="_blank" rel="noopener" href="https://github.com/tbone825/TaiChi">太极</a>等项目的开发者于 2024 年相继宣布退出社区停止开发和维护。</p>
+<img src="/2024/11/01/install-xposed-on-mumu/lsposed_clarification.png" class="" title="lsposed澄清">
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="magisk"><a href="#magisk" class="headerlink" title="magisk"></a>magisk</h3><p>mumu 官方给出了<a target="_blank" rel="noopener" href="https://mumu.163.com/help/20240202/35044_1136675.html">安装 magisk 的教程</a>。</p>
+<ol>
+<li>将磁盘设置改为<code>可写系统盘</code></li>
+<li>开启手机 Root 权限</li>
+<li>下载安装<a target="_blank" rel="noopener" href="https://github.com/HuskyDG/magisk-files">Kitsune Magisk</a></li>
+<li>选择<code>直接安装（直接修改/system）</code>的方式安装 magisk</li>
+<li>重启后打开 magisk，如果碰到 su 冲突，删除原来的<code>/system/bin/su</code>和<code>/system/app/SuperUser</code>，再次重启</li>
+</ol>
+<h3 id="zygisk"><a href="#zygisk" class="headerlink" title="zygisk"></a>zygisk</h3><p>在 magisk 的设置中，打开 Zygisk。</p>
+<h3 id="lsposed"><a href="#lsposed" class="headerlink" title="lsposed"></a>lsposed</h3><p>下载 zygisk 版的 <a target="_blank" rel="noopener" href="https://github.com/ElderDrivers/EdXposed/releases">lsposed 安装包</a>，从 magisk 中安装组件。</p>
+<p>顺便一提，mumu 的其它功能中有一个<code>文件传输</code>，可以打开 MuMu 共享文件夹，方便互拷文件。</p>
+<h3 id="shamiko"><a href="#shamiko" class="headerlink" title="shamiko"></a>shamiko</h3><p>为了避免被应用检测到 root 或 xposed 而无法正常使用，可以安装 <a target="_blank" rel="noopener" href="https://github.com/LSPosed/LSPosed.github.io/releases">shamiko 模块</a>，它可以对应用隐藏。</p>
+<p>注意<a target="_blank" rel="noopener" href="https://github.com/HuskyDG/magisk-files/issues/152">要安装 shamiko 0.7.5</a>而不是最新的<code>1.1.1</code>，<code>Kitsune Magisk</code>使用的 magisk 版本是<code>27001</code>，而最新的 shamiko <code>1.1.1</code>要求<code>27003</code>。</p>
+<p>shamiko 和 magisk 内置的 magisk hide 有冲突，需要在 magisk 的设置中关闭 magisk hide。但 shamiko 使用的是 magisk 中的排除列表。</p>
+<h3 id="xposed-模块"><a href="#xposed-模块" class="headerlink" title="xposed 模块"></a>xposed 模块</h3><p><a target="_blank" rel="noopener" href="https://github.com/Xposed-Modules-Repo">Xposed-Modules-Repo</a>维护了一些社区开发的 xposed 模块，每个人都可以<a target="_blank" rel="noopener" href="https://modules.lsposed.org/submission/">提交自己的模块</a>。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/LSPosed/LSPosed.github.io">LSPosed.github.io</a>做了个网页，方便搜索查看。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/android/" rel="tag"># android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/10/30/bilibili-ups/" rel="prev" title="B站UP主">
+                  <i class="fa fa-angle-left"></i> B站UP主
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/11/05/reverse-engineering-wechat/" rel="next" title="微信逆向工程">
+                  微信逆向工程 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

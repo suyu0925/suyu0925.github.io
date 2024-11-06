@@ -27,7 +27,7 @@
 <meta property="og:description" content="时常会碰到莫名的端口被占用，总结一下各平台下检查端口使用情况的方法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-05-15T03:41:50.000Z">
-<meta property="article:modified_time" content="2020-09-23T07:30:09.505Z">
+<meta property="article:modified_time" content="2024-10-31T06:26:46.931Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="computer science">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%AB%AF%E5%8F%A3%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5"><span class="nav-number">1.</span> <span class="nav-text">检查端口使用情况</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#powershell-on-windows"><span class="nav-number">1.1.</span> <span class="nav-text">powershell on windows</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lsof"><span class="nav-number">1.2.</span> <span class="nav-text">lsof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#netstat"><span class="nav-number">1.3.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap-%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85"><span class="nav-number">1.4.</span> <span class="nav-text">nmap(需要安装)</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#windows"><span class="nav-number">1.</span> <span class="nav-text">windows</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8netstat"><span class="nav-number">1.1.</span> <span class="nav-text">使用netstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8powershell"><span class="nav-number">1.2.</span> <span class="nav-text">使用powershell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux"><span class="nav-number">2.</span> <span class="nav-text">linux</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#lsof"><span class="nav-number">2.1.</span> <span class="nav-text">lsof</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#netstat"><span class="nav-number">2.2.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nmap-%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85"><span class="nav-number">2.3.</span> <span class="nav-text">nmap(需要安装)</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +168,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">221</span>
+          <span class="site-state-item-count">224</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -242,7 +242,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-09-23 15:30:09" itemprop="dateModified" datetime="2020-09-23T15:30:09+08:00">2020-09-23</time>
+      <time title="修改时间：2024-10-31 14:26:46" itemprop="dateModified" datetime="2024-10-31T14:26:46+08:00">2024-10-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -271,9 +271,17 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="检查端口使用情况"><a href="#检查端口使用情况" class="headerlink" title="检查端口使用情况"></a>检查端口使用情况</h1><h2 id="powershell-on-windows"><a href="#powershell-on-windows" class="headerlink" title="powershell on windows"></a>powershell on windows</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Process -Id (Get-NetTCPConnection -LocalPort YourPortNumberHere).OwningProcess</span><br></pre></td></tr></table></figure>
+    <div class="post-body" itemprop="articleBody"><h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><h2 id="使用netstat"><a href="#使用netstat" class="headerlink" title="使用netstat"></a>使用netstat</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano | findstr LISTENING</span><br></pre></td></tr></table></figure>
 
-<h2 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h2><p>首推的就是lsof命令。</p>
+<p>查到进程号后，再调用<code>tasklist</code>查看进程名。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist /FI <span class="string">&quot;PID eq &lt;PID&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果有<strong>管理员权限</strong>，可以直接使用<code>-b</code>参数查看进程名。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -bano | Select-String <span class="string">&quot;:5000&quot;</span> -Context 0,1</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用powershell"><a href="#使用powershell" class="headerlink" title="使用powershell"></a>使用powershell</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-Process -Id (Get-NetTCPConnection -LocalPort &lt;YourPortNumberHere&gt;).OwningProcess</span><br></pre></td></tr></table></figure>
+
+<h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><h2 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a>lsof</h2><p>首推的就是lsof命令。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lsof -i</span><br><span class="line">$ lsof -i:8000</span><br></pre></td></tr></table></figure>
 
 <p>注意当前用户，如果想显示其它用户的使用情况，可使用</p>
@@ -284,9 +292,6 @@
 
 <p><strong>MacOS X</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -anp tcp | grep LISTEN</span><br><span class="line">$ netstat -anp udp | grep LISTEN</span><br></pre></td></tr></table></figure>
-
-<p><strong>Windows</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">netstat -bano | more</span><br><span class="line">netstat -bano | findstr LISTENING</span><br><span class="line">netstat -bano | findstr /R /C:<span class="string">&quot;[LISTEING]&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="nmap-需要安装"><a href="#nmap-需要安装" class="headerlink" title="nmap(需要安装)"></a>nmap(需要安装)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nmap -sT -O localhost</span><br><span class="line">$ sudo nmap -sU -O 192.168.2.13 <span class="comment">##[ list open UDP ports ]##</span></span><br><span class="line">$ sudo nmap -sT -O 192.168.2.13 <span class="comment">##[ list open TCP ports ]##</span></span><br></pre></td></tr></table></figure>
 

@@ -27,7 +27,7 @@
 <meta property="og:description" content="上一篇文章介绍了微信聊天记录的备份，这篇文章详情介绍一下安卓。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-14T06:38:55.000Z">
-<meta property="article:modified_time" content="2024-05-15T06:23:45.726Z">
+<meta property="article:modified_time" content="2024-10-30T07:51:43.277Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="weixin">
 <meta name="twitter:card" content="summary">
@@ -155,7 +155,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%A3%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">数据库解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86%E5%90%8E%E6%9F%A5%E7%9C%8B"><span class="nav-number">3.</span> <span class="nav-text">解密后查看</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E5%AE%89%E5%8D%93%E8%AE%BE%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">连接安卓设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%A3%E5%AF%86"><span class="nav-number">3.</span> <span class="nav-text">数据库解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86%E5%90%8E%E6%9F%A5%E7%9C%8B"><span class="nav-number">4.</span> <span class="nav-text">解密后查看</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +168,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">221</span>
+          <span class="site-state-item-count">224</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -242,7 +242,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-15 14:23:45" itemprop="dateModified" datetime="2024-05-15T14:23:45+08:00">2024-05-15</time>
+      <time title="修改时间：2024-10-30 15:51:43" itemprop="dateModified" datetime="2024-10-30T15:51:43+08:00">2024-10-30</time>
     </span>
 
   
@@ -262,7 +262,8 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p><strong>多用户</strong></p>
+    <div class="post-body" itemprop="articleBody"><h2 id="连接安卓设备"><a href="#连接安卓设备" class="headerlink" title="连接安卓设备"></a>连接安卓设备</h2><p>参考<a href="/2024/05/15/use-mumu-emulator-for-android-development/" title="使用MuMu模拟器进行android开发">使用MuMu模拟器进行android开发</a>。</p>
+<h2 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h2><p><strong>多用户</strong></p>
 <p><code>uin</code>是微信对账号生成的一个 id，存储在<code>/data/data/com.tencent.mm/shared_prefs/auth_info_key_prefs.xml</code>中的<code>_auth_uin</code>。</p>
 <p><strong>聊天记录</strong></p>
 <p>聊天记录放在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/EnMicroMsg.db</code>数据库中。</p>
@@ -288,7 +289,7 @@
 <p><strong>语音</strong></p>
 <p>语音存放在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/voice2</code>目录下。</p>
 <p>语音也像图片那样，做了索引，存放在两级目录下。扩展名是<code>.amr</code>。比如<code>e4/26/msg_13141905142479bebcac2e0102.amr</code>。</p>
-<p>虽然扩展名是<code>.amr</code>，但实际上却使用了skype同款编码格式<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SILK">SILK</a>，一般的播放器都不支持，所以需要使用<a target="_blank" rel="noopener" href="https://github.com/kn007/silk-v3-decoder">silk-v3-decoder</a>进行转码。</p>
+<p>虽然扩展名是<code>.amr</code>，但实际上却使用了 skype 同款编码格式<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/SILK">SILK</a>，一般的播放器都不支持，所以需要使用<a target="_blank" rel="noopener" href="https://github.com/kn007/silk-v3-decoder">silk-v3-decoder</a>进行转码。</p>
 <p><strong>文件</strong></p>
 <p>文件索引数据库在<code>/data/data/com.tencent.mm/MicroMsg/&#123;md5(&#39;mm&#39;+uin)&#125;/WxFileIndex.db</code>。索引到 Download 文件夹。</p>
 <p><strong>Download</strong></p>
@@ -296,21 +297,28 @@
 <p>在<code>/sdcard/Android/data/com.tencent.mm/MicroMsg/Download</code>。存放着当前手机上所有微信聊天时发送的文件，这里文件例如：文档，安装包、压缩包等。</p>
 <h2 id="数据库解密"><a href="#数据库解密" class="headerlink" title="数据库解密"></a>数据库解密</h2><p>移动端的解密则相对简单。</p>
 <p>先拿到上面说过的<code>uin</code>值，然后在<code>uin</code>前面贴上<code>IMEI</code>，再将这个字符串做<code>md5</code>，将得到的<code>md5</code>值前<code>7</code>位转成小写就是解密使用的密钥。<br>用代码来表示类似<code>md5(imei + uin).substring(0, 7).toLowerCase()</code>。</p>
-<p>这段操作可以在使用<a target="_blank" rel="noopener" href="https://github.com/iBotPeaches/Apktool">ApkTool</a>反编译微信apk包后的smali代码中搜索<code>Lcom/tencent/mm/storagebase/IMEISave;-&gt;a()Ljava/util/Collection;</code>查到。<br>有兴趣的同学可以自行逆向分析一下。</p>
+<p>这段操作可以在使用<a target="_blank" rel="noopener" href="https://github.com/iBotPeaches/Apktool">ApkTool</a>反编译微信 apk 包后的 smali 代码中搜索<code>Lcom/tencent/mm/storagebase/IMEISave;-&gt;a()Ljava/util/Collection;</code>查到。<br>有兴趣的同学可以自行逆向分析一下。</p>
 <p>微信使用的<code>IMEI</code>在<code>com.tencent.mm.storagebase.IMEISave</code>类中读取，如果<code>IMEI</code>读取失败，默认值是<code>1234567890ABCDEF</code>。</p>
 <p><code>IMEI</code>在手机上可以通过拔号<code>*#06#</code>获得，或者进入<code>设置</code>下的<code>关于手机</code>查看。</p>
 <p>可以参考这篇博客：<a target="_blank" rel="noopener" href="https://blog.greycode.top/posts/android-wechat-bak/">解密安卓微信聊天信息存储</a>。</p>
-<h2 id="解密后查看"><a href="#解密后查看" class="headerlink" title="解密后查看"></a>解密后查看</h2><p>可以使用非官方的 docker 镜像来查看：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --<span class="built_in">rm</span> --entrypoint /bin/bash -v <span class="variable">$&#123;pwd&#125;</span>/EnMicroMsg.db:/encrypted.db yspreen/sqlcipher</span><br><span class="line">sqlcipher /encrypted.db</span><br></pre></td></tr></table></figure>
+<h2 id="解密后查看"><a href="#解密后查看" class="headerlink" title="解密后查看"></a>解密后查看</h2><p>可以使用<a target="_blank" rel="noopener" href="https://github.com/suyu0925/decode-micro-msg">decode-micro-msg</a>来解密：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">rm</span> -v <span class="variable">$&#123;pwd&#125;</span>:/data -e DECODE_KEY=<span class="variable">$&#123;your_decode_key&#125;</span> lckof/decode-micro-msg</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PRAGMA key = &#x27;2592bdf&#x27;;</span><br><span class="line">ok</span><br><span class="line"></span><br><span class="line">PRAGMA cipher_compatibility = 1;</span><br><span class="line"></span><br><span class="line">PRAGMA cipher_use_hmac = off;</span><br><span class="line">PRAGMA kdf_iter = 4000;</span><br><span class="line">PRAGMA cipher_page_size = 1024;</span><br><span class="line">PRAGMA cipher_hmac_algorithm = HMAC_SHA1;</span><br><span class="line">PRAGMA cipher_kdf_algorithm = PBKDF2_HMAC_SHA1;</span><br><span class="line"></span><br><span class="line">ATTACH DATABASE &#x27;plaintext.db&#x27; AS plaintext KEY &#x27;&#x27;;</span><br><span class="line">SELECT sqlcipher_export(&#x27;plaintext&#x27;);</span><br><span class="line">DETACH DATABASE plaintext;</span><br></pre></td></tr></table></figure>
-
+<p>运行完后会生成解密好的<code>MicroMsg.db</code>，可以使用<a target="_blank" rel="noopener" href="https://sqlitebrowser.org/">sqlitebrowser</a>查看。</p>
 <p>虽然<a target="_blank" rel="noopener" href="https://sqlitebrowser.org/">sqlitebrowser</a>从<a target="_blank" rel="noopener" href="https://github.com/sqlitebrowser/sqlitebrowser/releases/tag/v3.9.0">3.9.0</a>开始就支持了 sqlcipher，但不能用来查看 android 导出的微信数据库，因为微信使用的 sqlcipher 配置不是标准的。</p>
-<p>微信使用的 sqlcipher 配置是：</p>
+<div class='spoiler collapsed'>
+    <div class='spoiler-title'>
+        微信使用的配置
+    </div>
+    <div class='spoiler-content'>
+        <p>微信使用的 sqlcipher 配置是：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">SQLiteCipherSpec</span> <span class="variable">l</span> <span class="operator">=</span> (<span class="keyword">new</span> <span class="title class_">SQLiteCipherSpec</span>()).setPageSize(<span class="number">1024</span>).setSQLCipherVersion(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 
 <p><code>SQLiteCipherSpec</code>的<a target="_blank" rel="noopener" href="https://github.com/Tencent/wcdb/blob/9d26c39475d4294204e467e139e3bbf8f7e3ea58/src/java/compat/src/main/java/com/tencent/wcdb/compat/SQLiteCipherSpec.java#L193">代码片断</a>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> SQLiteCipherSpec <span class="title function_">setSQLCipherVersion</span><span class="params">(<span class="type">int</span> version)</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (version) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      cipherVersion = <span class="number">1</span>;</span><br><span class="line">      hmacEnabled = <span class="literal">false</span>;</span><br><span class="line">      kdfIteration = <span class="number">4000</span>;</span><br><span class="line">      hmacAlgorithm = HMAC_SHA1;</span><br><span class="line">      kdfAlgorithm = HMAC_SHA1;</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+</div>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 
