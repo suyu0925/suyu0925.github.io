@@ -6,7 +6,7 @@
   <link href="https://blog.lckof.com/atom.xml" rel="self"/>
   
   <link href="https://blog.lckof.com/"/>
-  <updated>2024-12-20T06:21:40.959Z</updated>
+  <updated>2024-12-27T02:21:52.242Z</updated>
   <id>https://blog.lckof.com/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>在follow上认证你的博客</title>
+    <link href="https://blog.lckof.com/2024/12/27/verify-blog-on-follow/"/>
+    <id>https://blog.lckof.com/2024/12/27/verify-blog-on-follow/</id>
+    <published>2024-12-27T02:12:29.000Z</published>
+    <updated>2024-12-27T02:21:52.242Z</updated>
+    
+    
+    <summary type="html">最近follow开放了注册，顺手认证一下玩玩。</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>openclash兼容向日葵远程控制</title>
@@ -324,23 +339,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>在vscode中修改python的tab size</title>
-    <link href="https://blog.lckof.com/2024/09/10/set-python-tab-size-in-vscode/"/>
-    <id>https://blog.lckof.com/2024/09/10/set-python-tab-size-in-vscode/</id>
-    <published>2024-09-10T02:22:00.000Z</published>
-    <updated>2024-10-24T01:16:47.565Z</updated>
-    
-    
-    <summary type="html">默认的空格缩进都是2格，但python还是更习惯4格，需要单独设置一下。</summary>
-    
-    
-    
-    
-    <category term="vscode" scheme="https://blog.lckof.com/tags/vscode/"/>
     
   </entry>
   
