@@ -72,7 +72,9 @@
 
   gtag('config', 'G-34Y9Q8PYBQ');
 </script>
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
@@ -168,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">233</span>
+          <span class="site-state-item-count">234</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -179,7 +181,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -284,7 +286,7 @@
 <p><strong>pgadmin</strong></p>
 <p>pgadmin只需要mount一个目录<code>/var/lib/pgadmin</code>，所有配置都存储在这个文件夹中。可参见<a target="_blank" rel="noopener" href="https://www.pgadmin.org/docs/pgadmin4/development/container_deployment.html#mapped-files-and-directories">官方文档</a>。</p>
 <p><em>注意</em>：<br>如果pgadmin卷是有从外部拷来的文件，需要确保pgadmin用户有读写权限，如果没有的话需要在host上设置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chown</span> -R 5050:5050 &lt;host_directory&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> -R 5050:5050 &lt;host_directory&gt;</span><br></pre></td></tr></table></figure>
 <p>可使用root用户登录（root用户的uid为0）pgadmin容器来运行这个。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -u 0 -it pgadmin4 bash</span><br></pre></td></tr></table></figure>
 
@@ -299,7 +301,7 @@
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use w: \\wsl<span class="variable">$</span>\docker<span class="literal">-desktop-data</span></span><br></pre></td></tr></table></figure>
 
 <p>然后在wsl中映射w盘</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">mkdir</span> /mnt/docker</span><br><span class="line">sudo mount -t drvfs w: /mnt/docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/docker</span><br><span class="line"><span class="built_in">sudo</span> mount -t drvfs w: /mnt/docker</span><br></pre></td></tr></table></figure>
 <p>这样在wsl中就能通过<code>/mnt/docker/data/docker/volumes/$&#123;volume_id&#125;/_data</code>来访问到volume内容了。</p>
 <h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>一些设置我们使用<code>.env</code>来实现。</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">COMPOSE_PROJECT_NAME</span>=postgres12</span><br><span class="line"><span class="attr">POSTGRES_PASSWORD</span>=password</span><br><span class="line"><span class="attr">PGADMIN_DEFAULT_EMAIL</span>=admin@email.com</span><br><span class="line"><span class="attr">PGADMIN_DEFAULT_PASSWORD</span>=password</span><br></pre></td></tr></table></figure>

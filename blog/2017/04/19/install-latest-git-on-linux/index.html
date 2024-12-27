@@ -73,7 +73,9 @@
 
   gtag('config', 'G-34Y9Q8PYBQ');
 </script>
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
@@ -169,7 +171,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">233</span>
+          <span class="site-state-item-count">234</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -180,7 +182,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -275,7 +277,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Initialized empty Git repository <span class="keyword">in</span> /root/blog/.git/</span><br><span class="line">error: The requested URL returned error: 400 Bad Request <span class="keyword">while</span> accessing https://git.coding.net/xxx/xxx.git/info/refs</span><br><span class="line"></span><br><span class="line">fatal: HTTP request failed</span><br></pre></td></tr></table></figure>
 <p>这是因为版本过低的缘故，git.coding.net要求使用1.8+版本的git。</p>
 <p>升级git有两种方式，一种是下载源码编译，一种是使用第三方源。<br>本着懒人原则，我们使用第二种方法。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install http://opensource.wandisco.com/centos/6/git/x86_64/wandisco-git-release-6-1.noarch.rpm</span><br><span class="line">$ sudo yum update git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> yum install http://opensource.wandisco.com/centos/6/git/x86_64/wandisco-git-release-6-1.noarch.rpm</span><br><span class="line">$ <span class="built_in">sudo</span> yum update git</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git --version</span><br><span class="line">git version 2.11.1</span><br></pre></td></tr></table></figure>
 
@@ -283,13 +285,13 @@
 <h2 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h2><p>在ubuntu14.04上使用apt-get默认安装的版本是1.9.1，但很显然1.9不是最新版本，最新版本已经是2.+了。</p>
 <p>和CentOS一样，使用第三方源来搞定。</p>
 <p>首先添加PPA (Personal Package Archive)中的git-core源。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository ppa:git-core/ppa</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> add-apt-repository ppa:git-core/ppa</span><br></pre></td></tr></table></figure>
 
 <p>然后就可以顺利更新到最新版本的git。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> apt-get update</span><br><span class="line">$ <span class="built_in">sudo</span> apt-get install git</span><br></pre></td></tr></table></figure>
 
 <p>如果你使用的ubuntu很干净，有可能会提示add-apt-repository命令找不到。它是在software-properties-common包里的。对于一些版本的ubuntu，还需配合python-software-properties食用。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install software-properties-common python-software-properties</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> apt-get install software-properties-common python-software-properties</span><br></pre></td></tr></table></figure>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 

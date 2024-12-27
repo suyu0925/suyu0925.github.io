@@ -70,7 +70,9 @@
 
   gtag('config', 'G-34Y9Q8PYBQ');
 </script>
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
@@ -165,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">233</span>
+          <span class="site-state-item-count">234</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -176,7 +178,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -255,11 +257,11 @@
     
     <div class="post-body" itemprop="articleBody"><p>比如<a target="_blank" rel="noopener" href="https://github.com/vnpy/vnpy_ctp">vnpy_ctp</a>库，它输出的stdout就是gbk编码，在默认环境下会是一堆乱码，这时就需要设置locale了。</p>
 <p>修改<code>/etc/locale.gen</code>文件，取消<code>zh_CN.UTF-8 UTF-8</code>和<code>zh_CN.GB18030 GB18030</code>的注释，然后执行<code>locale-gen</code>命令。<br>也可以直接添加到文件末尾。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update </span><br><span class="line">sudo apt -y install locales </span><br><span class="line">sudo <span class="built_in">echo</span> <span class="string">&quot;zh_CN.GB18030 GB18030&quot;</span> &gt; /etc/locale.gen</span><br><span class="line">locale-gen</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt update </span><br><span class="line"><span class="built_in">sudo</span> apt -y install locales </span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">echo</span> <span class="string">&quot;zh_CN.GB18030 GB18030&quot;</span> &gt; /etc/locale.gen</span><br><span class="line">locale-gen</span><br></pre></td></tr></table></figure>
 
 <p>又比如我们使用<a target="_blank" rel="noopener" href="https://crontab.guru/">cron</a>运行定时任务通常是使用北京时间，但默认的locale是UTC，不小心很容易出错。</p>
 <p>安装<a href="">tzdata</a>包，然后创建<code>/etc/localtime</code>软链接到<code>/usr/share/zoneinfo/Asia/Shanghai</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt -y install tzdata </span><br><span class="line"><span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt -y install tzdata </span><br><span class="line"><span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 

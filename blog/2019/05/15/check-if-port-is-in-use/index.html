@@ -71,7 +71,9 @@
 
   gtag('config', 'G-34Y9Q8PYBQ');
 </script>
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
@@ -167,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">233</span>
+          <span class="site-state-item-count">234</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,7 +180,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -284,7 +286,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lsof -i</span><br><span class="line">$ lsof -i:8000</span><br></pre></td></tr></table></figure>
 
 <p>注意当前用户，如果想显示其它用户的使用情况，可使用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo lsof -i</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> lsof -i</span><br></pre></td></tr></table></figure>
 
 <h2 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h2><p><strong>Linux</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -tulpn | grep LISTEN</span><br></pre></td></tr></table></figure>
@@ -292,9 +294,9 @@
 <p><strong>MacOS X</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -anp tcp | grep LISTEN</span><br><span class="line">$ netstat -anp udp | grep LISTEN</span><br></pre></td></tr></table></figure>
 
-<h2 id="nmap-需要安装"><a href="#nmap-需要安装" class="headerlink" title="nmap(需要安装)"></a>nmap(需要安装)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nmap -sT -O localhost</span><br><span class="line">$ sudo nmap -sU -O 192.168.2.13 <span class="comment">##[ list open UDP ports ]##</span></span><br><span class="line">$ sudo nmap -sT -O 192.168.2.13 <span class="comment">##[ list open TCP ports ]##</span></span><br></pre></td></tr></table></figure>
+<h2 id="nmap-需要安装"><a href="#nmap-需要安装" class="headerlink" title="nmap(需要安装)"></a>nmap(需要安装)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> nmap -sT -O localhost</span><br><span class="line">$ <span class="built_in">sudo</span> nmap -sU -O 192.168.2.13 <span class="comment">##[ list open UDP ports ]##</span></span><br><span class="line">$ <span class="built_in">sudo</span> nmap -sT -O 192.168.2.13 <span class="comment">##[ list open TCP ports ]##</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nmap -sTU -O 192.168.2.13</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">sudo</span> nmap -sTU -O 192.168.2.13</span><br></pre></td></tr></table></figure>
 <link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
     </div>
 

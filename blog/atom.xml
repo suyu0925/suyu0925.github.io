@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Tasty Pub</title>
+  <icon>https://blog.lckof.com/icon.png</icon>
+  
+  <link href="https://blog.lckof.com/atom.xml" rel="self"/>
+  
+  <link href="https://blog.lckof.com/"/>
+  <updated>2024-12-20T06:21:40.959Z</updated>
+  <id>https://blog.lckof.com/</id>
+  
+  <author>
+    <name>lckof</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>openclash兼容向日葵远程控制</title>
+    <link href="https://blog.lckof.com/2024/12/20/sunlogin-with-openclash/"/>
+    <id>https://blog.lckof.com/2024/12/20/sunlogin-with-openclash/</id>
+    <published>2024-12-20T06:14:10.000Z</published>
+    <updated>2024-12-20T06:21:40.959Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在 win11 更新到 24H2 &lt;code&gt;26100.2605&lt;/code&gt;之后，&lt;a href=&quot;/2023/11/07/enable-remote-desktop-in-windows-home-edition/&quot;</summary>
+        
+      
+    
+    
+    
+    
+    <category term="openclash" scheme="https://blog.lckof.com/tags/openclash/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自建记账软件</title>
+    <link href="https://blog.lckof.com/2024/12/16/self-hosted-accounting-software/"/>
+    <id>https://blog.lckof.com/2024/12/16/self-hosted-accounting-software/</id>
+    <published>2024-12-16T07:27:37.000Z</published>
+    <updated>2024-12-16T08:10:07.097Z</updated>
+    
+    
+    <summary type="html">记账一直用的随手记，但随手记还是无法按照想要的方式查询，而且考虑到数据安全，看看能不能低成本的自建一个。</summary>
+    
+    
+    
+    
+    <category term="善用佳软" scheme="https://blog.lckof.com/tags/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自建笔记服务</title>
+    <link href="https://blog.lckof.com/2024/12/16/self-hosted-notes/"/>
+    <id>https://blog.lckof.com/2024/12/16/self-hosted-notes/</id>
+    <published>2024-12-16T06:41:44.000Z</published>
+    <updated>2024-12-16T07:29:25.643Z</updated>
+    
+    
+    <summary type="html">用过的笔记软件越来越多，印象笔记、锤子便签、有道云笔记、苹果备忘录、Obsidian……越来越难以管理，看看有没有合适的自建笔记服务。</summary>
+    
+    
+    
+    
+    <category term="善用佳软" scheme="https://blog.lckof.com/tags/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>lofi音乐播放器NextBeats</title>
+    <link href="https://blog.lckof.com/2024/12/16/lofi-music-player-next-beats/"/>
+    <id>https://blog.lckof.com/2024/12/16/lofi-music-player-next-beats/</id>
+    <published>2024-12-16T06:29:48.000Z</published>
+    <updated>2024-12-16T07:29:27.097Z</updated>
+    
+    
+    <summary type="html">还记得之前有一期拿lofi girl练手sd么，这期推荐一个lofi音乐播放器。</summary>
+    
+    
+    
+    
+    <category term="善用佳软" scheme="https://blog.lckof.com/tags/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关闭win11上的自动更新</title>
+    <link href="https://blog.lckof.com/2024/12/11/disable-auto-update-on-win11/"/>
+    <id>https://blog.lckof.com/2024/12/11/disable-auto-update-on-win11/</id>
+    <published>2024-12-11T05:56:03.000Z</published>
+    <updated>2024-12-11T06:36:32.664Z</updated>
+    
+    
+    <summary type="html">在使用rdpwrap后，自动更新很容易导致服务失效，记录一下如何关闭win11上的自动更新。</summary>
+    
+    
+    
+    
+    <category term="windows" scheme="https://blog.lckof.com/tags/windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【雪球爬虫】绕过反爬</title>
+    <link href="https://blog.lckof.com/2024/12/04/crawl-xueqiu-crawling-bypass/"/>
+    <id>https://blog.lckof.com/2024/12/04/crawl-xueqiu-crawling-bypass/</id>
+    <published>2024-12-04T06:06:50.000Z</published>
+    <updated>2024-12-04T08:23:13.100Z</updated>
+    
+    
+    <summary type="html">开个新坑，雪球爬虫系列。这篇讲反爬。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>深言达意</title>
+    <link href="https://blog.lckof.com/2024/11/28/deeplang/"/>
+    <id>https://blog.lckof.com/2024/11/28/deeplang/</id>
+    <published>2024-11-28T06:52:02.000Z</published>
+    <updated>2024-11-28T07:19:00.012Z</updated>
+    
+    
+    <summary type="html">年纪大了想装个文化逼却经常话在嘴边却说不出来，急需“汉汉翻译”。</summary>
+    
+    
+    
+    
+    <category term="善用佳软" scheme="https://blog.lckof.com/tags/%E5%96%84%E7%94%A8%E4%BD%B3%E8%BD%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代理池</title>
+    <link href="https://blog.lckof.com/2024/11/27/proxy-pool/"/>
+    <id>https://blog.lckof.com/2024/11/27/proxy-pool/</id>
+    <published>2024-11-27T07:35:48.000Z</published>
+    <updated>2024-11-28T06:50:02.427Z</updated>
+    
+    
+    <summary type="html">在使用爬虫运行稍微大点的任务时，都可能会撞上IP限流，此时就需要引入代理池。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>我的IP</title>
+    <link href="https://blog.lckof.com/2024/11/26/myip/"/>
+    <id>https://blog.lckof.com/2024/11/26/myip/</id>
+    <published>2024-11-26T07:46:16.000Z</published>
+    <updated>2024-11-26T08:40:56.063Z</updated>
+    
+    
+    <summary type="html">快速查看我的IP地址。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>[Openwrt]更新docker compose v2</title>
+    <link href="https://blog.lckof.com/2024/11/17/install-docker-compose-on-openwrt/"/>
+    <id>https://blog.lckof.com/2024/11/17/install-docker-compose-on-openwrt/</id>
+    <published>2024-11-17T02:45:54.000Z</published>
+    <updated>2024-11-26T07:45:28.003Z</updated>
+    
+    
+    <summary type="html">openwrt官方软件源一直是docker-compose v1，我们需要手动更新到v2</summary>
+    
+    
+    
+    
+    <category term="openwrt" scheme="https://blog.lckof.com/tags/openwrt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>重装ars2系统</title>
+    <link href="https://blog.lckof.com/2024/11/05/fresh-install-ars2/"/>
+    <id>https://blog.lckof.com/2024/11/05/fresh-install-ars2/</id>
+    <published>2024-11-05T06:42:58.000Z</published>
+    <updated>2024-11-05T07:17:30.257Z</updated>
+    
+    
+    <summary type="html">ars2是易有云出的一款软路由，记录一下重装的过程。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>微信逆向工程</title>
+    <link href="https://blog.lckof.com/2024/11/05/reverse-engineering-wechat/"/>
+    <id>https://blog.lckof.com/2024/11/05/reverse-engineering-wechat/</id>
+    <published>2024-11-05T06:25:24.000Z</published>
+    <updated>2024-11-05T06:40:03.001Z</updated>
+    
+    
+    <summary type="html">为了能实现微信聊天记录的无感漫游，先尝试对微信进行逆向工程。</summary>
+    
+    
+    
+    
+    <category term="weixin" scheme="https://blog.lckof.com/tags/weixin/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在mumu模拟器上安装Xposed</title>
+    <link href="https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/"/>
+    <id>https://blog.lckof.com/2024/11/01/install-xposed-on-mumu/</id>
+    <published>2024-11-01T03:05:53.000Z</published>
+    <updated>2024-11-01T05:04:45.401Z</updated>
+    
+    
+    <summary type="html">xposed是个好东西，探讨一下怎么在mumu模拟器上安装。</summary>
+    
+    
+    
+    
+    <category term="android" scheme="https://blog.lckof.com/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>B站UP主</title>
+    <link href="https://blog.lckof.com/2024/10/30/bilibili-ups/"/>
+    <id>https://blog.lckof.com/2024/10/30/bilibili-ups/</id>
+    <published>2024-10-30T01:39:09.000Z</published>
+    <updated>2024-10-30T02:40:54.291Z</updated>
+    
+    
+    <summary type="html">整理记录一下网上推荐的B站UP主</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>小宇宙FM：先看后听</title>
+    <link href="https://blog.lckof.com/2024/10/24/xiaoyuzhoufm/"/>
+    <id>https://blog.lckof.com/2024/10/24/xiaoyuzhoufm/</id>
+    <published>2024-10-24T01:18:07.000Z</published>
+    <updated>2024-10-24T07:07:42.600Z</updated>
+    
+    
+    <summary type="html">小宇宙节目经常只有音频没有目录和简介，其实可以简单的自己做一个。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>正则表达式相关工具网站</title>
+    <link href="https://blog.lckof.com/2024/10/07/online-websites-about-regex/"/>
+    <id>https://blog.lckof.com/2024/10/07/online-websites-about-regex/</id>
+    <published>2024-10-07T09:11:20.000Z</published>
+    <updated>2024-10-24T01:16:47.563Z</updated>
+    
+    
+    <summary type="html">使用正则表达式时，常常会忘记具体语法，或者想快速验证，这时候就需要一些在线网站来帮助。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在windows中使用屏幕键盘</title>
+    <link href="https://blog.lckof.com/2024/09/18/osk/"/>
+    <id>https://blog.lckof.com/2024/09/18/osk/</id>
+    <published>2024-09-18T15:49:25.000Z</published>
+    <updated>2024-10-24T01:16:47.563Z</updated>
+    
+    
+    <summary type="html">在平板、笔记本或者使用非全配列键盘的电脑上，可以灵活使用屏幕键盘来输入。</summary>
+    
+    
+    
+    
+    <category term="windows" scheme="https://blog.lckof.com/tags/windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>修正jellyfin的中文字幕显示问题</title>
+    <link href="https://blog.lckof.com/2024/09/11/fix-chinese-subtitles-in-jellyfin/"/>
+    <id>https://blog.lckof.com/2024/09/11/fix-chinese-subtitles-in-jellyfin/</id>
+    <published>2024-09-11T13:32:54.000Z</published>
+    <updated>2024-10-24T01:16:47.560Z</updated>
+    
+    
+    <summary type="html">jellyfin是老外做的，默认镜像不支持中文字幕。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在windows上使用fnm碰到的问题</title>
+    <link href="https://blog.lckof.com/2024/09/11/fnm-issue-on-windows/"/>
+    <id>https://blog.lckof.com/2024/09/11/fnm-issue-on-windows/</id>
+    <published>2024-09-11T06:03:09.000Z</published>
+    <updated>2024-10-24T01:16:47.562Z</updated>
+    
+    
+    <summary type="html">fnm是nodejs官方推荐的windows包管理器之一，但在中文环境下使用存在问题。</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>在vscode中修改python的tab size</title>
+    <link href="https://blog.lckof.com/2024/09/10/set-python-tab-size-in-vscode/"/>
+    <id>https://blog.lckof.com/2024/09/10/set-python-tab-size-in-vscode/</id>
+    <published>2024-09-10T02:22:00.000Z</published>
+    <updated>2024-10-24T01:16:47.565Z</updated>
+    
+    
+    <summary type="html">默认的空格缩进都是2格，但python还是更习惯4格，需要单独设置一下。</summary>
+    
+    
+    
+    
+    <category term="vscode" scheme="https://blog.lckof.com/tags/vscode/"/>
+    
+  </entry>
+  
+</feed>

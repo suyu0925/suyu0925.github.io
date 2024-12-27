@@ -74,7 +74,9 @@
 
   gtag('config', 'G-34Y9Q8PYBQ');
 </script>
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
@@ -170,7 +172,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">233</span>
+          <span class="site-state-item-count">234</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -181,7 +183,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -277,10 +279,10 @@
 <li><p>关闭自动登录<br>必须<strong>关闭</strong>自动登录，增强模式需要使用xrdp(x Remote Desktop Protocol)登录，而xrdp登录时需要输入密码。</p>
 </li>
 <li><p>下载并运行脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">wget https://raw.githubusercontent.com/Hinara/linux-vm-tools/ubuntu20-04/ubuntu/22.04/install.sh</span><br><span class="line">sudo <span class="built_in">chmod</span> +x install.sh</span><br><span class="line">sudo ./install.sh</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">wget https://raw.githubusercontent.com/Hinara/linux-vm-tools/ubuntu20-04/ubuntu/22.04/install.sh</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x install.sh</span><br><span class="line"><span class="built_in">sudo</span> ./install.sh</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>也可以直接clone整个项目，然后运行脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Hinara/linux-vm-tools.git</span><br><span class="line"><span class="built_in">cd</span> linux-vm-tools/ubuntu/22.04</span><br><span class="line">sudo <span class="built_in">chmod</span> +x install.sh</span><br><span class="line">sudo ./install.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Hinara/linux-vm-tools.git</span><br><span class="line"><span class="built_in">cd</span> linux-vm-tools/ubuntu/22.04</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x install.sh</span><br><span class="line"><span class="built_in">sudo</span> ./install.sh</span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>重启后，再次运行此脚本<br>很多攻略都漏掉了这一步，但这一步很重要，已经在脚本中有输出提示：<blockquote>
@@ -288,15 +290,15 @@
 </blockquote>
 </li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo shutdown -r now</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> shutdown -r now</span><br></pre></td></tr></table></figure>
 
 <p>重启后连接虚拟机，再次运行脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">sudo ./install.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line"><span class="built_in">sudo</span> ./install.sh</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
 <li>将虚拟机关机，在宿主机中设置Hyper-V传输类型</li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo shutdown -h now</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> shutdown -h now</span><br></pre></td></tr></table></figure>
 
 <p>使用Get-VM命令查看虚拟机名称</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; Get-VM</span><br><span class="line">Name                                  State   CPUUsage(%) MemoryAssigned(M) Uptime           Status   Version</span><br><span class="line">----                                  -----   ----------- ----------------- ------           ------   -------</span><br><span class="line">Ubuntu 22.04 LTS                      Off     0           0                 00:00:00         正常运行 9.0</span><br><span class="line"></span><br><span class="line">&gt; Set-VM -VMName &#x27;Ubuntu 22.04 LTS&#x27; -EnhancedSessionTransportType HvSocket</span><br></pre></td></tr></table></figure>
@@ -310,13 +312,13 @@
 <p>使用<code>sudo nano /etc/default/grub</code>将<code>grub</code>中的<code>GRUB_CMDLINE_LINUX_DEFAULT</code>改为</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">GRUB_CMDLINE_LINUX_DEFAULT</span>=<span class="string">&quot;quiet splash video=hyperv_fb:1920x1080&quot;</span></span><br></pre></td></tr></table></figure>
 <p>然后</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> update-grub</span><br><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure>
 
 <h3 id="增强会话"><a href="#增强会话" class="headerlink" title="增强会话"></a>增强会话</h3><p>如果使用的xrdp，在连接时选择全屏就行。</p>
 <img src="/2023/04/20/use-ubuntu-on-hyper-v/resolution-on-connecting.png" class="" title="选择分辨率">
 
 <h2 id="声音"><a href="#声音" class="headerlink" title="声音"></a>声音</h2><p>默认安装完后，无法将声音输出到宿主机。需要安装<code>pulseaudio</code>。可以参与ubuntu社区中的<a target="_blank" rel="noopener" href="https://ubuntuforums.org/showthread.php?t=2481545">这篇帖子</a>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install build-essential dpkg-dev libpulse-dev git autoconf libtool</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/neutrinolabs/pulseaudio-module-xrdp.git</span><br><span class="line"><span class="built_in">cd</span> pulseaudio-module-xrdp</span><br><span class="line"></span><br><span class="line">./scripts/install_pulseaudio_sources_apt_wrapper.sh</span><br><span class="line">./bootstrap &amp;&amp; ./configure PULSE_DIR=~/pulseaudio.src</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span> $(pkg-config --variable=modlibexecdir libpulse) | grep <span class="string">&#x27;xrdp&#x27;</span></span><br><span class="line"></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install build-essential dpkg-dev libpulse-dev git autoconf libtool</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~/Downloads</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/neutrinolabs/pulseaudio-module-xrdp.git</span><br><span class="line"><span class="built_in">cd</span> pulseaudio-module-xrdp</span><br><span class="line"></span><br><span class="line">./scripts/install_pulseaudio_sources_apt_wrapper.sh</span><br><span class="line">./bootstrap &amp;&amp; ./configure PULSE_DIR=~/pulseaudio.src</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"><span class="built_in">sudo</span> make install</span><br><span class="line"></span><br><span class="line"><span class="built_in">ls</span> $(pkg-config --variable=modlibexecdir libpulse) | grep <span class="string">&#x27;xrdp&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure>
 
 <p>在<code>./scripts/install_pulseaudio_sources_apt_wrapper.sh</code>这一步会花较长时间下载包，可以在日志文件中查看进度：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -f /var/tmp/pa-build-suyu-debootstrap.log</span><br></pre></td></tr></table></figure>
@@ -333,17 +335,17 @@
 <li><p>只扩展虚拟硬盘文件并不会直接应用到Ubuntu系统，启动并连接虚拟机可以看到：</p>
 </li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">user@ubuntu:~$ sudo fdisk -l</span><br><span class="line">GPT PMBR size mismatch (25165823 != 419430399) will be corrected by write.</span><br><span class="line">The backup GPT table is not on the end of the device.</span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 200 GiB, 214748364800 bytes, 419430400 sectors</span><br><span class="line">Disk model: Virtual Disk    </span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: gpt</span><br><span class="line">Disk identifier: F86D133B-CDB4-4EAF-A9AA-0F4B0A8ADC00</span><br><span class="line"></span><br><span class="line">Device      Start      End  Sectors  Size Type</span><br><span class="line">/dev/sda1  227328 25165790 24938463 11.9G Linux filesystem</span><br><span class="line">/dev/sda14   2048    10239     8192    4M BIOS boot</span><br><span class="line">/dev/sda15  10240   227327   217088  106M EFI System</span><br><span class="line"></span><br><span class="line">Partition table entries are not <span class="keyword">in</span> disk order.</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">user@ubuntu:~$ <span class="built_in">sudo</span> fdisk -l</span><br><span class="line">GPT PMBR size mismatch (25165823 != 419430399) will be corrected by write.</span><br><span class="line">The backup GPT table is not on the end of the device.</span><br><span class="line"></span><br><span class="line">Disk /dev/sda: 200 GiB, 214748364800 bytes, 419430400 sectors</span><br><span class="line">Disk model: Virtual Disk    </span><br><span class="line">Units: sectors of 1 * 512 = 512 bytes</span><br><span class="line">Sector size (logical/physical): 512 bytes / 512 bytes</span><br><span class="line">I/O size (minimum/optimal): 512 bytes / 512 bytes</span><br><span class="line">Disklabel <span class="built_in">type</span>: gpt</span><br><span class="line">Disk identifier: F86D133B-CDB4-4EAF-A9AA-0F4B0A8ADC00</span><br><span class="line"></span><br><span class="line">Device      Start      End  Sectors  Size Type</span><br><span class="line">/dev/sda1  227328 25165790 24938463 11.9G Linux filesystem</span><br><span class="line">/dev/sda14   2048    10239     8192    4M BIOS boot</span><br><span class="line">/dev/sda15  10240   227327   217088  106M EFI System</span><br><span class="line"></span><br><span class="line">Partition table entries are not <span class="keyword">in</span> disk order.</span><br></pre></td></tr></table></figure>
 
 <p>还需要扩展分区。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install cloud-guest-utils</span><br><span class="line">sudo growpart /dev/sda 1</span><br><span class="line">sudo resize2fs /dev/sda1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install cloud-guest-utils</span><br><span class="line"><span class="built_in">sudo</span> growpart /dev/sda 1</span><br><span class="line"><span class="built_in">sudo</span> resize2fs /dev/sda1</span><br></pre></td></tr></table></figure>
 
 <p>注意<code>/dev/sda 1</code>中的1前面有个空格，这是分区号，不是分区名。</p>
 <ol start="4">
 <li>扩容完成<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">user@ubuntu:~$ <span class="built_in">df</span> -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">tmpfs           192M  1.6M  190M   1% /run</span><br><span class="line">/dev/sda1       194G  6.5G  188G   4% /</span><br><span class="line">tmpfs           956M     0  956M   0% /dev/shm</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">/dev/sda15      105M  5.3M  100M   5% /boot/efi</span><br><span class="line">tmpfs           192M   84K  192M   1% /run/user/127</span><br><span class="line">tmpfs           192M  172K  191M   1% /run/user/1000</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="远程登录"><a href="#远程登录" class="headerlink" title="远程登录"></a>远程登录</h2><p>Ubuntu桌面版默认是不支持远程登录的，为了可以从宿主机使用<code>ssh</code>命令登录虚拟机，需要安装<code>openssh-server</code>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install openssh-server</span><br><span class="line">ip addr</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install openssh-server</span><br><span class="line">ip addr</span><br></pre></td></tr></table></figure>
 
 <p>使用<code>ip addr</code>查看虚拟机的IP地址，然后在宿主机使用<code>ssh</code>命令登录。<br>也可直接使用<code>ssh user@ubuntu</code>这种形式，<code>user</code>为用户名，<code>ubuntu</code>为虚拟机中ubuntu的电脑名。</p>
 <h2 id="嵌套虚拟化"><a href="#嵌套虚拟化" class="headerlink" title="嵌套虚拟化"></a>嵌套虚拟化</h2><p>我们可以<a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/virtualization/hyper-v-on-windows/user-guide/nested-virtualization">在Hyper-V虚拟机上再运行一个Hyper-V虚拟机</a>。</p>

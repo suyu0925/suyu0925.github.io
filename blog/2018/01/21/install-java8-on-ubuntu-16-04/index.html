@@ -72,7 +72,9 @@
 
   gtag('config', 'G-34Y9Q8PYBQ');
 </script>
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
@@ -168,7 +170,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">233</span>
+          <span class="site-state-item-count">234</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -179,7 +181,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -272,27 +274,27 @@
     
     
     <div class="post-body" itemprop="articleBody"><h2 id="安装默认JRE-JDK"><a href="#安装默认JRE-JDK" class="headerlink" title="安装默认JRE&#x2F;JDK"></a>安装默认JRE&#x2F;JDK</h2><p>最简单的安装方式就是安装默认的OpenJDK8。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install default-jre</span><br><span class="line">sudo apt-get install default-jdk</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install default-jre</span><br><span class="line"><span class="built_in">sudo</span> apt-get install default-jdk</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装Oracle-JDK"><a href="#安装Oracle-JDK" class="headerlink" title="安装Oracle JDK"></a>安装Oracle JDK</h2><p>如果要安装oracle java，那么官方默认源里是没有的，我们使用第三方源。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:webupd8team/java</span><br><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> add-apt-repository ppa:webupd8team/java</span><br><span class="line"><span class="built_in">sudo</span> apt-get update</span><br></pre></td></tr></table></figure>
 
 <p>接下来就可以安装oracle jdk8或者jdk9</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java9-installer</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install oracle-java9-installer</span><br></pre></td></tr></table></figure>
 
 <h2 id="修改ppa"><a href="#修改ppa" class="headerlink" title="修改ppa"></a>修改ppa</h2><p>webupd8team的更新经常不及时，比如截止到目前2018-01-19，webupd8team&#x2F;java上的java8仍然是144版本，但是oracle已经更改了链接，所以直接使用会提示404错误，找不到安装包，我们需要手动修改ppa。</p>
 <p>先将144升级到152</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line">sudo sed -i <span class="string">&#x27;s|JAVA_VERSION=8u144|JAVA_VERSION=8u152|&#x27;</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">&#x27;s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/|&#x27;</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">&#x27;s|SHA256SUM_TGZ=&quot;e8a341ce566f32c3d06f6d0f0eeea9a0f434f538d22af949ae58bc86f2eeaae4&quot;|SHA256SUM_TGZ=&quot;218b3b340c3f6d05d940b817d0270dfe0cfd657a636bad074dcabe0c111961bf&quot;|&#x27;</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">&#x27;s|J_DIR=jdk1.8.0_144|J_DIR=jdk1.8.0_152|&#x27;</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|JAVA_VERSION=8u144|JAVA_VERSION=8u152|&#x27;</span> oracle-java8-installer.*</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/|&#x27;</span> oracle-java8-installer.*</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|SHA256SUM_TGZ=&quot;e8a341ce566f32c3d06f6d0f0eeea9a0f434f538d22af949ae58bc86f2eeaae4&quot;|SHA256SUM_TGZ=&quot;218b3b340c3f6d05d940b817d0270dfe0cfd657a636bad074dcabe0c111961bf&quot;|&#x27;</span> oracle-java8-installer.*</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|J_DIR=jdk1.8.0_144|J_DIR=jdk1.8.0_152|&#x27;</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure>
 
 <p>再将152升级到161</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line"></span><br><span class="line">sudo sed -i <span class="string">&#x27;s|JAVA_VERSION=8u151|JAVA_VERSION=8u161|&#x27;</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">&#x27;s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/|&#x27;</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">&#x27;s|SHA256SUM_TGZ=&quot;c78200ce409367b296ec39be4427f020e2c585470c4eed01021feada576f027f&quot;|SHA256SUM_TGZ=&quot;6dbc56a0e3310b69e91bb64db63a485bd7b6a8083f08e48047276380a0e2021e&quot;|&#x27;</span> oracle-java8-installer.*</span><br><span class="line">sudo sed -i <span class="string">&#x27;s|J_DIR=jdk1.8.0_151|J_DIR=jdk1.8.0_161|&#x27;</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/dpkg/info</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|JAVA_VERSION=8u151|JAVA_VERSION=8u161|&#x27;</span> oracle-java8-installer.*</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/|PARTNER_URL=http://download.oracle.com/otn-pub/java/jdk/8u161-b12/2f38c3b165be4555a1fa6e98c45e0808/|&#x27;</span> oracle-java8-installer.*</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|SHA256SUM_TGZ=&quot;c78200ce409367b296ec39be4427f020e2c585470c4eed01021feada576f027f&quot;|SHA256SUM_TGZ=&quot;6dbc56a0e3310b69e91bb64db63a485bd7b6a8083f08e48047276380a0e2021e&quot;|&#x27;</span> oracle-java8-installer.*</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s|J_DIR=jdk1.8.0_151|J_DIR=jdk1.8.0_161|&#x27;</span> oracle-java8-installer.*</span><br></pre></td></tr></table></figure>
 
 <p>接下来再次安装oracle-java8-installer就行了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install oracle-java8-installer</span><br></pre></td></tr></table></figure>
 
 <h2 id="管理java版本"><a href="#管理java版本" class="headerlink" title="管理java版本"></a>管理java版本</h2><p>如果希望多个java版本并存，就需要进行切换。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> update-alternatives --config java</span><br></pre></td></tr></table></figure>
 
 <p>以下是一个示例输出</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">There are 5 choices for the alternative java (providing /usr/bin/java).</span><br><span class="line"></span><br><span class="line">  Selection    Path                                            Priority   Status</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">* 0            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      auto mode</span><br><span class="line">  1            /usr/lib/jvm/java-6-oracle/jre/bin/java          1         manual mode</span><br><span class="line">  2            /usr/lib/jvm/java-7-oracle/jre/bin/java          2         manual mode</span><br><span class="line">  3            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java   1081      manual mode</span><br><span class="line">  4            /usr/lib/jvm/java-8-oracle/jre/bin/java          3         manual mode</span><br><span class="line">  5            /usr/lib/jvm/java-9-oracle/bin/java              4         manual mode</span><br><span class="line"></span><br><span class="line">Press &lt;enter&gt; to keep the current choice[*], or type selection number:</span><br></pre></td></tr></table></figure>
@@ -301,15 +303,15 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">There is only one alternative in link group java (providing /usr/bin/java): /usr/lib/jvm/java-8-oracle/jre/bin/java</span><br><span class="line">Nothing to configure.</span><br></pre></td></tr></table></figure>
 
 <p>接下来可以针对不同的<em>命令</em>来切换版本，典型的<em>命令</em>有javac, javadoc, jarsigner。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config <span class="variable">$command</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> update-alternatives --config <span class="variable">$command</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="设置环境变量JAVA-HOME"><a href="#设置环境变量JAVA-HOME" class="headerlink" title="设置环境变量JAVA_HOME"></a>设置环境变量JAVA_HOME</h2><p>很多应用都会使用$JAVA_HOME来调用java可执行文件，所以我们需要在安装完后设置$JAVA_HOME。</p>
 <p>首先找到当前使用的java环境目录。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> update-alternatives --config java</span><br></pre></td></tr></table></figure>
 
 <p>然后将找到的目录添加进环境变量。</p>
 <p>打开&#x2F;etc&#x2F;environment。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/environment</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vi /etc/environment</span><br></pre></td></tr></table></figure>
 
 <p>加入JAVA_HOME的设置。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=&quot;/usr/lib/jvm/java-8-oracle&quot;</span><br></pre></td></tr></table></figure>

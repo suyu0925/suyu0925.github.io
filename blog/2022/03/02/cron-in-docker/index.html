@@ -71,7 +71,9 @@
 
   gtag('config', 'G-34Y9Q8PYBQ');
 </script>
-<!-- hexo injector head_end end --></head>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
@@ -167,7 +169,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">233</span>
+          <span class="site-state-item-count">234</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -178,7 +180,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -276,7 +278,7 @@
 <p>搭配dockerfile：</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">20.04</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># install cron</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get -y install cron</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># copy sh</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> out_time.sh /root/out_time.sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># touch log file for tail</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">touch</span> /root/cron.out</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># add the cron job</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> crontab -l | &#123; <span class="built_in">cat</span>; <span class="built_in">echo</span> <span class="string">&quot;* * * * * bash /root/out_time.sh&quot;</span>; &#125; | crontab -</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># go</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> cron &amp;&amp; <span class="built_in">tail</span> -f /root/cron.out</span></span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker build -t use_sh .</span><br><span class="line">&gt; docker run -it --<span class="built_in">rm</span> use_sh</span><br><span class="line">Current time : 06:09:01</span><br><span class="line">Current time : 06:10:01</span><br><span class="line">Current time : 06:11:01</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker build -t use_sh .</span><br><span class="line">&gt; docker run -it --<span class="built_in">rm</span> use_sh</span><br><span class="line">Current <span class="keyword">time</span> : 06:09:01</span><br><span class="line">Current <span class="keyword">time</span> : 06:10:01</span><br><span class="line">Current <span class="keyword">time</span> : 06:11:01</span><br></pre></td></tr></table></figure>
 
 <h2 id="使用cron-file"><a href="#使用cron-file" class="headerlink" title="使用cron file"></a>使用cron file</h2><p>这次我们将cron job写在文件里。</p>
 <p>新建<code>cronfile</code>：</p>
