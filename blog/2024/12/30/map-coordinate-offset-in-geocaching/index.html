@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha256-5eIC48iZUHmSlSUz9XtjRyK2mzQkHScZY1WdMaoz74E=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.lckof.com","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.21.1","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":true,"style":"default"},"fold":{"enable":true,"height":500,"threshold":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近在玩geocaching，被地图偏移坑的不行，分享一下解决办法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="geocaching地图偏移">
+<meta property="og:url" content="https://blog.lckof.com/2024/12/30/map-coordinate-offset-in-geocaching/index.html">
+<meta property="og:site_name" content="Tasty Pub">
+<meta property="og:description" content="最近在玩geocaching，被地图偏移坑的不行，分享一下解决办法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-30T08:19:21.000Z">
+<meta property="article:modified_time" content="2024-12-30T14:56:31.527Z">
+<meta property="article:author" content="lckof">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.lckof.com/2024/12/30/map-coordinate-offset-in-geocaching/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.lckof.com/2024/12/30/map-coordinate-offset-in-geocaching/","path":"2024/12/30/map-coordinate-offset-in-geocaching/","title":"geocaching地图偏移"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>geocaching地图偏移 | Tasty Pub</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start -->
+<!-- ms clarity -->    
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "lbt0m726h2");
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-34Y9Q8PYBQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-34Y9Q8PYBQ');
+</script>
+<!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="Tasty Pub" type="application/atom+xml">
+<link rel="alternate" href="/rss2.xml" title="Tasty Pub" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tasty Pub</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+      <div class="search-header">
+        <span class="search-icon">
+          <i class="fa fa-search"></i>
+        </span>
+        <div class="search-input-container">
+          <input autocomplete="off" autocapitalize="off" maxlength="80"
+                placeholder="搜索..." spellcheck="false"
+                type="search" class="search-input">
+        </div>
+        <span class="popup-btn-close" role="button">
+          <i class="fa fa-times-circle"></i>
+        </span>
+      </div>
+      <div class="search-result-container">
+        <div class="search-result-icon">
+          <i class="fa fa-spinner fa-pulse fa-5x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E5%81%8F%E7%A7%BB"><span class="nav-number">2.</span> <span class="nav-text">地图偏移</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E5%BD%93%E5%89%8DWGS-84%E5%9D%90%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">显示当前WGS 84坐标</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E8%A3%85%E6%88%90%E9%9D%9E%E5%A4%A7%E9%99%86%E7%94%A8%E6%88%B7"><span class="nav-number">3.1.</span> <span class="nav-text">伪装成非大陆用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">使用快捷指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8PC%E7%89%88"><span class="nav-number">4.</span> <span class="nav-text">使用PC版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2"><span class="nav-number">5.</span> <span class="nav-text">坐标转换</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lckof</p>
+  <div class="site-description" itemprop="description">啊咧</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">236</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.lckof.com/2024/12/30/map-coordinate-offset-in-geocaching/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lckof">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tasty Pub">
+      <meta itemprop="description" content="啊咧">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="geocaching地图偏移 | Tasty Pub">
+      <meta itemprop="description" content="最近在玩geocaching，被地图偏移坑的不行，分享一下解决办法。">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          geocaching地图偏移
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-12-30 16:19:21 / 修改时间：22:56:31" itemprop="dateCreated datePublished" datetime="2024-12-30T16:19:21+08:00">2024-12-30</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+            <div class="post-description">最近在玩geocaching，被地图偏移坑的不行，分享一下解决办法。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://www.geocaching.com/">geocaching</a>是一项全球性的户外寻宝活动，结合了科技、探险和乐趣。参与者使用 GPS 设备或智能手机应用程序，根据提供的坐标（经纬度）去寻找隐藏的“宝藏”（称为 geocache）。这些宝藏通常是一个小容器，里面可能包含日志本、小玩具或其他物品。</p>
+<p>我是iOS受害者，用起来有两个坑。</p>
+<h2 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h2><p>首先碰到的坑是语言。可能是使用了日本代理的缘故，第一次启应用后，显示语言为日文。</p>
+<p>费了老鼻子劲，一个一个菜单点进去，也没找到语言设置。</p>
+<p>最后才发现geocaching在iOS上的语言设置，并不在应用里面，而是在系统设置里。</p>
+<p>路径是<code>设置 -&gt; App -&gt; GeoCaching -&gt; 语言</code>。</p>
+<h2 id="地图偏移"><a href="#地图偏移" class="headerlink" title="地图偏移"></a>地图偏移</h2><p>中国对公众开放的地图服务中，使用的坐标格式是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E5%9C%B0%E7%90%86%E6%95%B0%E6%8D%AE%E9%99%90%E5%88%B6#GCJ-02">GCJ-02</a>，坐标系所采用的混淆算法会在经纬度中加入看似随机的偏移。而geocaching使用的是通用的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%96%E7%95%8C%E5%A4%A7%E5%9C%B0%E6%B5%8B%E9%87%8F%E7%B3%BB%E7%BB%9F">WGS 84</a>，所以地图会存在偏移。</p>
+<p>解决办法有很多种，我们一个个来。</p>
+<h2 id="显示当前WGS-84坐标"><a href="#显示当前WGS-84坐标" class="headerlink" title="显示当前WGS 84坐标"></a>显示当前WGS 84坐标</h2><p>既然WGS 84到地图的映射出了问题，那么我们直接在手机上显示当前WGS 84坐标，然后比对坐标而不是地图不就解决了么？</p>
+<p>在iOS 15.1之前，苹果手机的指南针应用是直接显示经纬度和海拔的。后来根据国内隐私法要求，苹果在大陆版指南针应用中删掉这个显示。</p>
+<p>但既然只是删除显示，而不是删除功能，我们可以轻松恢复显示。</p>
+<h3 id="伪装成非大陆用户"><a href="#伪装成非大陆用户" class="headerlink" title="伪装成非大陆用户"></a>伪装成非大陆用户</h3><p>既然这项功能只针对大陆用户，那么我们伪装成非大陆用户就行了，这样在指南针应用中就会重新显示经纬度和海拔。</p>
+<p>苹果对大陆用户的判断有两个依据：IP地址和SIM卡运营商。我们分别搞定这两点。</p>
+<p>首先是IP地址，挂上全局代理，使用海外节点，就可以搞定IP。</p>
+<p>然后是SIM卡运营商，只需要打开飞行模式即可。</p>
+<p>最后在地图中搜索一个海外地址，来激活非大陆地区版本。看到地图提供商从<code>高德地图</code>变成了<code>OpenStreetMap</code>，就代表激活成功。</p>
+<p>但这两个结合起来的话，我们就需要另一台设备来提供Wi-Fi连接，而且还要翻墙，非常不方便。</p>
+<p>来看看苹果提供的杀手级应用：捷径。</p>
+<h3 id="使用快捷指令"><a href="#使用快捷指令" class="headerlink" title="使用快捷指令"></a>使用快捷指令</h3><p>快捷指令是苹果提供的一款自动化工具，可以用来实现各种自动化操作。我们可以通过快捷指令来显示经纬度和海拔。</p>
+<p>创建一个快捷指令，先<code>获取当前位置</code>，然后，从<code>当前位置</code>中获取<code>经度</code>，<code>纬度</code>和<code>海拔</code>，最后，在<code>文本</code>中显示。</p>
+<p>可以参考网友分享的快捷指令<a target="_blank" rel="noopener" href="https://www.icloud.com/shortcuts/ee4fddca875f4939a3bca5623a1ab9e0">经纬度海拔</a>。</p>
+<h2 id="使用PC版"><a href="#使用PC版" class="headerlink" title="使用PC版"></a>使用PC版</h2><p>geocaching的PC网站，可以直接在大陆地区使用WGS 84坐标显示标记。比如世纪公园的这个<a target="_blank" rel="noopener" href="https://www.geocaching.com/live/play/map?undefined=&mlat=31.21419583153489&mlng=121.54325008392334&zoom=16&box=31.22550045354217,121.52157783508301,31.208140538404134,121.56535148620605&lat=31.216820894421073&lng=121.54346466064453&st=N+31%C2%B0+13.009%27+E+121%C2%B0+32.608%27&ot=coords&r=10">水晶骷髅头宝藏</a>。</p>
+<p>在浏览器上访问而不是使用app就可以。</p>
+<h2 id="坐标转换"><a href="#坐标转换" class="headerlink" title="坐标转换"></a>坐标转换</h2><p>我们可以把WGS 84转换成GCJ-02，再输入到谷歌地图中查看。谷歌地图支持直接搜索经纬度，格式为<code>纬度,经度</code>。</p>
+<p>也可以把WGS 84转换成BD-09，再使用百度提供的<a target="_blank" rel="noopener" href="https://lbsyun.baidu.com/jsdemo/demo/yLngLatLocation.htm">根据经纬度定位</a>网页查看。</p>
+<p>开源项目<a target="_blank" rel="noopener" href="https://github.com/wandergis/coordtransform">coordtransform</a>实现了算法，我写了一个项目<a target="_blank" rel="noopener" href="https://github.com/suyu0925/coordx-webui">coordx-webui</a>实现了<a target="_blank" rel="noopener" href="https://coordx.vercel.app/">网页</a>。</p>
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/12/27/verify-blog-on-follow/" rel="prev" title="在follow上认证你的博客">
+                  <i class="fa fa-angle-left"></i> 在follow上认证你的博客
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">lckof</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"suyu0925/comments-for-blog","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

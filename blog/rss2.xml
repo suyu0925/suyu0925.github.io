@@ -15,8 +15,25 @@
     <atom:link href="https://blog.lckof.com/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>啊咧</description>
-    <pubDate>Fri, 27 Dec 2024 02:21:52 GMT</pubDate>
+    <pubDate>Mon, 30 Dec 2024 14:56:31 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>geocaching地图偏移</title>
+      <link>https://blog.lckof.com/2024/12/30/map-coordinate-offset-in-geocaching/</link>
+      <guid>https://blog.lckof.com/2024/12/30/map-coordinate-offset-in-geocaching/</guid>
+      <pubDate>Mon, 30 Dec 2024 08:19:21 GMT</pubDate>
+      
+      <description>最近在玩geocaching，被地图偏移坑的不行，分享一下解决办法。</description>
+      
+      
+      
+      
+      
+      
+      <comments>https://blog.lckof.com/2024/12/30/map-coordinate-offset-in-geocaching/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>在follow上认证你的博客</title>
@@ -364,23 +381,6 @@
       
       
       <comments>https://blog.lckof.com/2024/09/11/fix-chinese-subtitles-in-jellyfin/#disqus_thread</comments>
-      
-    </item>
-    
-    <item>
-      <title>在windows上使用fnm碰到的问题</title>
-      <link>https://blog.lckof.com/2024/09/11/fnm-issue-on-windows/</link>
-      <guid>https://blog.lckof.com/2024/09/11/fnm-issue-on-windows/</guid>
-      <pubDate>Wed, 11 Sep 2024 06:03:09 GMT</pubDate>
-      
-      <description>fnm是nodejs官方推荐的windows包管理器之一，但在中文环境下使用存在问题。</description>
-      
-      
-      
-      
-      
-      
-      <comments>https://blog.lckof.com/2024/09/11/fnm-issue-on-windows/#disqus_thread</comments>
       
     </item>
     
