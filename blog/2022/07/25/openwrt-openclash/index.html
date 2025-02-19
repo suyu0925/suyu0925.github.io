@@ -26,16 +26,15 @@
 <meta property="og:site_name" content="Tasty Pub">
 <meta property="og:description" content="可以说软路由最重要的作用就是科学上网了，在OpenWrt的科学上网工具中，最喜欢的还是OpenClash。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-core-config.png">
 <meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-subscribe.png">
 <meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-overview.png">
 <meta property="og:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/use-rule-provider.png">
 <meta property="article:published_time" content="2022-07-25T07:46:56.000Z">
-<meta property="article:modified_time" content="2024-07-15T07:10:57.121Z">
+<meta property="article:modified_time" content="2025-02-19T14:54:34.083Z">
 <meta property="article:author" content="lckof">
 <meta property="article:tag" content="openwrt">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-core-config.png">
+<meta name="twitter:image" content="https://blog.lckof.com/2022/07/25/openwrt-openclash/openclash-subscribe.png">
 
 
 <link rel="canonical" href="https://blog.lckof.com/2022/07/25/openwrt-openclash/">
@@ -248,7 +247,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-07-15 15:10:57" itemprop="dateModified" datetime="2024-07-15T15:10:57+08:00">2024-07-15</time>
+      <time title="修改时间：2025-02-19 22:54:34" itemprop="dateModified" datetime="2025-02-19T22:54:34+08:00">2025-02-19</time>
     </span>
 
   
@@ -269,64 +268,24 @@
     
     
     <div class="post-body" itemprop="articleBody"><p><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash">OpenClash</a>几乎支持了所有协议，并且配置也很全面。</p>
-<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>首先手动下载<code>.ipk</code>包文件。截止这篇文章，最新版本为<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/v0.46.011-beta">v0.46.011-beta</a>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O luci-app-openclash.ipk https://github.com/vernesong/OpenClash/releases/download/v0.46.011-beta/luci-app-openclash_0.46.011-beta_all.ipk</span><br></pre></td></tr></table></figure>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>首先手动下载<code>.ipk</code>包文件。截止这篇文章，最新版本为<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/v0.46.075">v0.46.075</a>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O luci-app-openclash.ipk https://github.com/vernesong/OpenClash/releases/download/v0.46.075/luci-app-openclash_0.46.075_all.ipk</span><br></pre></td></tr></table></figure>
 
 <p>如果在 OpenWrt 中无法下载，那么可在宿主机通过代理下载后再拷贝上去。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ./luci-app-openclash.ipk root@192.168.88.1:/root/</span><br></pre></td></tr></table></figure>
 
-<p>再下载一个<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/Clash">v1.11.0-7-g5497ada 版本的 Dev 内核</a>备用。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O https://github.com/vernesong/OpenClash/releases/download/Clash/clash-linux-amd64.tar.gz clash-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>再下载一个<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/tree/core/master/meta">meta 内核</a>备用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -O https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-amd64.tar.gz clash-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>注意要先<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/wiki/%E5%AE%89%E8%A3%85">安装依赖</a>。</p>
 <p><code>luci-app-openclash.ipk</code>中并没有包含全部依赖，如果缺少依赖会导致各种问题，比如 OpenClash 自身无法使用代理上网。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">opkg update</span><br><span class="line">opkg remove dnsmasq</span><br><span class="line">opkg install luci-compat</span><br><span class="line">opkg install ./luci-app-openclash.ipk</span><br></pre></td></tr></table></figure>
 
 <p>openclash 使用了 dnsmasq-full，为了避免冲突，需要先卸载 dnsmasq。<br>同时，openclash 也依赖 luci 的 cbi 模块，需要先安装 luci-compat。</p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p>OpenClash 使用的 dev 内核是已经跑路的<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash">Clash 项目</a>，会<a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/actions">自动定期编译</a>。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GOARCH=amd64 GOOS=linux CGO_ENABLED=0 go build -trimpath -ldflags <span class="string">&#x27;-X &quot;github.com/Dreamacro/clash/constant.Version=v1.17.0-5-ge1ec0d2&quot; -X &quot;github.com/Dreamacro/clash/constant.BuildTime=Sat Jul 29 19:08:17 UTC 2023&quot; -w -s -buildid=&#x27;</span> -o bin/clash</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="内核"><a href="#内核" class="headerlink" title="内核"></a>内核</h3><p><a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash">dev 内核</a>已经跑路，目前openclash只使用一个meta内核。</p>
+<p>如果无法下载，可以将之前下载的meta内核手动上传到<code>/etc/openclash/core</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp clash-linux-amd64.tar.gz root@192.168.88.1:/etc/openclash/core</span><br><span class="line">tar -zxvf clash-linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">mv</span> clash clash_meta</span><br><span class="line"><span class="built_in">rm</span> clash-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
-<p>编译好的内核文件没有放在<code>ipk</code>包中，初次使用时需要根据 Openwrt 系统自助下载内核。<br>如果是 arm 路由器比如使用 aarch64_cortex-a53 的<a target="_blank" rel="noopener" href="https://doc.linkease.com/zh/guide/easepi/">EasyPi ARS2</a>，则需要编译对应的版本，比如 AUK9527 做的<a target="_blank" rel="noopener" href="https://github.com/AUK9527/Are-u-ok/tree/main/apps">iStore 扩展插件包</a>。</p>
-<img src="/2022/07/25/openwrt-openclash/openclash-core-config.png" class="" title="内核">
-
-<p>内核的下载地址是 github 仓库，github 会间歇性的抽风，当抽风时无法在控制台下载。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2022-07-25 07:26:34 【Dev】版本内核更新失败，请确认设备闪存空间足够后再试！</span><br><span class="line">2022-07-25 07:26:34 【Dev】版本内核下载成功，开始更新...</span><br><span class="line">2022-07-25 07:26:04 【Dev】版本内核正在下载，如下载失败请尝试手动下载并上传...</span><br><span class="line">2022-07-25 07:23:56 警告：OpenClash 目前处于未启用状态，请从插件页面启动本插件，脚本退出...</span><br></pre></td></tr></table></figure>
-
-<p>不要被日志中的<code>请确认设备闪存空间足够后再试</code>骗了，其实是网络错误而不是闪存空间不足。</p>
-<p>这时需要像下载<code>ipk</code>那样，手动下载再上传到 OpenWrt 上。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O clash-linux-amd64.tar.gz https://github.com/vernesong/OpenClash/releases/download/Clash/clash-linux-amd64.tar.gz</span><br><span class="line">scp clash-linux-amd64.tar.gz root@192.168.88.1:/etc/openclash/core</span><br></pre></td></tr></table></figure>
-
-<p>内核下载地址</p>
-<ul>
-<li>老的 Release 页面<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/Clash">Dev 内核</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/TUN-Premium">Tun 内核</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/releases/tag/TUN">Tun 游戏内核</a></li>
-</ul>
-</li>
-<li>当前发布的最新内核<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/tree/core/master/dev">Dev 内核</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/tree/core/master/premium">Tun 内核</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/vernesong/OpenClash/tree/core/master/meta">Meta 内核</a></li>
-</ul>
-</li>
-</ul>
-<p>注意：</p>
-<blockquote>
-<p>新的内核只支持 fake-ip，如果使用了<strong>在线订阅模板</strong>，最好使用老的内核。<br>否则会出现<code>invalid mode： redir-host</code>的错误，可参见这个<a target="_blank" rel="noopener" href="https://github.com/Dreamacro/clash/issues/2559">issue</a>。</p>
-</blockquote>
-<p>上传到 OpenWrt<code>/etc/openclash/core</code>下的对应位置。</p>
-<ul>
-<li>Dev 内核: clash</li>
-<li>Tun 内核: clash_tun</li>
-<li>Meta 内核: clash_meta</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/openclash/core</span><br><span class="line">tar -zxvf clash-linux-amd64.tar.gz</span><br><span class="line"><span class="built_in">rm</span> clash-linux-amd64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p><code>clash</code>内核的权限应该为<code>nobody:nogroup</code>，可以手动修改权限，也可以让 openclash 自行修改。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> nobody:nogroup /etc/openclash/core/* 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
-
-<p>下载 Dev 内核并应用后，就可以配置好代理，之后使用控制台来更新内核了。</p>
 <p><strong>UDP</strong></p>
 <p>如果要玩游戏，需要 UDP 连接，必须切换至 TUN 或混合模式。</p>
 <p>比如原神就需要 UDP 连接，如果使用增强模式会进入游戏后会白屏然后连接超时，需要切换到 TUN 或混合模式以支持 UDP 连接。</p>
